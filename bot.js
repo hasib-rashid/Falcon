@@ -11,6 +11,39 @@ bot.on("ready", () => {
     });
 });
 
+bot.on("guildMemberAdd", ({ member, guild }) => {
+    const channel = member.guild.channels.find(
+        (channel) => channel.name === "welcome"
+    );
+
+    var memberCount = guild.members.filter((member) => !member.user.bot).size;
+
+    if (!channel) return;
+
+    const join_embed = new Discord.RichEmbed()
+        .setTitle(`A New Programmer Just Arrived!`)
+        .setAuthor(`Everybody Welcome ${member}. Hope you have a great Stay`)
+        .setDescription(
+            `Welcome!
+
+            Hey there, welcome to ${guild.name}, the discord server!
+            
+            We're a  friendly community focused around the programming languages, open to those who wish to learn the languages or improve their skills, as well as those looking to help others.
+            
+            We organise regular community events and have a dedicated staff of talented developers available to assist around the clock. Whether you're looking to learn the languages or working on a complex project, we've got someone who can help you if you get stuck.
+    
+    
+            Find us at
+            GitHub: https://github.com/Hall-of-Programmers`
+        )
+        .setColor("RANDOM");
+
+    channel.send(join_embed);
+    console.log(
+        `${member.tag} just joined ${guild.name} which has ${memberCount}`
+    );
+});
+
 bot.on("guildCreate", (guild) => {
     guild.createRole({ name: "Muted", color: "#313131" });
     console.log("Joined a new server: " + guild.name);
@@ -219,10 +252,20 @@ bot.on("message", async (message) => {
         }
     }
 
-    if (command === "testcmd") {
-        message.channel.send(
-            "<a:right:789893445207851070> Welcome to the Server"
-        );
+    if (command === "math-sqrt") {
+        const args = message.content.split(" ").slice(1);
+        const result = Math.sqrt(args);
+
+        message.channel.send(result);
+    }
+
+    if (command === "math-sum") {
+        const args1 = message.content.split(" ").slice(1);
+        const args2 = message.content.split(" ").slice(2);
+
+        const result = args1 + args2;
+
+        message.channel.send(result);
     }
 
     if (command === "add") {
@@ -298,6 +341,10 @@ bot.on("message", async (message) => {
         message.channel.send(`You got ${option}`);
     }
 
+    if (command === "test") {
+        message.channel.send("Newly Testing Started");
+    }
+
     if (command === "uptime") {
         let totalSeconds = bot.uptime / 1000;
         let days = Math.floor(totalSeconds / 86400);
@@ -341,11 +388,9 @@ bot.on("message", async (message) => {
 
             message.channel.messages.get({ limit: amount });
             message.channel.bulkDelete(amount);
-
-            setInterval({
-                message,
-            });
-            message.channel.send(`${amount} Messages has been deleted!`);
+            message.channel.send(
+                `${amount} Messages has been deleted! by ${message.author.tag}`
+            );
         }
     }
 });
