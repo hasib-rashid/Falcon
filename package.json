@@ -10,6 +10,7 @@
 	"author": "Hasib Al Rashid",
 	"license": "ISC",
 	"dependencies": {
-		"discord.js": "^11.6.4"
+		"discord.js": "^11.6.4",
+		"mongoose": "^5.11.11"
 	}
 }
