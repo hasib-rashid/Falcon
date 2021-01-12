@@ -1,5 +1,8 @@
 const Discord = require("discord.js");
 const bot = new Discord.Client();
+const wiki = require("wikipedia");
+const request = require("node-superfetch");
+const formatter = require("bob-number-formatter");
 const config = require("./config.json");
 
 bot.login(config.token);
@@ -439,10 +442,6 @@ bot.on("message", async (message) => {
         message.channel.send(`You got ${option}`);
     }
 
-    if (command === "test") {
-        message.channel.send("Newly Testing Started");
-    }
-
     if (command === "uptime") {
         let totalSeconds = bot.uptime / 1000;
         let days = Math.floor(totalSeconds / 86400);
@@ -488,6 +487,54 @@ bot.on("message", async (message) => {
             message.channel.bulkDelete(amount);
             message.channel.send(
                 `${amount} Messages has been deleted! by ${message.author.tag}`
+            );
+        }
+    }
+
+    if (command === "wiki") {
+        const search_question = args.shift().toLowerCase();
+
+        try {
+            const summary = await wiki.summary(search_question);
+            message.channel.send(summary.extract);
+        } catch (error) {
+            message.channel.send(error);
+        }
+    }
+
+    if (command === "country") {
+        const query = args.shift().toLowerCase();
+
+        try {
+            const { body } = await request.get(
+                `https://restcountries.eu/rest/v2/name/${query}`
+            );
+            const data = body[0];
+            const embed = new Discord.RichEmbed()
+                .setColor(0x00ae86)
+                .setTitle(data.name)
+                .setThumbnail(
+                    `https://www.countryflags.io/${data.alpha2Code}/flat/64.png`
+                )
+                .addField("❯ Population", formatter(data.population), true)
+                .addField("❯ Capital", data.capital || "None", true)
+                .addField("❯ Currency", data.currencies[0].symbol, true)
+                .addField("❯ Location", data.subregion || data.region, true)
+                .addField("❯ Demonym", data.demonym || "None", true)
+                .addField("❯ Native Name", data.nativeName, true)
+                .addField("❯ Area", `${formatter(data.area)}km`, true)
+                .addField(
+                    "❯ Languages",
+                    data.languages.map((lang) => lang.name).join("/")
+                );
+            return message.channel.send(embed);
+        } catch (err) {
+            if (err.status === 404)
+                return message.channel.send(
+                    ":no_entry: Could not find any results."
+                );
+            return message.reply(
+                `Oh no, an error occurred: \`${err.message}\`. Try again later!`
             );
         }
     }
