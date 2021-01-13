@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const Discord = require("discord.js");
 const bot = new Discord.Client();
 const wiki = require("wikipedia");
@@ -5,7 +7,7 @@ const request = require("node-superfetch");
 const formatter = require("bob-number-formatter");
 const config = require("./config.json");
 
-bot.login(config.token);
+bot.login(process.env.TOKEN);
 
 bot.on("ready", () => {
     console.log(`Logged in as ${bot.user.tag}!`);

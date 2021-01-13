@@ -12,6 +12,7 @@
 	"dependencies": {
 		"bob-number-formatter": "^1.0.1",
 		"discord.js": "^11.6.4",
+		"dotenv": "^8.2.0",
 		"mongoose": "^5.11.11",
 		"node-superfetch": "^0.1.10",
 		"trim-array": "^1.0.4",
