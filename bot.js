@@ -101,6 +101,8 @@ bot.on("message", async (message) => {
                 "```!invite```",
                 "Wanna invite People to the Server as quick as Possible? Run the Command and share the Link! <a:black_tick:781006394014302268>"
             )
+            .addField("```!wiki```", "Search anything in WikiPedia")
+            .addField("```!country```", "Search any Country in the world!")
             .addField(
                 "**For Moderators**",
                 "The under Commands are for Moderators"
@@ -117,6 +119,14 @@ bot.on("message", async (message) => {
             .addField("```!unmute```", "On Progress not to be used! :bangbang:")
             .addField("```!add```", "Adds role to a user, hooray :tada:")
             .addField("```!remove```", "Removes role from user, :sadface:")
+            .addField(
+                "```!purge```",
+                "Delete Messages in a small period of time!"
+            )
+            .addField(
+                "```!giveaway```",
+                "Do a Giveaway! example: `!giveaway 10d Nitro Classic`"
+            )
             .addField(
                 "Server Games",
                 "The under commands are for the games of the server to simply pass the time. :thumbsup:"
