@@ -6,6 +6,10 @@ const wiki = require("wikipedia");
 const request = require("node-superfetch");
 const formatter = require("bob-number-formatter");
 const config = require("./config.json");
+const wait = require("util").promisify(setTimeout);
+
+const { aPrefix } = require("discord_auto_prefix");
+const prefix = new aPrefix();
 
 bot.login(process.env.TOKEN);
 
@@ -49,24 +53,64 @@ bot.on("guildMemberAdd", ({ member, guild }) => {
     );
 });
 
-bot.on("guildCreate", (guild) => {
+bot.on("guildMemberRemove", ({ member, guild }) => {
+    const channel = member.guild.channels.find(
+        (channel) => channel.name === "welcome"
+    );
+
+    var memberCount = guild.members.filter((member) => !member.user.bot).size;
+
+    if (!channel) return;
+
+    const left_embed = new Discord.RichEmbed()
+        .setTitle(`A Programmer Left the Server ; (`)
+        .setAuthor(
+            `Everybody, ${member} just left the server.... Hope he comes back or had a nice journey together....`
+        )
+        .setColor("RANDOM");
+
+    channel.send(left_embed);
+    console.log(
+        `${member.tag} just joined ${guild.name} which has ${memberCount}`
+    );
+});
+
+bot.on("guildCreate", async (guild) => {
+    prefix.defaultPrefix(guild, "!");
     guild.createRole({ name: "Muted", color: "#313131" });
     console.log("Joined a new server: " + guild.name);
     console.log("It has " + guild.memberCount + " members ;)");
 });
 
-bot.on("guildDelete", (guild) => {
+bot.on("guildDelete", async (guild) => {
+    prefix.deletePrefix(guild);
     console.log("Left the server:" + guild.name);
 });
 
 bot.on("message", async (message) => {
     if (message.author.bot) return;
-    if (message.content.indexOf(config.prefix) !== 0) return;
-    const args = message.content
-        .slice(config.prefix.length)
-        .trim()
-        .split(/ +/g);
+    if (message.channel.type === "dm") return;
+
+    const PREFIX = await prefix.fetchPrefix(message);
+
+    if (!message.content.startsWith(PREFIX)) return; //If mesage isn't start with prefix then return
+    const args = message.content.slice(PREFIX.length).split(" "); //Config Args(Arguements)
     const command = args.shift().toLowerCase();
+
+    if (command === "ping") {
+        message.channel.send(`PONG! my prefix is ${PREFIX}`);
+    }
+
+    if (command === "setprefix") {
+        if (!message.member.hasPermission("MANAGE_GUILD")) return;
+        if (!args) return message.channel.send("No prefix was provided!");
+
+        prefix.setPrefix(message, args);
+    }
+
+    if (command == "prefix") {
+        prefix.getGuildPrefix(message, client, args); //Fetch the prefix for a guild through name/id or the current guild
+    }
 
     if (command === "ping") {
         message.channel.send("Loading data! :thinking:").then(async (msg) => {
@@ -497,9 +541,21 @@ bot.on("message", async (message) => {
 
             message.channel.messages.get({ limit: amount });
             message.channel.bulkDelete(amount);
-            message.channel.send(
-                `${amount} Messages has been deleted! by ${message.author.tag}`
-            );
+
+            const purgeEmbed = new Discord.RichEmbed()
+                .setTitle("Operation Succesful")
+                .setAuthor(`By ${message.author.tag}`)
+                .setDescription(
+                    `${amount} Messages has been deleted! by ${message.author.tag}`
+                )
+                .setColor("RANDOM")
+                .setThumbnail(message.author.avatarURL);
+
+            message.channel.send(purgeEmbed);
+
+            setInterval(() => {
+                message.channel.bulkDelete(1);
+            }, 3000); //* Deletes it within 3 seconds
         }
     }
 
@@ -515,7 +571,7 @@ bot.on("message", async (message) => {
     }
 
     if (command === "country") {
-        const query = args.shift().toLowerCase();
+        const query = args.shift();
 
         try {
             const { body } = await request.get(
@@ -545,9 +601,6 @@ bot.on("message", async (message) => {
                 return message.channel.send(
                     ":no_entry: Could not find any results."
                 );
-            return message.reply(
-                `Oh no, an error occurred: \`${err.message}\`. Try again later!`
-            );
         }
     }
 });
