@@ -553,6 +553,8 @@ bot.on("message", async (message) => {
                 .setThumbnail(message.author.avatarURL);
 
             message.channel.send(purgeEmbed);
+
+            setTimeout(() => bot.user.lastMessage.delete(1), 5000);
         }
     }
 
