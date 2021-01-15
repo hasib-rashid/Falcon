@@ -9,6 +9,7 @@ const config = require("./config.json");
 const wait = require("util").promisify(setTimeout);
 
 const { aPrefix } = require("discord_auto_prefix");
+const { clearTimeout } = require("timers");
 const prefix = new aPrefix();
 
 bot.login(process.env.TOKEN);
@@ -552,10 +553,6 @@ bot.on("message", async (message) => {
                 .setThumbnail(message.author.avatarURL);
 
             message.channel.send(purgeEmbed);
-
-            setInterval(() => {
-                message.channel.bulkDelete(1);
-            }, 3000); //* Deletes it within 3 seconds
         }
     }
 
