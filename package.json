@@ -14,7 +14,6 @@
 		"discord.js": "^11.6.4",
 		"discord_auto_prefix": "^1.4.4",
 		"dotenv": "^8.2.0",
-		"node-superfetch": "^0.1.10",
-		"wikipedia": "^1.0.1"
+		"node-superfetch": "^0.1.10"
 	}
 }

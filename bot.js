@@ -2,14 +2,11 @@ require("dotenv").config();
 
 const Discord = require("discord.js");
 const bot = new Discord.Client();
-const wiki = require("wikipedia");
 const request = require("node-superfetch");
 const formatter = require("bob-number-formatter");
 const config = require("./config.json");
-const wait = require("util").promisify(setTimeout);
 
 const { aPrefix } = require("discord_auto_prefix");
-const { clearTimeout } = require("timers");
 const prefix = new aPrefix();
 
 bot.login(process.env.TOKEN);
@@ -555,17 +552,6 @@ bot.on("message", async (message) => {
             message.channel.send(purgeEmbed);
 
             setTimeout(() => bot.user.lastMessage.delete(1), 5000);
-        }
-    }
-
-    if (command === "wiki") {
-        const search_question = args.shift().toLowerCase();
-
-        try {
-            const summary = await wiki.summary(search_question);
-            message.channel.send(summary.extract);
-        } catch (error) {
-            message.channel.send(error);
         }
     }
 
