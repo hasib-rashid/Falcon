@@ -1,3 +1,9 @@
+const app = require("express")();
+app.get("/", (req, res) => {
+    res.send("Server is up and running");
+});
+app.listen(8080);
+
 require("dotenv").config();
 
 const Discord = require("discord.js");
