@@ -132,59 +132,13 @@ bot.on("message", async (message) => {
             .setTitle(`CodeVert commands list | prefix \`${config.prefix}\``)
             .addField(
                 "**For Users**",
-                "The under Commands are for the Users of the whole server :open_mouth:"
+                "`!hello` `ping` `uptime` `avatar` `invite` `wiki` `country`"
             )
-            .addField(
-                "```!hello```",
-                "Greeting the user and introducing myself. :wave:"
-            )
-            .addField("```!ping```", "Your basic ping pong command :ping_pong:")
-            .addField(
-                "```!uptime```",
-                "Seeing the bot's total time online! <a:chill_vro:783202719955419186>"
-            )
-            .addField(
-                "```!avatar```",
-                "Wanna Check your Avatar? Here you go! <a:chill_bruda:781006563749920818>"
-            )
-            .addField(
-                "```!invite```",
-                "Wanna invite People to the Server as quick as Possible? Run the Command and share the Link! <a:black_tick:781006394014302268>"
-            )
-            .addField("```!wiki```", "Search anything in WikiPedia")
-            .addField("```!country```", "Search any Country in the world!")
             .addField(
                 "**For Moderators**",
-                "The under Commands are for Moderators"
+                "`kick` `ban` `mute` `unmute` `add` `remove` `purge` `giveaway`"
             )
-            .addField(
-                "```!kick```",
-                "Kicks the user mentioned, you know, use it whenever needed and kick him out the door :wink:"
-            )
-            .addField(
-                "``!ban``",
-                "Bans the user mentioned, be careful with the ban hammer, it really is heavy :eyes:"
-            )
-            .addField("```!mute```", "On Progress not to be used! :bangbang:")
-            .addField("```!unmute```", "On Progress not to be used! :bangbang:")
-            .addField("```!add```", "Adds role to a user, hooray :tada:")
-            .addField("```!remove```", "Removes role from user, :sadface:")
-            .addField(
-                "```!purge```",
-                "Delete Messages in a small period of time!"
-            )
-            .addField(
-                "```!giveaway```",
-                "Do a Giveaway! example: `!giveaway 10d Nitro Classic`"
-            )
-            .addField(
-                "Server Games",
-                "The under commands are for the games of the server to simply pass the time. :thumbsup:"
-            )
-            .addField(
-                "``!rps``",
-                "A Rock Paper Scissors Commands, No Cheating! :shell: :scissors: :newspaper2:"
-            )
+            .addField("**Server Games**", "`rps`")
             .setImage(bot.user.avatarURL)
             .setColor("RANDOM");
         message.channel.send(helpEmbed);
