@@ -24,7 +24,7 @@ bot.login(process.env.TOKEN);
 
 bot.on("ready", () => {
     console.log(`Logged in as ${bot.user.tag}!`);
-    bot.user.setActivity(`${bot.channels.size} Channels | !help`, {
+    bot.user.setActivity(`${bot.channels.cache.size} Channels | !help`, {
         type: "WATCHING",
     });
 });
@@ -38,7 +38,7 @@ bot.on("guildMemberAdd", ({ member, guild }) => {
 
     if (!channel) return;
 
-    const join_embed = new Discord.RichEmbed()
+    const join_embed = new Discord.MessageEmbed()
         .setTitle(`A New Programmer Just Arrived!`)
         .setAuthor(`Everybody Welcome ${member}. Hope you have a great Stay`)
         .setDescription(
@@ -71,7 +71,7 @@ bot.on("guildMemberRemove", ({ member, guild }) => {
 
     if (!channel) return;
 
-    const left_embed = new Discord.RichEmbed()
+    const left_embed = new Discord.MessageEmbed()
         .setTitle(`A Programmer Left the Server ; (`)
         .setAuthor(
             `Everybody, ${member} just left the server.... Hope he comes back or had a nice journey together....`
@@ -106,10 +106,6 @@ bot.on("message", async (message) => {
     const args = message.content.slice(PREFIX.length).split(" "); //Config Args(Arguements)
     const command = args.shift().toLowerCase();
 
-    if (command === "ping") {
-        message.channel.send(`PONG! my prefix is ${PREFIX}`);
-    }
-
     if (command === "setprefix") {
         if (!message.member.hasPermission("MANAGE_GUILD")) return;
         if (!args) return message.channel.send("No prefix was provided!");
@@ -118,39 +114,44 @@ bot.on("message", async (message) => {
     }
 
     if (command == "prefix") {
-        prefix.getGuildPrefix(message, client, args); //Fetch the prefix for a guild through name/id or the current guild
+        prefix.getGuildPrefix(message, client, args);
     }
 
     if (command === "ping") {
         message.channel.send("Loading data! :thinking:").then(async (msg) => {
-            msg.delete();
-            message.channel.send(
-                `🏓 Pong! Your Latency is ${
-                    msg.createdTimestamp - message.createdTimestamp
-                }ms and API Latency is ${Math.round(bot.ping)} ms!`
-            );
+            const pingEmbed = new Discord.MessageEmbed()
+                .setTitle("Ping")
+                .setAuthor(`Requested by ${message.author.tag}`)
+                .setDescription(
+                    `🏓 Pong! Your Latency is ${
+                        msg.createdTimestamp - message.createdTimestamp
+                    }ms and API Latency is ${Math.round(bot.ws.ping)} ms!`
+                )
+                .setFooter("Copyright @2021 CodeVert");
+
+            message.channel.send(pingEmbed);
         });
     }
 
     if (command === "help") {
-        const helpEmbed = new Discord.RichEmbed()
+        const helpEmbed = new Discord.MessageEmbed()
             .setTitle(`CodeVert commands list | prefix \`${config.prefix}\``)
             .addField(
                 "**For Users**",
-                "`!hello` `ping` `uptime` `avatar` `invite` `wiki` `country`"
+                "`hello` `ping` `uptime` `avatar` `invite` `wiki` `country`"
             )
             .addField(
                 "**For Moderators**",
                 "`kick` `ban` `mute` `unmute` `add` `remove` `purge` `giveaway`"
             )
             .addField("**Server Games**", "`rps`")
-            .setImage(bot.user.avatarURL)
+            .setImage(bot.user.avatarURL({ dynamic: true, size: 256 }))
             .setColor("RANDOM");
         message.channel.send(helpEmbed);
     }
 
     if (command === "hello") {
-        const hello_embed = new Discord.RichEmbed()
+        const hello_embed = new Discord.MessageEmbed()
             .setColor("RANDOM")
             .addField(
                 "Hey there! I am the Official Moderating Bot of Hall Of Programmers! If you need any help then type: !help",
@@ -168,13 +169,26 @@ bot.on("message", async (message) => {
     const member = message.mentions.members.first();
     if (!member)
         if (command === "avatar") {
-            const avatar_embed = new Discord.RichEmbed()
+            const avatar_embed = new Discord.MessageEmbed()
                 .setColor("RANDOM")
                 .setDescription(`**Avatar**`)
                 .setTitle(`${message.author.username}'s Avatar`)
-                .setImage(message.author.avatarURL);
+                .setImage(
+                    message.author.avatarURL({ dynamic: true, size: 256 })
+                );
             message.channel.send(avatar_embed);
         }
+
+    if (member) {
+        if (command === "avatar") {
+            const other_avatar_embed = new Discord.MessageEmbed()
+                .setColor("RANDOM")
+                .setDescription(`**Avatar**`)
+                .setTitle(`${member.user.tag}'s Avatar`)
+                .setImage(member.user.avatarURL({ dynamic: true, size: 256 }));
+            message.channel.send(other_avatar_embed);
+        }
+    }
 
     let channel = message.channel;
     if (command === "invite") {
@@ -186,30 +200,20 @@ bot.on("message", async (message) => {
         });
     }
 
-    if (member) {
-        if (command === "avatar") {
-            const other_avatar_embed = new Discord.RichEmbed()
-                .setColor("RANDOM")
-                .setDescription(`**Avatar**`)
-                .setTitle(`${member.user.tag}'s Avatar`)
-                .setImage(member.user.avatarURL);
-            message.channel.send(other_avatar_embed);
-        }
-    }
-
     if (command === "giveaway") {
+        if (!message.guild) return;
         var time = "";
         var time2 = "";
         var time3 = "";
-        if (!message.member.hasPermission("MANAGE_CHANNELS"))
+        if (!message.member.hasPermission("ADMINISTRATOR"))
             return message.channel.send(
                 "You don't have enough permissions to use this command."
             );
-        if (command === `giveaway`)
+        if (message.content === `${prefix}giveaway`)
             return message.channel.send(
                 `You didn\'t state a duration or a price for the giveaway.`
             );
-        if (command !== `giveaway`) {
+        if (message.content !== `${prefix}giveaway`) {
             const stated_duration_hours = message.content.split(" ")[1];
             const stated_duration_hours2 = stated_duration_hours.toLowerCase();
             if (stated_duration_hours2.includes("s")) {
@@ -260,7 +264,7 @@ bot.on("message", async (message) => {
                 if (prize === "")
                     return message.channel.send("You have to enter a price.");
                 if (stated_duration_hours3 !== "0") {
-                    const embed = new Discord.RichEmbed()
+                    const embed = new Discord.MessageEmbed()
                         .setTitle(`${prize}`)
                         .setColor("36393F")
                         .setDescription(
@@ -274,9 +278,15 @@ bot.on("message", async (message) => {
                     );
                     await msg.react("🎉");
                     setTimeout(() => {
+                        msg.reactions.cache.get("🎉").users.remove(bot.user.id);
                         setTimeout(() => {
-                            let winner = msg.reactions.get("🎉").users.random();
-                            if (msg.reactions.get("🎉").users.size < 1) {
+                            let winner = msg.reactions.cache
+                                .get("🎉")
+                                .users.cache.random();
+                            if (
+                                msg.reactions.cache.get("🎉").users.cache.size <
+                                1
+                            ) {
                                 const winner_embed = new Discord.MessageEmbed()
                                     .setTitle(`${prize}`)
                                     .setColor("36393F")
@@ -290,8 +300,11 @@ bot.on("message", async (message) => {
                                     winner_embed
                                 );
                             }
-                            if (!msg.reactions.get("🎉").users.size < 1) {
-                                const winner_embed = new Discord.RichEmbed()
+                            if (
+                                !msg.reactions.cache.get("🎉").users.cache
+                                    .size < 1
+                            ) {
+                                const winner_embed = new Discord.MessageEmbed()
                                     .setTitle(`${prize}`)
                                     .setColor("36393F")
                                     .setDescription(
@@ -323,7 +336,7 @@ bot.on("message", async (message) => {
         if (member) {
             if (!reason) {
                 return member.kick().then((member) => {
-                    const kicked_embed = new Discord.RichEmbed()
+                    const kicked_embed = new Discord.MessageEmbed()
                         .setColor("RANDOM")
                         .setTitle("Kicked Succesfully!")
                         .setAuthor(`Kicked by ${message.author.username}`)
@@ -331,12 +344,11 @@ bot.on("message", async (message) => {
                             `${member.user.tag} was kicked by ${message.author}, no reason was provided.`
                         );
                     message.channel.send(kicked_embed);
-                    console.log(`Succesfully Kicked ${user.tag}`);
                 });
             }
             if (reason) {
                 member.kick().then((member) => {
-                    const banned_embed = new Discord.RichEmbed()
+                    const banned_embed = new Discord.MessageEmbed()
                         .setColor("RANDOM")
                         .setTitle("Kicked Succesfully!")
                         .setAuthor(`Kicked by ${message.author.username}`)
@@ -344,7 +356,6 @@ bot.on("message", async (message) => {
                             `${member.user.tag} was kicked by ${message.author} for ${reason}.`
                         );
                     message.channel.send(banned_embed);
-                    console.log(`Succesfully Kicked ${user.tag}`);
                 });
             }
         }
@@ -361,7 +372,7 @@ bot.on("message", async (message) => {
         if (member) {
             if (!reason) {
                 return member.ban().then((member) => {
-                    const kicked_embed = new Discord.RichEmbed()
+                    const kicked_embed = new Discord.MessageEmbed()
                         .setColor("RANDOM")
                         .setTitle("Banned Succesfully!")
                         .setAuthor(`Banned by ${message.author.username}`)
@@ -369,12 +380,11 @@ bot.on("message", async (message) => {
                             `${member.user.tag} was banned by ${message.author}, no reason was provided.`
                         );
                     message.channel.send(kicked_embed);
-                    console.log(`Succesfully Banned ${user.tag}`);
                 });
             }
             if (reason) {
                 member.ban().then((member) => {
-                    const banned_embed = new Discord.RichEmbed()
+                    const banned_embed = new Discord.MessageEmbed()
                         .setColor("RANDOM")
                         .setTitle("Banned Succesfully!")
                         .setAuthor(`Banned by ${message.author.username}`)
@@ -382,72 +392,8 @@ bot.on("message", async (message) => {
                             `${member.user.tag} was banned by ${message.author} for ${reason}.`
                         );
                     message.channel.send(banned_embed);
-                    console.log(`Succesfully Banned ${user.tag}`);
                 });
             }
-        }
-    }
-
-    if (command === "add") {
-        if (!message.member.hasPermission("MANAGE_ROLES"))
-            return message.channel.send(":no_entry: Insufficient permissions");
-        const member = message.mentions.members.first();
-        if (!member)
-            return message.channel.send(":no_entry: No user mentioned");
-        const add = args.slice(1).join(" ");
-        if (!add) return message.channel.send(":no_entry: No role said");
-        const roleAdd = message.guild.roles.find((role) => role.name === add);
-        if (!roleAdd)
-            return message.channel.send(":no_entry: Role does not exist");
-        if (member.roles.has(roleAdd.id)) {
-            return message.channel.send(":no_entry: User already has role");
-        }
-        if (member) {
-            member
-                .addRole(roleAdd)
-                .catch((_error) => {
-                    message.channel.send(
-                        `:thumbsup: ${roleAdd} was added to ${member.user.tag} by ${message.author}`
-                    );
-                })
-                .then((member) => {
-                    message.channel.send(
-                        `:thumbsup: ${roleAdd} was added to ${member.user.tag} by ${message.author}`
-                    );
-                });
-        }
-    }
-    if (command === "remove") {
-        if (!message.member.hasPermission("MANAGE_ROLES"))
-            return message.channel.send(":no_entry: Insufficient permissions");
-        const member = message.mentions.members.first();
-        if (!member)
-            return message.channel.send(":no_entry: No user mentioned");
-        const remove = args.slice(1).join(" ");
-        if (!remove) return message.channel.send(":no_entry: No role said");
-        const roleRemove = message.guild.roles.find(
-            (role) => role.name === remove
-        );
-        if (!roleRemove)
-            return message.channel.send(":no_entry: Role does not exist");
-        if (!member.roles.has(roleRemove.id)) {
-            return message.channel.send(
-                ":no_entry: User already does not have that role role"
-            );
-        }
-        if (member) {
-            member
-                .removeRole(roleRemove)
-                .catch((_err) => {
-                    message.channel.send(
-                        `:thumbsup: ${roleRemove} was removed from @${member.user.tag} by ${message.author}`
-                    );
-                })
-                .then((message) => {
-                    message.channel.send(
-                        `:thumbsup: ${roleRemove} removed from an Admin`
-                    );
-                });
         }
     }
 
@@ -505,7 +451,7 @@ bot.on("message", async (message) => {
             message.channel.messages.get({ limit: amount });
             message.channel.bulkDelete(amount);
 
-            const purgeEmbed = new Discord.RichEmbed()
+            const purgeEmbed = new Discord.MessageEmbed()
                 .setTitle("Operation Succesful")
                 .setAuthor(`By ${message.author.tag}`)
                 .setDescription(
@@ -528,7 +474,7 @@ bot.on("message", async (message) => {
                 `https://restcountries.eu/rest/v2/name/${query}`
             );
             const data = body[0];
-            const embed = new Discord.RichEmbed()
+            const embed = new Discord.MessageEmbed()
                 .setColor(0x00ae86)
                 .setTitle(data.name)
                 .setThumbnail(
