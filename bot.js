@@ -439,6 +439,48 @@ bot.on("message", async (message) => {
         }
     }
 
+    if (command === "remove") {
+        if (message.member.hasPermission("MANAGE_EMOJIS")) {
+            const targetUser = message.mentions.users.first();
+
+            if (!targetUser) {
+                message.channel.send(":no_entry: Please specify a user first!");
+                return;
+            }
+
+            args.shift();
+
+            const roleName = args.join(" ");
+            const { guild } = message;
+
+            const role = guild.roles.cache.find((role) => {
+                return role.name === roleName;
+            });
+
+            if (!role) {
+                message.channel.send(
+                    `:no_entry: There is no role named as "${roleName}"`
+                );
+                return;
+            }
+
+            const memberUser = guild.members.cache.get(targetUser.id);
+            memberUser.roles.remove(role);
+
+            const removeRoleEmbed = new Discord.MessageEmbed()
+                .setTitle("Role Removed! :thumbsup:")
+                .setColor("RANDOM")
+                .setDescription(
+                    `:thumbsup: ${role} was Successfully removed to ${targetUser} by ${message.author.tag}`
+                )
+                .setFooter("Copyright @2021 CodeVert");
+
+            message.channel.send(removeRoleEmbed);
+        } else {
+            message.channel.send(":no_entry: Insufficient Permissions");
+        }
+    }
+
     if (command === "rps") {
         const options = [
             "rock :shell: ",
