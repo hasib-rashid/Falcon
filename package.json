@@ -10,7 +10,9 @@
 	"author": "Hasib Al Rashid",
 	"license": "ISC",
 	"dependencies": {
+		"ascii-table": "0.0.9",
 		"bob-number-formatter": "^1.0.1",
+		"d.js-command-handler": "^2.0.2",
 		"discord.js": "^12.5.1",
 		"discord_auto_prefix": "^1.4.4",
 		"dotenv": "^8.2.0",
