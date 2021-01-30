@@ -5,7 +5,7 @@ module.exports = {
     botPermission: [],
     authorPermission: [],
     ownerOnly: false,
-    run: async (client, message, args) => {
+    run: async (message) => {
         message.channel.send("Test command working.");
     },
 };

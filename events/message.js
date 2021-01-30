@@ -1,4 +1,4 @@
-const { default_prefix, owners } = require("../config.json");
+const { owners } = require("../config.json");
 
 const { aPrefix } = require("discord_auto_prefix");
 const prefix = new aPrefix();
@@ -11,19 +11,17 @@ module.exports.run = async (client, message) => {
             // if (is_url(m)) {
             //  message.delete().catch(err => {})
             // return message.channel.send("You are not allowed to send links :/")
-            //} else if (badwords.find(x => x.toLowerCase() === m.toLowerCase())) {
-            //message.delete().catch(err => {});
-            //return message.channel.send(
+            // } else if (badwords.find(x => x.toLowerCase() === m.toLowerCase())) {
+            // message.delete().catch(err => {});
+            // return message.channel.send(
             // "You are not allowed to use (**" + m + "**) word here"
             // YOU CAN IMPLEMENT YOUR OWN URL CHECK/BAD WORDS CHECK FUNCTIONS
         });
     }
 
-    let prefix = default_prefix;
-
     const PREFIX = await prefix.fetchPrefix(message);
 
-    if (!message.content.startsWith(prefix)) return;
+    if (!message.content.startsWith(PREFIX)) return;
 
     if (!message.member)
         message.member = await message.guild.members.fetch(message);
