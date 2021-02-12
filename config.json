@@ -1,5 +1,7 @@
 {
+    "token": "Your Token",
     "prefix": "!",
-    "owner": "548038495617417226",
-    "default_prefix": "!"
+    "color": "RANDOM",
+    "credits": "TheMegaWarrior#3647",
+    "owners": ["548038495617417226"]
 }

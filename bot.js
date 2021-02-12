@@ -1,46 +1,47 @@
 require("dotenv").config();
 
-const app = require("express")();
-const PORT = process.env.PORT || 8080;
-
-app.get("/", (req, res) => {
-    res.send("Server is up and running");
-});
-
-app.listen(PORT);
-
-require("dotenv").config();
-
+/* includes */
 const Discord = require("discord.js");
-const client = new Discord.Client();
+const fs = require("fs");
+const util = require("util");
 
-const { aPrefix } = require("discord_auto_prefix");
-const prefix = new aPrefix();
+/* defines & config */
+const bot = new Discord.Client();
+const readdir = util.promisify(fs.readdir);
 
-client.login(process.env.TOKEN);
+bot.events = new Discord.Collection();
+bot.commands = new Discord.Collection();
+bot.logger = require("./helpers/logger.js");
+bot.tools = require("./helpers/tools.js");
+bot.config = require("./config.json");
 
-client.commands = new Discord.Collection();
-client.aliases = new Discord.Collection();
+async function initialize() {
+    // load events
+    let events = fs
+        .readdirSync("./events/")
+        .filter((file) => file.endsWith(".js"));
+    for (let e of events) {
+        let eventFile = require("./events/" + e);
+        let eventName = e.split(".")[0];
+        bot.logger.event(eventName + " loaded.");
+        bot.on(eventName, eventFile.bind(null, bot));
+    }
 
-["command", "events"].forEach((handler) => {
-    require(`./handlers/${handler}`)(client);
-});
+    // load commands
+    let categories = await readdir("./commands/");
+    categories.forEach((c) => {
+        let commands = fs
+            .readdirSync("./commands/" + c + "/")
+            .filter((file) => file.endsWith(".js"));
+        for (const file of commands) {
+            let commandFile = require("./commands/" + c + "/" + file);
+            bot.commands.set(commandFile.name, commandFile);
+        }
+        bot.logger.cmd(c + " - " + commands.length + " commands loaded.");
+    });
 
-client.on("message", async (message) => {
-    if (message.author.bot) return;
-    if (message.channel.type === "dm") return;
+    // login bot
+    bot.login(process.env.TOKEN);
+}
 
-    if (message.author.bot) return;
-    if (!message.guild) return;
-    if (!message.content.startsWith(prefix)) return;
-    if (!message.member)
-        message.member = await message.guild.fetchMember(message);
-
-    if (command.length === 0) return;
-
-    const PREFIX = await prefix.fetchPrefix(message);
-
-    if (!message.content.startsWith(PREFIX)) return;
-    const args = message.content.slice(PREFIX.length).split(" ");
-    const command = args.shift().toLowerCase();
-});
+initialize();

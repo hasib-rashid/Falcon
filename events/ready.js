@@ -1,6 +1,8 @@
-module.exports.run = (client, message) => {
-    console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setActivity(`${client.channels.cache.size} Channels | !help`, {
-        type: "WATCHING",
-    });
+module.exports = async(bot) => {
+    try {
+        bot.user.setPresence({ activity: { name: 'tag me for info.', type: 'PLAYING' }, status: 'online' });
+        bot.logger.ready(bot.user.tag + ' initialized.');
+    } catch (err) {
+        bot.logger.error('Ready event error - ' + err);
+    }
 };
