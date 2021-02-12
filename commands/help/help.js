@@ -12,6 +12,8 @@ const {
     Notify,
     NSFW,
     MISC,
+    Fun,
+    Search,
 } = require("./helpcmds");
 
 module.exports = {
@@ -27,10 +29,18 @@ module.exports = {
 };
 
 module.exports.execute = async (bot, message, args, data) => {
-    let prefix = "!";
+    let PREFIX = "!";
+    const helpArgs = args.shift();
+
+    const command = message.content
+        .slice(PREFIX.length)
+        .split(" ")
+        .shift()
+        .toLowerCase();
+
     let embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .setTitle(`Server Prefix: \`${prefix}\``)
+        .setTitle(`Server Prefix: \`${PREFIX}\``)
         .addField(
             "To learn a command and its proper use, specify it's module in help command.",
             "Example: ` !help games `"
@@ -59,6 +69,12 @@ module.exports.execute = async (bot, message, args, data) => {
         )
         .addField(`${NSFW.emoji} ${NSFW.name}`, `\`${NSFW.number}\``, true)
         .addField(`${MISC.emoji} ${MISC.name}`, `\`${MISC.number}\``, true)
+        .addField(`${Fun.emoji} ${Fun.name}`, `\`${Fun.number}\``, true)
+        .addField(
+            `${Search.emoji} ${Search.name}`,
+            `\`${Search.number}\``,
+            true
+        )
         .setColor(bot.config.color);
 
     let categories = await readdir("./commands/");

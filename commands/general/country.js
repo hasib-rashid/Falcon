@@ -19,7 +19,7 @@ module.exports.execute = async (bot, message, args, data) => {
     const query = args.shift();
 
     try {
-        const { body } = await axios.get(
+        const { body } = await request.get(
             `https://restcountries.eu/rest/v2/name/${query}`
         );
         const data = body[0];

@@ -38,5 +38,15 @@
         "name": "MISC",
         "number": "5",
         "emoji": ":wrench:"
+    },
+    "Fun": {
+        "name": "Fun",
+        "number": "1",
+        "emoji": ":rofl:"
+    },
+    "Search": {
+        "name": "Search",
+        "number": "1",
+        "emoji": ":mag:"
     }
 }

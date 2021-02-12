@@ -8,7 +8,7 @@ module.exports = {
     permissions: [],
     botPermissions: [],
     nsfw: false,
-    cooldown: 0,
+    cooldown: 5000,
     ownerOnly: false,
 };
 
@@ -19,6 +19,6 @@ module.exports.execute = async (bot, message, args, data) => {
         );
     });
     message.channel.send(
-        "You can also invite me using this link [Here](http://example.com)"
+        "Invite me to your server over here! \n`https://discord.com/api/oauth2/authorize?client_id=799543154692718602&permissions=8&scope=bot`"
     );
 };
