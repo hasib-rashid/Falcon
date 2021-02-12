@@ -2,6 +2,8 @@ const Discord = require("discord.js");
 const util = require("util");
 const fs = require("fs");
 const readdir = util.promisify(fs.readdir);
+const request = require("node-superfetch");
+const { name, description } = require("./helpGeneral.json");
 
 const {
     General,
@@ -33,7 +35,16 @@ module.exports.execute = async (bot, message, args, data) => {
     const helpArgs = args.shift();
 
     if (helpArgs === "general") {
-        return message.channel.send("Help General");
+        let embed = new Discord.MessageEmbed()
+            .setTitle(":smiley: General")
+            .addFields(
+                { name: "Regular field title", value: "Some value here" },
+                { name: "Inline field title", value: "Some value here" },
+                { name: "Inline field title", value: "Some value here" }
+            )
+            .setColor("RANDOM");
+
+        message.channel.send(embed);
     }
 
     if (helpArgs === "games") {
