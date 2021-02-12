@@ -32,11 +32,47 @@ module.exports.execute = async (bot, message, args, data) => {
     let PREFIX = "!";
     const helpArgs = args.shift();
 
-    const command = message.content
-        .slice(PREFIX.length)
-        .split(" ")
-        .shift()
-        .toLowerCase();
+    if (helpArgs === "general") {
+        return message.channel.send("Help General");
+    }
+
+    if (helpArgs === "games") {
+        return message.channel.send("Help Games");
+    }
+
+    if (helpArgs === "moderation") {
+        return message.channel.send("Help Moderation");
+    }
+
+    if (helpArgs === "music") {
+        return message.channel.send("Help Music");
+    }
+
+    if (helpArgs === "events") {
+        return message.channel.send("Help Events");
+    }
+
+    if (helpArgs === "notify") {
+        return message.channel.send("Help Notify");
+    }
+
+    if (helpArgs === "nsfw") {
+        return message.channel.send("Help NSFW");
+    }
+
+    if (helpArgs === "misc") {
+        return message.channel.send("Help MISC");
+    }
+
+    if (helpArgs === "fun") {
+        return message.channel.send("Help Fun");
+    }
+
+    if (helpArgs === "search") {
+        return message.channel.send("Help Search");
+    }
+
+    if (args) return;
 
     let embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
