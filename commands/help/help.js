@@ -37,17 +37,15 @@ module.exports.execute = async (bot, message, args, data) => {
         let embed = new Discord.MessageEmbed()
             .setTitle(":smiley: General")
             .addFields(
-                { name: "name", value: "description" },
-                { name: "Inline field title", value: "Some value here" },
-                { name: "Inline field title", value: "Some value here" },
-                { name: "Inline field title", value: "Some value here" },
-                { name: "Inline field title", value: "Some value here" },
-                { name: "Inline field title", value: "Some value here" },
-                { name: "Inline field title", value: "Some value here" },
-                { name: "Inline field title", value: "Some value here" },
-                { name: "Inline field title", value: "Some value here" },
-                { name: "Inline field title", value: "Some value here" },
-                { name: "Inline field title", value: "Some value here" }
+                {
+                    name: "avatar",
+                    value: "Searches the Avatar of the you want!",
+                },
+                {
+                    name: "invite",
+                    value: "Finds the Invite link for the server",
+                },
+                { name: "uptime", value: "Checks the Uptime of the Server" }
             )
             .setColor("RANDOM");
 
@@ -55,7 +53,9 @@ module.exports.execute = async (bot, message, args, data) => {
     }
 
     if (helpArgs === "games") {
-        return message.channel.send("Help Games");
+        let embed = new Discord.MessageEmbed()
+            .setTitle(":video_game: Games")
+            .setColor("RANDOM");
     }
 
     if (helpArgs === "moderation") {

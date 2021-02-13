@@ -1,7 +1,7 @@
 {
     "General": {
         "name": "General",
-        "number": "1",
+        "number": "3",
         "emoji": ":smiley:"
     },
     "Games": {
@@ -11,22 +11,22 @@
     },
     "Moderation": {
         "name": "Moderation",
-        "number": "1",
+        "number": "6",
         "emoji": "<:ban_hammer:809356434885967882>"
     },
     "Music": {
         "name": "Music",
-        "number": "1",
+        "number": "0",
         "emoji": ":musical_note:"
     },
     "Events": {
         "name": "Events",
-        "number": "1",
+        "number": "0",
         "emoji": ":checkered_flag:"
     },
     "Notify": {
         "name": "Notify",
-        "number": "1",
+        "number": "0",
         "emoji": ":speech_left:"
     },
     "NSFW": {
@@ -41,7 +41,7 @@
     },
     "Fun": {
         "name": "Fun",
-        "number": "1",
+        "number": "0",
         "emoji": ":rofl:"
     },
     "Search": {

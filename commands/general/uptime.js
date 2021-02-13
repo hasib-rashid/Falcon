@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: "uptime",
-    description: "Finds the Invite link for the server",
+    description: "Checks the Uptime of the Server",
     usage: "!invite",
     aliases: ["upt"],
     permissions: [],
