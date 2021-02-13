@@ -8,6 +8,7 @@
         "bob-number-formatter": "^1.0.1",
         "chalk": "^4.1.0",
         "common-tags": "^1.8.0",
+        "discord-math": "^1.0.5",
         "discord.js": "^12.4.0",
         "dotenv": "^8.2.0",
         "node-superfetch": "^0.1.11",
