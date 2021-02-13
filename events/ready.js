@@ -1,8 +1,10 @@
-module.exports = async(bot) => {
+module.exports = async (bot) => {
     try {
-        bot.user.setPresence({ activity: { name: 'tag me for info.', type: 'PLAYING' }, status: 'online' });
-        bot.logger.ready(bot.user.tag + ' initialized.');
+        console.log(`Logged in as ${bot.user.tag}!`);
+        bot.user.setActivity(`${bot.channels.cache.size} Channels | !help`, {
+            type: "WATCHING",
+        });
     } catch (err) {
-        bot.logger.error('Ready event error - ' + err);
+        console.error(err);
     }
 };
