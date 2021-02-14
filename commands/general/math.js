@@ -35,6 +35,6 @@ module.exports.execute = async (bot, message, args, data) => {
             `Answer: ${math.calculate(num1, operation, num2)}`
         );
     } catch (e) {
-        console.log(e);
+        message.channel.send("Invalid Prototype");
     }
 };
