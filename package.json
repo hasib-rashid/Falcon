@@ -1,38 +1,31 @@
 {
-    "name": "code-vert",
-    "version": "1.0.0",
-    "description": "CodeVert the Official Bot is CodeFiction",
-    "main": "bot.js",
-    "dependencies": {
-        "axios": "^0.21.0",
-        "bob-number-formatter": "^1.0.1",
-        "chalk": "^4.1.0",
-        "common-tags": "^1.8.0",
-        "discord-math": "^1.0.5",
-        "discord.js": "^12.4.0",
-        "dotenv": "^8.2.0",
-        "node-superfetch": "^0.1.11",
-        "os-utils": "0.0.14"
-    },
-    "devDependencies": {},
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon bot.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Hall-Of-Programmers/CodeVert.git"
-    },
-    "keywords": [
-        "discord",
-        "discord.js",
-        "discord.js12",
-        "all-rounder-bot"
-    ],
-    "author": "Hasib Al Rashid",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/Hall-Of-Programmers/CodeVert/issues"
-    },
-    "homepage": "https://github.com/Hall-Of-Programmers/CodeVert#readme"
+  "name": "codevert",
+  "version": "1.0.0",
+  "description": "A Mordern Discord Utility Bot",
+  "main": "bot.js",
+  "scripts": {
+    "dev": "nodemon bot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeFictions/CodeVert.git"
+  },
+  "keywords": [
+    "discord.js",
+    "discord.js-commando",
+    "bot",
+    "utility-bot"
+  ],
+  "author": "Hasib Al Rashid",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CodeFictions/CodeVert/issues"
+  },
+  "homepage": "https://github.com/CodeFictions/CodeVert#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "discord.js-commando": "^0.12.2",
+    "dotenv": "^8.2.0",
+    "os-utils": "0.0.14"
+  }
 }

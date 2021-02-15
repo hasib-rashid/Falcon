@@ -1,28 +1,28 @@
 const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const oneLine = require("common-tags").oneLine;
 
-module.exports = {
-    name: "ping",
-    description: "Displays the bot latency.",
-    usage: "ping",
-    aliases: ["latency"],
-    permissions: [],
-    botPermissions: [],
-    nsfw: false,
-    cooldown: 0,
-    ownerOnly: false,
-};
+/**
+ *  @param {Discord.Message} message
+ *  @param {Discord.Client} client
+ */
 
-module.exports.execute = async (bot, message, args, data) => {
-    message.channel.send("Loading data! :thinking:").then(async (msg) => {
-        const pingEmbed = new Discord.MessageEmbed()
-            .setTitle("Ping")
-            .setAuthor(`Requested by ${message.author.tag}`)
-            .setDescription(
-                `🏓 Pong! Your Latency is ${
-                    msg.createdTimestamp - message.createdTimestamp
-                }ms and API Latency is ${Math.round(bot.ws.ping)} ms!`
-            );
+module.exports = class PingCommand extends commando.Command {
+    constructor(client) {
+        super(client, {
+            name: "ping",
+            aliases: [],
+            group: "general",
+            memberName: "ping",
+            description: "Ping Pong command for checking your latency",
+            details: oneLine`
+                Ping Pong command for checking your latency
+            `,
+            examples: ["!ping"],
+        });
+    }
 
-        message.channel.send(pingEmbed);
-    });
+    async run(message) {
+        message.channel.send("Pong");
+    }
 };

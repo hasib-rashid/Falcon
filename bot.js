@@ -1,47 +1,43 @@
 require("dotenv").config();
 
-/* includes */
-const Discord = require("discord.js");
-const fs = require("fs");
-const util = require("util");
+const { CommandoClient } = require("discord.js-commando");
+const path = require("path");
 
-/* defines & config */
-const bot = new Discord.Client();
-const readdir = util.promisify(fs.readdir);
+const client = new CommandoClient({
+    commandPrefix: "!",
+    owner: "548038495617417226",
+    invite:
+        "https://discord.com/api/oauth2/authorize?client_id=799543154692718602&permissions=8&scope=bot",
+});
 
-bot.events = new Discord.Collection();
-bot.commands = new Discord.Collection();
-bot.logger = require("./helpers/logger.js");
-bot.tools = require("./helpers/tools.js");
-bot.config = require("./config.json");
+client.registry
+    .registerDefaultTypes()
+    .registerGroups([
+        ["general", "General Command Group"],
+        ["games", "Games from CodeVert"],
+        ["moderation", "Moderators group"],
+        ["music", "Music Commands Group"],
+        ["events", "Events from CodeVert"],
+        ["notify", "Notify devs about Bugs and Features"],
+        ["nsfw", "NSFW Content Group"],
+        ["misc", "Miscellanious Commands"],
+        ["fun", "Fun Commands from CodeVert"],
+        ["search", "Search anything from CodeVert"],
+    ])
+    .registerDefaultGroups()
+    .registerDefaultCommands({
+        help: false,
+        ping: false,
+        prefix: true,
+        commandState: true,
+        unknownCommand: false,
+    })
+    .registerCommandsIn(path.join(__dirname, "commands"));
 
-async function initialize() {
-    // load events
-    let events = fs
-        .readdirSync("./events/")
-        .filter((file) => file.endsWith(".js"));
-    for (let e of events) {
-        let eventFile = require("./events/" + e);
-        let eventName = e.split(".")[0];
-        bot.logger.event(eventName + " loaded.");
-        bot.on(eventName, eventFile.bind(null, bot));
-    }
+client.once("ready", () => {
+    console.log(`[READY] Logged in as ${client.user.tag}!`);
+});
 
-    // load commands
-    let categories = await readdir("./commands/");
-    categories.forEach((c) => {
-        let commands = fs
-            .readdirSync("./commands/" + c + "/")
-            .filter((file) => file.endsWith(".js"));
-        for (const file of commands) {
-            let commandFile = require("./commands/" + c + "/" + file);
-            bot.commands.set(commandFile.name, commandFile);
-        }
-        bot.logger.cmd(c + " - " + commands.length + " commands loaded.");
-    });
+client.on("error", console.error);
 
-    // login bot
-    bot.login(process.env.TOKEN);
-}
-
-initialize();
+client.login(process.env.TOKEN);

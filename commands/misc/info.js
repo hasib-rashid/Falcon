@@ -1,24 +1,39 @@
 const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const oneLine = require("common-tags").oneLine;
 
-module.exports = {
-    name: "info",
-    description: "Displays the Information of the Bot",
-    usage: "info",
-    aliases: ["information"],
-    permissions: [],
-    botPermissions: [],
-    nsfw: false,
-    cooldown: 0,
-    ownerOnly: false,
-};
+module.exports = class InfoCommand extends commando.Command {
+    constructor(client) {
+        super(client, {
+            name: "info",
+            aliases: [],
+            group: "misc",
+            memberName: "info",
+            description: "Get Information about CodeVert",
+            details: oneLine`
+                Get Information about CodeVert
+            `,
+            examples: ["!info"],
+        });
+    }
 
-module.exports.execute = async (bot, message, args, data) => {
-    const info_embed = new Discord.MessageEmbed()
-        .setColor("GREEN")
-        .setAuthor(message.author.username, message.author.displayAvatarURL())
-        .setDescription(
-            "Thanks for using CodeVert! This bot is to make your life simple and fun! Enjoy the many features CodeVert has to offer like Moderating, Music, Games, Events, and more!"
-        );
+    /**
+     *
+     * @param {commando.CommandoMessage} message
+     * @param {commando.CommandoClient} client
+     */
 
-    message.channel.send(info_embed);
+    async run(message, client) {
+        const embed = new Discord.MessageEmbed()
+            .setColor("GREEN")
+            .setAuthor(
+                message.author.username,
+                message.author.displayAvatarURL()
+            )
+            .setDescription(
+                "Thanks for using CodeVert! This bot is to make your life simple and fun! Enjoy the many features CodeVert has to offer like Moderating, Music, Games, Events, and more!"
+            );
+
+        message.channel.send(embed);
+    }
 };
