@@ -23,6 +23,9 @@ module.exports = class GiveawayCommand extends commando.Command {
      */
 
     async run(message, client) {
+        if (!message.member.hasPermission("MANAGE_CHANNELS"))
+            return message.channel.send(":no_entry: Insufficient permissions");
+
         const args = message.content.slice().split(" ");
 
         if (!message.guild) return;
