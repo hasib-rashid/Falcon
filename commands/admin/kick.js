@@ -1,3 +1,4 @@
+const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 
@@ -33,7 +34,7 @@ module.exports = class KickCommand extends commando.Command {
             if (!reason) {
                 return member.kick().then((member) => {
                     const kicked_embed = new Discord.MessageEmbed()
-                        .setColor("RANDOM")
+                        .setColor("RED")
                         .setTitle("Kicked Succesfully!")
                         .setAuthor(`Kicked by ${message.author.username}`)
                         .setDescription(
@@ -45,7 +46,7 @@ module.exports = class KickCommand extends commando.Command {
             if (reason) {
                 member.kick().then((member) => {
                     const banned_embed = new Discord.MessageEmbed()
-                        .setColor("RANDOM")
+                        .setColor("RED")
                         .setTitle("Kicked Succesfully!")
                         .setAuthor(`Kicked by ${message.author.username}`)
                         .setDescription(

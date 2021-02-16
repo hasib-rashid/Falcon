@@ -41,7 +41,7 @@ module.exports = class BanCommand extends commando.Command {
                 if (!reason) {
                     return member.ban().then((member) => {
                         const kicked_embed = new Discord.MessageEmbed()
-                            .setColor("RANDOM")
+                            .setColor("RED")
                             .setTitle("Banned Succesfully!")
                             .setAuthor(`Banned by ${message.author.username}`)
                             .setDescription(
@@ -53,7 +53,7 @@ module.exports = class BanCommand extends commando.Command {
                 if (reason) {
                     member.ban().then((member) => {
                         const banned_embed = new Discord.MessageEmbed()
-                            .setColor("RANDOM")
+                            .setColor("RED")
                             .setTitle("Banned Succesfully!")
                             .setAuthor(`Banned by ${message.author.username}`)
                             .setDescription(
