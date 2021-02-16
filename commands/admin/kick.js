@@ -14,6 +14,13 @@ module.exports = class KickCommand extends commando.Command {
                 Kick the user you want
             `,
             examples: ["!kick <member>"],
+            args: [
+                {
+                    key: "reason",
+                    type: "string",
+                    prompt: "Please specify the reason!",
+                },
+            ],
         });
     }
 
@@ -21,28 +28,16 @@ module.exports = class KickCommand extends commando.Command {
      * @param {commando.CommandoMessage} message
      */
 
-    async run(message) {
+    async run(message, { reason }) {
         if (!message.member.hasPermission("KICK_MEMBERS"))
             return message.channel.send(":no_entry: Insufficient permissions");
         const member = message.mentions.members.first();
+
         if (!member)
             return message.channel.send(":no_entry: No user mentioned.");
-        const reason = args.slice(1).join(" ");
         if (!member.kickable)
             return message.channel.send(":no_entry: I cannot kick this user.");
         if (member) {
-            if (!reason) {
-                return member.kick().then((member) => {
-                    const kicked_embed = new Discord.MessageEmbed()
-                        .setColor("RED")
-                        .setTitle("Kicked Succesfully!")
-                        .setAuthor(`Kicked by ${message.author.username}`)
-                        .setDescription(
-                            `${member.user.tag} was kicked by ${message.author}, no reason was provided.`
-                        );
-                    message.channel.send(kicked_embed);
-                });
-            }
             if (reason) {
                 member.kick().then((member) => {
                     const banned_embed = new Discord.MessageEmbed()
