@@ -16,6 +16,13 @@ module.exports = class BanCommand extends commando.Command {
             examples: ["!ban <user>"],
             clientPermissions: ["BAN_MEMBERS"],
             userPermissions: ["BAN_MEMBERS"],
+            args: [
+                {
+                    key: "reason",
+                    type: "string",
+                    prompt: "Please specify the reason",
+                },
+            ],
         });
     }
 
@@ -23,33 +30,22 @@ module.exports = class BanCommand extends commando.Command {
      * @param {commando.CommandoMessage} message
      */
 
-    async run(message) {
+    async run(message, { reason }) {
         try {
             if (!message.member.hasPermission("BAN_MEMBERS"))
                 return message.channel.send(
                     ":no_entry: Insufficient permissions"
                 );
             const member = message.mentions.members.first();
+
             if (!member)
                 return message.channel.send(":no_entry: No user mentioned.");
-            const reason = args.slice(1).join(" ");
+
             if (!member.kickable)
                 return message.channel.send(
                     ":no_entry: I cannot ban this user."
                 );
             if (member) {
-                if (!reason) {
-                    return member.ban().then((member) => {
-                        const kicked_embed = new Discord.MessageEmbed()
-                            .setColor("RED")
-                            .setTitle("Banned Succesfully!")
-                            .setAuthor(`Banned by ${message.author.username}`)
-                            .setDescription(
-                                `${member.user.tag} was banned by ${message.author}, no reason was provided.`
-                            );
-                        message.channel.send(kicked_embed);
-                    });
-                }
                 if (reason) {
                     member.ban().then((member) => {
                         const banned_embed = new Discord.MessageEmbed()

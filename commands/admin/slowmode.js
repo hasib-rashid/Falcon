@@ -1,3 +1,4 @@
+const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 
@@ -13,6 +14,19 @@ module.exports = class SlowmodeCommand extends commando.Command {
                 Initiates slowmode for a channel
             `,
             examples: ["!slowmode <time>"],
+            args: [
+                {
+                    key: "time",
+                    type: "string",
+                    prompt:
+                        "Please specify how much time do you want to make your slowmode",
+                },
+                {
+                    key: "reason",
+                    type: "string",
+                    prompt: "Please specify the reason",
+                },
+            ],
         });
     }
 
@@ -20,25 +34,48 @@ module.exports = class SlowmodeCommand extends commando.Command {
      * @param {commando.CommandoMessage} message
      */
 
-    async run(message) {
-        if (!message.member.hasPermission("MANAGE_CHANNELS"))
-            return message.channel.send(":no_entry: Insufficient permissions");
+    async run(message, { time, reason }) {
+        try {
+            if (!message.member.hasPermission("MANAGE_CHANNELS"))
+                return message.channel.send(
+                    ":no_entry: Insufficient permissions"
+                );
 
-        const { channel } = message;
+            const { channel } = message;
 
-        if (args.length < 2) {
-            message.channel.send(
-                "Please provide a duration and a reason. For example: ` !slow 60 People are spamming `"
-            );
-            return;
-        }
+            if (time < 2) {
+                message.channel.send(
+                    "Please provide a duration and a reason. For example: ` !slow 60 People are spamming `"
+                );
+                return;
+            }
 
-        let duration = args.shift().toLowerCase();
-        if (duration === "off") {
-            duration = 0;
-        }
+            let duration = time;
+            if (duration === "off") {
+                duration = 0;
+            }
 
-        if (isNaN(duration)) {
+            if (isNaN(duration)) {
+                let embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.tag,
+                        message.author.displayAvatarURL()
+                    )
+                    .setColor("RANDOM")
+                    .setDescription(
+                        'Please provide either a number of seconds or the word "off"'
+                    )
+                    .setThumbnail(
+                        "https://i.pinimg.com/originals/3f/82/40/3f8240fa1d16d0de6d4e7510b43b37ba.gif"
+                    )
+                    .setFooter("CodeVert 2021");
+
+                message.channel.send(embed);
+                return;
+            }
+
+            channel.setRateLimitPerUser(duration, reason);
+
             let embed = new Discord.MessageEmbed()
                 .setAuthor(
                     message.author.tag,
@@ -46,30 +83,16 @@ module.exports = class SlowmodeCommand extends commando.Command {
                 )
                 .setColor("RANDOM")
                 .setDescription(
-                    'Please provide either a number of seconds or the word "off"'
+                    `The slowmode for this channel "${message.channel.name}" was successfully set to ${duration} for ${reason}`
                 )
                 .setThumbnail(
                     "https://i.pinimg.com/originals/3f/82/40/3f8240fa1d16d0de6d4e7510b43b37ba.gif"
                 )
                 .setFooter("CodeVert 2021");
 
-            message.channel.send(embed);
-            return;
+            message.reply(embed);
+        } catch (err) {
+            console.error(err);
         }
-
-        channel.setRateLimitPerUser(duration, args.join(" "));
-
-        let embed = new Discord.MessageEmbed()
-            .setAuthor(message.author.tag, message.author.displayAvatarURL())
-            .setColor("RANDOM")
-            .setDescription(
-                `The slowmode for this channel "${message.channel.name}" was successfully set to ${duration}`
-            )
-            .setThumbnail(
-                "https://i.pinimg.com/originals/3f/82/40/3f8240fa1d16d0de6d4e7510b43b37ba.gif"
-            )
-            .setFooter("CodeVert 2021");
-
-        message.reply(embed);
     }
 };
