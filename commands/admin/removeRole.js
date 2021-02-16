@@ -2,18 +2,18 @@ const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 
-module.exports = class AddRoleCommand extends commando.Command {
+module.exports = class RemoveRoleCommand extends commando.Command {
     constructor(client) {
         super(client, {
-            name: "addrole",
+            name: "removerole",
             aliases: [],
             group: "moderation",
-            memberName: "addrole",
-            description: "Add a role for a person with this command",
+            memberName: "removerole",
+            description: "Remove a role from a user with a command only!",
             details: oneLine`
-                Add a role for a person with this command
+                Remove a role from a user with a command only!
             `,
-            examples: ["!addrole <member> <name_of_role>"],
+            examples: ["!removerole <member> <role>"],
             args: [
                 {
                     key: "user",
@@ -61,17 +61,17 @@ module.exports = class AddRoleCommand extends commando.Command {
                 }
 
                 const memberUser = guild.members.cache.get(targetUser.id);
-                memberUser.roles.add(role);
+                memberUser.roles.remove(role);
 
-                const addRoleEmbed = new Discord.MessageEmbed()
-                    .setTitle("Role Added! :thumbsup:")
-                    .setColor("GREEN")
+                const removeRoleEmbed = new Discord.MessageEmbed()
+                    .setTitle("Role Removed! :thumbsup:")
+                    .setColor("RED")
                     .setDescription(
-                        `:thumbsup: ${role} was Successfully added to ${targetUser} by ${message.author.tag}`
+                        `:thumbsup: ${role} was Successfully removed to ${targetUser} by ${message.author.tag}`
                     )
                     .setFooter("Copyright @2021 CodeVert");
 
-                message.channel.send(addRoleEmbed);
+                message.channel.send(removeRoleEmbed);
             } else {
                 message.channel.send(":no_entry: Insufficient Permissions");
             }
