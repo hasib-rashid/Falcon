@@ -6,6 +6,7 @@ const path = require("path");
 const client = new CommandoClient({
     commandPrefix: process.env.PREFIX,
     owner: "548038495617417226",
+    partials: ["MESSAGE", "REACTION", "CHANNEL"],
 });
 
 client.registry
