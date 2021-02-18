@@ -1,8 +1,8 @@
 require("dotenv").config();
 
-const { CommandoClient } = require("discord.js-commando");
+const { CommandoClient, CommandoMessage } = require("discord.js-commando");
 const path = require("path");
-
+const Canvas = require("discord-canvas");
 const client = new CommandoClient({
     commandPrefix: process.env.PREFIX,
     owner: "548038495617417226",
