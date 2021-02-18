@@ -66,6 +66,10 @@ module.exports = class HelpCommand extends commando.Command {
                             name: "IP",
                             value:
                                 "Find the IP or any place or any domain you want!",
+                        },
+                        {
+                            name: "Fact",
+                            value: "Get a Random fact with this command!",
                         }
                     )
                     .setColor("RANDOM");
