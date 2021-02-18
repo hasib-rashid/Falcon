@@ -3,6 +3,13 @@ const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const enmap = require("enmap");
 
+const settings = new enmap({
+    name: "settings",
+    autoFetch: true,
+    cloneLevel: "deep",
+    fetchAll: true,
+});
+
 module.exports = class TicketSetupCommand extends commando.Command {
     constructor(client) {
         super(client, {
@@ -10,11 +17,11 @@ module.exports = class TicketSetupCommand extends commando.Command {
             aliases: [],
             group: "moderation",
             memberName: "ticket-setup",
-            description: "Set up the Ticket System here!",
+            description: "Setup your tickets",
             details: oneLine`
-                Set up the Ticket System here!
+                Setup your tickets
             `,
-            examples: ["!ticket-setup"],
+            examples: ["!ticket-setup <channel_name>"],
         });
     }
 
@@ -23,23 +30,16 @@ module.exports = class TicketSetupCommand extends commando.Command {
      */
 
     async run(message) {
-        const settings = new enmap({
-            name: "settings",
-            autoFetch: true,
-            cloneLevel: "deep",
-            fetchAll: true,
-        });
-
         if (!message.member.hasPermission("ADMINISTRATOR"))
             return message.reply(`Become a admin BOOMER`);
         let channel = message.mentions.channels.first();
-        if (!channel) return message.reply("Usage: `!ticket-setup #channel`");
+        if (!channel) return message.reply("Usage: `tt!ticket-setup #channel`");
         const rle = message.guild.roles.cache.find(
-            (role) => role.name === "Ticketed"
+            (role) => role.name === "Patrol"
         );
         if (!rle)
             return message.reply(
-                "Hmmm I coudl't find a role called `Ticketed` Make sure you have a role called `Patrol` with same capitalisation and all you moderators are havingp it"
+                "Hmmm I coudl't find a role called `Patrol` Make sure you have a role called `Patrol` with same capitalisation and all you moderators are havingp it"
             );
 
         let sent = await channel.send(
@@ -101,7 +101,7 @@ module.exports = class TicketSetupCommand extends commando.Command {
                                 new Discord.MessageEmbed()
                                     .setTitle("Welcome to your ticket!")
                                     .setDescription(
-                                        "Support Team will be with you shortly. Warning! If you take a ticket without any reason then you will get punished according to the act!"
+                                        "Support Team will be with you shortly"
                                     )
                                     .setColor("RANDOM")
                                     .addField(
