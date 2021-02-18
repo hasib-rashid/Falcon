@@ -119,119 +119,115 @@ module.exports = class ReactionRoleCommand extends commando.Command {
                 if (user.bot) return;
                 if (!reaction.message.guild) return;
 
-                if (reaction.message.channel.id == channel) {
-                    //* Developer Roles
-                    if (reaction.emoji.name === WebDeveloper) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("784029110513958927");
-                    }
+                //* Developer Roles
+                if (reaction.emoji.name === WebDeveloper) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("784029110513958927");
+                }
 
-                    if (reaction.emoji.name === MobileDeveloper) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811501292799262721");
-                    }
+                if (reaction.emoji.name === MobileDeveloper) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811501292799262721");
+                }
 
-                    if (reaction.emoji.name === PythonDeveloper) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811501116583051274");
-                    }
+                if (reaction.emoji.name === PythonDeveloper) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811501116583051274");
+                }
 
-                    if (reaction.emoji.name === BotDeveloper) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("784029110513958926");
-                    }
+                if (reaction.emoji.name === BotDeveloper) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("784029110513958926");
+                }
 
-                    if (reaction.emoji.name === LibraryDeveloper) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("784029110513958929");
-                    }
+                if (reaction.emoji.name === LibraryDeveloper) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("784029110513958929");
+                }
 
-                    if (reaction.emoji.name === AIDeveloper) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811497482835197953");
-                    }
+                if (reaction.emoji.name === AIDeveloper) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811497482835197953");
+                }
 
-                    if (reaction.emoji.name === GameDeveloper) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("784029110513958930");
-                    }
+                if (reaction.emoji.name === GameDeveloper) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("784029110513958930");
+                }
 
-                    //* Language Roles
+                //* Language Roles
 
-                    if (reaction.emoji.id === HTML) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811503906274279434");
-                    }
+                if (reaction.emoji.id === HTML) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811503906274279434");
+                }
 
-                    if (reaction.emoji.id === CSS) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811504196393500705");
-                    }
+                if (reaction.emoji.id === CSS) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811504196393500705");
+                }
 
-                    if (reaction.emoji.id === Javascript) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811509151497977858");
-                    }
+                if (reaction.emoji.id === Javascript) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811509151497977858");
+                }
 
-                    if (reaction.emoji.id === NodeJS) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811509296176431137");
-                    }
+                if (reaction.emoji.id === NodeJS) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811509296176431137");
+                }
 
-                    if (reaction.emoji.id === Python) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811509238152560660");
-                    }
+                if (reaction.emoji.id === Python) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811509238152560660");
+                }
 
-                    if (reaction.emoji.id === PHP) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811509213096181772");
-                    }
+                if (reaction.emoji.id === PHP) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811509213096181772");
+                }
 
-                    if (reaction.emoji.id === Dart) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811509454108622858");
-                    }
+                if (reaction.emoji.id === Dart) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811509454108622858");
+                }
 
-                    if (reaction.emoji.id === Swift) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811509454159347772");
-                    }
+                if (reaction.emoji.id === Swift) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811509454159347772");
+                }
 
-                    if (reaction.emoji.id === Java) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811509271459659796");
-                    }
+                if (reaction.emoji.id === Java) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811509271459659796");
+                }
 
-                    if (reaction.emoji.id === CPP) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811634758034391041");
-                    }
+                if (reaction.emoji.id === CPP) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811634758034391041");
+                }
 
-                    if (reaction.emoji.id === C) {
-                        await reaction.message.guild.members.cache
-                            .get(user.id)
-                            .roles.add("811634839421059103");
-                    }
-                } else {
-                    return;
+                if (reaction.emoji.id === C) {
+                    await reaction.message.guild.members.cache
+                        .get(user.id)
+                        .roles.add("811634839421059103");
                 }
             } catch (err) {
                 console.error(err);

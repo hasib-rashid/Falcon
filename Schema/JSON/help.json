@@ -1,0 +1,52 @@
+{
+    "General": {
+        "name": "General",
+        "number": "3",
+        "emoji": ":smiley:"
+    },
+    "Games": {
+        "name": "Games",
+        "number": "1",
+        "emoji": ":video_game:"
+    },
+    "Moderation": {
+        "name": "Moderation",
+        "number": "6",
+        "emoji": "<:ban_hammer:809356434885967882>"
+    },
+    "Music": {
+        "name": "Music",
+        "number": "0",
+        "emoji": ":musical_note:"
+    },
+    "Events": {
+        "name": "Events",
+        "number": "0",
+        "emoji": ":checkered_flag:"
+    },
+    "Notify": {
+        "name": "Notify",
+        "number": "0",
+        "emoji": ":speech_left:"
+    },
+    "NSFW": {
+        "name": "NSFW",
+        "number": "1",
+        "emoji": ":underage:"
+    },
+    "MISC": {
+        "name": "MISC",
+        "number": "5",
+        "emoji": ":wrench:"
+    },
+    "Fun": {
+        "name": "Fun",
+        "number": "0",
+        "emoji": ":rofl:"
+    },
+    "Search": {
+        "name": "Search",
+        "number": "1",
+        "emoji": ":mag:"
+    }
+}

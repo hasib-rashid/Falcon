@@ -23,12 +23,14 @@
 	},
 	"homepage": "https://github.com/CodeFictions/CodeVert#readme",
 	"dependencies": {
+		"axios": "^0.21.1",
 		"discord.js": "^12.5.1",
 		"discord.js-commando": "^0.12.2",
 		"dotenv": "^8.2.0",
 		"firebase": "^8.2.7",
 		"firebase-admin": "^9.5.0",
 		"mathjs": "^9.2.0",
+		"node-superfetch": "^0.1.11",
 		"os-utils": "0.0.14"
 	}
 }
