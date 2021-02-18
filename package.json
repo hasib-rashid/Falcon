@@ -27,6 +27,7 @@
 		"discord.js": "^12.5.1",
 		"discord.js-commando": "^0.12.2",
 		"dotenv": "^8.2.0",
+		"enmap": "^5.8.4",
 		"firebase": "^8.2.7",
 		"firebase-admin": "^9.5.0",
 		"mathjs": "^9.2.0",

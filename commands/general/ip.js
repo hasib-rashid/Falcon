@@ -48,19 +48,20 @@ module.exports = class IPCommand extends commando.Command {
                 .setTitle(query)
                 .addField("❯ IP", body.query, true)
                 .addField("❯ Country", body.country || "None", true)
-                .addField("❯ Region", body.regionName, true)
-                .addField("❯ City", body.city || body.region, true)
+                .addField("❯ Region", body.regionName || "None", true)
+                .addField("❯ City", body.city || body.region || "None", true)
                 .addField("❯ Zip Code", body.zip || "None", true)
-                .addField("❯ Timezone", body.timezone, true)
-                .addField("❯ ISP", body.isp, true)
-                .addField("❯ Organization", body.org, true)
+                .addField("❯ Timezone", body.timezone || "None", true)
+                .addField("❯ ISP", body.isp || "None", true)
+                .addField("❯ Organization", body.org || "None", true)
                 .addField("❯ Proxy", "Yes", true);
-            return message.channel.send(embed);
+            message.channel.send(embed);
         } catch (err) {
             if (err.status === "fail")
                 return message.channel.send(
                     ":no_entry: Could not find any results."
                 );
+            console.error(err);
         }
     }
 };
