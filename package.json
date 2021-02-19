@@ -24,6 +24,7 @@
 	"homepage": "https://github.com/CodeFictions/CodeVert#readme",
 	"dependencies": {
 		"axios": "^0.21.1",
+		"colors": "^1.4.0",
 		"discord-canvas": "^1.4.1",
 		"discord.js": "^12.5.1",
 		"discord.js-commando": "^0.12.2",
@@ -34,6 +35,8 @@
 		"firebase-admin": "^9.5.0",
 		"mathjs": "^9.2.0",
 		"node-superfetch": "^0.1.11",
-		"os-utils": "0.0.14"
+		"os-utils": "0.0.14",
+		"request": "^2.88.2",
+		"socks5-http-client": "^1.0.4"
 	}
 }

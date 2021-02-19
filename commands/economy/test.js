@@ -1,3 +1,4 @@
+const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const Canvas = require("discord-canvas");
@@ -22,25 +23,20 @@ module.exports = class SomethingCommand extends commando.Command {
      */
 
     async run(message) {
-        const image = await new Canvas.RankCard()
-            .setAvatar("xixi52")
-            .setXP("current", 500)
-            .setXP("needed", 1000)
-            .setLevel(7)
-            .setRank(2)
-            .setReputation(450)
-            .setRankName("professional")
-            .setUsername("xixi52")
-            .setBadge(1, "gold")
-            .setBadge(3, "diamond")
-            .setBadge(5, "silver")
-            .setBadge(6, "bronze")
-            .setBackground("https://www.site.com/background.jpg")
+        const image = await new Canvas.Welcome()
+            .setUsername(message.author.username)
+            .setDiscriminator(message.author.discriminator)
+            .setMemberCount("140")
+            .setGuildName(message.guild.name)
+            .setAvatar(message.author.avatarURL({ format: "png" }))
+            .setBackground(
+                "https://images.unsplash.com/photo-1507149677524-254e3ebb240f?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1051&q=80"
+            )
             .toAttachment();
 
         const attachment = new Discord.MessageAttachment(
             image.toBuffer(),
-            "rank-card.png"
+            "goodbye-image.png"
         );
 
         message.channel.send(attachment);

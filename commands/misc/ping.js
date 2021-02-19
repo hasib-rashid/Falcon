@@ -23,6 +23,19 @@ module.exports = class PingCommand extends commando.Command {
     }
 
     async run(message) {
-        message.channel.send("Pong");
+        message.channel.send("Loading data! :thinking:").then(async (msg) => {
+            const pingEmbed = new Discord.MessageEmbed()
+                .setTitle("Ping")
+                .setAuthor(`Requested by ${message.author.tag}`)
+                .setDescription(
+                    `🏓 Pong! Your Latency is ${
+                        msg.createdTimestamp - message.createdTimestamp
+                    }ms and API Latency is ${Math.round(
+                        this.client.ws.ping
+                    )} ms!`
+                );
+
+            message.channel.send(pingEmbed);
+        });
     }
 };
