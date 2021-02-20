@@ -23,6 +23,9 @@ module.exports = class ReactionRoleCommand extends commando.Command {
      */
 
     async run(message) {
+        if (!message.member.hasPermission("KICK_MEMBERS"))
+            return message.channel.send(":no_entry: Insufficient permissions");
+
         const channel = "810921429671477249";
 
         //* Developer Roles
