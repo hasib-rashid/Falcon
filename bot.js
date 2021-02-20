@@ -1,9 +1,11 @@
 require("dotenv").config();
 
-const { CommandoClient } = require("discord.js-commando");
+const { CommandoClient, CommandoMessage } = require("discord.js-commando");
 const path = require("path");
 const Canvas = require("discord-canvas");
 const { ReactionRoleManager } = require("discord.js-collector");
+let ticketeasy = require("ticket.easy");
+const ticket = new ticketeasy();
 
 const client = new CommandoClient({
     commandPrefix: process.env.PREFIX,
@@ -121,6 +123,29 @@ client.on("message", async (message) => {
                 .then((m) => m.delete({ timeout: 1000 }));
 
         await reactionRoleManager.deleteReactionRole({ message: msg, emoji });
+    }
+});
+
+client.on("messageReactionAdd", async (reaction, user, msg) => {
+    if (user.partial) await user.fetch();
+    if (reaction.partial) await reaction.fetch();
+    if (reaction.message.partial) await reaction.message.fetch();
+    if (user.bot) return;
+
+    if (
+        reaction.message.id == "812589352454455336" &&
+        reaction.emoji.name == "🎫"
+    ) {
+        reaction.users.remove(user);
+
+        ticket.createTicket({
+            message: reaction.message, //The way you defined message in the message event
+            supportRole: "812572216960483338", //Support role, can be an ID and the role name
+            ticketMessage: `<@${user.id}> created a ticket. Please wait for the <@&812572216960483338> to respond. Response will be there within 12 hours.`, //The message it will send in the ticket || Optional
+            ticketTopic: user.tag, //The channel topic || Optional
+            ticketParent: "812591005260840990", //Must be a category, can be an ID and a name || Optional
+            ticketName: `ticket-${user.id}`, //This will be the ticket name || Optional
+        });
     }
 });
 
