@@ -24,6 +24,10 @@ module.exports = class TicketCloseCommand extends commando.Command {
      */
 
     async run(message) {
+        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.channel.send(":no_entry: Insufficient Permissions");
+        }
+
         if (message.channel.name.includes("make-"))
             return message.channel.send("You cannot use that here!");
         let channel = message.channel;
@@ -60,65 +64,5 @@ module.exports = class TicketCloseCommand extends commando.Command {
         setTimeout(function () {
             message.channel.delete();
         }, 10000);
-
-        this.client.on(
-            "messageReactionAdd",
-            async (reaction, user, message) => {
-                if (user.partial) await user.fetch();
-                if (reaction.partial) await reaction.fetch();
-                if (reaction.message.partial) await reaction.message.fetch();
-                if (user.bot) return;
-
-                let ticketid = await settings.get(
-                    `${reaction.message.guild.id}-ticket`
-                );
-
-                if (!ticketid) return;
-
-                if (
-                    reaction.message.id == ticketid &&
-                    reaction.emoji.name == "🎫"
-                ) {
-                    reaction.users.remove(user);
-
-                    reaction.message.guild.channels
-                        .create(`ticket-${user.username}`, {
-                            permissionOverwrites: [
-                                {
-                                    id: user.id,
-                                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL"],
-                                },
-                                {
-                                    id: reaction.message.guild.roles.everyone,
-                                    deny: ["VIEW_CHANNEL"],
-                                },
-                                {
-                                    id: reaction.message.guild.roles.cache.find(
-                                        (role) => role.name === "Patrol"
-                                    ),
-                                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL"],
-                                },
-                            ],
-                            type: "text",
-                        })
-                        .then(async (channel) => {
-                            channel.send(
-                                `<@${user.id}>`,
-                                new Discord.MessageEmbed()
-                                    .setTitle("Welcome to your ticket!")
-                                    .setDescription(
-                                        "Support Team will be with you shortly"
-                                    )
-                                    .setColor("RANDOM")
-                                    .addField(
-                                        "**Links**",
-                                        "**[Invite Me](https://discord.com/oauth2/authorize?client_id=745926398212046878&scope=bot&permissions=8) | " +
-                                            "[Support Server](https://invite.gg/blacksheep)** | "
-                                    )
-                            );
-                        });
-                }
-            }
-        );
     }
 };

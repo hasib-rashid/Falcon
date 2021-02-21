@@ -94,19 +94,21 @@ module.exports = class HelpCommand extends commando.Command {
             }
 
             if (helpArgs === "moderation") {
-                return message.channel.send("Help Moderation");
+                return message.channel.send("Coming Soon!");
             }
 
             if (helpArgs === "music") {
-                return message.channel.send("Help Music");
+                return message.channel.send("These helps are coming soon");
             }
 
             if (helpArgs === "events") {
-                return message.channel.send("Help Events");
+                return message.channel.send("These helps are coming soon");
             }
 
             if (helpArgs === "notify") {
-                return message.channel.send("Help Notify");
+                return message.channel.send(
+                    "These features will be added soon"
+                );
             }
 
             if (helpArgs === "nsfw") {

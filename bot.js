@@ -1,8 +1,9 @@
 require("dotenv").config();
 
-const { CommandoClient, CommandoMessage } = require("discord.js-commando");
-const path = require("path");
+const { CommandoClient } = require("discord.js-commando");
+const Discord = require("discord.js");
 const Canvas = require("discord-canvas");
+const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
 let ticketeasy = require("ticket.easy");
 const ticket = new ticketeasy();
@@ -138,14 +139,50 @@ client.on("messageReactionAdd", async (reaction, user, msg) => {
     ) {
         reaction.users.remove(user);
 
+        const supportRoleID = "812572216960483338";
         ticket.createTicket({
             message: reaction.message, //The way you defined message in the message event
-            supportRole: "812572216960483338", //Support role, can be an ID and the role name
-            ticketMessage: `<@${user.id}> created a ticket. Please wait for the <@&812572216960483338> to respond. Response will be there within 12 hours.`, //The message it will send in the ticket || Optional
+            supportRole: supportRoleID, //Support role, can be an ID and the role name
+            ticketMessage: `<@${user.id}> created a ticket. Please wait for the <@${supportRoleID}> to respond. Response will be there within 12 hours.`, //The message it will send in the ticket || Optional
             ticketTopic: user.tag, //The channel topic || Optional
             ticketParent: "812591005260840990", //Must be a category, can be an ID and a name || Optional
             ticketName: `ticket-${user.id}`, //This will be the ticket name || Optional
         });
+    }
+});
+
+client.on("guildMemberAdd", async (member) => {
+    try {
+        const channel = member.guild.channels.cache.find(
+            (ch) => ch.name === "welcome"
+        );
+        if (!channel) return;
+
+        const image = await new Canvas.Goodbye()
+            .setUsername("xixi52")
+            .setDiscriminator("0001")
+            .setMemberCount("140")
+            .setGuildName("Server DEV")
+            .setAvatar(member.user.avatarURL())
+            .setColor("border", "#8015EA")
+            .setColor("username-box", "#8015EA")
+            .setColor("discriminator-box", "#8015EA")
+            .setColor("message-box", "#8015EA")
+            .setColor("title", "#8015EA")
+            .setColor("avatar", "#8015EA")
+            .setBackground(
+                "https://images.unsplash.com/photo-1513165533842-2a0dd8b51a74?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80g"
+            )
+            .toAttachment();
+
+        const attachment = new Discord.MessageAttachment(
+            image.toBuffer(),
+            "goodbye-image.png"
+        );
+
+        channel.send("", attachment);
+    } catch (err) {
+        console.error(err);
     }
 });
 
