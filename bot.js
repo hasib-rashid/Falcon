@@ -197,6 +197,51 @@ client.on("guildMemberAdd", async (member) => {
     }
 });
 
+client.on("guildMemberRemove", async (member) => {
+    try {
+        const channel = member.guild.channels.cache.find(
+            (ch) => ch.name === "joins-and-leaves"
+        );
+        const welcome = new canvas.Goodbye();
+        const image = await welcome
+            .setUsername(member.user.username)
+            .setDiscriminator(member.user.discriminator)
+            .setMemberCount(member.guild.memberCount)
+            .setGuildName(member.guild.name)
+            .setAvatar(
+                member.user.displayAvatarURL({
+                    format: "png",
+                    dynamic: false,
+                    size: 4096,
+                })
+            )
+            .setColor("title", "#FFFFFF")
+            .setColor("title-border", "#000")
+            .setColor("avatar", "#000000")
+            .setColor("border", "#000")
+            .setColor("username-box", "#000")
+            .setColor("username", "#FFFFFF")
+            .setColor("hashtag", "#FFFFFF")
+            .setColor("discriminator", "#FFFFFF")
+            .setColor("discriminator-box", "#000")
+            .setColor("message", "#FFFFFF")
+            .setColor("message-box", "#000")
+            .setColor("member-count", "#FFFFFF")
+            .setColor("border", "#000000")
+            .setBackground("https://wallpaperaccess.com//full/19811.jpg")
+            .setText("title", "GOODBYE")
+            .setText("message", member.guild.name)
+            .toAttachment();
+        let attachment = new Discord.MessageAttachment(
+            image.toBuffer(),
+            "goodbye.png"
+        );
+        channel.send(attachment);
+    } catch (err) {
+        console.error(err);
+    }
+});
+
 client.on("error", console.error);
 
 client.login(process.env.TOKEN);
