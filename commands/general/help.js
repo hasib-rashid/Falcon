@@ -84,10 +84,16 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle(":video_game: Games")
-                    .addFields({
-                        name: "RPS",
-                        value: "Play Rock Paper Scissor here!",
-                    })
+                    .addFields(
+                        {
+                            name: "RPS",
+                            value: "Play Rock Paper Scissor here!",
+                        },
+                        {
+                            name: "Akinator",
+                            value: "Play Akinator here! start the aki command!",
+                        }
+                    )
                     .setColor("RANDOM");
 
                 message.channel.send(embed);
