@@ -14,7 +14,7 @@ const {
     MISC,
     Fun,
     Search,
-} = require("../../JSON/help.json");
+} = require("../../assets/JSON/help.json");
 
 module.exports = class HelpCommand extends commando.Command {
     constructor(client) {
