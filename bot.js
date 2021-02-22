@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const { CommandoClient } = require("discord.js-commando");
 const Discord = require("discord.js");
-const Canvas = require("discord-canvas");
+const canvas = require("discord-canvas");
 const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
 let ticketeasy = require("ticket.easy");
@@ -154,33 +154,44 @@ client.on("messageReactionAdd", async (reaction, user, msg) => {
 client.on("guildMemberAdd", async (member) => {
     try {
         const channel = member.guild.channels.cache.find(
-            (ch) => ch.name === "welcome"
+            (ch) => ch.name === "joins-and-leaves"
         );
-        if (!channel) return;
-
-        const image = await new Canvas.Goodbye()
-            .setUsername("xixi52")
-            .setDiscriminator("0001")
-            .setMemberCount("140")
-            .setGuildName("Server DEV")
-            .setAvatar(member.user.avatarURL())
-            .setColor("border", "#8015EA")
-            .setColor("username-box", "#8015EA")
-            .setColor("discriminator-box", "#8015EA")
-            .setColor("message-box", "#8015EA")
-            .setColor("title", "#8015EA")
-            .setColor("avatar", "#8015EA")
-            .setBackground(
-                "https://images.unsplash.com/photo-1513165533842-2a0dd8b51a74?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80g"
+        const welcome = new canvas.Welcome();
+        const image = await welcome
+            .setUsername(member.user.username)
+            .setDiscriminator(member.user.discriminator)
+            .setMemberCount(member.guild.memberCount)
+            .setGuildName(member.guild.name)
+            .setAvatar(
+                member.user.displayAvatarURL({
+                    format: "png",
+                    dynamic: false,
+                    size: 4096,
+                })
             )
+            .setColor("title", "#FFFFFF")
+            .setColor("title-border", "#000")
+            .setColor("avatar", "#000000")
+            .setColor("border", "#000")
+            .setColor("username-box", "#000")
+            .setColor("username", "#FFFFFF")
+            .setColor("hashtag", "#FFFFFF")
+            .setColor("discriminator", "#FFFFFF")
+            .setColor("discriminator-box", "#000")
+            .setColor("message", "#FFFFFF")
+            .setColor("message-box", "#000")
+            .setColor("member-count", "#FFFFFF")
+            .setColor("border", "#000000")
+            .setBackground("https://wallpaperaccess.com//full/19811.jpg")
+            .setText("title", "WELCOME")
+            .setText("message", member.guild.name)
+            .setText("member-count", `-${member.guild.memberCount} Member!`)
             .toAttachment();
-
-        const attachment = new Discord.MessageAttachment(
+        let attachment = new Discord.MessageAttachment(
             image.toBuffer(),
-            "goodbye-image.png"
+            "welcome.png"
         );
-
-        channel.send("", attachment);
+        channel.send(attachment);
     } catch (err) {
         console.error(err);
     }
