@@ -50,11 +50,11 @@ module.exports = class HelpCommand extends commando.Command {
                     .setTitle(":smiley: General")
                     .addFields(
                         {
-                            name: "avatar",
+                            name: "Avatar",
                             value: "Searches the Avatar of the you want!",
                         },
                         {
-                            name: "invite",
+                            name: "Invite",
                             value: "Finds the Invite link for the server",
                         },
                         {
@@ -120,7 +120,19 @@ module.exports = class HelpCommand extends commando.Command {
             }
 
             if (helpArgs === "fun") {
-                return message.channel.send("Help Fun");
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.avatarURL()
+                    )
+                    .setTitle(":rofl: Fun")
+                    .setColor("GREEN")
+                    .addFields({
+                        name: "8ball",
+                        value: "8ball is here to answer your question!",
+                    });
+
+                message.channel.send(embed);
             }
 
             if (helpArgs === "search") {
@@ -188,7 +200,7 @@ module.exports = class HelpCommand extends commando.Command {
                         `\`${Search.number}\``,
                         true
                     )
-                    .setColor("RANDOM")
+                    .setColor("GREEN")
                     .setFooter("Commands: 158");
 
                 return message.channel.send(embed);
