@@ -74,13 +74,31 @@ module.exports = class AkinatorCommand extends commando.Command {
                         answer.toLowerCase()
                     );
                     answers.push("end");
+
+                    const embed = new Discord.MessageEmbed()
+                        .setAuthor(
+                            message.author.username,
+                            message.author.avatarURL()
+                        )
+                        .setColor("GREEN")
+                        .setTitle(
+                            `Akinator: **${aki.currentStep + 1}.** ${
+                                aki.question
+                            } (${Math.round(
+                                Number.parseInt(aki.progress, 10)
+                            )}%)`
+                        )
+                        .setDescription(
+                            `${aki.answers.join(" | ")}${
+                                aki.currentStep > 0 ? ` | Back` : ""
+                            } | End`
+                        )
+                        .setFooter("Akinator by CodeVert");
+
                     if (aki.currentStep > 0) answers.push("back");
-                    await message.say(stripIndents`
-					**${aki.currentStep + 1}.** ${aki.question} (${Math.round(
-                        Number.parseInt(aki.progress, 10)
-                    )}%)
-					${aki.answers.join(" | ")}${aki.currentStep > 0 ? ` | Back` : ""} | End
-				`);
+
+                    await message.channel.send(embed);
+
                     const filter = (res) =>
                         res.author.id === message.author.id &&
                         answers.includes(res.content.toLowerCase());
@@ -118,7 +136,7 @@ module.exports = class AkinatorCommand extends commando.Command {
                         }
                         guessBlacklist.push(guess.id);
                         const embed = new Discord.MessageEmbed()
-                            .setColor(0xf78b26)
+                            .setColor("GREEN")
                             .setTitle(
                                 `I'm ${Math.round(
                                     guess.proba * 100
@@ -130,7 +148,7 @@ module.exports = class AkinatorCommand extends commando.Command {
 							_**Type [y]es or [n]o to continue.**_
 						`
                             )
-                            .setThumbnail(guess.absolute_picture_path || null)
+                            .setImage(guess.absolute_picture_path || null)
                             .setFooter(
                                 forceGuess
                                     ? "Final Guess"
