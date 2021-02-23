@@ -54,7 +54,7 @@ module.exports = class WikipediaCommand extends commando.Command {
                     formatversion: 2,
                 });
             const data = body.query.pages[0];
-            console.log(data);
+
             if (data.missing) return message.say("Could not find any results.");
             const embed = new Discord.MessageEmbed()
                 .setColor(0xe7e7e7)
@@ -65,7 +65,10 @@ module.exports = class WikipediaCommand extends commando.Command {
                     "https://www.wikipedia.org/"
                 )
                 .setThumbnail(data.thumbnail ? data.thumbnail.source : null)
-                .setURL(`https://en.wikipedia.org/wiki/${query}`)
+                .setURL(
+                    `https://en.wikipedia.org/wiki/${query}` ||
+                        `https://en.wikipedia.org/404`
+                )
                 .setDescription(shorten(data.extract));
             return message.embed(embed);
         } catch (err) {
