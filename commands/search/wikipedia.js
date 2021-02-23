@@ -65,10 +65,7 @@ module.exports = class WikipediaCommand extends commando.Command {
                     "https://www.wikipedia.org/"
                 )
                 .setThumbnail(data.thumbnail ? data.thumbnail.source : null)
-                .setURL(
-                    `https://en.wikipedia.org/wiki/${query}` ||
-                        `https://en.wikipedia.org/404`
-                )
+                .setURL(`https://en.wikipedia.org/wiki/${query}` ? null : null)
                 .setDescription(shorten(data.extract));
             return message.embed(embed);
         } catch (err) {
