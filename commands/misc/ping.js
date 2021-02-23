@@ -35,6 +35,12 @@ module.exports = class PingCommand extends commando.Command {
                     )} ms!`
                 );
 
+            if (this.client.ws.ping < "120") pingEmbed.setColor("GREEN");
+
+            if (this.client.ws.ping < "500") pingEmbed.setColor("ORANGE");
+
+            if (this.client.ws.ping > "500") pingEmbed.setColor("RED");
+
             message.channel.send(pingEmbed);
         });
     }
