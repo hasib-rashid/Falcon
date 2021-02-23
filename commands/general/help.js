@@ -94,13 +94,72 @@ module.exports = class HelpCommand extends commando.Command {
                             value: "Play Akinator here! start the aki command!",
                         }
                     )
-                    .setColor("RANDOM");
+                    .setColor("GREEN");
 
                 message.channel.send(embed);
             }
 
             if (helpArgs === "moderation") {
-                return message.channel.send("Coming Soon!");
+                let embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.avatarURL()
+                    )
+                    .setTitle("<:ban_hammer:809356434885967882> Moderation")
+                    .addFields(
+                        {
+                            name: "ban",
+                            value: "Ban Someone using this command",
+                        },
+                        {
+                            name: "unban",
+                            value: "Unan Someone using this command",
+                        },
+                        {
+                            name: "kick",
+                            value: "Kick Someone using this command",
+                        },
+                        {
+                            name: "add-role",
+                            value: "Unan Someone using this command",
+                        },
+                        {
+                            name: "remove-role",
+                            value: "Unban Someone using this command",
+                        },
+                        {
+                            name: "purge",
+                            value:
+                                "Purge or delete some messages with this command",
+                        },
+                        {
+                            name: "nuke",
+                            value:
+                                "Nuke the current channel which clears all the messages in the channel",
+                        },
+                        {
+                            name: "giveaway",
+                            value: "Do a giveaway with this command",
+                        },
+                        {
+                            name: "slowmode",
+                            value:
+                                "Set the slowmode of the current channel with this command",
+                        },
+                        {
+                            name: "ticket-setup",
+                            value:
+                                "Setup a channel for a ticket. Start with `!ticket-setup <channel_name>`",
+                        },
+                        {
+                            name: "ticket-close",
+                            value:
+                                "Close a ticket with this command after work is done",
+                        }
+                    )
+                    .setColor("GREEN");
+
+                message.channel.send(embed);
             }
 
             if (helpArgs === "music") {
