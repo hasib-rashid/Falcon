@@ -60,4 +60,11 @@ module.exports = class Util {
             len > 1 ? `${len > 2 ? "," : ""} ${conj} ` : ""
         }${arr.slice(-1)}`;
     }
+
+    static formatNumber(number, minimumFractionDigits = 0) {
+        return Number.parseFloat(number).toLocaleString(undefined, {
+            minimumFractionDigits,
+            maximumFractionDigits: 2,
+        });
+    }
 };
