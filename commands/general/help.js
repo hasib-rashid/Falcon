@@ -201,7 +201,45 @@ module.exports = class HelpCommand extends commando.Command {
             }
 
             if (helpArgs === "search") {
-                return message.channel.send("Help Search");
+                let embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.avatarURL()
+                    )
+                    .setTitle(":mag_right: Search")
+                    .addFields(
+                        {
+                            name: "country",
+                            value:
+                                "Search about any country suing this command",
+                        },
+                        {
+                            name: "github",
+                            value: "Watch what is at github right now",
+                        },
+                        { name: "google", value: "Google something here!" },
+                        {
+                            name: "npm",
+                            value: "Search for any npm package over here",
+                        },
+                        {
+                            name: "urban",
+                            value:
+                                "Search any words from the dictionary easily",
+                        },
+                        {
+                            name: "weather",
+                            value:
+                                "Search the Weather from anywhere and check the weather",
+                        },
+                        {
+                            name: "wikipedia / wiki",
+                            value: "Search Wikipedia with this command",
+                        }
+                    )
+                    .setColor("GREEN");
+
+                message.embed(embed);
             }
 
             if (!helpArgs) {
