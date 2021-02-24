@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const request = require("node-superfetch");
@@ -53,9 +54,10 @@ module.exports = class WeatherCommand extends commando.Command {
                     q: location.type === "q" ? location.data : "",
                     zip: location.type === "zip" ? location.data : "",
                     units: "imperial",
-                    appid: process.env.WEATHER_API,
+                    appid: process.env.WEATHER_API_KEY,
                 });
-            const embed = new MessageEmbed()
+
+            const embed = new Discord.MessageEmbed()
                 .setColor(0xff7a09)
                 .setAuthor(
                     `${body.name}, ${body.sys.country}`,
