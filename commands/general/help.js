@@ -218,6 +218,10 @@ module.exports = class HelpCommand extends commando.Command {
                                 "Search about any country suing this command",
                         },
                         {
+                            name: "giphy",
+                            value: "Search a GIF with this command with Giphy!",
+                        },
+                        {
                             name: "github",
                             value: "Watch what is at github right now",
                         },
