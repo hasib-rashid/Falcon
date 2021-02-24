@@ -69,16 +69,20 @@ module.exports = class BookCommand extends commando.Command {
                 .setThumbnail(
                     data.imageLinks ? data.imageLinks.thumbnail : null
                 )
-                .addField(
-                    "❯ Authors",
-                    data.authors.length ? data.authors.join(", ") : "???"
-                )
+                .addField("❯ Publisher", data.publisher)
                 .addField("❯ Publish Date", data.publishedDate || "???", true)
                 .addField(
                     "❯ Page Count",
                     data.pageCount ? formatNumber(data.pageCount) : "???",
                     true
                 );
+
+            if (data.authors) {
+                embed.addField(
+                    "❯ Authors",
+                    data.authors.length ? data.authors.join(", ") : "???"
+                );
+            }
             return message.embed(embed);
         } catch (err) {
             console.error(err);
