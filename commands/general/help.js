@@ -209,6 +209,10 @@ module.exports = class HelpCommand extends commando.Command {
                     .setTitle(":mag_right: Search")
                     .addFields(
                         {
+                            name: "book",
+                            value: "Searches Google Books for a book.",
+                        },
+                        {
                             name: "country",
                             value:
                                 "Search about any country suing this command",
@@ -237,7 +241,7 @@ module.exports = class HelpCommand extends commando.Command {
                             value: "Search Wikipedia with this command",
                         }
                     )
-                    .setColor("GREEN");
+                    .setColor(0x4285f4);
 
                 message.embed(embed);
             }
