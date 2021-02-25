@@ -1,3 +1,4 @@
+const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const request = require("node-superfetch");
@@ -27,7 +28,14 @@ module.exports = class PuppyCommand extends commando.Command {
                 "https://dog.ceo/api/breeds/image/random"
             );
 
-            message.channel.send(body.message);
+            let embed = new Discord.MessageEmbed()
+                .setAuthor(message.author.username, message.author.avatarURL())
+                .setTitle("Puppy!")
+                .setDescription("Here's your random puppy!")
+                .setColor("BLUE")
+                .setImage(body.message);
+
+            message.channel.send(embed);
         } catch (err) {
             console.error(err);
         }
