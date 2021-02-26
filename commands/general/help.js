@@ -312,7 +312,9 @@ module.exports = class HelpCommand extends commando.Command {
                         true
                     )
                     .setColor("GREEN")
-                    .setFooter("Commands: 158");
+                    .setFooter(
+                        `Commands: ${this.client.registry.commands.size}`
+                    );
 
                 return message.channel.send(embed);
             }

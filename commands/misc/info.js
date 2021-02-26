@@ -31,10 +31,9 @@ module.exports = class InfoCommand extends commando.Command {
     /**
      *
      * @param {commando.CommandoMessage} message
-     * @param {commando.CommandoClient} client
      */
 
-    async run(message, client) {
+    async run(message) {
         try {
             const embed = new MessageEmbed()
                 .setColor("GREEN")
@@ -47,6 +46,7 @@ module.exports = class InfoCommand extends commando.Command {
                 )
                 .setColor("GREEN")
                 .setFooter(copyright.join("\n"))
+                .addField("❯ Owner", "TheMegaWarrior#3647", true)
                 .addField(
                     "❯ Servers",
                     formatNumber(this.client.guilds.cache.size),
@@ -64,20 +64,15 @@ module.exports = class InfoCommand extends commando.Command {
                 )
                 .addField(
                     "❯ Home Server",
-                    this.client.options.invite
-                        ? embedURL("Invite", this.client.options.invite)
-                        : "None",
+                    "[CodeFiction](https://discord.gg/KbfyRFtGcD)",
                     true
                 )
-                .addField("❯ Invite", "N/A", true)
-                .addField("❯ Source Code", "N/A", true)
                 .addField(
-                    "❯ Memory Usage",
-                    `${Math.round(
-                        process.memoryUsage().heapUsed / 1024 / 1024
-                    )}MB`,
+                    "❯ Invite",
+                    "[Invite CodeVert](https://discord.com/api/oauth2/authorize?client_id=799543154692718602&permissions=8&scope=bot)",
                     true
                 )
+                .addField("❯ Source Code", "N/A", true)
                 .addField(
                     "❯ Uptime",
                     moment.duration(this.client.uptime).format("d:hh:mm:ss"),

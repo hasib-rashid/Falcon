@@ -155,6 +155,9 @@ client.on("guildMemberAdd", async (member) => {
     const channel = member.guild.channels.cache.find(
         (ch) => ch.name === "joins-and-leaves"
     );
+
+    if (!channel) return;
+
     const welcome = new canvas.Welcome();
     const image = await welcome
         .setUsername(member.user.username)
