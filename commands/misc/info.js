@@ -45,7 +45,7 @@ module.exports = class InfoCommand extends commando.Command {
                 .setDescription(
                     "Thanks for using CodeVert! This bot is to make your life simple and fun! Enjoy the many features CodeVert has to offer like Moderating, Music, Games, Events, and more!"
                 )
-                .setColor(0x00ae86)
+                .setColor("GREEN")
                 .setFooter(copyright.join("\n"))
                 .addField(
                     "❯ Servers",
