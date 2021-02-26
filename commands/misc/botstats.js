@@ -62,7 +62,7 @@ module.exports = class BotStatsCommand extends commando.Command {
                     },
                     {
                         name: "Number Of CPU",
-                        value: "Number of CPU's " + osutils.cpuCount(),
+                        value: "Number of CPU's: " + osutils.cpuCount(),
                     },
                     {
                         name: "Load Average",
@@ -95,7 +95,8 @@ module.exports = class BotStatsCommand extends commando.Command {
                         name: "CPU Usage",
                         value: "CPU Usage: " + "14.549609 MB",
                     }
-                );
+                )
+                .setColor("BLUE");
 
             return message.channel.send(embed);
         } catch (err) {

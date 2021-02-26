@@ -35,6 +35,7 @@
 		"enmap": "^5.8.4",
 		"mathjs": "^9.2.0",
 		"moment": "^2.29.1",
+		"moment-duration-format": "^2.3.2",
 		"mongoose": "^5.11.15",
 		"node-superfetch": "^0.1.11",
 		"os-utils": "0.0.14",
