@@ -72,7 +72,7 @@ module.exports = class HelpCommand extends commando.Command {
                             value: "Get a Random fact with this command!",
                         }
                     )
-                    .setColor("RANDOM");
+                    .setColor("GREEN");
 
                 message.channel.send(embed);
             }
@@ -177,11 +177,11 @@ module.exports = class HelpCommand extends commando.Command {
             }
 
             if (helpArgs === "nsfw") {
-                return message.channel.send("Help NSFW");
+                return message.channel.send("These helps are coming soon");
             }
 
             if (helpArgs === "misc") {
-                return message.channel.send("Help MISC");
+                return message.channel.send("These helps are coming soon");
             }
 
             if (helpArgs === "fun") {

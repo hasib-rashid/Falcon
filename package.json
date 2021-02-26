@@ -3,6 +3,9 @@
 	"version": "1.0.0",
 	"description": "A Mordern Discord Utility Bot",
 	"main": "bot.js",
+	"engines": {
+		"node": "14.x"
+	},
 	"scripts": {
 		"dev": "nodemon bot"
 	},
