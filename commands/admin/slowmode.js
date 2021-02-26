@@ -13,6 +13,7 @@ module.exports = class SlowmodeCommand extends commando.Command {
             details: oneLine`
                 Initiates slowmode for a channel
             `,
+            clientPermissions: ["MANAGE_CHANNELS"],
             examples: ["!slowmode <time>"],
             args: [
                 {

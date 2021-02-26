@@ -13,6 +13,7 @@ module.exports = class TicketSetupCommand extends commando.Command {
             details: oneLine`
                 Setup your ticket with this command
             `,
+            clientPermissions: ["MANAGE_CHANNELS"],
             examples: ["!ticket-setup <channel>"],
         });
     }

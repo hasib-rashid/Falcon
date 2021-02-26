@@ -15,6 +15,7 @@ module.exports = class GiveawayCommand extends commando.Command {
                 Giveaway anything in the right way using this command
             `,
             examples: ["!giveaway 10d Nitro $9.99"],
+            clientPermissions: ["MANAGE_CHANNELS"]
         });
     }
 

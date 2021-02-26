@@ -8,6 +8,7 @@ module.exports = class NukeCommand extends commando.Command {
             aliases: [],
             group: "moderation",
             memberName: "nuke",
+            clientPermissions: ["MANAGE_CHANNELS"],
             description: "Nuking the channel for a full fresh channel!",
             details: oneLine`
                 Nuking the channel for a full fresh channel!

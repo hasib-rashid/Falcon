@@ -13,6 +13,7 @@ module.exports = class RemoveRoleCommand extends commando.Command {
             details: oneLine`
                 Remove a role from a user with a command only!
             `,
+            clientPermissions: ["MANAGE_ROLES"],
             examples: ["!removerole <member> <role>"],
             args: [
                 {

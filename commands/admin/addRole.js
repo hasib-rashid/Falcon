@@ -14,6 +14,7 @@ module.exports = class AddRoleCommand extends commando.Command {
                 Add a role for a person with this command
             `,
             examples: ["!addrole <member> <name_of_role>"],
+            clientPermissions: ["MANAGE_ROLES"],
             args: [
                 {
                     key: "user",
