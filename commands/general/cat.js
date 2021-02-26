@@ -28,8 +28,6 @@ module.exports = class CatCommand extends commando.Command {
                 "https://api.thecatapi.com/v1/images/search"
             );
 
-            console.log(body[0].url);
-
             let embed = new Discord.MessageEmbed()
                 .setAuthor(message.author.username, message.author.avatarURL())
                 .setTitle("Cat!")
