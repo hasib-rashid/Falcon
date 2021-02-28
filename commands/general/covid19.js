@@ -16,6 +16,7 @@ module.exports = class Covid19Command extends commando.Command {
                 Search for Covid 19 Info
             `,
             examples: ["!covid19 <country>"],
+            clientPermissions: ["EMBED_LINKS"],
         });
     }
 
