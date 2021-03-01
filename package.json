@@ -39,6 +39,7 @@
 		"dotenv": "^8.2.0",
 		"enmap": "^5.8.4",
 		"ffmpeg-static": "^4.2.7",
+		"genius-lyrics-api": "^3.0.6",
 		"mathjs": "^9.2.0",
 		"moment": "^2.29.1",
 		"moment-duration-format": "^2.3.2",
