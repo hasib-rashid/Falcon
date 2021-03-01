@@ -24,6 +24,8 @@ module.exports = class CodeRadioCommand extends commando.Command {
      */
 
     async run(message) {
+        let connectionDispatcher;
+
         try {
             const cmd = message.content.split(" ").slice(1);
             const voiceChannel = message.member.voice.channel;
@@ -33,8 +35,6 @@ module.exports = class CodeRadioCommand extends commando.Command {
                     ":no_entry: Use a valid music command from the help menu."
                 );
             }
-
-            let connectionDispatcher;
 
             if (cmd == "start") {
                 if (!voiceChannel) {
