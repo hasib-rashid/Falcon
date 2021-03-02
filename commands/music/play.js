@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const DisTube = require("distube");
+const { formatNumber } = require("../../util/Util");
 
 const client = new commando.Client();
 
@@ -63,10 +64,10 @@ const filters = [
 module.exports = class PlayCommand extends commando.Command {
     constructor(client) {
         super(client, {
-            name: "search",
+            name: "play",
             aliases: [],
             group: "music",
-            memberName: "search",
+            memberName: "play",
             description: "Play a music here!",
             details: oneLine`
                 Search a music here!
@@ -95,30 +96,6 @@ module.exports = class PlayCommand extends commando.Command {
             );
 
             distube.play(message, query);
-
-            function embedbuilder(title, description, thumbnail) {
-                try {
-                    let embed = new Discord.MessageEmbed()
-                        .setColor(color)
-                        .setAuthor(
-                            message.author.tag,
-                            message.member.user.displayAvatarURL({
-                                dynamic: true,
-                            }),
-                            "https://harmonymusic.tk"
-                        )
-                        .setFooter(
-                            client.user.username,
-                            client.user.displayAvatarURL()
-                        );
-                    if (title) embed.setTitle(title);
-                    if (description) embed.setDescription(description);
-                    if (thumbnail) embed.setThumbnail(thumbnail);
-                    return message.channel.send(embed);
-                } catch (error) {
-                    console.error;
-                }
-            }
         } catch (err) {
             console.error(err);
         }
@@ -138,49 +115,35 @@ const status = (queue) =>
 
 distube
     .on("playSong", async (message, queue, song) => {
+        const voiceChannelName = message.member.voice.channel.name;
         try {
             let embed1 = new Discord.MessageEmbed()
 
                 .setColor("GREEN")
-                .setTitle("Playing Song!")
-                .setDescription(
-                    `<:YouTube:801465200775135282> **[${song.name}](${song.url})** \n\n **Requested By: <@${message.author.id}>** \n`
-                )
-                .addField(
-                    "⏱ Duration:",
-                    `${queue.formattedCurrentTime} / ${song.formattedDuration}`,
-                    true
-                )
-                .addField(
-                    "🌀 Queue:",
-                    `${queue.songs.length} song(s) - ${queue.formattedDuration}`,
-                    true
-                )
-                .addField("🔊 Volume:", `${queue.volume} %`, true)
-                .addField(
-                    "♾ Loop:",
-                    `  ${
-                        queue.repeatMode
-                            ? queue.repeatMode === 2
-                                ? "✅ Queue"
-                                : "✅ Song"
-                            : "❌"
-                    }`,
-                    true
-                )
-                .addField(
-                    "↪️ Autoplay:",
-                    `${queue.autoplay ? "✅" : "❌"}`,
-                    true
-                )
-                .addField("❔ Filter:", `${queue.filter || "❌"}`, true)
-                .setFooter("CodeVert")
                 .setAuthor(
-                    message.author.tag,
-                    message.member.user.displayAvatarURL({
-                        dynamic: true,
-                    })
+                    message.author.username,
+                    message.author.displayAvatarURL()
                 )
+                .setTitle(
+                    `<:Disc:816225417982771201> Playing in \`${voiceChannelName}\`! `
+                )
+                .setDescription(
+                    `<:YouTube:801465200775135282> **[${song.name}](${song.url})** \n\n **Requested By: <@${message.author.id}>**\n\n`
+                )
+                .addFields(
+                    { name: "Views", value: formatNumber(song.views) },
+                    {
+                        name: "Likes :thumbsup:",
+                        value: formatNumber(song.likes),
+                        inline: true,
+                    },
+                    {
+                        name: "DisLikes :thumbsdown:",
+                        value: formatNumber(song.dislikes),
+                        inline: true,
+                    }
+                )
+                .setFooter(`Duration [${song.formattedDuration}]`)
                 .setThumbnail(song.thumbnail);
 
             message.channel.send(embed1);
@@ -189,45 +152,30 @@ distube
         }
     })
     .on("addSong", async (message, queue, song) => {
+        const voiceChannelName = message.member.voice.channel.name;
         try {
             let embed1 = new Discord.MessageEmbed()
-
                 .setColor("GREEN")
                 .setAuthor(
-                    `**${song.name}**`,
-                    "https://media.discordapp.net/attachments/793772583946027050/816001522705104906/image-removebg-preview_7.png?width=498&height=498"
+                    message.author.username,
+                    message.author.displayAvatarURL()
                 )
-                .setTitle(`<:YouTube:801465200775135282> **${song.user}** \n\n`)
-                .setDescription(`**Requested By: <@${message.author.id}>** \n`)
-                .addField(
-                    "⏱ Duration:",
-                    `${queue.formattedCurrentTime} / ${song.formattedDuration}`,
-                    true
+                .setTitle(`Added to Queue!`)
+                .setDescription(
+                    `<:YouTube:801465200775135282> **[${song.name}](${song.url})** \n\n **Requested By: <@${message.author.id}>**\n\n`
                 )
-                .addField(
-                    "🌀 Queue:",
-                    `${queue.songs.length} song(s) - ${queue.formattedDuration}`,
-                    true
+                .addFields(
+                    {
+                        name: "Duration",
+                        value: song.formattedDuration,
+                        inline: true,
+                    },
+                    {
+                        name: "Will be played in:",
+                        value: voiceChannelName,
+                        inline: true,
+                    }
                 )
-                .addField("🔊 Volume:", `${queue.volume} %`, true)
-                .addField(
-                    "♾ Loop:",
-                    `  ${
-                        queue.repeatMode
-                            ? queue.repeatMode === 2
-                                ? "✅ Queue"
-                                : "✅ Song"
-                            : "❌"
-                    }`,
-                    true
-                )
-                .addField(
-                    "↪️ Autoplay:",
-                    `${queue.autoplay ? "✅" : "❌"}`,
-                    true
-                )
-                .addField("❔ Filter:", `${queue.filter || "❌"}`, true)
-                .setFooter("CodeVert")
                 .setThumbnail(song.thumbnail);
 
             message.channel.send(embed1);
@@ -242,13 +190,6 @@ distube
             } songs).\nRequested by: ${song.user}\nNow playing \`${
                 song.name
             }\` - \`${song.formattedDuration}\`\n${status(queue)}`
-        )
-    )
-    .on("addList", (message, queue, playlist) =>
-        message.channel.send(
-            `Added \`${playlist.name}\` playlist (${
-                playlist.songs.length
-            } songs) to queue\n${status(queue)}`
         )
     )
     // DisTubeOptions.searchSongs = true
