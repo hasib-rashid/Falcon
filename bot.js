@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const { CommandoClient } = require("discord.js-commando");
 const Discord = require("discord.js");
+const DisTube = require("distube");
 const canvas = require("discord-canvas");
 const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
@@ -20,6 +21,37 @@ const client = new CommandoClient({
         "MESSAGE",
         "USER",
     ],
+});
+
+const distube = new DisTube(client, {
+    youtubeCookie: "",
+    searchSongs: false,
+    emitNewSongOnly: false,
+    highWaterMark: 1 << 25,
+    leaveOnEmpty: true,
+    leaveOnFinish: true,
+    leaveOnStop: true,
+    customFilters: {
+        clear: "dynaudnorm=f=200",
+        bassboost: "bass=g=20,dynaudnorm=f=200",
+        "8d": "apulsator=hz=0.08",
+        vaporwave: "aresample=48000,asetrate=48000*0.8",
+        nightcore: "aresample=48000,asetrate=48000*1.25",
+        phaser: "aphaser=in_gain=0.4",
+        purebass: "bass=g=20,dynaudnorm=f=200,asubboost",
+        tremolo: "tremolo",
+        vibrato: "vibrato=f=6.5",
+        reverse: "areverse",
+        treble: "treble=g=5",
+        surrounding: "surround",
+        pulsator: "apulsator=hz=1",
+        subboost: "asubboost",
+        karaoke: "stereotools=mlev=0.03",
+        flanger: "flanger",
+        gate: "agate",
+        haas: "haas",
+        mcompand: "mcompand",
+    },
 });
 
 const reactionRoleManager = new ReactionRoleManager(client, {
@@ -241,6 +273,110 @@ client.on("guildMemberRemove", async (member) => {
     }
 });
 
-client.on("error", console.error);
+distube
+    .on("playSong", async (message, queue, song) => {
+        const voiceChannelName = message.member.voice.channel.name;
+        try {
+            let embed1 = new Discord.MessageEmbed()
+
+                .setColor("GREEN")
+                .setAuthor(
+                    message.author.username,
+                    message.author.displayAvatarURL()
+                )
+                .setTitle(
+                    `<:Disc:816225417982771201> Playing in \`${voiceChannelName}\`! `
+                )
+                .setDescription(
+                    `<:YouTube:801465200775135282> **[${song.name}](${song.url})** \n\n **Requested By: <@${message.author.id}>**\n\n`
+                )
+                .addFields(
+                    { name: "Views", value: formatNumber(song.views) },
+                    {
+                        name: "Likes :thumbsup:",
+                        value: formatNumber(song.likes),
+                        inline: true,
+                    },
+                    {
+                        name: "DisLikes :thumbsdown:",
+                        value: formatNumber(song.dislikes),
+                        inline: true,
+                    }
+                )
+                .setFooter(`Duration [${song.formattedDuration}]`)
+                .setThumbnail(song.thumbnail);
+
+            message.channel.send(embed1);
+        } catch (err) {
+            console.error(err);
+        }
+    })
+    .on("addSong", async (message, queue, song) => {
+        const voiceChannelName = message.member.voice.channel.name;
+        try {
+            let embed1 = new Discord.MessageEmbed()
+                .setColor("GREEN")
+                .setAuthor(
+                    message.author.username,
+                    message.author.displayAvatarURL()
+                )
+                .setTitle(`Added to Queue!`)
+                .setDescription(
+                    `<:YouTube:801465200775135282> **[${song.name}](${song.url})** \n\n **Requested By: <@${message.author.id}>**\n\n`
+                )
+                .addFields(
+                    {
+                        name: "Duration",
+                        value: song.formattedDuration,
+                        inline: true,
+                    },
+                    {
+                        name: "Will be played in:",
+                        value: voiceChannelName,
+                        inline: true,
+                    }
+                )
+                .setThumbnail(song.thumbnail);
+
+            message.channel.send(embed1);
+        } catch (err) {
+            console.error(err);
+        }
+    })
+    .on("playList", (message, queue, playlist, song) =>
+        message.channel.send(
+            `Play \`${playlist.name}\` playlist (${
+                playlist.songs.length
+            } songs).\nRequested by: ${song.user}\nNow playing \`${
+                song.name
+            }\` - \`${song.formattedDuration}\`\n${status(queue)}`
+        )
+    )
+    // DisTubeOptions.searchSongs = true
+    .on("searchResult", (message, result) => {
+        let i = 0;
+        message.channel.send(
+            `**Choose an option from below**\n${result
+                .map(
+                    (song) =>
+                        `**${++i}**. ${song.name} - \`${
+                            song.formattedDuration
+                        }\``
+                )
+                .join(
+                    "\n"
+                )}\n*Enter anything else or wait 60 seconds to cancel*`
+        );
+    })
+    // DisTubeOptions.searchSongs = true
+    .on("searchCancel", (message) => message.channel.send(`Searching canceled`))
+    .on("error", (message, e) => {
+        console.error(e);
+        message.channel.send("An error encountered: " + e);
+    });
+
+client.on("error", (err) => {
+    console.error(err);
+});
 
 client.login(process.env.TOKEN);

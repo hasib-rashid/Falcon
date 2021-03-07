@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
+
+const client = new Discord.Client();
+
 const oneLine = require("common-tags").oneLine;
 const DisTube = require("distube");
-const { formatNumber } = require("../../util/Util");
-
-const client = new commando.Client();
 
 const distube = new DisTube(client, {
     youtubeCookie: "",
@@ -36,79 +36,60 @@ const distube = new DisTube(client, {
         mcompand: "mcompand",
     },
 });
-let stateswitch = false;
-let emojis = ["✅", "☑️", "👌", "👍", "❤️", "🎶", "🎵"];
-const filters = [
-    "mcompand",
-    "gate",
-    "haas",
-    "pulsator",
-    "surrounding",
-    "clear",
-    "8d",
-    "bassboost",
-    "echo",
-    "karaoke",
-    "nightcore",
-    "vaporwave",
-    "flanger",
-    "subboost",
-    "phaser",
-    "tremolo",
-    "vibrato",
-    "reverse",
-    "purebass",
-    "treble",
-];
 
-module.exports = class PlayCommand extends commando.Command {
+module.exports = class ClassName extends commando.Command {
     constructor(client) {
         super(client, {
-            name: "play",
+            name: "loop",
             aliases: [],
             group: "music",
-            memberName: "play",
-            description: "Play a music here!",
+            memberName: "loop",
+            description: "Loop a music of your choice however you want!",
             details: oneLine`
-                Search a music here!
+                Loop a music of your choice however you want!
             `,
-            examples: ["!Search <song_name>"],
             args: [
                 {
-                    key: "query",
+                    key: "number",
+                    prompt:
+                        "Please specify the number of times you wanna loop the song.",
                     type: "string",
-                    prompt: "Please specify the song you wanna play",
                 },
             ],
+            examples: ["!loop"],
         });
     }
 
     /**
      * @param {commando.CommandoMessage} message
      */
-
-    async run(message, { query }) {
+    async run(message, { number }) {
         try {
-            message.channel.send(
-                "<:YouTube:801465200775135282> **Searching** :mag_right: `" +
-                    `${query}` +
-                    "`"
-            );
+            if (0 <= Number(number) && Number(number) <= 2) {
+                let mode = distube.setRepeatMode(message, parseInt(number));
+                mode = mode
+                    ? mode == 2
+                        ? "Repeat queue"
+                        : "Repeat song"
+                    : "Off";
+                message.channel.send("Set repeat mode to `" + mode + "`");
+                return;
+            } else {
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.displayAvatarURL()
+                    )
+                    .setTitle("ERROR")
+                    .setColor("RED")
+                    .setDescription(
+                        `Please use a number between **0** and **2**   |   *(0: disabled, 1: Repeat a song, 2: Repeat all the queue)*`
+                    );
 
-            distube.play(message, query);
+                message.embed(embed);
+            }
         } catch (err) {
             console.error(err);
         }
     }
 };
-
-const status = (queue) =>
-    `Volume: \`${queue.volume}%\` | Filter: \`${
-        queue.filter || "Off"
-    }\` | Loop: \`${
-        queue.repeatMode
-            ? queue.repeatMode == 2
-                ? "All Queue"
-                : "This Song"
-            : "Off"
-    }\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``;
