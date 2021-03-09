@@ -8,6 +8,7 @@ const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
 let ticketeasy = require("ticket.easy");
 const ticket = new ticketeasy();
+const { formatNumber } = require("./util/Util");
 
 const client = new CommandoClient({
     commandPrefix: process.env.PREFIX,
@@ -55,7 +56,7 @@ const distube = new DisTube(client, {
 });
 
 const reactionRoleManager = new ReactionRoleManager(client, {
-    mongoDbLink: process.env.MONGO_PATH, // See here to see how setup mongoose: https://github.com/IDjinn/Discord.js-Collector/blob/master/examples/reaction-role-manager/Note.md
+    mongoDbLink: process.env.MONGO_PATH,
 });
 
 client.registry
@@ -104,10 +105,13 @@ reactionRoleManager.on(
 
 client.on("message", async (message) => {
     const client = message.client;
-    const args = message.content.split(" ").slice(1);
+
+    const args = message.content.slice(1).trim().split(/ +/g); //arguments of the content
+    const command = args.shift();
+
     // Example
     // >createReactionRole @role :emoji: MessageId
-    if (message.content.startsWith("!createRR")) {
+    if (command === "createRR") {
         const role = message.mentions.roles.first();
         if (!role)
             return message
@@ -142,7 +146,9 @@ client.on("message", async (message) => {
          */
 
         message.reply("Done").then((m) => m.delete({ timeout: 500 }));
-    } else if (message.content.startsWith("!deleteRR")) {
+    }
+
+    if (command === "!deleteRR") {
         const emoji = args[0];
         if (!emoji)
             return message
@@ -156,6 +162,113 @@ client.on("message", async (message) => {
                 .then((m) => m.delete({ timeout: 1000 }));
 
         await reactionRoleManager.deleteReactionRole({ message: msg, emoji });
+    }
+
+    if (command === "search") {
+        embedbuilder(client, message, "GREEN", "Searching!", args.join(" "));
+
+        let result = await distube.search(args.join(" "));
+
+        let searchresult = "";
+
+        for (let i = 0; i <= result.length; i++) {
+            try {
+                searchresult += await `**${i + 1}**. ${result[i].name} - \`${
+                    result[i].formattedDuration
+                }\`\n`;
+            } catch {
+                searchresult += await " ";
+            }
+        }
+        let searchembed = await embedbuilder(
+            client,
+            message,
+            "#fffff0",
+            "Current Queue!",
+            searchresult
+        );
+
+        let userinput;
+
+        await searchembed.channel
+            .awaitMessages((m) => m.author.id == message.author.id, {
+                max: 1,
+                time: 60000,
+                errors: ["time"],
+            })
+            .then((collected) => {
+                userinput = collected.first().content;
+                if (isNaN(userinput)) {
+                    embedbuilder(
+                        client,
+                        message,
+                        "RED",
+                        "Not a right number!",
+                        "so i use number 1!"
+                    );
+                    userinput = 1;
+                }
+                if (Number(userinput) < 0 && Number(userinput) >= 15) {
+                    embedbuilder(
+                        client,
+                        message,
+                        "RED",
+                        "Not a right number!",
+                        "so i use number 1!"
+                    );
+                    userinput = 1;
+                }
+                searchembed.delete({ timeout: Number(client.ws.ping) });
+            })
+            .catch(() => {
+                console.log(console.error);
+                userinput = 404;
+            });
+        if (userinput === 404) {
+            return embedbuilder(
+                client,
+                message,
+                "RED",
+                "Something went wrong!"
+            );
+        }
+
+        return distube.play(message, result[userinput - 1].url);
+    }
+
+    if (command === "skip" || command === "s") {
+        message.channel.send(":white_check_mark: Song Skipped!");
+
+        return distube.skip(message);
+    }
+
+    function embedbuilder(
+        client,
+        message,
+        color,
+        title,
+        description,
+        thumbnail
+    ) {
+        try {
+            let embed = new Discord.MessageEmbed()
+                .setColor(color)
+                .setAuthor(
+                    message.author.tag,
+                    message.member.user.displayAvatarURL({ dynamic: true }),
+                    "https://harmonymusic.tk"
+                )
+                .setFooter(
+                    client.user.username,
+                    client.user.displayAvatarURL()
+                );
+            if (title) embed.setTitle(title);
+            if (description) embed.setDescription(description);
+            if (thumbnail) embed.setThumbnail(thumbnail);
+            return message.channel.send(embed);
+        } catch (error) {
+            console.error;
+        }
     }
 });
 
@@ -311,72 +424,36 @@ distube
             console.error(err);
         }
     })
-    .on("addSong", async (message, queue, song) => {
-        const voiceChannelName = message.member.voice.channel.name;
-        try {
-            let embed1 = new Discord.MessageEmbed()
-                .setColor("GREEN")
-                .setAuthor(
-                    message.author.username,
-                    message.author.displayAvatarURL()
+    .on("addSong", (message, queue, song) => {
+        const embed = new Discord.MessageEmbed()
+            .setAuthor(
+                message.author.username,
+                message.author.displayAvatarURL()
+            )
+            .setTitle("Added a Song!")
+            .setColor("GREEN")
+            .setDescription(
+                `Song: [\`${song.name}\`](${song.url})  -  \`${
+                    song.formattedDuration
+                }\` \n\nRequested by: ${song.user}\n\nEstimated Time: ${
+                    queue.songs.length - 1
+                } song(s) - \`${(
+                    Math.floor(((queue.duration - song.duration) / 60) * 100) /
+                    100
                 )
-                .setTitle(`Added to Queue!`)
-                .setDescription(
-                    `<:YouTube:801465200775135282> **[${song.name}](${song.url})** \n\n **Requested By: <@${message.author.id}>**\n\n`
-                )
-                .addFields(
-                    {
-                        name: "Duration",
-                        value: song.formattedDuration,
-                        inline: true,
-                    },
-                    {
-                        name: "Will be played in:",
-                        value: voiceChannelName,
-                        inline: true,
-                    }
-                )
-                .setThumbnail(song.thumbnail);
+                    .toString()
+                    .replace(".", ":")}\`\nQueue duration: \`${
+                    queue.formattedDuration
+                }\``
+            )
+            .setThumbnail(song.thumbnail);
 
-            message.channel.send(embed1);
-        } catch (err) {
-            console.error(err);
-        }
+        message.channel.send(embed);
     })
-    .on("playList", (message, queue, playlist, song) =>
-        message.channel.send(
-            `Play \`${playlist.name}\` playlist (${
-                playlist.songs.length
-            } songs).\nRequested by: ${song.user}\nNow playing \`${
-                song.name
-            }\` - \`${song.formattedDuration}\`\n${status(queue)}`
-        )
-    )
-    // DisTubeOptions.searchSongs = true
-    .on("searchResult", (message, result) => {
-        let i = 0;
-        message.channel.send(
-            `**Choose an option from below**\n${result
-                .map(
-                    (song) =>
-                        `**${++i}**. ${song.name} - \`${
-                            song.formattedDuration
-                        }\``
-                )
-                .join(
-                    "\n"
-                )}\n*Enter anything else or wait 60 seconds to cancel*`
-        );
-    })
-    // DisTubeOptions.searchSongs = true
     .on("searchCancel", (message) => message.channel.send(`Searching canceled`))
     .on("error", (message, e) => {
         console.error(e);
         message.channel.send("An error encountered: " + e);
     });
-
-client.on("error", (err) => {
-    console.error(err);
-});
 
 client.login(process.env.TOKEN);
