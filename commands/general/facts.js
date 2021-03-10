@@ -19,7 +19,7 @@ module.exports = class IPCommand extends commando.Command {
             credit: [
                 {
                     name: "Useless Facts API",
-                    url: "https://uselessfacts.jsph.pl/random.json",
+                    url: "https://uselessfacts.jsph.pl/random.json?language=en",
                     reason: "API",
                 },
             ],
@@ -33,8 +33,9 @@ module.exports = class IPCommand extends commando.Command {
     async run(message) {
         try {
             const { body } = await request.get(
-                `https://uselessfacts.jsph.pl/random.json`
+                `https://uselessfacts.jsph.pl/random.json?language=en`
             );
+
             message.channel.send(body.text);
         } catch (err) {
             console.error(err);
