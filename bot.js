@@ -255,6 +255,31 @@ client.on("message", async (message) => {
         return distube.skip(message);
     }
 
+    if (command === "loop" || command === "repeat") {
+        if (0 <= Number(args[0]) && Number(args[0]) <= 2) {
+            await distube.setRepeatMode(message, parseInt(args[0]));
+            await embedbuilder(
+                client,
+                message,
+                "GREEN",
+                "Repeat mode set to:!",
+                `${args[0]
+                    .replace("0", "OFF")
+                    .replace("1", "Repeat song")
+                    .replace("2", "Repeat Queue")}`
+            );
+            return;
+        } else {
+            return embedbuilder(
+                client,
+                message,
+                "RED",
+                "ERROR",
+                `Please use a number between **0** and **2**   |   *(0: disabled, 1: Repeat a song, 2: Repeat all the queue)*`
+            );
+        }
+    }
+
     if (command === "seek") {
         if (!args) {
             message.channel.send(
