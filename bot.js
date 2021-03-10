@@ -164,6 +164,19 @@ client.on("message", async (message) => {
         await reactionRoleManager.deleteReactionRole({ message: msg, emoji });
     }
 
+    if (command === "play") {
+        if (!args)
+            return message.channel.send("Please sepcify which song do i play!");
+
+        message.channel.send(
+            "<:YouTube:801465200775135282> **Searching** :mag_right: `" +
+                `${args}` +
+                "`"
+        );
+
+        distube.play(message, args.join(" "));
+    }
+
     if (command === "search") {
         embedbuilder(client, message, "GREEN", "Searching!", args.join(" "));
 
@@ -236,10 +249,29 @@ client.on("message", async (message) => {
         return distube.play(message, result[userinput - 1].url);
     }
 
-    if (command === "skip" || command === "s") {
+    if (command === "skip") {
         message.channel.send(":white_check_mark: Song Skipped!");
 
         return distube.skip(message);
+    }
+
+    if (command === "seek") {
+        if (!args) {
+            message.channel.send(
+                ":no_entry: Please specify where will I move the song to in seconds?"
+            );
+        }
+        await embedbuilder(
+            client,
+            message,
+            "GREEN",
+            "Seeked!",
+            `Seeked the song to \`${args[0]} seconds\``
+        );
+        await distube.seek(message, Number(args[0] * 1000));
+        await delay(5000);
+        await message.channel.bulkDelete(2);
+        return;
     }
 
     function embedbuilder(
