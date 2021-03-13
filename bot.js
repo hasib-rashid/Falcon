@@ -354,9 +354,7 @@ client.on("messageReactionAdd", async (reaction, user, msg) => {
 });
 
 client.on("guildMemberAdd", async (member) => {
-    const channel = member.guild.channels.cache.find(
-        (ch) => ch.name === "joins-and-leaves"
-    );
+    const channel = member.guild.channels.cache.find("818370414542716998");
 
     if (!channel) return;
 
