@@ -42,20 +42,38 @@ module.exports = class IPCommand extends commando.Command {
             const { body } = await request.get(
                 `http://ip-api.com/json/${query}`
             );
-            const embed = new Discord.MessageEmbed()
-                .setColor(0x00ae86)
-                .setAuthor(message.author.username, message.author.avatarURL())
-                .setTitle(query)
-                .addField("❯ IP", body.query, true)
-                .addField("❯ Country", body.country || "None", true)
-                .addField("❯ Region", body.regionName || "None", true)
-                .addField("❯ City", body.city || body.region || "None", true)
-                .addField("❯ Zip Code", body.zip || "None", true)
-                .addField("❯ Timezone", body.timezone || "None", true)
-                .addField("❯ ISP", body.isp || "None", true)
-                .addField("❯ Organization", body.org || "None", true)
-                .addField("❯ Proxy", "Yes", true);
-            message.channel.send(embed);
+
+            if (body.country == null) {
+                const embed = new Discord.MessageEmbed()
+                    .setColor("#ff0000")
+                    .setTitle(
+                        ":no_entry: An Unexpected Error Occurred. Result couldnt be found."
+                    );
+
+                message.channel.send(embed);
+            } else {
+                const embed = new Discord.MessageEmbed()
+                    .setColor("GREEN")
+                    .setAuthor(
+                        message.author.username,
+                        message.author.avatarURL()
+                    )
+                    .setTitle(query)
+                    .addField("❯ IP", body.query, true)
+                    .addField("❯ Country", body.country || "None", true)
+                    .addField("❯ Region", body.regionName || "None", true)
+                    .addField(
+                        "❯ City",
+                        body.city || body.region || "None",
+                        true
+                    )
+                    .addField("❯ Zip Code", body.zip || "None", true)
+                    .addField("❯ Timezone", body.timezone || "None", true)
+                    .addField("❯ ISP", body.isp || "None", true)
+                    .addField("❯ Organization", body.org || "None", true)
+                    .addField("❯ Proxy", "Yes", true);
+                message.channel.send(embed);
+            }
         } catch (err) {
             if (err.status === "fail")
                 return message.channel.send(
