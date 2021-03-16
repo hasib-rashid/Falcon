@@ -26,8 +26,6 @@ module.exports = class ClassName extends commando.Command {
 
         const role = message.guild.roles.everyone;
 
-        message.channel.send(query);
-
         const perms = role.permissions.toArray();
 
         const newPerms = perms.filter((perm) => perm !== "SEND_MESSAGES");
