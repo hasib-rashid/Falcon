@@ -50,15 +50,15 @@ module.exports = class HelpCommand extends commando.Command {
                     .setTitle(":smiley: General")
                     .addFields(
                         {
-                            name: "Avatar",
+                            name: "avatar",
                             value: "Searches the Avatar of the you want!",
                         },
                         {
-                            name: "Invite",
+                            name: "invite",
                             value: "Finds the Invite link for the server",
                         },
                         {
-                            name: "Math",
+                            name: "math",
                             value:
                                 "Do Maths with this one command! Use `!math-help` for Help in Maths",
                         },
@@ -68,8 +68,17 @@ module.exports = class HelpCommand extends commando.Command {
                                 "Find the IP or any place or any domain you want!",
                         },
                         {
-                            name: "Fact",
+                            name: "fact",
                             value: "Get a Random fact with this command!",
+                        },
+                        { name: "cat", value: "Get a pic of a cute Cat!" },
+                        {
+                            name: "puppy",
+                            value: "Get a pic of a cute Puppy! Awwww",
+                        },
+                        {
+                            name: "member-count",
+                            value: "Get how many members are there at present",
                         }
                     )
                     .setColor("GREEN");
@@ -124,6 +133,16 @@ module.exports = class HelpCommand extends commando.Command {
                             value: "Unan Someone using this command",
                         },
                         {
+                            name: "createRR",
+                            value:
+                                "Create a Reaction Role eg: `!createRR <role_name> <emoji> <message_id>`",
+                        },
+                        {
+                            name: "deleteRR",
+                            value:
+                                "Delete a Reaction Role eg: `!deleteRR <emoji> <message_id>`",
+                        },
+                        {
                             name: "remove-role",
                             value: "Unban Someone using this command",
                         },
@@ -163,7 +182,48 @@ module.exports = class HelpCommand extends commando.Command {
             }
 
             if (helpArgs === "music") {
-                return message.channel.send("These helps are coming soon");
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.avatarURL()
+                    )
+                    .setColor("#0084ff")
+                    .setTitle(":musical_note: Music")
+                    .addFields(
+                        {
+                            name: "play",
+                            value: "Play any song with this command",
+                        },
+                        {
+                            name: "stop",
+                            value:
+                                "Stops the song and leaves the Voice Channel",
+                        },
+                        {
+                            name: "search",
+                            value:
+                                "Search a song in youtube and play that song",
+                        },
+                        {
+                            name: "loop",
+                            value: "Loop a song how many times you want",
+                        },
+                        {
+                            name: "seek",
+                            value: "Play the song from a specific point",
+                        },
+                        {
+                            name: "code-radio play",
+                            value: "Plays the Radio of FreeCodeCamp Radio",
+                        },
+                        {
+                            name: "code-radio stop",
+                            value:
+                                "Stops the Radio of FreeCodeCamp Radio and leaves the Voice Channel",
+                        }
+                    );
+
+                message.channel.send(embed);
             }
 
             if (helpArgs === "events") {
@@ -181,7 +241,24 @@ module.exports = class HelpCommand extends commando.Command {
             }
 
             if (helpArgs === "misc") {
-                return message.channel.send("These helps are coming soon");
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.displayAvatarURL()
+                    )
+                    .setColor("#0084ff")
+                    .setTitle(":wrench: MISC")
+                    .addFields(
+                        {
+                            name: "botstats",
+                            value: "Watch the Stats of Bot and how is it doing",
+                        },
+                        { name: "info", value: "Information about the bot" },
+                        { name: "ping", value: "Watch your Ping!" },
+                        { name: "uptime", value: "The Total Uptime of the Bot" }
+                    );
+
+                message.channel.send(embed);
             }
 
             if (helpArgs === "fun") {
@@ -216,6 +293,10 @@ module.exports = class HelpCommand extends commando.Command {
                             name: "country",
                             value:
                                 "Search about any country suing this command",
+                        },
+                        {
+                            name: "covid",
+                            value: "Watch the latest news of Covid",
                         },
                         {
                             name: "giphy",

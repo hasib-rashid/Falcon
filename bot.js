@@ -164,6 +164,14 @@ client.on("message", async (message) => {
         await reactionRoleManager.deleteReactionRole({ message: msg, emoji });
     }
 
+    //! BullShit Bugs
+    if (message.content.includes("iplay")) return;
+    if (message.content.includes("i play")) return;
+    if (message.content.includes("i  play")) return;
+    if (message.content.includes("i   play")) return;
+    if (message.content.includes("i    play")) return;
+    if (message.content.includes("i     play")) return;
+
     if (command === "play") {
         if (!args)
             return message.channel.send("Please sepcify which song do i play!");
