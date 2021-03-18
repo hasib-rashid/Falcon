@@ -29,7 +29,9 @@
 		"@discordjs/opus": "^0.4.0",
 		"aki-api": "^5.2.1",
 		"canvas": "^2.6.1",
+		"commando-provider-mongo": "^2.1.0",
 		"discord-canvas": "^1.4.1",
+		"discord-mongodb-prefix": "^1.1.1",
 		"discord.js": "^12.5.1",
 		"discord.js-collector": "^1.8.8",
 		"discord.js-commando": "^0.12.2",
@@ -43,9 +45,13 @@
 		"mathjs": "^9.2.0",
 		"moment": "^2.29.1",
 		"moment-duration-format": "^2.3.2",
-		"mongoose": "^5.11.15",
+		"mongodb": "^3.6.5",
+		"mongoose": "^5.12.0",
 		"node-superfetch": "^0.1.11",
 		"os-utils": "0.0.14",
 		"ticket.easy": "0.0.8"
+	},
+	"devDependencies": {
+		"eslint": "^7.22.0"
 	}
 }

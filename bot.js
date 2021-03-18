@@ -1,14 +1,25 @@
 require("dotenv").config();
 
+const commando = require("discord.js-commando");
 const { CommandoClient } = require("discord.js-commando");
 const Discord = require("discord.js");
 const DisTube = require("distube");
+const mongoose = require("mongoose");
 const canvas = require("discord-canvas");
 const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
 let ticketeasy = require("ticket.easy");
 const ticket = new ticketeasy();
 const { formatNumber } = require("./util/Util");
+
+const MongoClient = require("mongodb").MongoClient;
+const MongoDBProvider = require("commando-provider-mongo").MongoDBProvider;
+
+//* MongoDB Initialization
+mongoose.connect(process.env.MONGO_PATH, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+});
 
 const client = new CommandoClient({
     commandPrefix: process.env.PREFIX,
@@ -23,6 +34,14 @@ const client = new CommandoClient({
         "USER",
     ],
 });
+
+client
+    .setProvider(
+        MongoClient.connect(process.env.MONGO_PATH).then(
+            (client) => new MongoDBProvider(client, "test-db-codevert")
+        )
+    )
+    .catch(console.error);
 
 const distube = new DisTube(client, {
     youtubeCookie: "",
@@ -362,9 +381,7 @@ client.on("messageReactionAdd", async (reaction, user, msg) => {
 });
 
 client.on("guildMemberAdd", async (member) => {
-    const channel = member.guild.channels.cache.find(
-        (ch) => ch.name === "👋joins-and-leaves"
-    );
+    const channel = member.guild.channels.cache.find("818370414542716998");
 
     if (!channel) return;
 
