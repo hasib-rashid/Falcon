@@ -62,16 +62,16 @@ const reactionRoleManager = new ReactionRoleManager(client, {
 client.registry
     .registerDefaultTypes()
     .registerGroups([
-        ["general", "General Command Group"],
-        ["games", "Games from CodeVert"],
-        ["moderation", "Moderators group"],
-        ["music", "Music Commands Group"],
-        ["events", "Events from CodeVert"],
-        ["notify", "Notify devs about Bugs and Features"],
-        ["nsfw", "NSFW Content Group"],
-        ["misc", "Miscellanious Commands"],
-        ["fun", "Fun Commands from CodeVert"],
-        ["search", "Search anything from CodeVert"],
+        ["general", ":smiley: General"],
+        ["games", ":video_game: Games"],
+        ["moderation", "<:ban_hammer:809356434885967882> Moderators"],
+        ["music", ":musical_note: Music"],
+        ["events", ":checkered_flag: Events"],
+        ["notify", ":speech_left: Notify devs about Bugs and Features"],
+        ["nsfw", ":underage: NSFW"],
+        ["misc", ":wrench: MISC"],
+        ["fun", ":rofl: Fun"],
+        ["search", ":mag: Search"],
     ])
     .registerDefaultGroups()
     .registerDefaultCommands({
@@ -363,7 +363,7 @@ client.on("messageReactionAdd", async (reaction, user, msg) => {
 
 client.on("guildMemberAdd", async (member) => {
     const channel = member.guild.channels.cache.find(
-        (ch) => ch.name === "joins-and-leaves"
+        (ch) => ch.name === "👋joins-and-leaves"
     );
 
     if (!channel) return;

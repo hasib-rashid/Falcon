@@ -9,7 +9,7 @@ module.exports = class TicketCloseCommand extends commando.Command {
         super(client, {
             name: "ticket-close",
             aliases: [],
-            group: "general",
+            group: "moderation",
             memberName: "ticket-close",
             description: "Close your current ticket using this command",
             clientPermissions: ["MANAGE_CHANNELS"],
