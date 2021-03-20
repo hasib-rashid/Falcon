@@ -3,7 +3,6 @@ require("dotenv").config();
 const { CommandoClient } = require("discord.js-commando");
 const Discord = require("discord.js");
 const DisTube = require("distube");
-const mongoose = require("mongoose");
 const canvas = require("discord-canvas");
 const moment = require("moment");
 const path = require("path");
@@ -16,6 +15,12 @@ const db = require("quick.db");
 const MongoClient = require("mongodb").MongoClient;
 const MongoDBProvider = require("commando-provider-mongo").MongoDBProvider;
 const mongo = require("./mongo.js");
+const mongoose = require("mongoose");
+
+mongoose.connect(process.env.MONGO_PATH, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+});
 
 const client = new CommandoClient({
     commandPrefix: process.env.PREFIX,
