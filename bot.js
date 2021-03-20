@@ -1,25 +1,21 @@
 require("dotenv").config();
 
-const commando = require("discord.js-commando");
 const { CommandoClient } = require("discord.js-commando");
 const Discord = require("discord.js");
 const DisTube = require("distube");
 const mongoose = require("mongoose");
 const canvas = require("discord-canvas");
+const moment = require("moment");
 const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
 let ticketeasy = require("ticket.easy");
 const ticket = new ticketeasy();
 const { formatNumber } = require("./util/Util");
+const db = require("quick.db");
 
 const MongoClient = require("mongodb").MongoClient;
 const MongoDBProvider = require("commando-provider-mongo").MongoDBProvider;
-
-//* MongoDB Initialization
-mongoose.connect(process.env.MONGO_PATH, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-});
+const mongo = require("./mongo.js");
 
 const client = new CommandoClient({
     commandPrefix: process.env.PREFIX,
@@ -121,6 +117,12 @@ reactionRoleManager.on(
         );
     }
 );
+
+client.on("ready", async () => {
+    await mongo().then((mongoose) => {
+        console.log("Connected to MongoDB Database.");
+    });
+});
 
 client.on("message", async (message) => {
     const client = message.client;
@@ -425,9 +427,8 @@ client.on("guildMemberAdd", async (member) => {
 
 client.on("guildMemberRemove", async (member) => {
     try {
-        const channel = member.guild.channels.cache.find(
-            (ch) => ch.name === "joins-and-leaves"
-        );
+        const channel = member.guild.channels.cache.find("818370414542716998");
+
         const welcome = new canvas.Goodbye();
         const image = await welcome
             .setUsername(member.user.username)
