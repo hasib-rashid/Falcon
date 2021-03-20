@@ -47,8 +47,6 @@ module.exports = class ClassName extends commando.Command {
             userinfo.uname = userMention.username;
             userinfo.verified = userMention.verified;
 
-            console.log(userinfo.presen);
-
             userinfo.avatar = userMention.avatarURL();
 
             const rolesOfTheMember = memberMention.roles.cache
