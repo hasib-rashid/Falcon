@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
-const oneLine = require("common-tags").oneLine;
+const { stripIndents, oneLine } = require("common-tags");
 
 const {
     General,
@@ -47,29 +47,21 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle(":smiley: General")
-                    .addFields(
-                        {
-                            name: "Avatar",
-                            value: "Searches the Avatar of the you want!",
-                        },
-                        {
-                            name: "Invite",
-                            value: "Finds the Invite link for the server",
-                        },
-                        {
-                            name: "Math",
-                            value:
-                                "Do Maths with this one command! Use `!math-help` for Help in Maths",
-                        },
-                        {
-                            name: "IP",
-                            value:
-                                "Find the IP or any place or any domain you want!",
-                        },
-                        {
-                            name: "Fact",
-                            value: "Get a Random fact with this command!",
-                        }
+                    .setDescription(
+                        stripIndents(`
+                        **avatar** - Searches the Avatar of the person you want!
+                        **invite** - Finds the Invite link for the server
+                        **covid** - Get the latest news on Covid 19
+                        **math** - Do Maths with this one command! Use \`!math-help\` for Help in Maths
+                        **ip** - Find the IP or any place or any domain you want!
+                        **fact** - Get a Random fact with this command!
+                        **cat** - Gets a picture of a cute Cat!
+                        **dog/puppy** - Gets the picture of a Cute Puppy! Awwww
+                        **server-info** - Gets the information about the server
+                        **member-info** - Gets the information on a specific user
+                        **member-count** - Counts the number of members in the server
+                        **translate** - Translate anything to any language you want!
+                    `)
                     )
                     .setColor("GREEN");
 
