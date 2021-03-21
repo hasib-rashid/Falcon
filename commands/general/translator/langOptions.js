@@ -4,6 +4,7 @@ module.exports = lng = [
     { name: "arabic", abrv: "ar" },
     { name: "armenian", abrv: "hy" },
     { name: "bengali", abrv: "bn" },
+    { name: "bangla", abrv: "bn" },
     { name: "bulgarian", abrv: "bg" },
     { name: "chinese (simplified)", abrv: "zh-cn" },
     { name: "chinese (traditional)", abrv: "zh-tw" },
