@@ -48,10 +48,14 @@
 		"moment-duration-format": "^2.3.2",
 		"mongodb": "^3.6.5",
 		"mongoose": "^5.12.0",
+		"node-os-utils": "^1.3.5",
 		"node-superfetch": "^0.1.11",
 		"os-utils": "0.0.14",
 		"quick.db": "^7.1.3",
-		"ticket.easy": "0.0.8"
+		"ticket.easy": "0.0.8",
+		"tiktok-search": "^2.0.3",
+		"weather-js": "^2.0.0",
+		"wikijs": "^6.0.1"
 	},
 	"devDependencies": {
 		"eslint": "^7.22.0"
