@@ -14,14 +14,6 @@ module.exports = class ClassName extends commando.Command {
                 Gives the Information about a specific user.
             `,
             examples: ["!user-info <@user>"],
-            args: [
-                {
-                    key: "user",
-                    type: "user",
-                    prompt:
-                        "Please specify the user you want to add the role to",
-                },
-            ],
         });
     }
 
@@ -29,76 +21,85 @@ module.exports = class ClassName extends commando.Command {
      * @param {commando.CommandoMessage} message
      */
     async run(message) {
+        const args = message.content.slice(5).trim().split("  ");
+
         try {
-            const userMention =
-                message.mentions.users.first() || message.author;
-            const memberMention =
-                message.mentions.members.first() || message.member;
+            let user =
+                message.mentions.members.first() ||
+                message.guild.members.cache.get(args[0]) ||
+                message.member;
 
-            let userinfo = {};
-            userinfo.bot = userMention.bot;
-            userinfo.createdat = userMention.createdAt;
-            userinfo.discrim = userMention.discriminator;
-            userinfo.id = userMention.id;
-            userinfo.mfa = userMention.mfaEnabled;
-            userinfo.pre = userMention.premium;
-            userinfo.presen = userMention.presence;
-            userinfo.tag = userMention.tag;
-            userinfo.uname = userMention.username;
-            userinfo.verified = userMention.verified;
+            let status;
+            switch (user.presence.status) {
+                case "online":
+                    status = "online";
+                    break;
+                case "dnd":
+                    status = "dnd";
+                    break;
+                case "idle":
+                    status = "idle";
+                    break;
+                case "offline":
+                    status = "offline";
+                    break;
+            }
 
-            userinfo.avatar = userMention.avatarURL();
+            const embed = new Discord.MessageEmbed()
+                .setTitle(`${user.user.username} stats`)
+                .setColor("#179aff")
+                .setThumbnail(user.user.displayAvatarURL({ dynamic: true }))
+                .addFields(
+                    {
+                        name: "Name: ",
+                        value: user.user.username,
+                        inline: true,
+                    },
+                    {
+                        name: "Discriminator : ",
+                        value: `#${user.user.discriminator}`,
+                        inline: true,
+                    },
+                    {
+                        name: "ID : ",
+                        value: user.user.id,
+                    },
+                    {
+                        name: "Current Status : ",
+                        value: status,
+                        inline: true,
+                    },
+                    {
+                        name: "Activity : ",
+                        value: user.presence.activities[0]
+                            ? user.presence.activities[0].name
+                            : `User isn't playing a game!`,
+                        inline: true,
+                    },
+                    {
+                        name: "Avatar link : ",
+                        value: `[Click Here](${user.user.displayAvatarURL()})`,
+                    },
+                    {
+                        name: "Creation Date : ",
+                        value: user.user.createdAt.toLocaleDateString("en-us"),
+                        inline: true,
+                    },
+                    {
+                        name: "Joined Date : ",
+                        value: user.joinedAt.toLocaleDateString("en-us"),
+                        inline: true,
+                    },
+                    {
+                        name: "User Roles : ",
+                        value: user.roles.cache
+                            .map((role) => role.toString())
+                            .join(" ,"),
+                        inline: true,
+                    }
+                );
 
-            const rolesOfTheMember = memberMention.roles.cache
-                .filter((r) => r.name !== "@everyone")
-                .map((role) => role.name)
-                .join("\n");
-
-            const myInfo = new Discord.MessageEmbed()
-                .setAuthor(
-                    memberMention.user.username,
-                    memberMention.user.displayAvatarURL()
-                )
-                .addField(
-                    "Roles in this server",
-                    "```" + rolesOfTheMember + "```"
-                )
-                .addField("Bot?", "```" + userinfo.bot + "```", true)
-                .addField(
-                    "Created At",
-                    "```" + userinfo.createdat + "```",
-                    true
-                )
-                .addField(
-                    "Discriminator",
-                    "```" + userinfo.discrim + "```",
-                    true
-                )
-                .addField("Client ID", "```" + userinfo.id + "```", true)
-                .addField(
-                    "2FA/MFA Enabled?",
-                    "```" + userinfo.mfa + "```",
-                    true
-                )
-                .addField("Paid Account?", "```" + userinfo.pre + "```", true)
-                .addField(
-                    "Presence",
-                    "```" +
-                        userinfo.presen.clientStatus.desktop.toUpperCase() +
-                        "```",
-                    true
-                )
-                .addField("Client Tag", "```" + userinfo.tag + "```", true)
-                .addField("Username", "```" + userinfo.uname + "```", true)
-                .addField("Verified?", "```" + userinfo.verified + "```", true)
-                .setColor("#128bfc")
-                .setFooter(
-                    message.client.user.username,
-                    message.client.user.displayAvatarURL()
-                )
-                .setTitle("About this user...");
-
-            message.channel.send(myInfo);
+            await message.channel.send(embed);
         } catch (err) {
             console.error(err);
         }
