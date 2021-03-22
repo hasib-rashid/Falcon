@@ -47,21 +47,54 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle(":smiley: General")
-                    .setDescription(
-                        stripIndents(`
-                        **avatar** - Searches the Avatar of the person you want!
-                        **invite** - Finds the Invite link for the server
-                        **covid** - Get the latest news on Covid 19
-                        **math** - Do Maths with this one command! Use \`!math-help\` for Help in Maths
-                        **ip** - Find the IP or any place or any domain you want!
-                        **fact** - Get a Random fact with this command!
-                        **cat** - Gets a picture of a cute Cat!
-                        **dog/puppy** - Gets the picture of a Cute Puppy! Awwww
-                        **server-info** - Gets the information about the server
-                        **member-info** - Gets the information on a specific user
-                        **member-count** - Counts the number of members in the server
-                        **translate** - Translate anything to any language you want!
-                    `)
+                    .addFields(
+                        {
+                            name: "avatar",
+                            value:
+                                "Look at your or another users avatar with this command",
+                        },
+                        {
+                            name: "cat",
+                            value: "Look at the picture of a very cute cat!",
+                        },
+                        {
+                            name: "covid",
+                            value:
+                                "Watch the latest news and statistics of Covid 19",
+                        },
+                        {
+                            name: "facts",
+                            value: "Get a random facts from this command",
+                        },
+                        {
+                            name: "invite",
+                            value: "Get the invite link of this server",
+                        },
+                        {
+                            name: "ip",
+                            value: "Get the information of a IP you want",
+                        },
+                        { name: "math", value: "Do maths with this command" },
+                        {
+                            name: "member-count",
+                            value: "Count the number of members in this server",
+                        },
+                        {
+                            name: "puppy",
+                            value: "Get the cute pics of a Puppy!",
+                        },
+                        {
+                            name: "server-info",
+                            value: "Get the information on the server",
+                        },
+                        {
+                            name: "translator",
+                            value: "Translate anything from any language!",
+                        },
+                        {
+                            name: "user-info",
+                            value: "Get the information on a specific user",
+                        }
                     )
                     .setColor("GREEN");
 
