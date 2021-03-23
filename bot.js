@@ -10,12 +10,13 @@ const { ReactionRoleManager } = require("discord.js-collector");
 let ticketeasy = require("ticket.easy");
 const ticket = new ticketeasy();
 const { formatNumber } = require("./util/Util");
-const db = require("quick.db");
 
 const MongoClient = require("mongodb").MongoClient;
 const MongoDBProvider = require("commando-provider-mongo").MongoDBProvider;
 const mongo = require("./mongo.js");
 const mongoose = require("mongoose");
+
+const { GiveawaysManager } = require("discord-giveaways");
 
 mongoose.connect(process.env.MONGO_PATH, {
     useUnifiedTopology: true,
@@ -35,6 +36,20 @@ const client = new CommandoClient({
         "USER",
     ],
 });
+
+const manager = new GiveawaysManager(client, {
+    storage: "./giveaways.json",
+    updateCountdownEvery: 10000,
+    hasGuildMembersIntent: false,
+    default: {
+        botsCanWin: false,
+        exemptPermissions: ["MANAGE_MESSAGES", "ADMINISTRATOR"],
+        embedColor: "#FF0000",
+        reaction: "🎉",
+    },
+});
+
+client.giveawaysManager = manager;
 
 client
     .setProvider(
