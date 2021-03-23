@@ -4,6 +4,7 @@ const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const request = require("node-superfetch");
+const moment = require("moment");
 
 module.exports = class WeatherCommand extends commando.Command {
     constructor(client) {
@@ -58,11 +59,9 @@ module.exports = class WeatherCommand extends commando.Command {
                 });
 
             const embed = new Discord.MessageEmbed()
-                .setColor(0xff7a09)
                 .setAuthor(
                     `${body.name}, ${body.sys.country}`,
-                    "https://i.imgur.com/NjMbE9o.png",
-                    "https://openweathermap.org/city"
+                    "https://media.discordapp.net/attachments/793772583946027050/823774180305534986/image-removebg-preview_8.png"
                 )
                 .setURL(`https://openweathermap.org/city/${body.id}`)
                 .setTimestamp()
@@ -70,11 +69,25 @@ module.exports = class WeatherCommand extends commando.Command {
                     "❯ Condition",
                     body.weather
                         .map((data) => `${data.main} (${data.description})`)
-                        .join("\n")
+                        .join("\n"),
+                    true
                 )
                 .addField("❯ Temperature", `${body.main.temp}°F`, true)
                 .addField("❯ Humidity", `${body.main.humidity}%`, true)
-                .addField("❯ Wind Speed", `${body.wind.speed} mph`, true);
+                .addField("❯ Wind Speed", `${body.wind.speed} mph`, true)
+                .addField("❯ Feels Like", `${body.main.feels_like}°F`, true)
+                .addField(
+                    "❯ Minimum Tempurature",
+                    `${body.main.temp_min}°F`,
+                    true
+                )
+                .addField(
+                    "❯ Maximum Tempurature",
+                    `${body.main.temp_max}°F`,
+                    true
+                )
+                .setColor("#037ffc");
+
             return message.embed(embed);
         } catch (err) {
             if (err.status === 404)
