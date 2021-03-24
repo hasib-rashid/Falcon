@@ -49,7 +49,7 @@ const manager = new GiveawaysManager(client, {
     },
 });
 
-client.giveawaysManager = manager;
+client.giveaways = manager;
 
 client
     .setProvider(
