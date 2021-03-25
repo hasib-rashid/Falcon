@@ -48,7 +48,7 @@ module.exports = class GiveawayCommand extends commando.Command {
             time: ms(duration),
             prize: prize,
             winnerCount: winners,
-            hostedBy: message.author.id,
+            hostedBy: message.author,
             messages: {
                 giveaway: "Giveaway",
                 giveawayEnd: "Giveaway Ended",
