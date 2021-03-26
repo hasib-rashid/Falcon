@@ -43,7 +43,7 @@ const manager = new GiveawaysManager(client, {
     hasGuildMembersIntent: false,
     default: {
         botsCanWin: false,
-        embedColor: "#FF0000",
+        embedColor: "RANDOM",
         reaction: "🎉",
     },
 });

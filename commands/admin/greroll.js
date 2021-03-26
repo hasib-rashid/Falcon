@@ -28,17 +28,12 @@ module.exports = class ClassName extends commando.Command {
         }
 
         let messageID = args[0];
-        this.client.giveaways
-            .reroll(messageID)
-            .then(() => {
-                message.channel.send("Success! Giveaway rerolled!");
-            })
-            .catch((err) => {
-                message.channel.send(
-                    "No giveaway found for `" +
-                        messageID +
-                        "`, please check and try again"
-                );
-            });
+        this.client.giveaways.reroll(messageID).catch((err) => {
+            message.channel.send(
+                "No giveaway found for `" +
+                    messageID +
+                    "`, please check and try again"
+            );
+        });
     }
 };

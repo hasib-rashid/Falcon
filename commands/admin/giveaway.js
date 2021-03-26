@@ -50,12 +50,13 @@ module.exports = class GiveawayCommand extends commando.Command {
             winnerCount: winners,
             hostedBy: message.author,
             messages: {
-                giveaway: "Giveaway",
-                giveawayEnd: "Giveaway Ended",
+                giveaway: ":tada:  **GIVEAWAY**  :tada:",
+                giveawayEnd: ":tada: **GIVEAWAY ENDED** :tada:",
                 timeRemaining: "Time Remaining **{duration}**",
                 inviteToParticipate: "React with 🎉 to join the giveaway",
-                winMessage: "Congrats {winners}, you have  won the giveaway",
-                embedFooter: "Giveaway Time!",
+                winMessage:
+                    ":tada: Congratulations {winners}! You have won the **{prize}**! :tada:",
+                embedFooter: "",
                 noWinner: "Could not determine a winner",
                 hostedBy: "Hosted by {user}",
                 winners: "winners",
