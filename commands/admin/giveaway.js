@@ -7,7 +7,7 @@ module.exports = class GiveawayCommand extends commando.Command {
     constructor(client) {
         super(client, {
             name: "giveaway",
-            aliases: ["gway", "gw"],
+            aliases: ["gway", "gw", "giveaway-start"],
             group: "moderation",
             memberName: "giveaway",
             description:
