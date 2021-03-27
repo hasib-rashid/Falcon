@@ -23,8 +23,10 @@ module.exports = class ClassName extends commando.Command {
      */
     async run(message) {
         try {
+            const args = message.content.split(" ").slice(1);
+
             embedbuilder(
-                client,
+                this.client,
                 message,
                 "GREEN",
                 "Searching!",
@@ -45,7 +47,7 @@ module.exports = class ClassName extends commando.Command {
                 }
             }
             let searchembed = await embedbuilder(
-                client,
+                this.client,
                 message,
                 "#fffff0",
                 "Current Queue!",
@@ -64,7 +66,7 @@ module.exports = class ClassName extends commando.Command {
                     userinput = collected.first().content;
                     if (isNaN(userinput)) {
                         embedbuilder(
-                            client,
+                            this.client,
                             message,
                             "RED",
                             "Not a right number!",
@@ -74,7 +76,7 @@ module.exports = class ClassName extends commando.Command {
                     }
                     if (Number(userinput) < 0 && Number(userinput) >= 15) {
                         embedbuilder(
-                            client,
+                            this.client,
                             message,
                             "RED",
                             "Not a right number!",
@@ -82,7 +84,9 @@ module.exports = class ClassName extends commando.Command {
                         );
                         userinput = 1;
                     }
-                    searchembed.delete({ timeout: Number(client.ws.ping) });
+                    searchembed.delete({
+                        timeout: Number(this.client.ws.ping),
+                    });
                 })
                 .catch(() => {
                     console.log(console.error);
@@ -90,7 +94,7 @@ module.exports = class ClassName extends commando.Command {
                 });
             if (userinput === 404) {
                 return embedbuilder(
-                    client,
+                    this.client,
                     message,
                     "RED",
                     "Something went wrong!"
@@ -99,6 +103,7 @@ module.exports = class ClassName extends commando.Command {
 
             return this.client.distube.play(message, result[userinput - 1].url);
         } catch (err) {
+            console.error(err);
             message.channel.send("**You are not in a voice channel");
         }
     }

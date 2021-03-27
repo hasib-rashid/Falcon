@@ -37,6 +37,7 @@ module.exports = class ClassName extends commando.Command {
 
             this.client.distube.play(message, args.join(" "));
         } catch (err) {
+            console.error(err);
             message.channel.send("**You are not in a Voice Channel**");
         }
     }
