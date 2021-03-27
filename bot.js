@@ -96,7 +96,9 @@ const reactionRoleManager = new ReactionRoleManager(client, {
     mongoDbLink: process.env.MONGO_PATH,
 });
 
+//* Client Managers
 client.giveaways = manager;
+client.distube = distube;
 
 client.registry
     .registerDefaultTypes()
