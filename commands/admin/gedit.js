@@ -39,43 +39,37 @@ module.exports = class ClassName extends commando.Command {
      */
     async run(message, { messageID, prize, newWinner }) {
         try {
-            if (
-                (!isNaN(messageID),
-                () => {
-                    message.channel.send("**MessageID is not a valid number**");
+            if (!isNaN(messageID))
+                return message.channel.send("**MessageID is Invalid**");
+
+            if (!isNaN(messageID))
+                return message.channel.send(
+                    "**Winner Number is not a valid number**"
+                );
+
+            this.client.giveaways
+                .edit(messageID, {
+                    newWinnerCount: newWinner,
+                    newPrize: prize,
+                    addTime: 10000,
                 })
-            )
-                if (
-                    (!isNaN(newWinner),
-                    () => {
-                        message.channel.send(
-                            "**The New winner count is not a valid number**"
-                        );
-                    })
-                )
-                    this.client.giveaways
-                        .edit(messageID, {
-                            newWinnerCount: newWinner,
-                            newPrize: prize,
-                            addTime: 10000,
-                        })
-                        .then(() => {
-                            const numberOfSecondsMax =
-                                this.client.giveaways.options
-                                    .updateCountdownEvery / 1000;
-                            message.channel.send(
-                                "Success! Giveaway will updated in less than " +
-                                    numberOfSecondsMax +
-                                    " seconds."
-                            );
-                        })
-                        .catch((err) => {
-                            message.channel.send(
-                                "No giveaway found for " +
-                                    messageID +
-                                    ", please check and try again"
-                            );
-                        });
+                .then(() => {
+                    const numberOfSecondsMax =
+                        this.client.giveaways.options.updateCountdownEvery /
+                        1000;
+                    message.channel.send(
+                        "Success! Giveaway will updated in less than " +
+                            numberOfSecondsMax +
+                            " seconds."
+                    );
+                })
+                .catch((err) => {
+                    message.channel.send(
+                        "No giveaway found for " +
+                            messageID +
+                            ", please check and try again"
+                    );
+                });
         } catch (err) {
             console.error(err);
         }

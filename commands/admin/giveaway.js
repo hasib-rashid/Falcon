@@ -44,6 +44,11 @@ module.exports = class GiveawayCommand extends commando.Command {
     async run(message, { prize, timing, winners }) {
         const duration = timing;
 
+        if (!isNaN(winners))
+            return message.channel.send(
+                "**Winner Number is not a valid Number**"
+            );
+
         this.client.giveaways.start(message.channel, {
             time: ms(duration),
             prize: prize,

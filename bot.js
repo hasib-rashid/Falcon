@@ -45,6 +45,7 @@ const manager = new GiveawaysManager(client, {
         botsCanWin: false,
         embedColor: "RANDOM",
         reaction: "🎉",
+        embedColorEnd: "#1f75ff",
     },
 });
 
