@@ -6,7 +6,12 @@ module.exports = class ClassName extends commando.Command {
     constructor(client) {
         super(client, {
             name: "greroll",
-            aliases: [],
+            aliases: [
+                "giveaway-reroll",
+                "gw-reroll",
+                "gway-reroll",
+                "g-reroll",
+            ],
             group: "moderation",
             memberName: "greroll",
             description: "Reroll a Giveaway",
