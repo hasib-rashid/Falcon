@@ -6,7 +6,7 @@ module.exports = class ClassName extends commando.Command {
     constructor(client) {
         super(client, {
             name: "gedit",
-            aliases: [],
+            aliases: ["giveaway-edit", "g-edit", "gw-edit", "gway-edit"],
             group: "moderation",
             memberName: "gedit",
             description: "Edit a Giveaway!",
@@ -39,8 +39,6 @@ module.exports = class ClassName extends commando.Command {
      */
     async run(message, { messageID, prize, newWinner }) {
         try {
-            message.say(prize);
-
             this.client.giveaways
                 .edit(messageID, {
                     newWinnerCount: newWinner,
