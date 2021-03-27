@@ -37,6 +37,16 @@ const client = new CommandoClient({
     ],
 });
 
+// MongoDB Provider
+client
+    .setProvider(
+        MongoClient.connect(process.env.MONGO_PATH).then(
+            (client) => new MongoDBProvider(client, "test-db-codevert")
+        )
+    )
+    .catch(console.error);
+
+// Giveaway Manager
 const manager = new GiveawaysManager(client, {
     storage: "./giveaways.json",
     updateCountdownEvery: 10000,
@@ -49,16 +59,7 @@ const manager = new GiveawaysManager(client, {
     },
 });
 
-client.giveaways = manager;
-
-client
-    .setProvider(
-        MongoClient.connect(process.env.MONGO_PATH).then(
-            (client) => new MongoDBProvider(client, "test-db-codevert")
-        )
-    )
-    .catch(console.error);
-
+// Distube Manager
 const distube = new DisTube(client, {
     youtubeCookie: "",
     searchSongs: false,
@@ -90,9 +91,12 @@ const distube = new DisTube(client, {
     },
 });
 
+// Reaction Role Manager
 const reactionRoleManager = new ReactionRoleManager(client, {
     mongoDbLink: process.env.MONGO_PATH,
 });
+
+client.giveaways = manager;
 
 client.registry
     .registerDefaultTypes()
