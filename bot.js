@@ -49,7 +49,7 @@ client
 // Giveaway Manager
 const manager = new GiveawaysManager(client, {
     storage: "./giveaways.json",
-    updateCountdownEvery: 10000,
+    updateCountdownEvery: 40000,
     hasGuildMembersIntent: false,
     default: {
         botsCanWin: false,
