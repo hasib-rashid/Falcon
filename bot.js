@@ -211,14 +211,6 @@ client.on("message", async (message) => {
         await reactionRoleManager.deleteReactionRole({ message: msg, emoji });
     }
 
-    //! BullShit Bugs
-    if (message.content.includes("iplay")) return;
-    if (message.content.includes("i play")) return;
-    if (message.content.includes("i  play")) return;
-    if (message.content.includes("i   play")) return;
-    if (message.content.includes("i    play")) return;
-    if (message.content.includes("i     play")) return;
-
     if (command === "loop" || command === "repeat") {
         if (0 <= Number(args[0]) && Number(args[0]) <= 2) {
             await distube.setRepeatMode(message, parseInt(args[0]));
