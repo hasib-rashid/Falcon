@@ -219,19 +219,6 @@ client.on("message", async (message) => {
     if (message.content.includes("i    play")) return;
     if (message.content.includes("i     play")) return;
 
-    if (command === "play") {
-        if (!args)
-            return message.channel.send("Please sepcify which song do i play!");
-
-        message.channel.send(
-            "<:YouTube:801465200775135282> **Searching** :mag_right: `" +
-                `${args}` +
-                "`"
-        );
-
-        distube.play(message, args.join(" "));
-    }
-
     if (command === "search") {
         embedbuilder(client, message, "GREEN", "Searching!", args.join(" "));
 
