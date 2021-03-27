@@ -1,3 +1,5 @@
+const Discord = require("discord.js");
+
 function embedbuilder(client, message, color, title, description, thumbnail) {
     try {
         let embed = new Discord.MessageEmbed()
