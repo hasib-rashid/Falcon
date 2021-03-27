@@ -21,19 +21,23 @@ module.exports = class ClassName extends commando.Command {
      * @param {commando.CommandoMessage} message
      */
     async run(message) {
-        const args = message.content.split(" ").slice(1);
+        try {
+            const args = message.content.split(" ").slice(1);
 
-        if (!args)
-            return message.channel.send(
-                "**Please sepcify which song do i play!**"
+            if (!args)
+                return message.channel.send(
+                    "**Please sepcify which song do i play!**"
+                );
+
+            message.channel.send(
+                "<:YouTube:801465200775135282> **Searching** :mag_right: `" +
+                    `${args}` +
+                    "`"
             );
 
-        message.channel.send(
-            "<:YouTube:801465200775135282> **Searching** :mag_right: `" +
-                `${args}` +
-                "`"
-        );
-
-        this.client.distube.play(message, args.join(" "));
+            this.client.distube.play(message, args.join(" "));
+        } catch (err) {
+            message.channel.send("**You are not in a Voice Channel**");
+        }
     }
 };
