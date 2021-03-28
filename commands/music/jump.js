@@ -24,9 +24,6 @@ module.exports = class ClassName extends commando.Command {
         try {
             const args = message.content.split(" ").slice(1);
 
-            if (!isNaN(args))
-                return message.channel.send(`**\`${args}\` is not a number!**`);
-
             this.client.distube.jump(message, parseInt(args[0]));
 
             message.channel.send(

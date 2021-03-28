@@ -24,11 +24,6 @@ module.exports = class ClassName extends commando.Command {
         try {
             const args = message.content.split(" ").slice(1);
 
-            if (!isNaN(args))
-                return message.channel.send(
-                    `**\`${args[0]}\` is not a number!**`
-                );
-
             this.client.distube.setRepeatMode(message, args[0]);
 
             message.channel.send("**Repeat Mode Successfully made!**");

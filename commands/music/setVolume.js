@@ -24,11 +24,6 @@ module.exports = class ClassName extends commando.Command {
         try {
             const args = message.content.split(" ").slice(1);
 
-            if (!isNaN(args))
-                return message.channel.send(
-                    "**Please specify a number as the percentage**"
-                );
-
             this.client.distube.setVolume(message, args[0]);
 
             message.channel.send(`**Volume set to \`${args[0]}\`!**`);
