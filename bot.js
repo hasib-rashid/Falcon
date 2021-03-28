@@ -151,6 +151,8 @@ client.on("ready", async () => {
 
 client.on("message", async (message) => {
     const args = message.content.slice(1).trim().split(/ +/g);
+    const command = args.shift();
+
     if (command === "createRR") {
         const role = message.mentions.roles.first();
         if (!role)
