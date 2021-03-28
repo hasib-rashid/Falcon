@@ -431,10 +431,21 @@ distube
 
         message.channel.send(embed);
     })
-    .on("searchCancel", (message) => message.channel.send(`Searching canceled`))
+    .on("searchCancel", (message) => message.channel.send(`**Searching canceled**`))
     .on("error", (message, e) => {
         console.error(e);
         message.channel.send("An error encountered: " + e);
-    });
+    })
+    .on("initQueue", queue => {
+        queue.autoplay = false;
+        queue.volume = 50;
+    })
+    .on("empty", message => {
+        distube.stop(message)
+        message.channel.send("**Channel is Empty. Cleared the queue and left the voice channel!**")
+    })
+    .on("noRelated", message => message.channel.send("**Can't find related video to play. Stop playing music.**"))
+    .on("finish", message => message.channel.send("**No more song in queue to play. Add More!**"));
+
 
 client.login(process.env.TOKEN);
