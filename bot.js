@@ -154,35 +154,6 @@ client.on("message", async (message) => {
     const args = message.content.slice(1).trim().split(/ +/g);
     const command = args.shift();
 
-    if (command === "createRR") {
-        const role = message.mentions.roles.first();
-        if (!role)
-            return message
-                .reply("You need mention a role")
-                .then((m) => m.delete({ timeout: 1000 }));
-
-        const emoji = args[1];
-        if (!emoji)
-            return message
-                .reply("You need use a valid emoji.")
-                .then((m) => m.delete({ timeout: 1000 }));
-
-        const msg = await message.channel.messages.fetch(args[2] || message.id);
-        if (!role)
-            return message
-                .reply("Message not found! Wtf...")
-                .then((m) => m.delete({ timeout: 1000 }));
-
-        reactionRoleManager.createReactionRole({
-            message: msg,
-            roles: [role],
-            emoji,
-            type: 1,
-        });
-
-        message.reply("Done").then((m) => m.delete({ timeout: 500 }));
-    }
-
     if (command === "!deleteRR") {
         const emoji = args[0];
         if (!emoji)
