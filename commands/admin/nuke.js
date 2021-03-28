@@ -23,9 +23,10 @@ module.exports = class NukeCommand extends commando.Command {
      */
 
     async run(message) {
-        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
-            message.channel.send(":no_entry: Insufficient Permissions");
-        }
+        if (!message.member.hasPermission("MANAGE_MESSAGES"))
+            return message.channel.send(
+                "**You need `MANAGE_MESSAGES` permission to use this command**"
+            );
 
         message.channel.clone().then((channel) => {
             channel.setPosition(message.channel.position);

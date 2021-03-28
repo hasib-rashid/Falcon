@@ -23,6 +23,11 @@ module.exports = class ClassName extends commando.Command {
      */
     async run(message) {
         try {
+            if (!message.member.hasPermission("MANAGE_MESSAGES"))
+                return message.channel.send(
+                    "**You need `MANAGE_MESSAGES` permission to use this command**"
+                );
+
             const args = message.content.split(" ").slice(1);
 
             if (!args)

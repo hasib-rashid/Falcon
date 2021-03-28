@@ -24,11 +24,10 @@ module.exports = class PurgeCommand extends commando.Command {
      */
 
     async run(message) {
-        if (!message.member.hasPermission("MANAGE_MESSAGES")) {
-            message.channel.send(
-                ":no_entry: Insufficient Permissions! Only Moderators' can use this command!"
+        if (!message.member.hasPermission("MANAGE_MESSAGES"))
+            return message.channel.send(
+                "**You need `MANAGE_MESSAGES` permission to use this command**"
             );
-        }
 
         if (message.member.hasPermission("MANAGE_MESSAGES")) {
             const args = message.content.split(" ").slice(1);

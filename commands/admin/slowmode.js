@@ -39,7 +39,7 @@ module.exports = class SlowmodeCommand extends commando.Command {
         try {
             if (!message.member.hasPermission("MANAGE_CHANNELS"))
                 return message.channel.send(
-                    ":no_entry: Insufficient permissions"
+                    "**You need `MANAGE_CHANNELS` permission to use this command**"
                 );
 
             const { channel } = message;

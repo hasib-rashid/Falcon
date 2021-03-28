@@ -23,8 +23,10 @@ module.exports = class TicketSetupCommand extends commando.Command {
      */
 
     async run(message) {
-        if (!message.member.hasPermission("KICK_MEMBERS"))
-            return message.channel.send(":no_entry: Insufficient permissions");
+        if (!message.member.hasPermission("MANAGE_CHANNELS"))
+            return message.channel.send(
+                "**You need `MANAGE_CHANNELS` permission to use this command**"
+            );
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(message.author.username, message.author.avatarURL())

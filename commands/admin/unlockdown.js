@@ -22,7 +22,9 @@ module.exports = class ClassName extends commando.Command {
      */
     async run(message) {
         if (!message.member.hasPermission("MANAGE_CHANNELS"))
-            return message.channel.send(":no_entry: Insufficient Permissions");
+            return message.channel.send(
+                "**You need `MANAGE_CHANNELS` permission to use this command**"
+            );
 
         const role = message.guild.roles.everyone;
 

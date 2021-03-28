@@ -31,7 +31,10 @@ module.exports = class KickCommand extends commando.Command {
 
     async run(message, { reason }) {
         if (!message.member.hasPermission("KICK_MEMBERS"))
-            return message.channel.send(":no_entry: Insufficient permissions");
+            return message.channel.send(
+                "**You need `KICK_MEMBERS` permission to use this command**"
+            );
+
         const member = message.mentions.members.first();
 
         if (!member)

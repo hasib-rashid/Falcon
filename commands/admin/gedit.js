@@ -39,12 +39,9 @@ module.exports = class ClassName extends commando.Command {
      */
     async run(message, { messageID, prize, newWinner }) {
         try {
-            if (!isNaN(messageID))
-                return message.channel.send("**MessageID is Invalid**");
-
-            if (!isNaN(messageID))
+            if (!message.member.hasPermission("MANAGE_MESSAGES"))
                 return message.channel.send(
-                    "**Winner Number is not a valid number**"
+                    "**You need `MANAGE_MESSAGES` permission to use this command**"
                 );
 
             this.client.giveaways
