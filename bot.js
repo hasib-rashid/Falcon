@@ -98,6 +98,7 @@ const reactionRoleManager = new ReactionRoleManager(client, {
 //* Client Managers
 client.giveaways = manager;
 client.distube = distube;
+client.reactionRole = reactionRoleManager;
 
 client.registry
     .registerDefaultTypes()
