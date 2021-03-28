@@ -24,7 +24,7 @@ module.exports = class ClassName extends commando.Command {
         try {
             this.client.distube.resume(messaeg);
 
-            message.channel.send("**Resumed the song in the Voice Chanel!**");
+            message.channel.send("**Resumed the song in the Voice Channel!**");
         } catch (err) {
             message.channel.send(
                 "**Please make sure that you are in a voice channel and playing a song and if a song is paused or not**"
