@@ -144,12 +144,6 @@ reactionRoleManager.on(
     }
 );
 
-client.on("ready", async () => {
-    await mongo().then((mongoose) => {
-        console.log("Connected to MongoDB Database.");
-    });
-});
-
 client.on("messageReactionAdd", async (reaction, user, msg) => {
     if (user.partial) await user.fetch();
     if (reaction.partial) await reaction.fetch();
