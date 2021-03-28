@@ -234,25 +234,6 @@ client.on("message", async (message) => {
             );
         }
     }
-
-    if (command === "seek") {
-        if (!args) {
-            message.channel.send(
-                ":no_entry: Please specify where will I move the song to in seconds?"
-            );
-        }
-        await embedbuilder(
-            client,
-            message,
-            "GREEN",
-            "Seeked!",
-            `Seeked the song to \`${args[0]} seconds\``
-        );
-        await distube.seek(message, Number(args[0] * 1000));
-        await delay(5000);
-        await message.channel.bulkDelete(2);
-        return;
-    }
 });
 
 client.on("messageReactionAdd", async (reaction, user, msg) => {
