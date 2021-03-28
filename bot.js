@@ -150,13 +150,7 @@ client.on("ready", async () => {
 });
 
 client.on("message", async (message) => {
-    const client = message.client;
-
-    const args = message.content.slice(1).trim().split(/ +/g); //arguments of the content
-    const command = args.shift();
-
-    // Example
-    // >createReactionRole @role :emoji: MessageId
+    const args = message.content.slice(1).trim().split(/ +/g);
     if (command === "createRR") {
         const role = message.mentions.roles.first();
         if (!role)
