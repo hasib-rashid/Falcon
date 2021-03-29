@@ -13,7 +13,6 @@ module.exports = class KickCommand extends commando.Command {
             details: oneLine`
                 Kick the user you want
             `,
-            clientPermissions: ["KICK_MEMBERS"],
             examples: ["!kick <member>"],
             args: [
                 {

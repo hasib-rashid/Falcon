@@ -9,7 +9,6 @@ module.exports = class PurgeCommand extends commando.Command {
             aliases: [],
             group: "moderation",
             memberName: "purge",
-            clientPermissions: ["MANAGE_CHANNELS"],
             description:
                 "Purge or delete the unintentional messages with just 1 command!",
             details: oneLine`

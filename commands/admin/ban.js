@@ -14,7 +14,6 @@ module.exports = class BanCommand extends commando.Command {
                 Bans a user you want to ban!
             `,
             examples: ["!ban <user>"],
-            userPermissions: ["BAN_MEMBERS"],
             args: [
                 {
                     key: "reason",

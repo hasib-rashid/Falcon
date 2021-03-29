@@ -12,7 +12,6 @@ module.exports = class TicketCloseCommand extends commando.Command {
             group: "moderation",
             memberName: "ticket-close",
             description: "Close your current ticket using this command",
-            clientPermissions: ["MANAGE_CHANNELS"],
             details: oneLine`
                 Close your current ticket using this command
             `,

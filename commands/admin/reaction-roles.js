@@ -14,7 +14,6 @@ module.exports = class ReactionRoleCommand extends commando.Command {
                 React to get your roles
             `,
             examples: ["!rr"],
-            clientPermissions: ["MANAGE_ROLES"],
         });
     }
 
