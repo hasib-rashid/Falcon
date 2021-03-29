@@ -127,7 +127,36 @@ module.exports = class HelpCommand extends commando.Command {
             }
 
             if (helpArgs === "music") {
-                return message.channel.send("These helps are coming soon");
+                let embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.avatarURL()
+                    )
+                    .setTitle(":musical_note: Music")
+                    .setDescription(
+                        `
+                            **play** - Play a song in the VC
+                            **pause** - Pause a song
+                            **resume** - Resume a video after pausing it
+                            **stop** - Clears the queue and leaves the voice channel
+                            **skip** - Skip a song
+                            **search** - Search for a song in youtube
+                            **repeat** - Repeat a song many times you want
+                            **shuffle** - Shuffles the queue
+                            **jump** - Jump to a certain song in the queue
+                            **queue** - Shows the queue
+                            **seek** - Moves the song to a certain part of the song
+                            **volume** - Set the volume to a certain amount
+                            **playSkip** - Skip the song and play another one
+                            **addRelatedVideo** - Add a related Video
+                            **setRepeatMode** - Set the Repeat Mode. For example \`setRepeatMode 0 | 1 | 2\`
+                            **toggleAutoplay** - Toggle the Autoplay on or off
+                            **code-radio** - Play the radio to code
+                        `
+                    )
+                    .setColor("GREEN");
+
+                message.channel.send(embed);
             }
 
             if (helpArgs === "events") {
