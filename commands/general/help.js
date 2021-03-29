@@ -47,54 +47,23 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle(":smiley: General")
-                    .addFields(
-                        {
-                            name: "avatar",
-                            value:
-                                "Look at your or another users avatar with this command",
-                        },
-                        {
-                            name: "cat",
-                            value: "Look at the picture of a very cute cat!",
-                        },
-                        {
-                            name: "covid",
-                            value:
-                                "Watch the latest news and statistics of Covid 19",
-                        },
-                        {
-                            name: "facts",
-                            value: "Get a random facts from this command",
-                        },
-                        {
-                            name: "invite",
-                            value: "Get the invite link of this server",
-                        },
-                        {
-                            name: "ip",
-                            value: "Get the information of a IP you want",
-                        },
-                        { name: "math", value: "Do maths with this command" },
-                        {
-                            name: "member-count",
-                            value: "Count the number of members in this server",
-                        },
-                        {
-                            name: "puppy",
-                            value: "Get the cute pics of a Puppy!",
-                        },
-                        {
-                            name: "server-info",
-                            value: "Get the information on the server",
-                        },
-                        {
-                            name: "translator",
-                            value: "Translate anything from any language!",
-                        },
-                        {
-                            name: "user-info",
-                            value: "Get the information on a specific user",
-                        }
+                    .setDescription(
+                        `
+                        **avatar** - Check someones avatar
+                        **cat** - Take a look in a cute cat!
+                        **changelog** - The changelog of the current version of codevert
+                        **covid** - Check the latest stats of covid 19
+                        **facts** - Get a random fact!
+                        **help** - Get help to see what commands are in here
+                        **invite** - Get the invite link of this server
+                        **ip** - Check the Ip of a website or a network
+                        **math** - Do maths with this command
+                        **puppy** - Get a pic of a cute Puppy!
+                        **serverInfo** - Get the full info of this server
+                        **translator** - Translate anything you want
+                        **userInfo** - Get the Inforamtion on a user
+                        **whois** - See who is the person with this command
+                    `
                     )
                     .setColor("GREEN");
 
