@@ -199,43 +199,18 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle(":mag_right: Search")
-                    .addFields(
-                        {
-                            name: "book",
-                            value: "Searches Google Books for a book.",
-                        },
-                        {
-                            name: "country",
-                            value:
-                                "Search about any country suing this command",
-                        },
-                        {
-                            name: "giphy",
-                            value: "Search a GIF with this command with Giphy!",
-                        },
-                        {
-                            name: "github",
-                            value: "Watch what is at github right now",
-                        },
-                        { name: "google", value: "Google something here!" },
-                        {
-                            name: "npm",
-                            value: "Search for any npm package over here",
-                        },
-                        {
-                            name: "urban",
-                            value:
-                                "Search any words from the dictionary easily",
-                        },
-                        {
-                            name: "weather",
-                            value:
-                                "Search the Weather from anywhere and check the weather",
-                        },
-                        {
-                            name: "wikipedia / wiki",
-                            value: "Search Wikipedia with this command",
-                        }
+                    .setDescription(
+                        `
+                            **book** - Search any book
+                            **country** - Get the info of a Country
+                            **giphy** - Get a GIF from Giphy
+                            **github** - Search GitHub and get info
+                            **google** - Search the whole Google
+                            **npm** - Search NPM
+                            **urban** - Look for meaning in the Urban Dictionary
+                            **weather** - Search the weather of a certain Location
+                            **wikipedia** - Search Wikipedia
+                        `
                     )
                     .setColor(0x4285f4);
 
