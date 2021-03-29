@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
-const { stripIndents, oneLine } = require("common-tags");
+const { oneLine } = require("common-tags");
 
 const {
     General,
@@ -77,15 +77,10 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle(":video_game: Games")
-                    .addFields(
-                        {
-                            name: "RPS",
-                            value: "Play Rock Paper Scissor here!",
-                        },
-                        {
-                            name: "Akinator",
-                            value: "Play Akinator here! start the aki command!",
-                        }
+                    .setDescription(
+                        `
+                        
+                    `
                     )
                     .setColor("GREEN");
 
