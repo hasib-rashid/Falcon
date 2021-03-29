@@ -185,10 +185,9 @@ module.exports = class HelpCommand extends commando.Command {
                     )
                     .setTitle(":rofl: Fun")
                     .setColor("GREEN")
-                    .addFields({
-                        name: "8ball",
-                        value: "8ball is here to answer your question!",
-                    });
+                    .setDescription(
+                        "**8ball** -  8ball is here to answer your question!"
+                    );
 
                 message.channel.send(embed);
             }
