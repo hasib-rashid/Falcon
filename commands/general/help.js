@@ -100,56 +100,26 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle("<:ban_hammer:809356434885967882> Moderation")
-                    .addFields(
-                        {
-                            name: "ban",
-                            value: "Ban Someone using this command",
-                        },
-                        {
-                            name: "unban",
-                            value: "Unan Someone using this command",
-                        },
-                        {
-                            name: "kick",
-                            value: "Kick Someone using this command",
-                        },
-                        {
-                            name: "add-role",
-                            value: "Unan Someone using this command",
-                        },
-                        {
-                            name: "remove-role",
-                            value: "Unban Someone using this command",
-                        },
-                        {
-                            name: "purge",
-                            value:
-                                "Purge or delete some messages with this command",
-                        },
-                        {
-                            name: "nuke",
-                            value:
-                                "Nuke the current channel which clears all the messages in the channel",
-                        },
-                        {
-                            name: "giveaway",
-                            value: "Do a giveaway with this command",
-                        },
-                        {
-                            name: "slowmode",
-                            value:
-                                "Set the slowmode of the current channel with this command",
-                        },
-                        {
-                            name: "ticket-setup",
-                            value:
-                                "Setup a channel for a ticket. Start with `!ticket-setup <channel_name>`",
-                        },
-                        {
-                            name: "ticket-close",
-                            value:
-                                "Close a ticket with this command after work is done",
-                        }
+                    .setDescription(
+                        `
+                            **ban** - Ban a user
+                            **kick** - Kick a user
+                            **addRole** - add Role to a user
+                            **removeRole** - Remove Role of a user
+                            **createRR** - create a reaction role
+                            **deleteRR** - delete a reaction role
+                            **fetchTranscript** - Fetch the transcript of the channel
+                            **giveaway** - Do a Giveaway
+                            **greroll** - Reroll a giveaway
+                            **gedit** - Edit a Giveaway
+                            **lockdown** - Lock down a server during raid
+                            **Unlockdown** - Unlock down the server when a raid stops
+                            **slowmode** - Set the slowmode of a channel
+                            **nuke** - Nuke the channel
+                            **purge** - Purge a certain amount of messages in a channel
+                            **ticket-setup** - Setup a ticket system
+                            **ticket-close** - Close the ticket of a member
+                        `
                     )
                     .setColor("GREEN");
 
