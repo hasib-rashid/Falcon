@@ -79,7 +79,13 @@ module.exports = class HelpCommand extends commando.Command {
                     .setTitle(":video_game: Games")
                     .setDescription(
                         `
-                        
+                        **aki** - Play Akinator
+                        **gunfight** - Do a gunfight!
+                        **hangman** - Guess the correct words in hangman
+                        **rps** - Rock Paper Scissors Shoo
+                        **russianroulette** - A game of Russian roulette
+                        **snakegame** - Play a OG game of Snake
+                        **tictactoe** - Play Tic Tac Toe with your freinds
                     `
                     )
                     .setColor("GREEN");
