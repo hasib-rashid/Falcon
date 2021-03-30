@@ -14,7 +14,6 @@ module.exports = class ReactionRoleCommand extends commando.Command {
                 React to get your roles
             `,
             examples: ["!rr"],
-            clientPermissions: ["MANAGE_ROLES"],
         });
     }
 
@@ -23,8 +22,10 @@ module.exports = class ReactionRoleCommand extends commando.Command {
      */
 
     async run(message) {
-        if (!message.member.hasPermission("KICK_MEMBERS"))
-            return message.channel.send(":no_entry: Insufficient permissions");
+        if (!message.member.hasPermission("MANAGE_ROLES"))
+            return message.channel.send(
+                "**You need `MANAGE_ROLES` permission to use this command**"
+            );
 
         const channel = "810921429671477249";
 

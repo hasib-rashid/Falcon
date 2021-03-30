@@ -1,8 +1,7 @@
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
+const wiki = require("wikijs").default();
 const oneLine = require("common-tags").oneLine;
-const request = require("node-superfetch");
-const { shorten } = require("../../util/Util");
 
 module.exports = class WikipediaCommand extends commando.Command {
     constructor(client) {
@@ -24,13 +23,6 @@ module.exports = class WikipediaCommand extends commando.Command {
                     reasonURL: "https://en.wikipedia.org/w/api.php",
                 },
             ],
-            args: [
-                {
-                    key: "query",
-                    prompt: "What article would you like to search for?",
-                    type: "string",
-                },
-            ],
         });
     }
 
@@ -38,38 +30,107 @@ module.exports = class WikipediaCommand extends commando.Command {
      * @param {commando.CommandoMessage} message
      */
 
-    async run(message, { query }) {
-        try {
-            const { body } = await request
-                .get("https://en.wikipedia.org/w/api.php")
-                .query({
-                    action: "query",
-                    prop: "extracts|pageimages",
-                    format: "json",
-                    titles: query,
-                    exintro: "",
-                    explaintext: "",
-                    pithumbsize: 150,
-                    redirects: "",
-                    formatversion: 2,
-                });
-            const data = body.query.pages[0];
+    async run(message) {
+        const args = message.content.slice(5).trim().split("  ");
 
-            if (data.missing) return message.say("Could not find any results.");
-            const embed = new Discord.MessageEmbed()
-                .setColor(0xe7e7e7)
-                .setTitle(data.title)
-                .setAuthor(
-                    "Wikipedia",
-                    "https://i.imgur.com/Z7NJBK2.png",
-                    "https://www.wikipedia.org/"
-                )
-                .setThumbnail(data.thumbnail ? data.thumbnail.source : null)
-                .setURL(`https://en.wikipedia.org/wiki/${query}` ? null : null)
-                .setDescription(shorten(data.extract));
-            return message.embed(embed);
-        } catch (err) {
-            console.error(err);
+        if (!args[0]) return message.channel.send("**Please Enter A Query!**");
+        let m = await message.channel.send({
+            embed: {
+                color: "GREEN",
+                title: `Searching Wikipedia just for you ⌛`,
+                description: `Please stand by...`,
+            },
+        });
+        let result;
+        const search = await wiki.search(args.join(" "));
+        if (!search.results.length) {
+            return m.edit({
+                embed: {
+                    color: "GREEN",
+                    title: "What was that again? 📚🤓",
+                    description:
+                        "Even Wikipedia doesn't seem to know what you're talking about.",
+                    footer: {
+                        text:
+                            "Check for typos or try searching for something else!",
+                    },
+                },
+            });
+        }
+        result = await wiki.page(search.results[0]);
+        try {
+            let description = await result.summary();
+            if (description.length > 8192) {
+                const FirstEmbed = new Discord.MessageEmbed()
+                    .setAuthor(result.raw.title)
+                    .setColor("GREEN")
+                    .setDescription(
+                        `${description.substring(
+                            0,
+                            1950
+                        )}...\nArticle is too long, click [**here**](${
+                            result.raw.fullurl
+                        }) to read more!`
+                    );
+                return m.edit(FirstEmbed);
+            }
+            if (description.length < 2048) {
+                const SecondEmbed = new Discord.MessageEmbed()
+                    .setAuthor(result.raw.title)
+                    .setColor("GREEN")
+                    .setDescription(`${description.slice(0, 2048)}`);
+                return m.edit("", SecondEmbed);
+            }
+            if (description.length > 2048) {
+                const ThirdEmbed = new Discord.MessageEmbed()
+                    .setAuthor(result.raw.title)
+                    .setColor("GREEN")
+                    .setDescription(description.slice(0, 2048));
+                const FourthEmbed = new Discord.MessageEmbed()
+                    .setColor("GREEN")
+                    .setDescription(description.slice(2048, 4096));
+                m.edit("", ThirdEmbed);
+                message.channel.send("", FourthEmbed);
+            }
+            if (description.length > 4096 && description.length < 6144) {
+                const FifthEmbed = new Discord.MessageEmbed()
+                    .setAuthor(result.raw.title)
+                    .setColor("GREEN")
+                    .setDescription(description.slice(0, 2048));
+                const SixthEmbed = new Discord.MessageEmbed()
+                    .setColor("GREEN")
+                    .setDescription(description.slice(2048, 4096));
+                const SeventhEmbed = new Discord.MessageEmbed()
+                    .setColor("GREEN")
+                    .setDescription(
+                        description.slice(4096, description.length)
+                    );
+                await m.edit("", FifthEmbed);
+                message.channel.send(SixthEmbed);
+                message.channel.send(SeventhEmbed);
+            }
+            if (description.length > 6144 && description.length < 8192) {
+                const EightEmbed = new Discord.MessageEmbed()
+                    .setColor("GREEN")
+                    .setDescription(description.slice(0, 2048));
+                const NinthEmbed = new Discord.MessageEmbed()
+                    .setColor("GREEN")
+                    .setDescription(description.slice(2048, 4096));
+                const TenthEmbed = new Discord.MessageEmbed()
+                    .setColor("GREEN")
+                    .setDescription(description.slice(4096, 6144));
+                const EleventhEmbed = new Discord.MessageEmbed()
+                    .setColor("GREEN")
+                    .setDescription(
+                        description.slice(6144, description.length)
+                    );
+                await m.edit("", EightEmbed);
+                message.channel.send(NinthEmbed);
+                message.channel.send(TenthEmbed);
+                message.channel.send(EleventhEmbed);
+            }
+        } catch (e) {
+            return m.edit("Not Available!");
         }
     }
 };

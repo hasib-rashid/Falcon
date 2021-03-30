@@ -9,10 +9,9 @@ module.exports = class TicketCloseCommand extends commando.Command {
         super(client, {
             name: "ticket-close",
             aliases: [],
-            group: "general",
+            group: "moderation",
             memberName: "ticket-close",
             description: "Close your current ticket using this command",
-            clientPermissions: ["MANAGE_CHANNELS"],
             details: oneLine`
                 Close your current ticket using this command
             `,
@@ -25,9 +24,10 @@ module.exports = class TicketCloseCommand extends commando.Command {
      */
 
     async run(message) {
-        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
-            message.channel.send(":no_entry: Insufficient Permissions");
-        }
+        if (!message.member.hasPermission("MANAGE_CHANNELS"))
+            return message.channel.send(
+                "**You need `MANAGE_CHANNELS` permission to use this command**"
+            );
 
         if (message.channel.name.includes("make-"))
             return message.channel.send("You cannot use that here!");

@@ -10,6 +10,18 @@ let ticketeasy = require("ticket.easy");
 const ticket = new ticketeasy();
 const { formatNumber } = require("./util/Util");
 
+const MongoClient = require("mongodb").MongoClient;
+const MongoDBProvider = require("commando-provider-mongo").MongoDBProvider;
+const mongo = require("./mongo.js");
+const mongoose = require("mongoose");
+
+const { GiveawaysManager } = require("discord-giveaways");
+
+mongoose.connect(process.env.MONGO_PATH, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+});
+
 const client = new CommandoClient({
     commandPrefix: process.env.PREFIX,
     owner: "548038495617417226",
@@ -24,6 +36,29 @@ const client = new CommandoClient({
     ],
 });
 
+// MongoDB Provider
+client
+    .setProvider(
+        MongoClient.connect(process.env.MONGO_PATH).then(
+            (client) => new MongoDBProvider(client, "test-db-codevert")
+        )
+    )
+    .catch(console.error);
+
+// Giveaway Manager
+const manager = new GiveawaysManager(client, {
+    storage: "./giveaways.json",
+    updateCountdownEvery: 40000,
+    hasGuildMembersIntent: false,
+    default: {
+        botsCanWin: false,
+        embedColor: "RANDOM",
+        reaction: "🎉",
+        embedColorEnd: "#1f75ff",
+    },
+});
+
+// Distube Manager
 const distube = new DisTube(client, {
     youtubeCookie: "",
     searchSongs: false,
@@ -55,23 +90,29 @@ const distube = new DisTube(client, {
     },
 });
 
+// Reaction Role Manager
 const reactionRoleManager = new ReactionRoleManager(client, {
     mongoDbLink: process.env.MONGO_PATH,
 });
 
+//* Client Managers
+client.giveaways = manager;
+client.distube = distube;
+client.reactionRole = reactionRoleManager;
+
 client.registry
     .registerDefaultTypes()
     .registerGroups([
-        ["general", "General Command Group"],
-        ["games", "Games from CodeVert"],
-        ["moderation", "Moderators group"],
-        ["music", "Music Commands Group"],
-        ["events", "Events from CodeVert"],
-        ["notify", "Notify devs about Bugs and Features"],
-        ["nsfw", "NSFW Content Group"],
-        ["misc", "Miscellanious Commands"],
-        ["fun", "Fun Commands from CodeVert"],
-        ["search", "Search anything from CodeVert"],
+        ["general", ":smiley: General"],
+        ["games", ":video_game: Games"],
+        ["moderation", "<:ban_hammer:809356434885967882> Moderators"],
+        ["music", ":musical_note: Music"],
+        ["events", ":checkered_flag: Events"],
+        ["notify", ":speech_left: Notify devs about Bugs and Features"],
+        ["nsfw", ":underage: NSFW"],
+        ["misc", ":wrench: MISC"],
+        ["fun", ":rofl: Fun"],
+        ["search", ":mag: Search"],
     ])
     .registerDefaultGroups()
     .registerDefaultCommands({
@@ -102,232 +143,6 @@ reactionRoleManager.on(
         );
     }
 );
-
-client.on("message", async (message) => {
-    const client = message.client;
-
-    const args = message.content.slice(1).trim().split(/ +/g); //arguments of the content
-    const command = args.shift();
-
-    // Example
-    // >createReactionRole @role :emoji: MessageId
-    if (command === "createRR") {
-        const role = message.mentions.roles.first();
-        if (!role)
-            return message
-                .reply("You need mention a role")
-                .then((m) => m.delete({ timeout: 1000 }));
-
-        const emoji = args[1];
-        if (!emoji)
-            return message
-                .reply("You need use a valid emoji.")
-                .then((m) => m.delete({ timeout: 1000 }));
-
-        const msg = await message.channel.messages.fetch(args[2] || message.id);
-        if (!role)
-            return message
-                .reply("Message not found! Wtf...")
-                .then((m) => m.delete({ timeout: 1000 }));
-
-        reactionRoleManager.createReactionRole({
-            message: msg,
-            roles: [role],
-            emoji,
-            type: 1,
-        });
-        /**
-         * Reaction Role Type
-         * NORMAL [1] - This role works like basic reaction role.
-         * TOGGLE [2] - You can win only one role of all toggle roles in this message (like colors system)
-         * JUST_WIN [3] - This role you'll only win, not lose.
-         * JUST_LOSE [4] - This role you'll only lose, not win.
-         * REVERSED [5] - This is reversed role. When react, you'll lose it, when you take off reaction you'll win it.
-         */
-
-        message.reply("Done").then((m) => m.delete({ timeout: 500 }));
-    }
-
-    if (command === "!deleteRR") {
-        const emoji = args[0];
-        if (!emoji)
-            return message
-                .reply("You need use a valid emoji.")
-                .then((m) => m.delete({ timeout: 1000 }));
-
-        const msg = await message.channel.messages.fetch(args[1]);
-        if (!msg)
-            return message
-                .reply("Message not found! Wtf...")
-                .then((m) => m.delete({ timeout: 1000 }));
-
-        await reactionRoleManager.deleteReactionRole({ message: msg, emoji });
-    }
-
-    if (command === "play") {
-        if (!args)
-            return message.channel.send("Please sepcify which song do i play!");
-
-        message.channel.send(
-            "<:YouTube:801465200775135282> **Searching** :mag_right: `" +
-                `${args}` +
-                "`"
-        );
-
-        distube.play(message, args.join(" "));
-    }
-
-    if (command === "search") {
-        embedbuilder(client, message, "GREEN", "Searching!", args.join(" "));
-
-        let result = await distube.search(args.join(" "));
-
-        let searchresult = "";
-
-        for (let i = 0; i <= result.length; i++) {
-            try {
-                searchresult += await `**${i + 1}**. ${result[i].name} - \`${
-                    result[i].formattedDuration
-                }\`\n`;
-            } catch {
-                searchresult += await " ";
-            }
-        }
-        let searchembed = await embedbuilder(
-            client,
-            message,
-            "#fffff0",
-            "Current Queue!",
-            searchresult
-        );
-
-        let userinput;
-
-        await searchembed.channel
-            .awaitMessages((m) => m.author.id == message.author.id, {
-                max: 1,
-                time: 60000,
-                errors: ["time"],
-            })
-            .then((collected) => {
-                userinput = collected.first().content;
-                if (isNaN(userinput)) {
-                    embedbuilder(
-                        client,
-                        message,
-                        "RED",
-                        "Not a right number!",
-                        "so i use number 1!"
-                    );
-                    userinput = 1;
-                }
-                if (Number(userinput) < 0 && Number(userinput) >= 15) {
-                    embedbuilder(
-                        client,
-                        message,
-                        "RED",
-                        "Not a right number!",
-                        "so i use number 1!"
-                    );
-                    userinput = 1;
-                }
-                searchembed.delete({ timeout: Number(client.ws.ping) });
-            })
-            .catch(() => {
-                console.log(console.error);
-                userinput = 404;
-            });
-        if (userinput === 404) {
-            return embedbuilder(
-                client,
-                message,
-                "RED",
-                "Something went wrong!"
-            );
-        }
-
-        return distube.play(message, result[userinput - 1].url);
-    }
-
-    if (command === "skip") {
-        message.channel.send(":white_check_mark: Song Skipped!");
-
-        return distube.skip(message);
-    }
-
-    if (command === "loop" || command === "repeat") {
-        if (0 <= Number(args[0]) && Number(args[0]) <= 2) {
-            await distube.setRepeatMode(message, parseInt(args[0]));
-            await embedbuilder(
-                client,
-                message,
-                "GREEN",
-                "Repeat mode set to:!",
-                `${args[0]
-                    .replace("0", "OFF")
-                    .replace("1", "Repeat song")
-                    .replace("2", "Repeat Queue")}`
-            );
-            return;
-        } else {
-            return embedbuilder(
-                client,
-                message,
-                "RED",
-                "ERROR",
-                `Please use a number between **0** and **2**   |   *(0: disabled, 1: Repeat a song, 2: Repeat all the queue)*`
-            );
-        }
-    }
-
-    if (command === "seek") {
-        if (!args) {
-            message.channel.send(
-                ":no_entry: Please specify where will I move the song to in seconds?"
-            );
-        }
-        await embedbuilder(
-            client,
-            message,
-            "GREEN",
-            "Seeked!",
-            `Seeked the song to \`${args[0]} seconds\``
-        );
-        await distube.seek(message, Number(args[0] * 1000));
-        await delay(5000);
-        await message.channel.bulkDelete(2);
-        return;
-    }
-
-    function embedbuilder(
-        client,
-        message,
-        color,
-        title,
-        description,
-        thumbnail
-    ) {
-        try {
-            let embed = new Discord.MessageEmbed()
-                .setColor(color)
-                .setAuthor(
-                    message.author.tag,
-                    message.member.user.displayAvatarURL({ dynamic: true }),
-                    "https://harmonymusic.tk"
-                )
-                .setFooter(
-                    client.user.username,
-                    client.user.displayAvatarURL()
-                );
-            if (title) embed.setTitle(title);
-            if (description) embed.setDescription(description);
-            if (thumbnail) embed.setThumbnail(thumbnail);
-            return message.channel.send(embed);
-        } catch (error) {
-            console.error;
-        }
-    }
-});
 
 client.on("messageReactionAdd", async (reaction, user, msg) => {
     if (user.partial) await user.fetch();
@@ -398,9 +213,8 @@ client.on("guildMemberAdd", async (member) => {
 
 client.on("guildMemberRemove", async (member) => {
     try {
-        const channel = member.guild.channels.cache.find(
-            (ch) => ch.name === "joins-and-leaves"
-        );
+        const channel = member.guild.channels.cache.find("818370414542716998");
+
         const welcome = new canvas.Goodbye();
         const image = await welcome
             .setUsername(member.user.username)
@@ -505,10 +319,30 @@ distube
 
         message.channel.send(embed);
     })
-    .on("searchCancel", (message) => message.channel.send(`Searching canceled`))
+    .on("searchCancel", (message) =>
+        message.channel.send(`**Searching canceled**`)
+    )
     .on("error", (message, e) => {
         console.error(e);
         message.channel.send("An error encountered: " + e);
-    });
+    })
+    .on("initQueue", (queue) => {
+        queue.autoplay = false;
+        queue.volume = 50;
+    })
+    .on("empty", (message) => {
+        distube.stop(message);
+        message.channel.send(
+            "**Channel is Empty. Cleared the queue and left the voice channel!**"
+        );
+    })
+    .on("noRelated", (message) =>
+        message.channel.send(
+            "**Can't find related video to play. Stop playing music.**"
+        )
+    )
+    .on("finish", (message) =>
+        message.channel.send("**No more song in queue to play. Add More!**")
+    );
 
 client.login(process.env.TOKEN);

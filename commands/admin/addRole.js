@@ -14,7 +14,6 @@ module.exports = class AddRoleCommand extends commando.Command {
                 Add a role for a person with this command
             `,
             examples: ["!addrole <member> <name_of_role>"],
-            clientPermissions: ["MANAGE_ROLES"],
             args: [
                 {
                     key: "user",
@@ -37,6 +36,10 @@ module.exports = class AddRoleCommand extends commando.Command {
 
     async run(message, { nameofrole, user }) {
         try {
+            if (!message.member.hasPermission("MANAGE_ROLES"))
+                return message.channel.send(
+                    "**You need `MANAGE_ROLES` permission to use this command**"
+                );
             if (message.member.hasPermission("MANAGE_ROLES")) {
                 const targetUser = user;
 

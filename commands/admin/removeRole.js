@@ -13,7 +13,6 @@ module.exports = class RemoveRoleCommand extends commando.Command {
             details: oneLine`
                 Remove a role from a user with a command only!
             `,
-            clientPermissions: ["MANAGE_ROLES"],
             examples: ["!removerole <member> <role>"],
             args: [
                 {
@@ -37,6 +36,10 @@ module.exports = class RemoveRoleCommand extends commando.Command {
 
     async run(message, { nameofrole, user }) {
         try {
+            if (!message.member.hasPermission("MANAGE_ROLES"))
+                return message.channel.send(
+                    "**You need `MANAGE_ROLES` permission to use this command**"
+                );
             if (message.member.hasPermission("MANAGE_ROLES")) {
                 const targetUser = user;
 

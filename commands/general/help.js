@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
-const oneLine = require("common-tags").oneLine;
-const fs = require("fs");
+const { oneLine } = require("common-tags");
 
 const {
     General,
@@ -48,29 +47,23 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle(":smiley: General")
-                    .addFields(
-                        {
-                            name: "Avatar",
-                            value: "Searches the Avatar of the you want!",
-                        },
-                        {
-                            name: "Invite",
-                            value: "Finds the Invite link for the server",
-                        },
-                        {
-                            name: "Math",
-                            value:
-                                "Do Maths with this one command! Use `!math-help` for Help in Maths",
-                        },
-                        {
-                            name: "IP",
-                            value:
-                                "Find the IP or any place or any domain you want!",
-                        },
-                        {
-                            name: "Fact",
-                            value: "Get a Random fact with this command!",
-                        }
+                    .setDescription(
+                        `
+                        **avatar** - Check someones avatar
+                        **cat** - Take a look in a cute cat!
+                        **changelog** - The changelog of the current version of codevert
+                        **covid** - Check the latest stats of covid 19
+                        **facts** - Get a random fact!
+                        **help** - Get help to see what commands are in here
+                        **invite** - Get the invite link of this server
+                        **ip** - Check the Ip of a website or a network
+                        **math** - Do maths with this command
+                        **puppy** - Get a pic of a cute Puppy!
+                        **serverInfo** - Get the full info of this server
+                        **translator** - Translate anything you want
+                        **userInfo** - Get the Inforamtion on a user
+                        **whois** - See who is the person with this command
+                    `
                     )
                     .setColor("GREEN");
 
@@ -84,15 +77,16 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle(":video_game: Games")
-                    .addFields(
-                        {
-                            name: "RPS",
-                            value: "Play Rock Paper Scissor here!",
-                        },
-                        {
-                            name: "Akinator",
-                            value: "Play Akinator here! start the aki command!",
-                        }
+                    .setDescription(
+                        `
+                        **aki** - Play Akinator
+                        **gunfight** - Do a gunfight!
+                        **hangman** - Guess the correct words in hangman
+                        **rps** - Rock Paper Scissors Shoo
+                        **russianroulette** - A game of Russian roulette
+                        **snakegame** - Play a OG game of Snake
+                        **tictactoe** - Play Tic Tac Toe with your freinds
+                    `
                     )
                     .setColor("GREEN");
 
@@ -106,56 +100,26 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle("<:ban_hammer:809356434885967882> Moderation")
-                    .addFields(
-                        {
-                            name: "ban",
-                            value: "Ban Someone using this command",
-                        },
-                        {
-                            name: "unban",
-                            value: "Unan Someone using this command",
-                        },
-                        {
-                            name: "kick",
-                            value: "Kick Someone using this command",
-                        },
-                        {
-                            name: "add-role",
-                            value: "Unan Someone using this command",
-                        },
-                        {
-                            name: "remove-role",
-                            value: "Unban Someone using this command",
-                        },
-                        {
-                            name: "purge",
-                            value:
-                                "Purge or delete some messages with this command",
-                        },
-                        {
-                            name: "nuke",
-                            value:
-                                "Nuke the current channel which clears all the messages in the channel",
-                        },
-                        {
-                            name: "giveaway",
-                            value: "Do a giveaway with this command",
-                        },
-                        {
-                            name: "slowmode",
-                            value:
-                                "Set the slowmode of the current channel with this command",
-                        },
-                        {
-                            name: "ticket-setup",
-                            value:
-                                "Setup a channel for a ticket. Start with `!ticket-setup <channel_name>`",
-                        },
-                        {
-                            name: "ticket-close",
-                            value:
-                                "Close a ticket with this command after work is done",
-                        }
+                    .setDescription(
+                        `
+                            **ban** - Ban a user
+                            **kick** - Kick a user
+                            **addRole** - add Role to a user
+                            **removeRole** - Remove Role of a user
+                            **createRR** - create a reaction role
+                            **deleteRR** - delete a reaction role
+                            **fetchTranscript** - Fetch the transcript of the channel
+                            **giveaway** - Do a Giveaway
+                            **greroll** - Reroll a giveaway
+                            **gedit** - Edit a Giveaway
+                            **lockdown** - Lock down a server during raid
+                            **Unlockdown** - Unlock down the server when a raid stops
+                            **slowmode** - Set the slowmode of a channel
+                            **nuke** - Nuke the channel
+                            **purge** - Purge a certain amount of messages in a channel
+                            **ticket-setup** - Setup a ticket system
+                            **ticket-close** - Close the ticket of a member
+                        `
                     )
                     .setColor("GREEN");
 
@@ -163,7 +127,36 @@ module.exports = class HelpCommand extends commando.Command {
             }
 
             if (helpArgs === "music") {
-                return message.channel.send("These helps are coming soon");
+                let embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.avatarURL()
+                    )
+                    .setTitle(":musical_note: Music")
+                    .setDescription(
+                        `
+                            **play** - Play a song in the VC
+                            **pause** - Pause a song
+                            **resume** - Resume a video after pausing it
+                            **stop** - Clears the queue and leaves the voice channel
+                            **skip** - Skip a song
+                            **search** - Search for a song in youtube
+                            **repeat** - Repeat a song many times you want
+                            **shuffle** - Shuffles the queue
+                            **jump** - Jump to a certain song in the queue
+                            **queue** - Shows the queue
+                            **seek** - Moves the song to a certain part of the song
+                            **volume** - Set the volume to a certain amount
+                            **playSkip** - Skip the song and play another one
+                            **addRelatedVideo** - Add a related Video
+                            **setRepeatMode** - Set the Repeat Mode. For example \`setRepeatMode 0 | 1 | 2\`
+                            **toggleAutoplay** - Toggle the Autoplay on or off
+                            **code-radio** - Play the radio to code
+                        `
+                    )
+                    .setColor("GREEN");
+
+                message.channel.send(embed);
             }
 
             if (helpArgs === "events") {
@@ -192,10 +185,9 @@ module.exports = class HelpCommand extends commando.Command {
                     )
                     .setTitle(":rofl: Fun")
                     .setColor("GREEN")
-                    .addFields({
-                        name: "8ball",
-                        value: "8ball is here to answer your question!",
-                    });
+                    .setDescription(
+                        "**8ball** -  8ball is here to answer your question!"
+                    );
 
                 message.channel.send(embed);
             }
@@ -207,43 +199,18 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.avatarURL()
                     )
                     .setTitle(":mag_right: Search")
-                    .addFields(
-                        {
-                            name: "book",
-                            value: "Searches Google Books for a book.",
-                        },
-                        {
-                            name: "country",
-                            value:
-                                "Search about any country suing this command",
-                        },
-                        {
-                            name: "giphy",
-                            value: "Search a GIF with this command with Giphy!",
-                        },
-                        {
-                            name: "github",
-                            value: "Watch what is at github right now",
-                        },
-                        { name: "google", value: "Google something here!" },
-                        {
-                            name: "npm",
-                            value: "Search for any npm package over here",
-                        },
-                        {
-                            name: "urban",
-                            value:
-                                "Search any words from the dictionary easily",
-                        },
-                        {
-                            name: "weather",
-                            value:
-                                "Search the Weather from anywhere and check the weather",
-                        },
-                        {
-                            name: "wikipedia / wiki",
-                            value: "Search Wikipedia with this command",
-                        }
+                    .setDescription(
+                        `
+                            **book** - Search any book
+                            **country** - Get the info of a Country
+                            **giphy** - Get a GIF from Giphy
+                            **github** - Search GitHub and get info
+                            **google** - Search the whole Google
+                            **npm** - Search NPM
+                            **urban** - Look for meaning in the Urban Dictionary
+                            **weather** - Search the weather of a certain Location
+                            **wikipedia** - Search Wikipedia
+                        `
                     )
                     .setColor(0x4285f4);
 

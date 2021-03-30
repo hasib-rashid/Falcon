@@ -14,8 +14,6 @@ module.exports = class BanCommand extends commando.Command {
                 Bans a user you want to ban!
             `,
             examples: ["!ban <user>"],
-            clientPermissions: ["BAN_MEMBERS"],
-            userPermissions: ["BAN_MEMBERS"],
             args: [
                 {
                     key: "reason",
@@ -34,7 +32,7 @@ module.exports = class BanCommand extends commando.Command {
         try {
             if (!message.member.hasPermission("BAN_MEMBERS"))
                 return message.channel.send(
-                    ":no_entry: Insufficient permissions"
+                    "**You need `BAN_MEMBERS` permission to use this command**"
                 );
             const member = message.mentions.members.first();
 
