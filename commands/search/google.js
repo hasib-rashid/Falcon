@@ -53,8 +53,7 @@ module.exports = class GoogleCommand extends commando.Command {
         try {
             const options = {
                 method: "GET",
-                url:
-                    "https://google-search3.p.rapidapi.com/api/v1/search/q=elon+musk&num=10",
+                url: `https://google-search3.p.rapidapi.com/api/v1/search/q=${query}&num=10`,
                 headers: {
                     "x-rapidapi-key":
                         "616e3d86cbmsh19e94e8d6df2d94p13e47ejsne5e9296c68cb",
@@ -65,7 +64,13 @@ module.exports = class GoogleCommand extends commando.Command {
             axios
                 .request(options)
                 .then(function (response) {
-                    console.log(response.data);
+                    console.log(response.data.results);
+                    var text = "";
+                    var i;
+                    for (i = 0; i < response.data.results.length; i++) {
+                        text +=
+                            message.say(response.data.results[i].title) + "\n";
+                    }
                 })
                 .catch(function (error) {
                     console.error(error);
