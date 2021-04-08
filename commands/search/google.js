@@ -3,6 +3,7 @@ require("dotenv").config();
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const request = require("node-superfetch");
+const axios = require("axios").default;
 
 module.exports = class GoogleCommand extends commando.Command {
     constructor(client) {
@@ -49,27 +50,24 @@ module.exports = class GoogleCommand extends commando.Command {
      */
 
     async run(message, { query }) {
-        let href;
-        const nsfw = message.channel.nsfw || false;
-        try {
-            href = await this.customSearch(query, nsfw);
-        } catch {
-            href = `http://lmgtfy.com/?iie=1&q=${encodeURIComponent(query)}`;
-        }
-        if (!href) return message.say("Could not find any results.");
-        return message.say(href);
-    }
+        var options = {
+            method: "GET",
+            url:
+                "https://google-search3.p.rapidapi.com/api/v1/search/q=elon+musk&num=100",
+            headers: {
+                "x-rapidapi-key":
+                    "616e3d86cbmsh19e94e8d6df2d94p13e47ejsne5e9296c68cb",
+                "x-rapidapi-host": "google-search3.p.rapidapi.com",
+            },
+        };
 
-    async customSearch(query, nsfw) {
-        const { body } = await request
-            .get("https://www.googleapis.com/customsearch/v1")
-            .query({
-                key: process.env.GOOGLE_API,
-                cx: process.env.GOOGLE_CX,
-                safe: nsfw ? "off" : "active",
-                q: query,
+        axios
+            .request(options)
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.error(error);
             });
-        if (!body.items) return null;
-        return body.items[0].formattedUrl;
     }
 };

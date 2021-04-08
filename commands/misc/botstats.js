@@ -71,7 +71,10 @@ module.exports = class BotStatsCommand extends commando.Command {
                     },
                     {
                         name: "Total Memory",
-                        value: "Total Memory: " + osutils.totalmem() + " MB",
+                        value:
+                            "Total Memory: " +
+                            osutils.totalmem().toFixed(2) +
+                            " MB",
                         inline: true,
                     },
                     {
