@@ -3,7 +3,7 @@ require("dotenv").config();
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const request = require("node-superfetch");
-const axios = require("request");
+const axios = require("axios").default;
 
 module.exports = class GoogleCommand extends commando.Command {
     constructor(client) {
@@ -52,19 +52,24 @@ module.exports = class GoogleCommand extends commando.Command {
     async run(message, { query }) {
         try {
             const options = {
-                url: "https://api.goog.io/v1/search/q=united+states",
-                qs: "57362ccb-18bc-47a6-b9a2-11cb5bbc3daf",
-                apikey: "57362ccb-18bc-47a6-b9a2-11cb5bbc3daf",
-                json: true,
+                method: "GET",
+                url:
+                    "https://google-search3.p.rapidapi.com/api/v1/search/q=elon+musk&num=10",
+                headers: {
+                    "x-rapidapi-key":
+                        "616e3d86cbmsh19e94e8d6df2d94p13e47ejsne5e9296c68cb",
+                    "x-rapidapi-host": "google-search3.p.rapidapi.com",
+                },
             };
 
-            await new request(options, (error, response, body) => {
-                if (error) throw new Error(error);
-
-                console.log(response);
-                console.log(body);
-                console.log("triggered");
-            });
+            axios
+                .request(options)
+                .then(function (response) {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
         } catch (err) {
             console.error(err);
         }
