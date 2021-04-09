@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
@@ -40,8 +42,7 @@ module.exports = class ClassName extends commando.Command {
                 order: "date",
             },
             headers: {
-                "x-rapidapi-key":
-                    "616e3d86cbmsh19e94e8d6df2d94p13e47ejsne5e9296c68cb",
+                "x-rapidapi-key": process.env.API_KEY,
                 "x-rapidapi-host": "youtube-v31.p.rapidapi.com",
             },
         };
