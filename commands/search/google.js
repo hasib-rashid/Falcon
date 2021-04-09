@@ -1,8 +1,10 @@
 require("dotenv").config();
 
+const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const request = require("node-superfetch");
+const axios = require("axios").default;
 
 module.exports = class GoogleCommand extends commando.Command {
     constructor(client) {
@@ -49,27 +51,42 @@ module.exports = class GoogleCommand extends commando.Command {
      */
 
     async run(message, { query }) {
-        let href;
-        const nsfw = message.channel.nsfw || false;
         try {
-            href = await this.customSearch(query, nsfw);
-        } catch {
-            href = `http://lmgtfy.com/?iie=1&q=${encodeURIComponent(query)}`;
-        }
-        if (!href) return message.say("Could not find any results.");
-        return message.say(href);
-    }
+            const options = {
+                method: "GET",
+                url: `https://google-search3.p.rapidapi.com/api/v1/search/q=${query}&lr=lang_en&cr=US&num=6`,
+                headers: {
+                    "x-rapidapi-key": process.env.API_KEY,
+                    "x-rapidapi-host": "google-search3.p.rapidapi.com",
+                },
+            };
 
-    async customSearch(query, nsfw) {
-        const { body } = await request
-            .get("https://www.googleapis.com/customsearch/v1")
-            .query({
-                key: process.env.GOOGLE_API,
-                cx: process.env.GOOGLE_CX,
-                safe: nsfw ? "off" : "active",
-                q: query,
-            });
-        if (!body.items) return null;
-        return body.items[0].formattedUrl;
+            axios
+                .request(options)
+                .then(function (response) {
+                    const embed = new Discord.MessageEmbed()
+                        .setAuthor(
+                            "Google",
+                            "https://expresswriters.com/wp-content/uploads/2015/09/google-new-logo-450x450.jpg"
+                        )
+                        .setColor("#1183ed");
+
+                    for (var i = 0; i < response.data.results.length; ++i) {
+                        var result = response.data.results[i];
+
+                        embed.addField(
+                            `${result.title}`,
+                            `[Link](${result.link}) - ${result.description}`
+                        );
+                    }
+
+                    message.channel.send(embed);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        } catch (err) {
+            console.error(err);
+        }
     }
 };
