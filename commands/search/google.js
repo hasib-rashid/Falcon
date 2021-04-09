@@ -78,7 +78,6 @@ module.exports = class GoogleCommand extends commando.Command {
                             `${result.title}`,
                             `[Link](${result.link}) - ${result.description}`
                         );
-                        console.log(result.title);
                     }
 
                     message.channel.send(embed);
