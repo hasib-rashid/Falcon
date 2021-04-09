@@ -36,7 +36,7 @@ module.exports = class ClassName extends commando.Command {
                 q: query,
                 part: "snippet,id",
                 regionCode: "US",
-                maxResults: "10",
+                maxResults: "7",
                 order: "date",
             },
             headers: {
@@ -49,11 +49,22 @@ module.exports = class ClassName extends commando.Command {
         axios
             .request(options)
             .then(function (response) {
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        "Youtube",
+                        "https://www.freepnglogos.com/uploads/youtube-logo-icon-transparent---32.png"
+                    )
+                    .setColor("#fa2f44");
                 for (var i = 0; i < response.data.items.length; ++i) {
                     var result = response.data.items[i];
 
-                    message.say(result.snippet.title);
+                    embed.addField(
+                        `**${result.snippet.channelTitle}** - ${result.snippet.title}`,
+                        `[Link](https://youtube.com/watch?v=${result.id.videoId}), [Channel Link](https://youtube.com/channel/${result.snippet.channelId}) - ${result.snippet.description}`
+                    );
                 }
+
+                message.say(embed);
             })
             .catch(function (error) {
                 console.error(error);
