@@ -54,7 +54,7 @@ module.exports = class GoogleCommand extends commando.Command {
         try {
             const options = {
                 method: "GET",
-                url: `https://google-search3.p.rapidapi.com/api/v1/search/q=${query}&lr=lang_en&cr=US&num=10`,
+                url: `https://google-search3.p.rapidapi.com/api/v1/search/q=${query}&lr=lang_en&cr=US&num=6`,
                 headers: {
                     "x-rapidapi-key":
                         "616e3d86cbmsh19e94e8d6df2d94p13e47ejsne5e9296c68cb",
@@ -73,11 +73,13 @@ module.exports = class GoogleCommand extends commando.Command {
                         .setColor("#1183ed");
 
                     for (var i = 0; i < response.data.results.length; ++i) {
-                        var title = response.data.results[i];
+                        var result = response.data.results[i];
 
-                        // At this point, you should see your data and just have to format your embed
-                        embed.addField(title.title, ".......");
-                        console.log(title.title);
+                        embed.addField(
+                            `${result.title}`,
+                            `[Link](${result.link}) - ${result.description}`
+                        );
+                        console.log(result.title);
                     }
 
                     message.channel.send(embed);
