@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const request = require("node-superfetch");
@@ -53,9 +54,10 @@ module.exports = class GoogleCommand extends commando.Command {
         try {
             const options = {
                 method: "GET",
-                url: `https://google-search3.p.rapidapi.com/api/v1/search/q=${query}&num=10`,
+                url: `https://google-search3.p.rapidapi.com/api/v1/search/q=${query}&lr=lang_en&cr=US&num=10`,
                 headers: {
-                    "x-rapidapi-key": process.env.API_KEY,
+                    "x-rapidapi-key":
+                        "616e3d86cbmsh19e94e8d6df2d94p13e47ejsne5e9296c68cb",
                     "x-rapidapi-host": "google-search3.p.rapidapi.com",
                 },
             };
@@ -63,13 +65,22 @@ module.exports = class GoogleCommand extends commando.Command {
             axios
                 .request(options)
                 .then(function (response) {
-                    console.log(response.data.results);
-                    var text = "";
-                    var i;
-                    for (i = 0; i < response.data.results.length; i++) {
-                        text +=
-                            message.say(response.data.results[i].title) + "\n";
+                    const embed = new Discord.MessageEmbed()
+                        .setAuthor(
+                            "Google",
+                            "https://expresswriters.com/wp-content/uploads/2015/09/google-new-logo-450x450.jpg"
+                        )
+                        .setColor("#1183ed");
+
+                    for (var i = 0; i < response.data.results.length; ++i) {
+                        var title = response.data.results[i];
+
+                        // At this point, you should see your data and just have to format your embed
+                        embed.addField(title.title, ".......");
+                        console.log(title.title);
                     }
+
+                    message.channel.send(embed);
                 })
                 .catch(function (error) {
                     console.error(error);
