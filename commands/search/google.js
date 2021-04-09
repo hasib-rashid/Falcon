@@ -55,8 +55,7 @@ module.exports = class GoogleCommand extends commando.Command {
                 method: "GET",
                 url: `https://google-search3.p.rapidapi.com/api/v1/search/q=${query}&num=10`,
                 headers: {
-                    "x-rapidapi-key":
-                        "616e3d86cbmsh19e94e8d6df2d94p13e47ejsne5e9296c68cb",
+                    "x-rapidapi-key": process.env.API_KEY,
                     "x-rapidapi-host": "google-search3.p.rapidapi.com",
                 },
             };
