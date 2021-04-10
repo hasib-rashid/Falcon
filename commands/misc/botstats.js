@@ -47,7 +47,7 @@ module.exports = class BotStatsCommand extends commando.Command {
                     },
                     {
                         name: "Latency",
-                        value: this.client.ws.ping + "ms",
+                        value: this.client.ws.ping.toFixed(2) + "ms",
                         inline: true,
                     },
                     {
@@ -57,7 +57,7 @@ module.exports = class BotStatsCommand extends commando.Command {
                     },
                     {
                         name: "Platform",
-                        value: "Platform" + osutils.platform(),
+                        value: osutils.platform(),
                         inline: true,
                     },
                     {
@@ -66,7 +66,9 @@ module.exports = class BotStatsCommand extends commando.Command {
                     },
                     {
                         name: "Load Average",
-                        value: "Load Average (5m): " + osutils.loadavg(5),
+                        value:
+                            "Load Average (5m): " +
+                            osutils.loadavg(5).toFixed(2),
                         inline: true,
                     },
                     {
@@ -79,18 +81,25 @@ module.exports = class BotStatsCommand extends commando.Command {
                     },
                     {
                         name: "Free Memory",
-                        value: "Free Memory: " + osutils.freemem() + " MB",
+                        value:
+                            "Free Memory: " +
+                            osutils.freemem().toFixed(2) +
+                            " MB",
                     },
                     {
                         name: "Platform",
-                        value: "Platform: " + osutils.platform(),
+                        value: osutils.platform(),
                         inline: true,
                     },
                     {
                         name: "RAM",
                         value:
                             "RAM Usage " +
-                            process.memoryUsage().heapUsed / 1024 / 1024 +
+                            (
+                                process.memoryUsage().heapUsed /
+                                1024 /
+                                1024
+                            ).toFixed(2) +
                             "%",
                         inline: true,
                     },

@@ -1,5 +1,7 @@
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
+const moment = require("moment");
+require("moment-duration-format");
 
 module.exports = class UptimeCommand extends commando.Command {
     constructor(client) {
@@ -18,18 +20,13 @@ module.exports = class UptimeCommand extends commando.Command {
 
     /**
      * @param {commando.CommandoMessage} message
-     * @param {commando.Client} client
      */
 
-    async run(message, client) {
-        let totalSeconds = this.client.uptime / 1000;
-        let days = Math.floor(totalSeconds / 86400);
-        let hours = Math.floor(totalSeconds / 3600);
-        totalSeconds %= 3600;
-        let minutes = Math.floor(totalSeconds / 60);
-        let seconds = totalSeconds / 60;
+    async run(message) {
         message.channel.send(
-            `:low_brightness: **Uptime:** ${days} days, ${hours} hours and ${minutes} minutes!`
+            `:low_brightness: **Uptime:** ${moment
+                .duration(this.client.uptime)
+                .format("d:hh:mm:ss")}`
         );
     }
 };
