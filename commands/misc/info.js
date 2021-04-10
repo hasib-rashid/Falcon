@@ -42,7 +42,7 @@ module.exports = class InfoCommand extends commando.Command {
                     message.author.displayAvatarURL()
                 )
                 .setDescription(
-                    "Thanks for using CodeVert! This bot is to make your life simple and fun! Enjoy the many features CodeVert has to offer like Moderating, Music, Games, Events, and more!"
+                    "Thanks for using FalconX! This bot is to make your life simple and fun! Enjoy the many features CodeVert has to offer like Moderating, Music, Games, Events, and more!"
                 )
                 .setColor("GREEN")
                 .setFooter(copyright.join("\n"))
@@ -64,7 +64,7 @@ module.exports = class InfoCommand extends commando.Command {
                 )
                 .addField(
                     "❯ Home Server",
-                    "[CodeFiction](https://discord.gg/KbfyRFtGcD)",
+                    "[CodeFiction](https://discord.gg/X2dDeENmJh)",
                     true
                 )
                 .addField(
