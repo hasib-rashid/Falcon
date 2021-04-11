@@ -77,12 +77,10 @@ module.exports = class ClassName extends commando.Command {
             );
         }
 
-        // Prepare the minefield
         const field = new Array(height)
             .fill(0)
             .map(() => new Array(width).fill(0));
 
-        // Place all the mines (and the exact number of them)
         let i = 0;
         while (i < mines) {
             const rnW = Math.trunc(Math.random() * width);
@@ -93,14 +91,12 @@ module.exports = class ClassName extends commando.Command {
             }
         }
 
-        // Check every tile for explosive surroundings
         for (let i = 0; i < field.length; i++) {
             for (let j = 0; j < field[i].length; j++) {
                 around(j, i, width, height, field);
             }
         }
 
-        // Prepare the output message
         let output = "";
         for (let i = 0; i < field.length; i++) {
             for (let j = 0; j < field[i].length; j++) {
@@ -112,7 +108,6 @@ module.exports = class ClassName extends commando.Command {
         let h;
         let placedHint;
 
-        // Handle spoiler tags
         if (hide) {
             h = "||";
             placedHint = false;
@@ -120,10 +115,8 @@ module.exports = class ClassName extends commando.Command {
             h = "";
         }
 
-        // Replace the mines first
         output = output.replace(/10\S/g, `${h}:boom:${h}`);
 
-        // Turn the numbers into their emojis
         const emojis = {
             0: ":zero:",
             1: ":one:",
@@ -150,28 +143,15 @@ module.exports = class ClassName extends commando.Command {
             }
         }
 
-        // Get rid of tabs
         output = output.replace(/\t/g, "");
-
-        // Add first line
         output = `**Minesweeper** :: ${diff} difficulty\n${output}`;
-
-        // Check the message length
         if (output.length >= 2000) {
             new Error(
                 `The message is too long! (It's using ${output.length} out of 2000 characters.)`
             );
         }
 
-        // And send!
         channel.send(output);
-
-        // ================ Functions ================
-
-        /*	(a) x > 0						(b) x < width
-			[x-1][y-1]		[x  ][y-1]		[x+1][y-1]		(c) y > 0
-			[x-1][y  ]		[x  ][y  ]		[x+1][y  ]
-			[x-1][y+1]		[x  ][y+1]		[x+1][y+1]		(d) y < height		*/
 
         function around(x, y, w, h, f) {
             const a = x > 0;
