@@ -91,7 +91,7 @@ module.exports = class ClassName extends commando.Command {
                         .setTitle(
                             "You have 15 seconds to answer this question:"
                         )
-                        .setColor(0x9797ff).addField(stripIndents`
+                        .setColor("#1495f7").setDescription(stripIndents`
                                 **${decodeURIComponent(
                                     request.data.results[0].category
                                 )}**
@@ -104,7 +104,7 @@ module.exports = class ClassName extends commando.Command {
                     )}
                             ${
                                 type === "multiple"
-                                    ? `**Choices:**\n\n ${list(
+                                    ? `\n**Choices:**\n ${list(
                                           shuffle(answers),
                                           "\n"
                                       )}`
