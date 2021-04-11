@@ -323,7 +323,6 @@ distube
         message.channel.send(`**Searching canceled**`)
     )
     .on("error", (message, e) => {
-        console.error(e);
         message.channel.send("An error encountered: " + e);
     })
     .on("initQueue", (queue) => {

@@ -6,7 +6,7 @@ module.exports = class ClassName extends commando.Command {
     constructor(client) {
         super(client, {
             name: "set-volume",
-            aliases: [],
+            aliases: ["vol", "volume"],
             group: "music",
             memberName: "set-volume",
             description: "Set the Volume of the current song",

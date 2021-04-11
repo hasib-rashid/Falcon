@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
-const embedbuilder = require("../../util/embedBuilder");
 
 module.exports = class ClassName extends commando.Command {
     constructor(client) {
