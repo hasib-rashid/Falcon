@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const axios = require("axios").default;
-const oneLine = require("common-tags").oneLine;
+const { oneLine, stripIndents } = require("common-tags");
 const { shuffle, list } = require("../../util/Util");
 const types = ["multiple", "boolean"];
 const difficulties = ["easy", "medium", "hard"];
@@ -42,7 +42,6 @@ module.exports = class ClassName extends commando.Command {
                         "or"
                     )}.`,
                     type: "string",
-                    default: "",
                     validate: (difficulty) => {
                         if (difficulties.includes(difficulty.toLowerCase()))
                             return true;
@@ -60,8 +59,9 @@ module.exports = class ClassName extends commando.Command {
     /**
      * @param {commando.CommandoMessage} message
      */
-    async run(message, { type, difficulty }) {
+    async run(message, args) {
         try {
+            const { type, difficulty } = args;
             const options = {
                 method: "GET",
                 url: "https://opentdb.com/api.php?",
@@ -75,44 +75,45 @@ module.exports = class ClassName extends commando.Command {
 
             axios
                 .request(options)
-                .then(function (response) {
-                    const { body } = response;
-                    if (!body.results)
+                .then(async function (request) {
+                    if (!request.data.results)
                         return message.say(
                             "Oh no, a question could not be fetched. Try again later!"
                         );
-
-                    const answers = body.results[0].incorrect_answers.map(
+                    const answers = request.data.results[0].incorrect_answers.map(
                         (answer) => decodeURIComponent(answer.toLowerCase())
                     );
                     const correct = decodeURIComponent(
-                        body.results[0].correct_answer.toLowerCase()
+                        request.data.results[0].correct_answer.toLowerCase()
                     );
                     answers.push(correct);
                     const embed = new Discord.MessageEmbed()
                         .setTitle(
                             "You have 15 seconds to answer this question:"
                         )
-                        .setColor(0x9797ff).setDescription(stripIndents`
+                        .setColor(0x9797ff).addField(stripIndents`
                                 **${decodeURIComponent(
-                                    body.results[0].category
+                                    request.data.results[0].category
                                 )}**
                                 ${
                                     type === "boolean"
                                         ? "**True or False:** "
                                         : ""
-                                }${decodeURIComponent(body.results[0].question)}
-                                ${
-                                    type === "multiple"
-                                        ? `**Choices:** ${list(
-                                              shuffle(answers),
-                                              "or"
-                                          )}`
-                                        : ""
-                                }
-                            `);
-                    message.embed(embed);
-                    const messages = message.channel.awaitMessages(
+                                }${decodeURIComponent(
+                        request.data.results[0].question
+                    )}
+                            ${
+                                type === "multiple"
+                                    ? `**Choices:**\n\n ${list(
+                                          shuffle(answers),
+                                          "\n"
+                                      )}`
+                                    : ""
+                            }
+                        `);
+
+                    await message.embed(embed);
+                    const messages = await message.channel.awaitMessages(
                         (res) => res.author.id === message.author.id,
                         {
                             max: 1,
@@ -120,19 +121,21 @@ module.exports = class ClassName extends commando.Command {
                         }
                     );
                     if (!messages.size)
-                        return message.say(`Time! It was ${correct}, sorry!`);
+                        return message.say(
+                            `**Your time ended! The correct answer was \`${correct}\`**`
+                        );
                     if (messages.first().content.toLowerCase() !== correct)
-                        return message.say(`Nope, sorry, it's ${correct}.`);
+                        return message.say(
+                            `**The Correct answer was \`${correct}\`.**`
+                        );
                     return message.say(
-                        "Nice job! 10/10! You deserve some cake!"
+                        "**Nice job! 10/10! You deserve some cake!**"
                     );
                 })
-                .catch(function (error) {
-                    console.error(error);
-                });
+                .catch((error) => console.error(error));
         } catch (err) {
             message.say(
-                `Oh no, an error occurred: \`${err.message}\`. Try again later!`
+                `**Oh no, an error occurred: \`${err.message}\`. Try again later!**`
             );
             console.error(err);
         }

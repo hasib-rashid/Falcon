@@ -56,8 +56,8 @@ module.exports = class Util {
         const len = arr.length;
         if (len === 0) return "";
         if (len === 1) return arr[0];
-        return `${arr.slice(0, -1).join(", ")}${
-            len > 1 ? `${len > 2 ? "," : ""} ${conj} ` : ""
+        return `${arr.slice(0, -1).join("\n")}${
+            len > 1 ? `${len > 2 ? "" : ""} ${conj} ` : ""
         }${arr.slice(-1)}`;
     }
 
@@ -73,6 +73,16 @@ module.exports = class Util {
             const len = arr.length - maxLen;
             arr = arr.slice(0, maxLen);
             arr.push(`${len} more...`);
+        }
+        return arr;
+    }
+
+    static shuffle(arr) {
+        for (let i = arr.length - 1; i >= 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
         }
         return arr;
     }
