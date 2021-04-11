@@ -60,5 +60,32 @@ module.exports = class ClassName extends commando.Command {
     /**
      * @param {commando.CommandoMessage} message
      */
-    async run(message) {}
+    async run(message, { type, difficulty }) {
+        try {
+            const options = {
+                method: "GET",
+                url: "https://opentdb.com/api.php?",
+                params: {
+                    amount: 1,
+                    type: type,
+                    encode: "url3986",
+                    difficulty: difficulty,
+                },
+            };
+
+            axios
+                .request(options)
+                .then(function (response) {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        } catch (err) {
+            message.say(
+                `Oh no, an error occurred: \`${err.message}\`. Try again later!`
+            );
+            console.error(err);
+        }
+    }
 };
