@@ -91,6 +91,7 @@ module.exports = class ClassName extends commando.Command {
                         .setTitle(
                             "You have 15 seconds to answer this question:"
                         )
+                        .setFooter("FalconX")
                         .setColor("#1495f7").setDescription(stripIndents`
                                 **${decodeURIComponent(
                                     request.data.results[0].category
