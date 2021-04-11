@@ -11,7 +11,7 @@ module.exports = class ClassName extends commando.Command {
             memberName: "minesweeper",
             description: "Play a game of Minesweeper",
             details: oneLine`
-                Play a game of Minesweeper
+            Play a game of Minesweeper
             `,
             examples: ["!minesweeper"],
         });
