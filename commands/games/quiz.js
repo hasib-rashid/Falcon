@@ -76,7 +76,56 @@ module.exports = class ClassName extends commando.Command {
             axios
                 .request(options)
                 .then(function (response) {
-                    console.log(response.data);
+                    const { body } = response;
+                    if (!body.results)
+                        return message.say(
+                            "Oh no, a question could not be fetched. Try again later!"
+                        );
+
+                    const answers = body.results[0].incorrect_answers.map(
+                        (answer) => decodeURIComponent(answer.toLowerCase())
+                    );
+                    const correct = decodeURIComponent(
+                        body.results[0].correct_answer.toLowerCase()
+                    );
+                    answers.push(correct);
+                    const embed = new Discord.MessageEmbed()
+                        .setTitle(
+                            "You have 15 seconds to answer this question:"
+                        )
+                        .setColor(0x9797ff).setDescription(stripIndents`
+                                **${decodeURIComponent(
+                                    body.results[0].category
+                                )}**
+                                ${
+                                    type === "boolean"
+                                        ? "**True or False:** "
+                                        : ""
+                                }${decodeURIComponent(body.results[0].question)}
+                                ${
+                                    type === "multiple"
+                                        ? `**Choices:** ${list(
+                                              shuffle(answers),
+                                              "or"
+                                          )}`
+                                        : ""
+                                }
+                            `);
+                    message.embed(embed);
+                    const messages = message.channel.awaitMessages(
+                        (res) => res.author.id === message.author.id,
+                        {
+                            max: 1,
+                            time: 15000,
+                        }
+                    );
+                    if (!messages.size)
+                        return message.say(`Time! It was ${correct}, sorry!`);
+                    if (messages.first().content.toLowerCase() !== correct)
+                        return message.say(`Nope, sorry, it's ${correct}.`);
+                    return message.say(
+                        "Nice job! 10/10! You deserve some cake!"
+                    );
                 })
                 .catch(function (error) {
                     console.error(error);
