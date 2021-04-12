@@ -28,7 +28,7 @@ module.exports = class ClassName extends commando.Command {
 
         try {
             axios.request(url).then(function (response) {
-                console.log(response.data);
+                console.log(response.data.text);
             });
         } catch (e) {
             return message.channel.send(
