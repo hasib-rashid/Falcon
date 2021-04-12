@@ -24,6 +24,11 @@ module.exports = class ClassName extends commando.Command {
     async run(message) {
         const args = message.content.split(" ").slice(1);
 
+        if (!args.join(" "))
+            return message.channel.send(
+                "**Please send a Text Message to convert it to binary**"
+            );
+
         const url = `http://some-random-api.ml/binary?text=${args.join(" ")}`;
 
         try {
