@@ -36,6 +36,7 @@ module.exports = class ClassName extends commando.Command {
 
         const embed = new Discord.MessageEmbed()
             .setTitle("Binary")
+            .setColor("#2081e8")
             .setDescription(data.binary);
 
         await message.channel.send(embed);
