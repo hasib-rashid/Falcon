@@ -30,6 +30,10 @@ module.exports = class ClassName extends commando.Command {
             axios.request(url).then(function (response) {
                 const embed = new Discord.MessageEmbed()
                     .setTitle("Binary")
+                    .setAuthor(
+                        message.author.username,
+                        message.author.displayAvatarURL()
+                    )
                     .setColor("#118eed")
                     .setDescription(response.data.binary);
 
