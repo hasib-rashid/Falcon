@@ -28,7 +28,11 @@ module.exports = class ClassName extends commando.Command {
 
         try {
             axios.request(url).then(function (response) {
-                message.channel.send(response.data.text);
+                const embed = new Discord.MessageEmbed()
+                    .setTitle("Decoding Binary")
+                    .setDescription(response.data.text);
+
+                message.channel.send(embed);
             });
         } catch (e) {
             return message.channel.send(
