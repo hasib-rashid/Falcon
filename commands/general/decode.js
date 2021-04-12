@@ -24,6 +24,11 @@ module.exports = class ClassName extends commando.Command {
     async run(message) {
         const args = message.content.split(" ").slice(1);
 
+        if (!args)
+            return message.channel.send(
+                "**Please send some binary code to decode**"
+            );
+
         const url = `http://some-random-api.ml/binary?decode=${args.join(" ")}`;
 
         try {
