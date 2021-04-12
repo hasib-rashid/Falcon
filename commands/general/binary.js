@@ -26,19 +26,18 @@ module.exports = class ClassName extends commando.Command {
 
         const url = `http://some-random-api.ml/binary?text=${args.join(" ")}`;
 
-        let response, data;
         try {
-            response = await axios.get(url);
-            data = response.data;
-        } catch (e) {
-            return message.channel.send(`An error occured, please try again!`);
+            axios.request(url).then(function (response) {
+                const embed = new Discord.MessageEmbed()
+                    .setTitle("Binary")
+                    .setDescription(response.data.binary);
+
+                message.channel.send(embed);
+            });
+        } catch (err) {
+            message.channel.send(
+                "**An unexpected Error occured. Please put the Correct Syntax.**"
+            );
         }
-
-        const embed = new Discord.MessageEmbed()
-            .setTitle("Binary")
-            .setColor("#2081e8")
-            .setDescription(data.binary);
-
-        await message.channel.send(embed);
     }
 };
