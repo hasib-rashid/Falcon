@@ -24,20 +24,16 @@ module.exports = class ClassName extends commando.Command {
     async run(message) {
         const args = message.content.split(" ").slice(1);
 
-        const url = `http://some-random-api.ml/binary?decode=${args}`;
+        const url = `http://some-random-api.ml/binary?decode=${args.join(" ")}`;
 
-        let response, data;
         try {
-            response = await axios.get(url);
-            data = response.data;
+            axios.request(url).then(function (response) {
+                console.log(response.data);
+            });
         } catch (e) {
-            return message.channel.send(`An error occured, please try again!`);
+            return message.channel.send(
+                `**An error occured, please try again and put binary codes this time.**`
+            );
         }
-
-        const embed = new Discord.MessageEmbed()
-            .setTitle("Decode Binary")
-            .setDescription(data.binary);
-
-        await message.channel.send(embed);
     }
 };
