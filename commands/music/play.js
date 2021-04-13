@@ -31,7 +31,7 @@ module.exports = class ClassName extends commando.Command {
 
             message.channel.send(
                 "<:YouTube:801465200775135282> **Searching** :mag_right: `" +
-                    `${args}` +
+                    `${args.join(" ")}` +
                     "`"
             );
 
