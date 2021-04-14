@@ -49,8 +49,6 @@ module.exports = class HelpCommand extends commando.Command {
                 guild: message.guild.id,
             });
 
-            console.log(prefixDB);
-
             let PREFIX = prefixDB[0].settings.prefix || ".";
             const args = message.content.slice(5).trim().split("  ");
             const helpArgs = args.shift().toLowerCase();
