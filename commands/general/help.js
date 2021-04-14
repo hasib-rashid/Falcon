@@ -184,7 +184,7 @@ module.exports = class HelpCommand extends commando.Command {
                         message.author.username,
                         message.author.avatarURL()
                     )
-                    .setTitle(":underage: Music")
+                    .setTitle(":underage: NSFW")
                     .setDescription(
                         `
                             **anal** - NSFW Anal
