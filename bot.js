@@ -23,7 +23,7 @@ mongoose.connect(process.env.MONGO_PATH, {
 });
 
 const client = new CommandoClient({
-    commandPrefix: process.env.PREFIX,
+    commandPrefix: ".",
     owner: "548038495617417226",
     autoReconnect: true,
     partials: [
