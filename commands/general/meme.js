@@ -28,6 +28,10 @@ module.exports = class ClassName extends commando.Command {
 
         axios.get(url).then(function (response) {
             const embed = new Discord.MessageEmbed()
+                .setAuthor(
+                    message.author.username,
+                    message.author.displayAvatarURL()
+                )
                 .setTitle("Memes")
                 .setDescription(response.data.caption)
                 .setColor("RANDOM")
