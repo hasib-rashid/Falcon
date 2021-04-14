@@ -30,6 +30,7 @@ module.exports = class ClassName extends commando.Command {
             const embed = new Discord.MessageEmbed()
                 .setTitle("Memes")
                 .setDescription(response.data.caption)
+                .setColor("RANDOM")
                 .setImage(response.data.image);
 
             message.channel.send(embed);
