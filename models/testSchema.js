@@ -6,4 +6,4 @@ const testSchema = new mongoose.Schema({
     coins: String,
 });
 
-module.exports = mongoose.model("test", testSchema);
+module.exports = mongoose.model("something", testSchema);

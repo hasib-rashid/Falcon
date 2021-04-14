@@ -1,6 +1,15 @@
+require("dotenv").config();
+
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const { oneLine } = require("common-tags");
+const mongoose = require("mongoose");
+const settingsSchema = require("../../models/settingsSchema.js");
+
+mongoose.connect(process.env.MONGO_PATH, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+});
 
 const {
     General,
@@ -36,7 +45,13 @@ module.exports = class HelpCommand extends commando.Command {
 
     async run(message) {
         try {
-            let PREFIX = "!";
+            let prefixDB = await settingsSchema.find({
+                guild: message.guild.id,
+            });
+
+            console.log(prefixDB);
+
+            let PREFIX = prefixDB[0].settings.prefix || ".";
             const args = message.content.slice(5).trim().split("  ");
             const helpArgs = args.shift().toLowerCase();
 
@@ -284,7 +299,7 @@ module.exports = class HelpCommand extends commando.Command {
                     .setTitle(`Server Prefix: \`${PREFIX}\``)
                     .addField(
                         "To learn a command and its proper use, specify it's module in help command.",
-                        "Example: ` !help games `"
+                        `Example: \` ${PREFIX}help games \``
                     )
                     .addField(
                         `${General.emoji} ${General.name}`,

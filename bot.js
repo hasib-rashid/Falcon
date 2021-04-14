@@ -40,7 +40,7 @@ const client = new CommandoClient({
 client
     .setProvider(
         MongoClient.connect(process.env.MONGO_PATH).then(
-            (client) => new MongoDBProvider(client, "test-db-codevert")
+            (client) => new MongoDBProvider(client, "myFirstDatabase")
         )
     )
     .catch(console.error);
