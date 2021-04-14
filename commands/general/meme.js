@@ -27,7 +27,12 @@ module.exports = class ClassName extends commando.Command {
         const url = "https://some-random-api.ml/meme";
 
         axios.get(url).then(function (response) {
-            message.channel.send(response.data.image);
+            const embed = new Discord.MessageEmbed()
+                .setTitle("Memes")
+                .setDescription(response.data.caption)
+                .setImage(response.data.image);
+
+            message.channel.send(embed);
         });
     }
 };
