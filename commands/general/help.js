@@ -50,9 +50,11 @@ module.exports = class HelpCommand extends commando.Command {
                     .setDescription(
                         `
                         **avatar** - Check someones avatar
+                        **binary** - Turn a text into Binary
                         **cat** - Take a look in a cute cat!
                         **changelog** - The changelog of the current version of codevert
                         **covid** - Check the latest stats of covid 19
+                        **decode** - Decode a binary number
                         **facts** - Get a random fact!
                         **help** - Get help to see what commands are in here
                         **invite** - Get the invite link of this server
@@ -82,6 +84,8 @@ module.exports = class HelpCommand extends commando.Command {
                         **aki** - Play Akinator
                         **gunfight** - Do a gunfight!
                         **hangman** - Guess the correct words in hangman
+                        **quiz** - Play a quiz game!
+                        **minesweeper** - A Minesweeper game
                         **rps** - Rock Paper Scissors Shoo
                         **russianroulette** - A game of Russian roulette
                         **snakegame** - Play a OG game of Snake
@@ -170,11 +174,64 @@ module.exports = class HelpCommand extends commando.Command {
             }
 
             if (helpArgs === "nsfw") {
-                return message.channel.send("These helps are coming soon");
+                if (!message.channel.nsfw)
+                    return message.channel.send(
+                        "**:underage: NSFW Commands. Please be in a NSFW Channel to use them.**"
+                    );
+
+                let embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.avatarURL()
+                    )
+                    .setTitle(":underage: Music")
+                    .setDescription(
+                        `
+                            **anal** - NSFW Anal
+                            **ass** - NSFW Ass
+                            **boobs** - NSFW Boobs
+                            **erokemo** - NSFW Erokemo
+                            **fuck** - NSFW Fuck
+                            **gonewild** - NSFW Gonewild
+                            **hentai** - NSFW Hentai
+                            **hentaiass** - NSFW HentaiAss
+                            **hentaithigh** - NSFW HentaiThigh
+                            **hmidriff** - NSFW Hmidriff
+                            **kitsune** - NSFW kitsune
+                            **lewd** - NSFW Lewd
+                            **nekofeet** - NekoFeet
+                            **nekopussy** - NSFW Nekopussy
+                            **nekotits** - NSFW NekoTits
+                            **porngif** - NSFW Porn Gif
+                            **pussy** - NSFW Pussy
+                            **solo** - NSFW Solo
+                            **thigh** - NSFW thigh
+                            **wallpaper** - NSFW Wallpaper
+                        `
+                    )
+                    .setColor("GREEN");
+
+                message.channel.send(embed);
             }
 
             if (helpArgs === "misc") {
-                return message.channel.send("These helps are coming soon");
+                let embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.avatarURL()
+                    )
+                    .setTitle(":wrench: MISC")
+                    .setDescription(
+                        `
+                            **stats** - Shows the stats of the bot
+                            **info** - Information about the bot
+                            **ping** - Shows the current ping of the bot
+                            **uptime** - Shows the uptime of the bot
+                        `
+                    )
+                    .setColor("GREEN");
+
+                message.channel.send(embed);
             }
 
             if (helpArgs === "fun") {
@@ -210,6 +267,7 @@ module.exports = class HelpCommand extends commando.Command {
                             **urban** - Look for meaning in the Urban Dictionary
                             **weather** - Search the weather of a certain Location
                             **wikipedia** - Search Wikipedia
+                            **youtube** - Search Youtube
                         `
                     )
                     .setColor(0x4285f4);
