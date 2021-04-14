@@ -27,7 +27,7 @@ module.exports = class ClassName extends commando.Command {
         const url = "https://some-random-api.ml/meme";
 
         axios.get(url).then(function (response) {
-            console.log(response.data);
+            message.channel.send(response.data.image);
         });
     }
 };
