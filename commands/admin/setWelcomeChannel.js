@@ -29,8 +29,6 @@ module.exports = class ClassName extends commando.Command {
                 );
             const channel = message.mentions.channels.first().id;
 
-            console.log(channel);
-
             setWelcomeChannelSchema.findOne(
                 { guild: message.guild.id },
                 async (err, data) => {
