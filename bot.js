@@ -4,6 +4,7 @@ const { CommandoClient } = require("discord.js-commando");
 const Discord = require("discord.js");
 const DisTube = require("distube");
 const canvas = require("discord-canvas");
+const canvacord = require("canvacord");
 const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
 let ticketeasy = require("ticket.easy");
@@ -167,6 +168,48 @@ client.on("messageReactionAdd", async (reaction, user, msg) => {
             ticketName: `ticket-${user.id}`, //This will be the ticket name || Optional
         });
     }
+});
+
+client.on("guildMemberAdd", async (member) => {
+    const welcome = new canvas.Welcome();
+    const image = await welcome
+        .setUsername(member.user.username)
+        .setDiscriminator(member.user.discriminator)
+        .setMemberCount(member.guild.memberCount)
+        .setGuildName(member.guild.name)
+        .setAvatar(
+            member.user.displayAvatarURL({
+                format: "png",
+                dynamic: false,
+                size: 4096,
+            })
+        )
+        .setColor("title", "#FFFFFF")
+        .setColor("title-border", "#000")
+        .setColor("avatar", "#000000")
+        .setColor("border", "#000")
+        .setColor("username-box", "#000")
+        .setColor("username", "#FFFFFF")
+        .setColor("hashtag", "#FFFFFF")
+        .setColor("discriminator", "#FFFFFF")
+        .setColor("discriminator-box", "#000")
+        .setColor("message", "#FFFFFF")
+        .setColor("message-box", "#000")
+        .setColor("member-count", "#FFFFFF")
+        .setColor("border", "#000000")
+        .setBackground("https://wallpaperaccess.com//full/19811.jpg")
+        .setText("title", "WELCOME")
+        .setText("message", member.guild.name)
+        .setText("member-count", `-${member.guild.memberCount} Member!`)
+        .toAttachment();
+    let attachment = new Discord.MessageAttachment(
+        image.toBuffer(),
+        "welcome.png"
+    );
+
+    member.guild.channels.cache
+        .find((c) => c.name === "testing")
+        .send(attachment);
 });
 
 distube
