@@ -1,7 +1,7 @@
 {
     "General": {
         "name": "General",
-        "number": "16",
+        "number": "20",
         "emoji": ":smiley:"
     },
     "Games": {
@@ -31,7 +31,7 @@
     },
     "NSFW": {
         "name": "NSFW",
-        "number": "0",
+        "number": "20",
         "emoji": ":underage:"
     },
     "MISC": {
@@ -46,7 +46,7 @@
     },
     "Search": {
         "name": "Search",
-        "number": "9",
+        "number": "10",
         "emoji": ":mag:"
     }
 }
