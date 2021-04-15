@@ -30,6 +30,7 @@
 		"@vitalets/google-translate-api": "^5.1.0",
 		"aki-api": "^5.2.1",
 		"axios": "^0.21.1",
+		"canvacord": "^5.1.0",
 		"canvas": "^2.6.1",
 		"commando-provider-mongo": "^2.1.0",
 		"discord-canvas": "^1.4.1",
