@@ -113,6 +113,7 @@ client.registry
         ["misc", ":wrench: MISC"],
         ["fun", ":rofl: Fun"],
         ["search", ":mag: Search"],
+        ["owner", ":crown: Owner"],
     ])
     .registerDefaultGroups()
     .registerDefaultCommands({
