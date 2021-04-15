@@ -207,9 +207,19 @@ client.on("guildMemberAdd", async (member) => {
         "welcome.png"
     );
 
-    member.guild.channels.cache
-        .find((c) => c.name === "testing")
-        .send(attachment);
+    const setWelcomeSchema = require("./models/welcomeChannelSchema.js");
+
+    const welcomeSche = await setWelcomeSchema.findOne({
+        guild: member.guild.id,
+    });
+
+    if (welcome) {
+        const channel = welcomeSche.channel;
+
+        member.guild.channels.cache
+            .find((c) => c.id === channel)
+            .send(attachment);
+    } else return;
 });
 
 distube
