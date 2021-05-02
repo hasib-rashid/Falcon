@@ -5,6 +5,7 @@ const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const axios = require("axios").default;
 const { shorten, formatNumber } = require("../../util/Util");
+const moment = require("moment")
 
 module.exports = class GithubCommand extends commando.Command {
     constructor(client) {
@@ -39,6 +40,17 @@ module.exports = class GithubCommand extends commando.Command {
                         : "No description.")
                     .setColor("#2577fa")
                     .setThumbnail(response.data.avatar_url)
+                    .addFields(
+                        { name: "Public Repositories", value: response.data.public_repos, inline: true },
+                        { name: "Public Gists", value: response.data.public_gists, inline: true },
+                        { name: "Followers", value: response.data.followers, inline: true },
+                        { name: "Following", value: response.data.following, inline: true },
+                        { name: "Created At", value: moment.utc(response.data.created_at).format("MM/DD/YYYY h:mm A"), inline: true },
+                        { name: "Company", value: response.data.company, inline: true },
+                        { name: "Website", value: response.data.blog, inline: true },
+                        { name: "Location", value: response.data.location, inline: true },
+                        { name: "Email", value: response.data.email, inline: true },
+                    )
 
                 if (response.data.name === null) {
                     userEmbed.setTitle(response.data.login)
@@ -49,6 +61,7 @@ module.exports = class GithubCommand extends commando.Command {
                 message.channel.send(userEmbed)
                 console.log(response.data)
             }).catch((err) => {
+                console.log(err)
                 return message.channel.send("**❌ Could not find results**")
             })
         }
