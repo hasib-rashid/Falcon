@@ -3,13 +3,6 @@ require("dotenv").config();
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const { oneLine } = require("common-tags");
-const mongoose = require("mongoose");
-const settingsSchema = require("../../models/settingsSchema.js");
-
-mongoose.connect(process.env.MONGO_PATH, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-});
 
 const {
     General,
@@ -44,11 +37,7 @@ module.exports = class HelpCommand extends commando.Command {
 
     async run(message) {
         try {
-            let prefixDB = await settingsSchema.find({
-                guild: message.guild.id,
-            });
-
-            let PREFIX = prefixDB[0].settings.prefix || ".";
+            let PREFIX = ".";
             const args = message.content.slice(5).trim().split("  ");
             const helpArgs = args.shift().toLowerCase();
 
