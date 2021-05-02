@@ -31,7 +31,7 @@ module.exports = class BanCommand extends commando.Command {
                     "**You need `BAN_MEMBERS` permission to use this command**"
                 );
 
-            const targetUser = message.mentions.members.first() || (await message.guild.members.fetch('133990844666609664')).user
+            const targetUser = message.mentions.members.first() || (await message.guild.members.fetch('133990844666609664'))
 
             const confirmEmbed = new Discord.MessageEmbed()
                 .setAuthor(message.author.username, message.author.displayAvatarURL())
