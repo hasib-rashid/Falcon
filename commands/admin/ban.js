@@ -26,8 +26,6 @@ module.exports = class BanCommand extends commando.Command {
         try {
             const reason = message.content.split(" ").slice(2);
 
-            console.log(reason.join(" "))
-
             if (!message.member.hasPermission("BAN_MEMBERS"))
                 return message.channel.send(
                     "**You need `BAN_MEMBERS` permission to use this command**"
