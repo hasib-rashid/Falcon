@@ -24,9 +24,9 @@ module.exports = class BanCommand extends commando.Command {
 
     async run(message) {
         try {
-            const args = message.content.split(" ").slice(2);
+            const reason = message.content.split(" ").slice(2);
 
-            console.log(args.join(" "))
+            console.log(reason.join(" "))
 
             if (!message.member.hasPermission("BAN_MEMBERS"))
                 return message.channel.send(
@@ -39,17 +39,26 @@ module.exports = class BanCommand extends commando.Command {
                 .setAuthor(message.author.username, message.author.displayAvatarURL())
                 .setTitle("Banning A User")
                 .setColor("#ff2424")
-                .setDescription(`**Are you sure you want to ban  ${targetUser}\n\nReason:  \`${args.join(" ")}\`\n\n This Action is irreversable.\n\n React with ✅ if you want to ban this user. And react with ❌ if you want to cancel this request.\n You have 30 seconds to apply the command.**`)
+                .setDescription(`**Are you sure you want to ban  ${targetUser}\n\nReason:  \`${reason.join(" ")}\`\n\n This Action is irreversable.\n\n React with ✅ if you want to ban this user. And react with ❌ if you want to cancel this request.\n You have 30 seconds to apply the command.**`)
                 .setFooter(message.client.user.username, message.client.user.displayAvatarURL())
 
             message.channel.send(confirmEmbed).then(async (msg) => {
                 const emoji = await confirmation(msg, message.author, ["✅", "❌"], 30000);
 
                 if (emoji === "✅") {
-                    message.channel.send("SimBan")
+                    targetUser.ban({ reason: reason.join(" ") }).then((member) => {
+                        const banned_embed = new Discord.MessageEmbed()
+                            .setColor("GREEN")
+                            .setTitle("Banned Succesfully!")
+                            .setAuthor(`Banned by ${message.author.username}`)
+                            .setDescription(
+                                `${member.user.tag} was banned by ${message.author} for ${reason}.`
+                            );
+                        message.channel.send(banned_embed);
+                    });
                 }
                 if (emoji === "❌") {
-                    message.channel.send("SimCancel")
+                    message.channel.send("✅Cancelled The Command.")
                 }
             })
         } catch (err) {
