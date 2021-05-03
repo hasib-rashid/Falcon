@@ -63,7 +63,6 @@ module.exports = class GithubCommand extends commando.Command {
                 message.channel.send(userEmbed)
                 console.log(response.data)
             }).catch((err) => {
-                console.log(err)
                 return message.channel.send("**❌ Could not find results**")
             })
         }
