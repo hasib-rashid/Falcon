@@ -50,6 +50,8 @@ module.exports = class GithubCommand extends commando.Command {
                         { name: "Website", value: response.data.blog, inline: true },
                         { name: "Location", value: response.data.location, inline: true },
                         { name: "Email", value: response.data.email, inline: true },
+                        { name: "Profile", value: `[Link](${response.data.html_url})`, inline: true },
+                        { name: "ID", value: response.data.id, inline: true },
                     )
 
                 if (response.data.name === null) {
