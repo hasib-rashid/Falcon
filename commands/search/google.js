@@ -3,8 +3,8 @@ require("dotenv").config();
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
-const request = require("node-superfetch");
 const axios = require("axios").default;
+const serp = require("serp")
 
 module.exports = class GoogleCommand extends commando.Command {
     constructor(client) {
@@ -50,41 +50,34 @@ module.exports = class GoogleCommand extends commando.Command {
      * @param {commando.CommandoMessage} message
      */
 
-    async run(message, { query }) {
+    async run(message) {
         try {
-            const options = {
-                method: "GET",
-                url: `https://google-search3.p.rapidapi.com/api/v1/search/q=${query}&lr=lang_en&cr=US&num=6`,
-                headers: {
-                    "x-rapidapi-key": process.env.API_KEY,
-                    "x-rapidapi-host": "google-search3.p.rapidapi.com",
+            const args = message.content.split(" ").slice(1);
+
+            const configuration = {
+                host: "google.com",
+                qs: {
+                    q: args.join(" "),
                 },
+                num: 100
             };
+            const links = await serp.search(configuration);
 
-            axios
-                .request(options)
-                .then(function (response) {
-                    const embed = new Discord.MessageEmbed()
-                        .setAuthor(
-                            "Google",
-                            "https://expresswriters.com/wp-content/uploads/2015/09/google-new-logo-450x450.jpg"
-                        )
-                        .setColor("#1183ed");
+            const embed = new Discord.MessageEmbed()
+                .setAuthor(
+                    "Google",
+                    "https://expresswriters.com/wp-content/uploads/2015/09/google-new-logo-450x450.jpg"
+                )
+                .setColor("#1183ed");
 
-                    for (var i = 0; i < response.data.results.length; ++i) {
-                        var result = response.data.results[i];
-
-                        embed.addField(
-                            `${result.title}`,
-                            `[Link](${result.link}) - ${result.description}`
-                        );
-                    }
-
-                    message.channel.send(embed);
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
+            for (var i = 0; i < links.length; ++i) {
+                const response = links[i]
+                embed.addField(
+                    response.title, `[Link](${response.url})`
+                );
+            }
+            message.channel.send(embed)
+            console.log(links)
         } catch (err) {
             console.error(err);
         }
