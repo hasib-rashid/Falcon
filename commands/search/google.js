@@ -3,8 +3,8 @@ require("dotenv").config();
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
-const axios = require("axios").default;
-const serp = require("serp")
+const googleIt = require('google-it')
+const { googleShorten } = require("../../util/Util")
 
 module.exports = class GoogleCommand extends commando.Command {
     constructor(client) {
@@ -18,31 +18,6 @@ module.exports = class GoogleCommand extends commando.Command {
                 Google something here!
             `,
             examples: ["!google <query>"],
-            credit: [
-                {
-                    name: "Google",
-                    url: "https://www.google.com/",
-                    reason: "Custom Search API",
-                    reasonURL: "https://cse.google.com/cse/all",
-                },
-                {
-                    name: "LMGTFY",
-                    url: "https://lmgtfy.com/",
-                    reason: "API",
-                },
-            ],
-            args: [
-                {
-                    key: "query",
-                    prompt: "What would you like to search for?",
-                    type: "string",
-                    validate: (query) => {
-                        if (encodeURIComponent(query).length < 1950)
-                            return true;
-                        return "Invalid query, your query is too long.";
-                    },
-                },
-            ],
         });
     }
 
@@ -54,30 +29,31 @@ module.exports = class GoogleCommand extends commando.Command {
         try {
             const args = message.content.split(" ").slice(1);
 
-            const configuration = {
-                host: "google.com",
-                qs: {
-                    q: args.join(" "),
-                },
-                num: 100
-            };
-            const links = await serp.search(configuration);
+            message.channel.send("🤔 Retrieving Results.....").then((msg) => {
+                const embed = new Discord.MessageEmbed()
+                    .setTitle("Google")
+                    .setAuthor(
+                        "Google",
+                        "https://expresswriters.com/wp-content/uploads/2015/09/google-new-logo-450x450.jpg"
+                    )
+                    .setColor("#1183ed")
 
-            const embed = new Discord.MessageEmbed()
-                .setAuthor(
-                    "Google",
-                    "https://expresswriters.com/wp-content/uploads/2015/09/google-new-logo-450x450.jpg"
-                )
-                .setColor("#1183ed");
+                googleIt({ 'query': args.join(" ") }).then(results => {
 
-            for (var i = 0; i < links.length; ++i) {
-                const response = links[i]
-                embed.addField(
-                    response.title, `[Link](${response.url})`
-                );
-            }
-            message.channel.send(embed)
-            console.log(links)
+                    for (var i = 0; i < results.length; ++i) {
+                        var result = results[i];
+
+                        embed.addField(result.title, `[Link](${result.link}) - ${googleShorten(result.snippet)}`)
+
+                    }
+
+                    msg.channel.send(embed)
+                }).catch(e => {
+                    console.error(e)
+                })
+            })
+
+
         } catch (err) {
             console.error(err);
         }
