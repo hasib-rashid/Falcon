@@ -73,6 +73,8 @@ module.exports = class WeatherCommand extends commando.Command {
                         { name: "WindSpeed", value: result[0].current.windspeed, inline: true },
                         { name: "TimeZone", value: result[0].location.timezone, inline: true },
                         { name: "Location", value: `${result[0].location.lat}, ${result[0].location.long}`, inline: true },
+                        { name: "Occurable Condition", value: result[0].current.skytext, inline: true },
+                        { name: "Date", value: result[0].current.date, inline: true },
                     )
                     .setColor("#037ffc");
 
