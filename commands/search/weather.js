@@ -3,7 +3,7 @@ require("dotenv").config();
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
-const request = require("node-superfetch");
+const weather = require('weather-js');
 const moment = require("moment");
 
 module.exports = class WeatherCommand extends commando.Command {
@@ -47,51 +47,38 @@ module.exports = class WeatherCommand extends commando.Command {
      * @param {commando.CommandoMessage} message
      */
 
-    async run(message, { location }) {
+    async run(message) {
         try {
-            const { body } = await request
-                .get("https://api.openweathermap.org/data/2.5/weather")
-                .query({
-                    q: location.type === "q" ? location.data : "",
-                    zip: location.type === "zip" ? location.data : "",
-                    units: "imperial",
-                    appid: process.env.WEATHER_API_KEY,
-                });
+            const args = message.content.split(" ").slice(1)
 
-            const embed = new Discord.MessageEmbed()
-                .setAuthor(
-                    `${body.name}, ${body.sys.country}`,
-                    "https://media.discordapp.net/attachments/793772583946027050/823774180305534986/image-removebg-preview_8.png"
-                )
-                .setURL(`https://openweathermap.org/city/${body.id}`)
-                .setTimestamp()
-                .addField(
-                    "❯ Condition",
-                    body.weather
-                        .map((data) => `${data.main} (${data.description})`)
-                        .join("\n"),
-                    true
-                )
-                .addField("❯ Temperature", `${body.main.temp}°F`, true)
-                .addField("❯ Humidity", `${body.main.humidity}%`, true)
-                .addField("❯ Wind Speed", `${body.wind.speed} mph`, true)
-                .addField("❯ Feels Like", `${body.main.feels_like}°F`, true)
-                .addField(
-                    "❯ Minimum Tempurature",
-                    `${body.main.temp_min}°F`,
-                    true
-                )
-                .addField(
-                    "❯ Maximum Tempurature",
-                    `${body.main.temp_max}°F`,
-                    true
-                )
-                .setColor("#037ffc");
+            weather.find({ search: args.join(" "), degreeType: 'C' }, function (err, result) {
+                if (err) throw err
 
-            return message.embed(embed);
+                console.log(result[0])
+
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor(
+                        `${result[0].location.name}`,
+                        "https://media.discordapp.net/attachments/793772583946027050/823774180305534986/image-removebg-preview_8.png"
+                    )
+                    .setTimestamp()
+                    .addFields(
+                        { name: "Temperature", value: `${result[0].current.temperature} C°`, inline: true },
+                        { name: "Observation Time", value: result[0].current.observationtime, inline: true },
+                        { name: "Observation Point", value: result[0].current.observationpoint, inline: true },
+                        { name: "Feels Like", value: `${result[0].current.feelslike} C°`, inline: true },
+                        { name: "Humidity", value: `${result[0].current.humidity} C°`, inline: true },
+                        { name: "Wind Display", value: result[0].current.winddisplay, inline: true },
+                        { name: "Day", value: result[0].current.day, inline: true },
+                        { name: "WindSpeed", value: result[0].current.windspeed, inline: true },
+                        { name: "TimeZone", value: result[0].location.timezone, inline: true },
+                        { name: "Location", value: `${result[0].location.lat}, ${result[0].location.long}`, inline: true },
+                    )
+                    .setColor("#037ffc");
+
+                message.channel.send(embed);
+            });
         } catch (err) {
-            if (err.status === 404)
-                return message.say("Could not find any results.");
             console.error(err);
         }
     }
