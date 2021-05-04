@@ -3,13 +3,6 @@ require("dotenv").config();
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const { oneLine } = require("common-tags");
-const mongoose = require("mongoose");
-const settingsSchema = require("../../models/settingsSchema.js");
-
-mongoose.connect(process.env.MONGO_PATH, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-});
 
 const {
     General,
@@ -18,7 +11,6 @@ const {
     Music,
     Events,
     Notify,
-    NSFW,
     MISC,
     Fun,
     Search,
@@ -45,11 +37,7 @@ module.exports = class HelpCommand extends commando.Command {
 
     async run(message) {
         try {
-            let prefixDB = await settingsSchema.find({
-                guild: message.guild.id,
-            });
-
-            let PREFIX = prefixDB[0].settings.prefix || ".";
+            let PREFIX = ".";
             const args = message.content.slice(5).trim().split("  ");
             const helpArgs = args.shift().toLowerCase();
 
@@ -186,47 +174,6 @@ module.exports = class HelpCommand extends commando.Command {
                 );
             }
 
-            if (helpArgs === "nsfw") {
-                if (!message.channel.nsfw)
-                    return message.channel.send(
-                        "**:underage: NSFW Commands. Please be in a NSFW Channel to use them.**"
-                    );
-
-                let embed = new Discord.MessageEmbed()
-                    .setAuthor(
-                        message.author.username,
-                        message.author.avatarURL()
-                    )
-                    .setTitle(":underage: NSFW")
-                    .setDescription(
-                        `
-                            **anal** - NSFW Anal
-                            **ass** - NSFW Ass
-                            **boobs** - NSFW Boobs
-                            **erokemo** - NSFW Erokemo
-                            **fuck** - NSFW Fuck
-                            **gonewild** - NSFW Gonewild
-                            **hentai** - NSFW Hentai
-                            **hentaiass** - NSFW HentaiAss
-                            **hentaithigh** - NSFW HentaiThigh
-                            **hmidriff** - NSFW Hmidriff
-                            **kitsune** - NSFW kitsune
-                            **lewd** - NSFW Lewd
-                            **nekofeet** - NekoFeet
-                            **nekopussy** - NSFW Nekopussy
-                            **nekotits** - NSFW NekoTits
-                            **porngif** - NSFW Porn Gif
-                            **pussy** - NSFW Pussy
-                            **solo** - NSFW Solo
-                            **thigh** - NSFW thigh
-                            **wallpaper** - NSFW Wallpaper
-                        `
-                    )
-                    .setColor("GREEN");
-
-                message.channel.send(embed);
-            }
-
             if (helpArgs === "misc") {
                 let embed = new Discord.MessageEmbed()
                     .setAuthor(
@@ -327,11 +274,6 @@ module.exports = class HelpCommand extends commando.Command {
                     .addField(
                         `${Notify.emoji} ${Notify.name}`,
                         `\`${Notify.number}\``,
-                        true
-                    )
-                    .addField(
-                        `${NSFW.emoji} ${NSFW.name}`,
-                        `\`${NSFW.number}\``,
                         true
                     )
                     .addField(

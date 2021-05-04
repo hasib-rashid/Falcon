@@ -29,11 +29,6 @@
         "number": "0",
         "emoji": ":speech_left:"
     },
-    "NSFW": {
-        "name": "NSFW",
-        "number": "20",
-        "emoji": ":underage:"
-    },
     "MISC": {
         "name": "MISC",
         "number": "4",
