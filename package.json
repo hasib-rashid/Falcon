@@ -47,6 +47,7 @@
 		"enmap": "^5.8.4",
 		"ffmpeg-static": "^4.2.7",
 		"genius-lyrics-api": "^3.0.6",
+		"google-it": "^1.6.2",
 		"mathjs": "^9.2.0",
 		"moment": "^2.29.1",
 		"moment-duration-format": "^2.3.2",
