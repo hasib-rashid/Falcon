@@ -14,6 +14,9 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, pr
     dialect: "mysql",
 });
 
+//* Models
+const GuildUser = require("./models/GuildUser")
+
 const { GiveawaysManager } = require("discord-giveaways");
 
 const client = new CommandoClient({
@@ -112,6 +115,8 @@ client.registry
 
 client.once("ready", () => {
     console.log(`[READY] Logged in as ${client.user.tag}!`);
+
+    GuildUser.sync()
 });
 
 // Triggered when the bot doesn't have permissions to manage this role.
