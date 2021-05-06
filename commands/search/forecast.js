@@ -29,6 +29,8 @@ module.exports = class WeatherCommand extends commando.Command {
         try {
             const args = message.content.split(" ").slice(1)
 
+            if (!args.join(" ")) return message.channel.send("**Please Specify a location to get the forecast for.**")
+
             weather.find({ search: args.join(" "), degreeType: 'C' }, function (err, result) {
                 if (err) throw err
 
