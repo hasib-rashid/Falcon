@@ -7,15 +7,6 @@ const canvas = require("discord-canvas");
 const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
 const { formatNumber } = require("./util/Util");
-const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-    host: process.env.DB_HOSTNAME,
-    dialect: "mysql",
-});
-
-//* Models
-const GuildUser = require("./models/GuildUser")
 
 const { GiveawaysManager } = require("discord-giveaways");
 
@@ -115,8 +106,6 @@ client.registry
 
 client.once("ready", () => {
     console.log(`[READY] Logged in as ${client.user.tag}!`);
-
-    GuildUser.sync()
 });
 
 // Triggered when the bot doesn't have permissions to manage this role.
