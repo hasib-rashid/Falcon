@@ -7,8 +7,6 @@ const canvas = require("discord-canvas");
 const canvacord = require("canvacord");
 const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
-let ticketeasy = require("ticket.easy");
-const ticket = new ticketeasy();
 const { formatNumber } = require("./util/Util");
 
 const MongoClient = require("mongodb").MongoClient;
@@ -135,40 +133,14 @@ reactionRoleManager.on(
     "missingPermissions",
     (action, member, roles, reactionRole) => {
         console.log(
-            `Some roles cannot be ${
-                action === 1 ? "given" : "taken"
-            } to member \`${
-                member.displayName
+            `Some roles cannot be ${action === 1 ? "given" : "taken"
+            } to member \`${member.displayName
             }\`, because i don't have permissions to manage these roles: ${roles
                 .map((role) => `\`${role.name}\``)
                 .join(",")}`
         );
     }
 );
-
-client.on("messageReactionAdd", async (reaction, user, msg) => {
-    if (user.partial) await user.fetch();
-    if (reaction.partial) await reaction.fetch();
-    if (reaction.message.partial) await reaction.message.fetch();
-    if (user.bot) return;
-
-    if (
-        reaction.message.id == "812589352454455336" &&
-        reaction.emoji.name == "🎫"
-    ) {
-        reaction.users.remove(user);
-
-        const supportRoleID = "812572216960483338";
-        ticket.createTicket({
-            message: reaction.message, //The way you defined message in the message event
-            supportRole: supportRoleID, //Support role, can be an ID and the role name
-            ticketMessage: `<@${user.id}> created a ticket. Please wait for the <@${supportRoleID}> to respond. Response will be there within 12 hours.`, //The message it will send in the ticket || Optional
-            ticketTopic: user.tag, //The channel topic || Optional
-            ticketParent: "812591005260840990", //Must be a category, can be an ID and a name || Optional
-            ticketName: `ticket-${user.id}`, //This will be the ticket name || Optional
-        });
-    }
-});
 
 client.on("guildMemberAdd", async (member) => {
     const welcome = new canvas.Welcome();
@@ -269,17 +241,14 @@ distube
             .setTitle("Added a Song!")
             .setColor("GREEN")
             .setDescription(
-                `Song: [\`${song.name}\`](${song.url})  -  \`${
-                    song.formattedDuration
-                }\` \n\nRequested by: ${song.user}\n\nEstimated Time: ${
-                    queue.songs.length - 1
+                `Song: [\`${song.name}\`](${song.url})  -  \`${song.formattedDuration
+                }\` \n\nRequested by: ${song.user}\n\nEstimated Time: ${queue.songs.length - 1
                 } song(s) - \`${(
                     Math.floor(((queue.duration - song.duration) / 60) * 100) /
                     100
                 )
                     .toString()
-                    .replace(".", ":")}\`\nQueue duration: \`${
-                    queue.formattedDuration
+                    .replace(".", ":")}\`\nQueue duration: \`${queue.formattedDuration
                 }\``
             )
             .setThumbnail(song.thumbnail);
