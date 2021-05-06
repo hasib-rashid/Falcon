@@ -4,22 +4,11 @@ const { CommandoClient } = require("discord.js-commando");
 const Discord = require("discord.js");
 const DisTube = require("distube");
 const canvas = require("discord-canvas");
-const canvacord = require("canvacord");
 const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
 const { formatNumber } = require("./util/Util");
 
-const MongoClient = require("mongodb").MongoClient;
-const MongoDBProvider = require("commando-provider-mongo").MongoDBProvider;
-const mongo = require("./mongo.js");
-const mongoose = require("mongoose");
-
 const { GiveawaysManager } = require("discord-giveaways");
-
-mongoose.connect(process.env.MONGO_PATH, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-});
 
 const client = new CommandoClient({
     commandPrefix: ".",
@@ -34,15 +23,6 @@ const client = new CommandoClient({
         "USER",
     ],
 });
-
-// MongoDB Provider
-client
-    .setProvider(
-        MongoClient.connect(process.env.MONGO_PATH).then(
-            (client) => new MongoDBProvider(client, "myFirstDatabase")
-        )
-    )
-    .catch(console.error);
 
 // Giveaway Manager
 const manager = new GiveawaysManager(client, {
