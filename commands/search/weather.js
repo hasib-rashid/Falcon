@@ -54,8 +54,6 @@ module.exports = class WeatherCommand extends commando.Command {
             weather.find({ search: args.join(" "), degreeType: 'C' }, function (err, result) {
                 if (err) throw err
 
-                console.log(result[0])
-
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(
                         `${result[0].location.name}`,
