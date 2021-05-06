@@ -4,7 +4,6 @@ const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const oneLine = require("common-tags").oneLine;
 const weather = require('weather-js');
-const moment = require("moment");
 
 module.exports = class WeatherCommand extends commando.Command {
     constructor(client) {
@@ -19,27 +18,6 @@ module.exports = class WeatherCommand extends commando.Command {
                 Search the Weather from anywhere and check the weather
             `,
             examples: ["!weather <location>"],
-            credit: [
-                {
-                    name: "OpenWeatherMap",
-                    url: "https://openweathermap.org/",
-                    reason: "API",
-                    reasonURL: "https://openweathermap.org/api",
-                },
-            ],
-            args: [
-                {
-                    key: "location",
-                    prompt:
-                        "What location would you like to get the weather of?",
-                    type: "string",
-                    parse: (location) => {
-                        if (/^[0-9]+$/.test(location))
-                            return { type: "zip", data: location };
-                        return { type: "q", data: location };
-                    },
-                },
-            ],
         });
     }
 
