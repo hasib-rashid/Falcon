@@ -80,6 +80,24 @@ module.exports = class GithubCommand extends commando.Command {
 
         if (args[1]) {
             axios.get(`https://api.github.com/repos/${args[0]}/${args[1]}`).then(function (response) {
+                const owner = response.data.owner.login || "None"
+                const link = response.data.html_url || "None"
+                const homepage = response.data.homepage || "No Homepage"
+                const is_forked = response.data.fork || "No"
+                const forks = response.data.forks || "None"
+                const license = response.data.license ? response.data.license.name : "No License"
+                const open_issues = response.data.open_issues || "No Issues"
+                const default_branch = response.data.default_branch || "No Branches"
+                const subscribers = response.data.subscribers_count || "No Subscribers"
+                const archrived = response.data.archived
+                const language = response.data.language || "No Language"
+                const github_pages = response.data.has_pages
+                const clone = response.data.clone_url
+                const ssh = response.data.ssh_url
+                const created_at = response.data.created_at
+                const updated_at = response.data.updated_at || "Not Updated"
+                const pushed_at = response.data.pushed_at || "Not Pushed"
+
                 const repoEmbed = new Discord.MessageEmbed()
                     .setAuthor("Github", "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
                     .setTitle(response.data.full_name)
@@ -87,23 +105,23 @@ module.exports = class GithubCommand extends commando.Command {
                     .setColor("#2577fa")
                     .setThumbnail(response.data.owner.avatar_url)
                     .addFields(
-                        { name: "Owner", value: `[${response.data.owner.login}](${response.data.owner.html_url})`, inline: true },
-                        { name: "Link", value: `[Repository](${response.data.html_url})`, inline: true },
-                        { name: "Homepage", value: response.data.homepage, inline: true },
-                        { name: "Fork?", value: response.data.fork, inline: true },
-                        { name: "Fork Count", value: response.data.forks, inline: true },
-                        { name: "License", value: response.data.license ? response.data.license.name : "No License", inline: true },
-                        { name: "Open Issues", value: response.data.open_issues, inline: true },
-                        { name: "Default Branch", value: response.data.default_branch, inline: true },
-                        { name: "Subscribers", value: response.data.subscribers_count, inline: true },
-                        { name: "Archived?", value: response.data.archived, inline: true },
-                        { name: "Language", value: response.data.language, inline: true },
-                        { name: "Github Pages?", value: response.data.has_pages, inline: true },
-                        { name: "Clone URL", value: response.data.clone_url, inline: true },
-                        { name: "SSH Url", value: response.data.ssh_url, inline: true },
-                        { name: "Created At", value: moment.utc(response.data.created_at).format("MM/DD/YYYY h:mm A"), inline: false },
-                        { name: "Updated At", value: moment.utc(response.data.updated_at).format("MM/DD/YYYY h:mm A"), inline: false },
-                        { name: "Pushed At", value: moment.utc(response.data.pushed_at).format("MM/DD/YYYY h:mm A"), inline: true },
+                        { name: "Owner", value: `[${owner}](${response.data.owner.html_url})`, inline: true },
+                        { name: "Link", value: `[Repository](${link})`, inline: true },
+                        { name: "Homepage", value: homepage, inline: true },
+                        { name: "Fork?", value: is_forked, inline: true },
+                        { name: "Fork Count", value: forks, inline: true },
+                        { name: "License", value: license, inline: true },
+                        { name: "Open Issues", value: open_issues, inline: true },
+                        { name: "Default Branch", value: default_branch, inline: true },
+                        { name: "Subscribers", value: subscribers, inline: true },
+                        { name: "Archived?", value: archrived, inline: true },
+                        { name: "Language", value: language, inline: true },
+                        { name: "Github Pages?", value: github_pages, inline: true },
+                        { name: "Clone URL", value: clone, inline: true },
+                        { name: "SSH Url", value: ssh, inline: true },
+                        { name: "Created At", value: moment.utc(created_at).format("MM/DD/YYYY h:mm A"), inline: false },
+                        { name: "Updated At", value: moment.utc(updated_at).format("MM/DD/YYYY h:mm A"), inline: false },
+                        { name: "Pushed At", value: moment.utc(pushed_at).format("MM/DD/YYYY h:mm A"), inline: true },
                     )
 
                 message.channel.send(repoEmbed)
