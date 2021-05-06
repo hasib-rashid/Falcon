@@ -7,6 +7,7 @@ const canvas = require("discord-canvas");
 const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
 const { formatNumber } = require("./util/Util");
+const db = require("./models")
 
 const { GiveawaysManager } = require("discord-giveaways");
 
@@ -106,6 +107,9 @@ client.registry
 
 client.once("ready", () => {
     console.log(`[READY] Logged in as ${client.user.tag}!`);
+    db.sequelize.sync().then(() => {
+        console.log("Connected to Database.")
+    })
 });
 
 // Triggered when the bot doesn't have permissions to manage this role.

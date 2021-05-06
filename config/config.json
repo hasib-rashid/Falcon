@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
+    "username": "epiz_28297771",
+    "password": "hasib123good",
+    "database": "epiz_28297771_falcon",
+    "host": "sql213.epizy.com",
     "dialect": "mysql"
   },
   "test": {

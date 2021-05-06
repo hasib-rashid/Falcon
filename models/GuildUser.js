@@ -1,19 +1,18 @@
-const { DataTypes } = require("sequelize")
-const sequelize = require("sequelize")
-
-module.exports = () => {
+module.exports = (sequelize, DataTypes) => {
     const GuildUser = sequelize.define("GuildUser", {
-        userID: {
+        userId: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        guildID: {
+        guildId: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
         rank: {
             type: DataTypes.INTEGER,
-            allowNull: true
-        },
-    })
-}
+            allowNull: false
+        }
+    });
+
+    return GuildUser;
+};
