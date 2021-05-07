@@ -9,6 +9,9 @@ const { ReactionRoleManager } = require("discord.js-collector");
 const { formatNumber } = require("./util/Util");
 const db = require("./database")
 
+//* Models
+const GuildUser = require("./models/GuildUser")
+
 const { GiveawaysManager } = require("discord-giveaways");
 
 const client = new CommandoClient({
@@ -110,6 +113,9 @@ client.once("ready", () => {
 
     db.authenticate().then(() => {
         console.log("Connected to Database.")
+
+        GuildUser.init(db)
+        GuildUser.sync()
     }).catch(err => {
         console.error(err)
     })
