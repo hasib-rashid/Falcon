@@ -5,15 +5,15 @@ module.exports = class GuildUser extends Model {
     static init(sequelize) {
         return super.init({
             userID: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             guildID: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             rank: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
             },
         }, {
             tableName: "GuildUser",
