@@ -135,6 +135,10 @@ reactionRoleManager.on(
     }
 );
 
+function generateXp(min, max) {
+    return Math.ceil(Math.random() * (max - min + 1));
+}
+
 client.on("guildMemberAdd", async (member) => {
     const welcome = new canvas.Welcome();
     const image = await welcome
