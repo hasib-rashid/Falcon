@@ -7,6 +7,10 @@ const canvas = require("discord-canvas");
 const path = require("path");
 const { ReactionRoleManager } = require("discord.js-collector");
 const { formatNumber } = require("./util/Util");
+const db = require("./database")
+
+//* Models
+const GuildUser = require("./models/GuildUser")
 
 const { GiveawaysManager } = require("discord-giveaways");
 
@@ -106,6 +110,15 @@ client.registry
 
 client.once("ready", () => {
     console.log(`[READY] Logged in as ${client.user.tag}!`);
+
+    db.authenticate().then(() => {
+        console.log("Connected to Database.")
+
+        GuildUser.init(db)
+        GuildUser.sync()
+    }).catch(err => {
+        console.error(err)
+    })
 });
 
 // Triggered when the bot doesn't have permissions to manage this role.
@@ -121,6 +134,10 @@ reactionRoleManager.on(
         );
     }
 );
+
+function generateXp(min, max) {
+    return Math.ceil(Math.random() * (max - min + 1));
+}
 
 client.on("guildMemberAdd", async (member) => {
     const welcome = new canvas.Welcome();

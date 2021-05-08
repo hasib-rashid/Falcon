@@ -51,10 +51,12 @@
 		"mongodb": "^3.6.5",
 		"mongoose": "^5.12.0",
 		"ms": "^2.1.3",
+		"mysql2": "^2.2.5",
 		"node-os-utils": "^1.3.5",
 		"node-superfetch": "^0.1.11",
 		"os-utils": "0.0.14",
 		"reconlx": "^1.2.41",
+		"sequelize": "^6.6.2",
 		"tiktok-search": "^2.0.3",
 		"weather-js": "^2.0.0",
 		"wikijs": "^6.0.1"
