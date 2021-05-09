@@ -15,6 +15,10 @@ module.exports = class GuildUser extends Model {
             rank: {
                 type: DataTypes.INTEGER,
             },
+            level: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            }
         }, {
             tableName: "GuildUser",
             sequelize

@@ -145,11 +145,30 @@ client.on("message", (message) => {
     GuildUser.findOne({ where: { userID: message.author.id, guildID: message.guild.id } }).then((response, err) => {
         if (err) throw err;
 
+
+
         if (response === null) {
             GuildUser.create({ userID: message.author.id, guildID: message.guild.id, rank: generateXp(10, 20) })
         } else {
-            const newXP = response.dataValues.rank + generateXp(10, 20)
+            const currentXP = response.dataValues.rank
+            const currentLevel = response.dataValues.level
+
+            const nextLevel = 100 * (Math.pow(2, currentLevel) - 1);
+
+            const xpNeeded = 100 * currentXP
+
+            console.log(xpNeeded)
+
+            console.log(nextLevel)
+
+            console.log("Test: " + 5000 * (Math.pow(2, currentLevel) - 1))
+            const newXP = currentXP + generateXp(10, 20)
             GuildUser.update({ rank: newXP }, { where: { userID: message.author.id, guildID: message.guild.id } })
+
+            if (currentXP >= nextLevel) {
+                GuildUser.update({ level: currentLevel + 1 }, { where: { userID: message.author.id, guildID: message.guild.id } })
+                message.channel.send("You are now level " + currentLevel)
+            }
         }
     })
 })

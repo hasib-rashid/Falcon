@@ -26,7 +26,7 @@ module.exports = class ClassName extends commando.Command {
 
         const target = message.mentions.users.first() || message.guild.members.cache.get(query.join(" "))
 
-        console.log(target.username)
+        console.log(message.author.username)
 
         GuildUser.findOne({ where: { userID: target.id, guildID: message.guild.id } }).then((response) => {
             const rank = response.dataValues.rank
