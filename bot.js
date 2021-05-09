@@ -140,6 +140,8 @@ function generateXp(min, max) {
 }
 
 client.on("message", (message) => {
+    if (message.author.bot) return;
+
     GuildUser.findOne({ where: { userID: message.author.id, guildID: message.guild.id } }).then((response, err) => {
         if (err) throw err;
 
