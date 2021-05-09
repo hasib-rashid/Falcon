@@ -22,10 +22,19 @@ module.exports = class ClassName extends commando.Command {
      * @param {commando.CommandoMessage} message
     */
     async run(message) {
-        const rankModel = GuildUser.findOne({ where: { userID: message.author.id, guildID: message.guild.id } }).then((response) => {
-            const rank = response.dataValues.rank
-            message.channel.send(`Your xp is ${rank}`)
-        })
+        const query = message.content.split(" ").slice(1);
 
+        const target = message.mentions.users.first() || message.guild.members.cache.get(query.join(" "))
+
+        console.log(target.username)
+
+        GuildUser.findOne({ where: { userID: target.id, guildID: message.guild.id } }).then((response) => {
+            const rank = response.dataValues.rank
+            message.channel.send(`${target.nickname || target.user.username || target.username}'s xp is ${rank}`)
+
+            if (!target) {
+                message.channel.send(`${message.author.username}'s xp is ${rank}`)
+            }
+        })
     }
 }
