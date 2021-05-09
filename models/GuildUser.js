@@ -13,7 +13,7 @@ module.exports = class GuildUser extends Model {
                 allowNull: false
             },
             rank: {
-                type: DataTypes.STRING,
+                type: DataTypes.INTEGER,
             },
         }, {
             tableName: "GuildUser",

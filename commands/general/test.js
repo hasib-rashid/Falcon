@@ -22,7 +22,7 @@ module.exports = class ClassName extends commando.Command {
      * @param {commando.CommandoMessage} message
     */
     async run(message) {
-        GuildUser.update({ rank: 1000000 }, { where: { userID: message.author.id, guildID: message.guild.id } })
+        GuildUser.create({ userID: message.author.id, guildID: message.guild.id, rank: 600 })
 
         message.channel.send("Successfully stored in database.")
     }

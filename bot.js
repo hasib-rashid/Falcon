@@ -139,6 +139,19 @@ function generateXp(min, max) {
     return Math.ceil(Math.random() * (max - min + 1));
 }
 
+client.on("message", (message) => {
+    GuildUser.findOne({ where: { userID: message.author.id, guildID: message.guild.id } }).then((response, err) => {
+        if (err) throw err;
+
+        if (response === null) {
+            GuildUser.create({ userID: message.author.id, guildID: message.guild.id, rank: generateXp(10, 20) })
+        } else {
+            const newXP = response.dataValues.rank + generateXp(10, 20)
+            GuildUser.update({ rank: newXP }, { where: { userID: message.author.id, guildID: message.guild.id } })
+        }
+    })
+})
+
 client.on("guildMemberAdd", async (member) => {
     const welcome = new canvas.Welcome();
     const image = await welcome
