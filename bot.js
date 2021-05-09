@@ -157,11 +157,6 @@ client.on("message", (message) => {
 
             const xpNeeded = 100 * currentXP
 
-            console.log(xpNeeded)
-
-            console.log(nextLevel)
-
-            console.log("Test: " + 5000 * (Math.pow(2, currentLevel) - 1))
             const newXP = currentXP + generateXp(10, 20)
             GuildUser.update({ rank: newXP }, { where: { userID: message.author.id, guildID: message.guild.id } })
 
