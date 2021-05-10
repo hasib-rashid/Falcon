@@ -155,14 +155,12 @@ client.on("message", (message) => {
 
             const nextLevel = 100 * (Math.pow(2, currentLevel) - 1);
 
-            const xpNeeded = 100 * currentXP
-
             const newXP = currentXP + generateXp(10, 20)
             GuildUser.update({ rank: newXP }, { where: { userID: message.author.id, guildID: message.guild.id } })
 
             if (currentXP >= nextLevel) {
                 GuildUser.update({ level: currentLevel + 1 }, { where: { userID: message.author.id, guildID: message.guild.id } })
-                message.channel.send("You are now level " + currentLevel)
+                message.channel.send("You are now level " + (response.dataValues.level + 1))
             }
         }
     })
