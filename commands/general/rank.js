@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
 const commando = require('discord.js-commando');
 const oneLine = require('common-tags').oneLine;
+const canvacord = require("canvacord")
 const GuildUser = require("../../models/GuildUser")
 
 module.exports = class ClassName extends commando.Command {
@@ -24,17 +25,31 @@ module.exports = class ClassName extends commando.Command {
     async run(message) {
         const query = message.content.split(" ").slice(1);
 
-        const target = message.mentions.users.first() || message.guild.members.cache.get(query.join(" "))
+        const target = message.mentions.users.first() || message.guild.members.cache.get(query.join(" ")) || message.author
 
-        console.log(message.author.username)
+        const username = target.nickname ? target.user.username : message.author.username
 
         GuildUser.findOne({ where: { userID: target.id, guildID: message.guild.id } }).then((response) => {
             const rank = response.dataValues.rank
-            message.channel.send(`${target.nickname || target.user.username || target.username}'s xp is ${rank}`)
+            const level = response.dataValues.level
+            const requiredXP = 100 * (Math.pow(2, level) - 1);
 
-            if (!target) {
-                message.channel.send(`${message.author.username}'s xp is ${rank}`)
-            }
+            const RankCard = new canvacord.Rank()
+                .setUsername(username)
+                .setRank(1)
+                .setLevel(level)
+                .setCurrentXP(rank - (level * 100))
+                .setRequiredXP(requiredXP - (level * 100))
+                .setAvatar(target.displayAvatarURL({ dynamic: false, format: "png" }))
+                .setProgressBar("#3683ff", "COLOR")
+                .setStatus(target.presence.status)
+                .setDiscriminator(target.discriminator);
+
+            RankCard.build()
+                .then(data => {
+                    const attachment = new Discord.MessageAttachment(data, "RankCard.png");
+                    message.channel.send(attachment);
+                });
         })
     }
 }

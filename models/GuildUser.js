@@ -15,6 +15,10 @@ module.exports = class GuildUser extends Model {
             rank: {
                 type: DataTypes.INTEGER,
             },
+            rankCache: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
             level: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
