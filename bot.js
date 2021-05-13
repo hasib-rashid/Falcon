@@ -153,7 +153,7 @@ client.on("message", (message) => {
 
             const currentLevel = response.dataValues.level
 
-            const nextLevel = 100 * (Math.pow(2, currentLevel) - 1);
+            const nextLevel = 100 * currentLevel
 
             const newXP = currentXP + generateXP
             const newRankCache = rankCache + generateXP

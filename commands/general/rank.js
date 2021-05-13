@@ -33,7 +33,7 @@ module.exports = class ClassName extends commando.Command {
             const rankCache = response.dataValues.rankCache
 
             const level = response.dataValues.level
-            const requiredXP = 100 * (Math.pow(2, level) - 1);
+            const requiredXP = 100 * level
 
             const RankCard = new canvacord.Rank()
                 .setUsername(username)
