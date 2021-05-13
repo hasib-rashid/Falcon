@@ -30,7 +30,8 @@ module.exports = class ClassName extends commando.Command {
         const username = target.nickname ? target.user.username : message.author.username
 
         GuildUser.findOne({ where: { userID: target.id, guildID: message.guild.id } }).then((response) => {
-            const rank = response.dataValues.rank
+            const rankCache = response.dataValues.rankCache
+
             const level = response.dataValues.level
             const requiredXP = 100 * (Math.pow(2, level) - 1);
 
@@ -38,8 +39,8 @@ module.exports = class ClassName extends commando.Command {
                 .setUsername(username)
                 .setRank(1)
                 .setLevel(level)
-                .setCurrentXP(rank - (level * 100))
-                .setRequiredXP(requiredXP - (level * 100))
+                .setCurrentXP(rankCache)
+                .setRequiredXP(requiredXP)
                 .setAvatar(target.displayAvatarURL({ dynamic: false, format: "png" }))
                 .setProgressBar("#3683ff", "COLOR")
                 .setStatus(target.presence.status)

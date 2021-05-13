@@ -135,10 +135,6 @@ reactionRoleManager.on(
     }
 );
 
-function generateXp(min, max) {
-    return Math.ceil(Math.random() * (max - min + 1));
-}
-
 client.on("message", (message) => {
     if (message.author.bot) return;
 
@@ -148,18 +144,25 @@ client.on("message", (message) => {
 
 
         if (response === null) {
-            GuildUser.create({ userID: message.author.id, guildID: message.guild.id, rank: generateXp(10, 20) })
+            GuildUser.create({ userID: message.author.id, guildID: message.guild.id, rank: 0 })
         } else {
+            const generateXP = Math.ceil(Math.random() * (25 - 10 + 1));
+
             const currentXP = response.dataValues.rank
+            const rankCache = response.dataValues.rankCache
+
             const currentLevel = response.dataValues.level
 
             const nextLevel = 100 * (Math.pow(2, currentLevel) - 1);
 
-            const newXP = currentXP + generateXp(10, 20)
-            GuildUser.update({ rank: newXP }, { where: { userID: message.author.id, guildID: message.guild.id } })
+            const newXP = currentXP + generateXP
+            const newRankCache = rankCache + generateXP
 
-            if (currentXP >= nextLevel) {
-                GuildUser.update({ level: currentLevel + 1 }, { where: { userID: message.author.id, guildID: message.guild.id } })
+            GuildUser.update({ rank: newXP, rankCache: newRankCache }, { where: { userID: message.author.id, guildID: message.guild.id } })
+
+            if (response.dataValues.rankCache >= nextLevel) {
+                GuildUser.update({ level: currentLevel + 1, rankCache: 0 }, { where: { userID: message.author.id, guildID: message.guild.id } })
+
                 message.channel.send("You are now level " + (response.dataValues.level + 1))
             }
         }
