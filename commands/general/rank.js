@@ -25,11 +25,7 @@ module.exports = class ClassName extends commando.Command {
     async run(message) {
         const query = message.content.split(" ").slice(1);
 
-        console.log(query[0])
-
         const target = message.mentions.users.first() || message.guild.members.cache.get(user => user.id === query[0]) || message.author
-        console.log(message.guild.members.cache.get(query[0]))
-        console.log(target)
 
         const username = target.nickname ? target.user.username : message.author.username
 
