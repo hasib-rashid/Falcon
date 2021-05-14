@@ -24,9 +24,6 @@ module.exports = class ClassName extends commando.Command {
     */
     async run(message) {
         try {
-            let err;
-
-            if (err) throw err;
             const target = message.mentions.users.first() || message.author
 
             console.log(target)

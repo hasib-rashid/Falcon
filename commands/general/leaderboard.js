@@ -31,6 +31,8 @@ module.exports = class ClassName extends commando.Command {
             limit: 10
         })
 
+        if (leaderboard_users.length === 0) return message.channel.send("**Currently there is no people on the leaderboard! Start chatting to gain XP and be on the leaderboard**")
+
         console.log(leaderboard_users.length)
 
         const embed = new Discord.MessageEmbed()
