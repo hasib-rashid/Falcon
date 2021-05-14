@@ -39,8 +39,10 @@ module.exports = class ClassName extends commando.Command {
             .setFooter(this.client.user.username, this.client.user.displayAvatarURL())
             .setTimestamp()
 
+        let desc = [];
+
         for (var i = 0; i < leaderboard_users.length; ++i) {
-            let fieldName;
+            let fieldName = {};
 
             switch (i) {
                 case 0:
@@ -57,8 +59,10 @@ module.exports = class ClassName extends commando.Command {
             }
 
             var result = leaderboard_users[i].dataValues;
-            embed.addField(`${fieldName} - <@${message.guild.members.cache.get(`${result.userID}`).user.id}>`, `${result.rank}`)
+            desc.push(`${fieldName} - <@${message.guild.members.cache.get(`${result.userID}`).user.id}> \n`)
         }
+
+        embed.setDescription(desc)
 
         message.channel.send(embed)
     }
