@@ -26,7 +26,7 @@ module.exports = class ClassName extends commando.Command {
             order: [
                 ["rank", "DESC"]
             ],
-            limit: 2
+            limit: 10
         })
 
         console.log(leaderboard_users)
