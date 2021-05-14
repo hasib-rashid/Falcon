@@ -25,7 +25,8 @@ module.exports = class ClassName extends commando.Command {
         const leaderboard_users = await GuildUser.findAll({
             order: [
                 ["rank", "DESC"]
-            ]
+            ],
+            limit: 2
         })
 
         console.log(leaderboard_users)
