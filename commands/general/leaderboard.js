@@ -40,8 +40,24 @@ module.exports = class ClassName extends commando.Command {
             .setTimestamp()
 
         for (var i = 0; i < leaderboard_users.length; ++i) {
+            let fieldName;
+
+            switch (i) {
+                case 0:
+                    fieldName = '🥇';
+                    break;
+                case 1:
+                    fieldName = '🥈';
+                    break;
+                case 2:
+                    fieldName = '🥉';
+                    break;
+                default:
+                    fieldName = `${i + 1}th`;
+            }
+
             var result = leaderboard_users[i].dataValues;
-            embed.addField(`${message.guild.members.cache.get(`${result.userID}`).user.username}`, `${result.rank}`)
+            embed.addField(`${fieldName} - <@${message.guild.members.cache.get(`${result.userID}`).user.id}>`, `${result.rank}`)
         }
 
         message.channel.send(embed)
