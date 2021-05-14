@@ -21,7 +21,9 @@ module.exports = class ClassName extends commando.Command {
     /**
      * @param {commando.CommandoMessage} message
     */
-    async run(message) {
+    async run(message, err) {
+        if (err) throw err;
+
         const leaderboard_users = await GuildUser.findAll({
             order: [
                 ["rank", "DESC"]
@@ -29,10 +31,19 @@ module.exports = class ClassName extends commando.Command {
             limit: 10
         })
 
-        for (var i = 0; i < 10; ++i) {
-            var result = leaderboard_users[i].dataValues;
+        console.log(leaderboard_users.length)
 
-            message.channel.send(`${result.userID} - ${result.rank}`)
+        const embed = new Discord.MessageEmbed()
+            .setAuthor(message.guild.name, message.guild.iconURL())
+            .setTitle("Leaderboard")
+            .setFooter(this.client.user.username, this.client.user.displayAvatarURL())
+            .setTimestamp()
+
+        for (var i = 0; i < leaderboard_users.length; ++i) {
+            var result = leaderboard_users[i].dataValues;
+            embed.addField(`${message.guild.members.cache.get(`${result.userID}`).user.username}`, `${result.rank}`)
         }
+
+        message.channel.send(embed)
     }
 }
