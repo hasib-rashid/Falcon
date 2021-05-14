@@ -26,8 +26,6 @@ module.exports = class ClassName extends commando.Command {
         try {
             const target = message.mentions.users.first() || message.author
 
-            console.log(target)
-
             const username = target.username || message.author.username
 
             GuildUser.findOne({ where: { userID: target.id, guildID: message.guild.id } }).then((response) => {
