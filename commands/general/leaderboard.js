@@ -35,7 +35,8 @@ module.exports = class ClassName extends commando.Command {
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(message.guild.name, message.guild.iconURL())
-            .setTitle("Leaderboard")
+            .setTitle("Ranking Leaderboard")
+            .setColor("#2784f5")
             .setFooter(this.client.user.username, this.client.user.displayAvatarURL())
             .setTimestamp()
 
@@ -65,7 +66,7 @@ module.exports = class ClassName extends commando.Command {
             }
 
             var result = leaderboard_users[i].dataValues;
-            desc.push(`${fieldName} - <@${message.guild.members.cache.get(`${result.userID}`).user.id}> \n`)
+            desc.push(`**${fieldName} - <@${message.guild.members.cache.get(`${result.userID}`).user.id}>** \n`)
         }
 
         embed.setDescription(desc)
