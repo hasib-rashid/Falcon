@@ -54,6 +54,12 @@ module.exports = class ClassName extends commando.Command {
                 case 2:
                     fieldName = '🥉';
                     break;
+                case (!0):
+                    message.channel.send("**There is nobody on the leaderboard! Start chatting to be one!**")
+                case (!1):
+                    break;
+                case (!2):
+                    break;
                 default:
                     fieldName = `${i + 1}th`;
             }
