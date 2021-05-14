@@ -29,6 +29,10 @@ module.exports = class ClassName extends commando.Command {
             limit: 10
         })
 
-        console.log(leaderboard_users)
+        for (var i = 0; i < 10; ++i) {
+            var result = leaderboard_users[i].dataValues;
+
+            message.channel.send(`${result.userID} - ${result.rank}`)
+        }
     }
 }
