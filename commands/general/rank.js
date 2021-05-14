@@ -23,34 +23,39 @@ module.exports = class ClassName extends commando.Command {
      * @param {commando.CommandoMessage} message
     */
     async run(message) {
-        const query = message.content.split(" ").slice(1);
+        try {
+            const target = message.mentions.users.first() || message.author
 
-        const target = message.mentions.users.first() || message.guild.members.cache.get(user => user.id === query[0]) || message.author
+            console.log(target)
 
-        const username = target.nickname ? target.user.username : message.author.username
+            const username = target.username || message.author.username
 
-        GuildUser.findOne({ where: { userID: message.guild.members.cache.get(query[0]).user.id || target.id, guildID: message.guild.id } }).then((response) => {
-            const rankCache = response.dataValues.rankCache
+            GuildUser.findOne({ where: { userID: target.id, guildID: message.guild.id } }).then((response) => {
+                const rankCache = response.dataValues.rankCache
 
-            const level = response.dataValues.level
-            const requiredXP = 100 * level
+                const level = response.dataValues.level
+                const requiredXP = 100 * level
 
-            const RankCard = new canvacord.Rank()
-                .setUsername(message.guild.members.cache.get(query[0]).user.username || username)
-                .setRank(1)
-                .setLevel(level)
-                .setCurrentXP(rankCache)
-                .setRequiredXP(requiredXP)
-                .setAvatar(message.guild.members.cache.get(query[0]).user.displayAvatarURL({ dynamic: false, format: "png" }) || target.displayAvatarURL({ dynamic: false, format: "png" }))
-                .setProgressBar("#3683ff", "COLOR")
-                .setStatus(message.guild.members.cache.get(query[0]).user.presence.status || target.presence.status)
-                .setDiscriminator(message.guild.members.cache.get(query[0]).user.discriminator || target.discriminator);
+                const RankCard = new canvacord.Rank()
+                    .setUsername(username)
+                    .setRank(1)
+                    .setLevel(level)
+                    .setCurrentXP(rankCache)
+                    .setRequiredXP(requiredXP)
+                    .setAvatar(target.displayAvatarURL({ dynamic: false, format: "png" }))
+                    .setProgressBar("#3683ff", "COLOR")
+                    .setStatus(target.presence.status)
+                    .setDiscriminator(target.discriminator);
 
-            RankCard.build()
-                .then(data => {
-                    const attachment = new Discord.MessageAttachment(data, "RankCard.png");
-                    message.channel.send(attachment);
-                });
-        })
+                RankCard.build()
+                    .then(data => {
+                        const attachment = new Discord.MessageAttachment(data, "RankCard.png");
+                        message.channel.send(attachment);
+                    });
+            })
+        } catch (err) {
+            console.error(err)
+        }
+
     }
 }
