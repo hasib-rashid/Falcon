@@ -66,7 +66,7 @@ module.exports = class ClassName extends commando.Command {
             }
 
             var result = leaderboard_users[i].dataValues;
-            desc.push(`**${fieldName} - <@${message.guild.members.cache.get(`${result.userID}`).user.id}>** \n`)
+            desc.push(`**${fieldName} - <@${message.guild.members.cache.get(`${result.userID}`).user.id}> • Level ${result.level}** \n`)
         }
 
         embed.setDescription(desc)
