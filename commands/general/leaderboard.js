@@ -21,9 +21,7 @@ module.exports = class ClassName extends commando.Command {
     /**
      * @param {commando.CommandoMessage} message
     */
-    async run(message, err) {
-        if (err) throw err;
-
+    async run(message) {
         const leaderboard_users = await GuildUser.findAll({
             order: [
                 ["rank", "DESC"]
@@ -32,8 +30,6 @@ module.exports = class ClassName extends commando.Command {
         })
 
         if (leaderboard_users.length === 0) return message.channel.send("**Currently there is no people on the leaderboard! Start chatting to gain XP and be on the leaderboard**")
-
-        console.log(leaderboard_users.length)
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(message.guild.name, message.guild.iconURL())
