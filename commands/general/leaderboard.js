@@ -22,8 +22,12 @@ module.exports = class ClassName extends commando.Command {
      * @param {commando.CommandoMessage} message
     */
     async run(message) {
-        const leaderboard_users = await GuildUser.findAll()
+        const leaderboard_users = await GuildUser.findAll({
+            order: [
+                ["rank", "DESC"]
+            ]
+        })
 
-        console.log(leaderboard_users.dataValues)
+        console.log(leaderboard_users)
     }
 }
