@@ -31,6 +31,7 @@ module.exports = class ClassName extends commando.Command {
             const username = target.username || message.author.username
 
             GuildUser.findOne({ where: { userID: target.id, guildID: message.guild.id } }).then((response) => {
+                if (response === null) return message.channel.send("**This member doesnt have any XP from chatting. Maybe because its a bot.**")
                 const rankCache = response.dataValues.rankCache
 
                 const level = response.dataValues.level
@@ -56,6 +57,5 @@ module.exports = class ClassName extends commando.Command {
         } catch (err) {
             console.error(err)
         }
-
     }
 }
