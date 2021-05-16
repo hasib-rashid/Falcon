@@ -1,4 +1,4 @@
-import Command from "../../Constants/Command";
+import Command from "../../constants/Command";
 
 const HelpCommand: Command = {
 	name: "test",

@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import Event from "../Constants/Event";
+import Event from "../constants/Event";
 import { stripIndents } from "common-tags";
 import Collection from "@discordjs/collection";
 

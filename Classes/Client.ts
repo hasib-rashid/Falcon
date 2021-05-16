@@ -1,10 +1,10 @@
 import { Client, Intents, Collection } from "discord.js";
 import { readdirSync } from "fs";
-import Config from "../Constants/Config";
-import Logger from "../Helpers/Logger";
-import Command from "../Constants/Command";
-import Event from "../Constants/Event";
-import NewMessageEmbed from "../Helpers/MessageEmbed";
+import Config from "../constants/Config";
+import Logger from "../helpers/Logger";
+import Command from "../constants/Command";
+import Event from "../constants/Event";
+import NewMessageEmbed from "../helpers/MessageEmbed";
 
 export default class MaverickClient extends Client {
     public prefix: string;
