@@ -1,11 +1,11 @@
 import { config } from "dotenv";
 config();
-import Client from "./Classes/Client";
+import Client from "./classes/client";
 
 new Client({
     token: process.env.TOKEN,
     ownerID: "548038495617417226",
-    commandDir: `${__dirname}/Commands`,
+    commandDir: `${__dirname}/commands`,
     eventDir: `${__dirname}/Events`,
     prefix: ".",
     emotes: {

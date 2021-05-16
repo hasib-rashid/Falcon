@@ -1,4 +1,4 @@
-import FalconClient from "../Classes/Client";
+import FalconClient from "../classes/client";
 
 interface RunFunction {
     // eslint-disable-next-line

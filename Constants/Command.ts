@@ -1,4 +1,4 @@
-import FalconClient from "../Classes/Client";
+import FalconClient from "../classes/client";
 import { Message } from "discord.js";
 
 interface RunFunction {

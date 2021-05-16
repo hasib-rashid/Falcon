@@ -1,4 +1,4 @@
-import Event from "../Constants/Event";
+import Event from "../constants/event";
 
 const ReadyEvent: Event = {
     name: "ready",
