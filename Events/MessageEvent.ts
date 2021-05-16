@@ -11,7 +11,7 @@ const MessageEvent: Event = {
         if (message.author.bot || message.webhookID) return;
 
         // Will keep plugins here
-        const prefix = "p"
+        const prefix = "."
 
         if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
 
