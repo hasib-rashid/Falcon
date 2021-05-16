@@ -1,9 +1,9 @@
-import MaverickClient from "../Classes/Client";
+import FalconClient from "../Classes/Client";
 import { Message } from "discord.js";
 
 interface RunFunction {
     // eslint-disable-next-line no-unused-vars
-    (client: MaverickClient, message: Message, args: string[]): Promise<any>,
+    (client: FalconClient, message: Message, args: string[]): Promise<any>,
 }
 
 interface Credit {
