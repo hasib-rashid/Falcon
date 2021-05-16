@@ -1,15 +1,15 @@
-import Command from "../../constants/command";
+import Command from '../../constants/command';
 
-const HelpCommand: Command = {
-	name: "test",
-	description: "Gets the Help Menu",
+const TestingCommand: Command = {
+	name: 'test',
+	description: 'description',
 	aliases: [
-		"test",
+		''
 	],
-	async run(client, message, args) {
-		console.log("trigerred")
-		console.log(client.prefix)
-	},
-};
 
-export default HelpCommand;
+	async run(client, message, args) {
+		message.channel.send("Testing done")
+	},
+}
+
+export default TestingCommand;
