@@ -6,7 +6,7 @@ import Command from "../Constants/Command";
 import Event from "../Constants/Event";
 import NewMessageEmbed from "../Helpers/MessageEmbed";
 
-export default class FalconClient extends Client {
+export default class MaverickClient extends Client {
     public prefix: string;
     public commands: Collection<string, Command> = new Collection();
     public aliases: Collection<string, string> = new Collection();

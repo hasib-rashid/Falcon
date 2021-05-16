@@ -4,10 +4,10 @@ import Client from "./Classes/Client";
 
 new Client({
     token: process.env.TOKEN,
-    ownerID: "839367177899737108",
+    ownerID: "548038495617417226",
     commandDir: `${__dirname}/Commands`,
     eventDir: `${__dirname}/Events`,
-    prefix: "*",
+    prefix: ".",
     emotes: {
         success: "<a:checkmark:840147155112165406>",
         error: "<a:error:840147176360378388>",

@@ -11,10 +11,11 @@ const MessageEvent: Event = {
         if (message.author.bot || message.webhookID) return;
 
         // Will keep plugins here
+        const prefix = "p"
 
-        if (!message.content.toLowerCase().startsWith(client.prefix.toLowerCase())) return;
+        if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
 
-        const args = message.content.slice(client.prefix.length).trim().split(/ +/g);
+        const args = message.content.slice(prefix.length).trim().split(/ +/g);
 
         const commandName = args.shift()?.toLowerCase();
 
@@ -59,6 +60,7 @@ const MessageEvent: Event = {
         catch (err) {
             client.logger.error("client/commands", stripIndents(`
 				Command Name: ${command.name}
+
 				Error: ${err.message}
 			`));
         }
