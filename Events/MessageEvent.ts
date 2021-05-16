@@ -26,12 +26,12 @@ const MessageEvent: Event = {
 
         if (command.guildOnly && !message.guild) return message.channel.send(`${client.emotes.error} This command can only be used in Servers!`);
 
-        if (command.ownerOnly && message.author.id !== client.ownerID) return message.channel.send(`${client.emotes.error} To use this command, you need to be as **crazy** and **nerdy** as my Owner`);
+        if (command.ownerOnly && message.author.id !== client.ownerID) return message.channel.send(`**${client.emotes.error} To use this command, you need to be as **crazy** and **nerdy** as my Owner**`);
 
-        if (command.disabled) return message.channel.send(`${client.emotes.error} The command has been disabled by the owner`);
+        if (command.disabled) return message.channel.send(`**${client.emotes.error} The command has been disabled by the owner**`);
 
         // @ts-ignore
-        if (command.nsfw && (!message.guild || !message.channel.nsfw)) return message.channel.send(`${client.emotes.error} This command can only be used in a NSFW Channel you perv!`);
+        if (command.nsfw && (!message.guild || !message.channel.nsfw)) return message.channel.send(`**${client.emotes.error} This command can only be used in a NSFW Channel you perv!**`);
 
         if (!!command.args && !args[command.args - 1]) return message.channel.send(`${client.emotes.error} Expected ${command.args} arguments, received ${args.length}`);
         if (!cooldowns.has(command.name)) {
