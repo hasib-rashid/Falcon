@@ -6,7 +6,7 @@ new Client({
     token: process.env.TOKEN,
     ownerID: "548038495617417226",
     commandDir: `${__dirname}/commands`,
-    eventDir: `${__dirname}/Events`,
+    eventDir: `${__dirname}/events`,
     prefix: ".",
     emotes: {
         success: "<a:checkmark:840147155112165406>",
