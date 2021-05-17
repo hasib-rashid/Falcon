@@ -24,8 +24,9 @@ const AvatarCommand: Command = {
         const embed = new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL())
             .setTitle(`${username}'s Avatar`)
-            .setDescription(`**Download Images**\n[PNG](${png_image}) | [JPG](${jpg_image}) | [JPEG](${jpeg_image}) | [GIF](${gif_image}) | [WEPB](${webp_image})`)
+            .setDescription(`**Download Images**\n[png](${png_image}) | [jpg](${jpg_image}) | [jpeg](${jpeg_image}) | [gif](${gif_image}) | [webp](${webp_image})`)
             .setImage(image)
+            .setColor("#347aeb")
 
         message.channel.send(embed)
     },
