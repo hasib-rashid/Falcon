@@ -1,6 +1,6 @@
 import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js'
-import * as axios from 'axios'
+import { default as axios } from 'axios'
 
 const BinaryCommand: Command = {
     name: 'binary',
@@ -20,10 +20,8 @@ const BinaryCommand: Command = {
                 "**Please send a Text Message to convert it to binary**"
             );
 
-        const url = `http://some-random-api.ml/binary?text=${args.join(" ")}`;
-
         try {
-            axios.default.get(`http://some-random-api.ml/binary?text=${args.join(" ")}`).then(function (response) {
+            axios.get(`http://some-random-api.ml/binary?text=${args.join(" ")}`).then(function (response) {
                 const embed = new MessageEmbed()
                     .setTitle("Binary")
                     .setAuthor(
