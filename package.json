@@ -1,15 +1,38 @@
 {
-  "dependencies": {
-    "common-tags": "^1.8.0",
-    "consola": "^2.15.3",
-    "discord.js": "^12.5.3",
-    "dotenv": "^9.0.2",
-    "moment": "^2.29.1"
-  },
-  "devDependencies": {
-    "@types/common-tags": "^1.8.0",
-    "@types/node": "^15.3.0",
-    "ts-node-dev": "^1.1.6",
-    "typescript": "^4.2.4"
-  }
+	"name": "falcon",
+	"version": "1.0.0",
+	"description": "A Mordern Discord Utility Bot",
+	"main": "bot.js",
+	"scripts": {
+		"dev": "nodemon bot"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CodeFictions/CodeVert.git"
+	},
+	"keywords": [
+		"discord.js",
+		"discord.js-commando",
+		"bot",
+		"utility-bot"
+	],
+	"author": "Hasib Al Rashid",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/CodeFictions/CodeVert/issues"
+	},
+	"homepage": "https://github.com/CodeFictions/CodeVert#readme",
+	"dependencies": {
+		"common-tags": "^1.8.0",
+		"consola": "^2.15.3",
+		"discord.js": "^12.5.3",
+		"dotenv": "^9.0.2",
+		"moment": "^2.29.1"
+	},
+	"devDependencies": {
+		"@types/common-tags": "^1.8.0",
+		"@types/node": "^15.3.0",
+		"ts-node-dev": "^1.1.6",
+		"typescript": "^4.2.4"
+	}
 }
