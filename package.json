@@ -4,7 +4,7 @@
 	"description": "A Mordern Discord Utility Bot",
 	"main": "bot.js",
 	"scripts": {
-		"dev": "nodemon bot"
+		"dev": "npx ts-node-dev bot.ts"
 	},
 	"repository": {
 		"type": "git",
