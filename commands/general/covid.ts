@@ -1,10 +1,7 @@
 import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js'
-import * as axiosConfig from 'axios'
+import { default as axios } from 'axios'
 import { formatNumber } from '../../util/Util'
-import consola from 'consola'
-
-const axios = axiosConfig.default
 
 const CovidCommand: Command = {
     name: 'covid',
@@ -78,7 +75,7 @@ const CovidCommand: Command = {
                     .setColor("#e6295f");
 
                 message.channel.send(embed);
-            })
+            }).catch((err) => console.log(err))
         }
 
         if (args[0]) {
