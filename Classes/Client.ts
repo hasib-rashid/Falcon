@@ -50,9 +50,9 @@ export default class FalconClient extends Client {
                     if (!pull.credit) pull.credit = [];
 
                     pull.credit.push({
-                        name: "Defective Detective",
+                        name: "Hasib Al Rashid",
                         reason: "Code",
-                        URL: "https://github.com/SpiderMath/Intrepid",
+                        URL: "https://github.com/hasib-rashid",
                     });
 
                     this.commands.set(pull.name.toLowerCase(), pull);

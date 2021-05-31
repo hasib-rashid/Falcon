@@ -11,7 +11,7 @@ const MessageEvent: Event = {
         if (message.author.bot || message.webhookID) return;
 
         // Will keep plugins here
-        const prefix = "."
+        const prefix = "." // Dynamic Prefix
 
         if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
 
@@ -31,7 +31,7 @@ const MessageEvent: Event = {
         if (command.disabled) return message.channel.send(`**${client.emotes.error} The command has been disabled by the owner**`);
 
         // @ts-ignore
-        if (command.nsfw && (!message.guild || !message.channel.nsfw)) return message.channel.send(`**${client.emotes.error} This command can only be used in a NSFW Channel you perv!**`);
+        if (command.nsfw && (!message.guild || !message.channel.nsfw)) return message.channel.send(`**${client.emotes.error} This command can only be used in a NSFW Channel.**`);
 
         if (!!command.args && !args[command.args - 1]) return message.channel.send(`${client.emotes.error} Expected ${command.args} arguments, received ${args.length}`);
         if (!cooldowns.has(command.name)) {
