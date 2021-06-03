@@ -11,7 +11,7 @@ const ReadyEvent: Event = {
             `Serving ${client.users.cache.size} users!`,
         ]
 
-        client.user?.setStatus("dnd")
+        client.user?.setStatus("online")
         setInterval(() => {
             const randomIndex = Math.floor(Math.random() * (Activities.length - 1) + 1);
             const newActivity = Activities[randomIndex];
