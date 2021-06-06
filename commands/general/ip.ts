@@ -16,7 +16,7 @@ const IPCommand: Command = {
 
     async run(client, message, args) {
         axios.get(`http://ip-api.com/json/${args.join(" ")}`).then((response) => {
-            if (response.data.city === null) return message.channel.send("***Please Enter a valid IP or a website***")
+            if (response.data.status === "fail") return message.channel.send("**Please Enter a valid IP or a website**")
             const embed = new MessageEmbed()
                 .setColor("BLUE")
                 .setAuthor(
