@@ -5,7 +5,7 @@ const MemberCountCommand: Command = {
     name: 'memberCount',
     description: 'Count the number of members here',
     aliases: [
-        'member-count', 'membercount'
+        'member-count', 'membercount', 'users', 'user-count', 'userCount'
     ],
     guildOnly: false,
     ownerOnly: false,
