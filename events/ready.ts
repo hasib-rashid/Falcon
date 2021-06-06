@@ -11,12 +11,12 @@ const ReadyEvent: Event = {
             `Serving ${client.users.cache.size} users!`,
         ]
 
-        client.user?.setStatus("dnd")
+        client.user?.setStatus("idle")
         setInterval(() => {
             const randomIndex = Math.floor(Math.random() * (Activities.length - 1) + 1);
             const newActivity = Activities[randomIndex];
 
-            client.user?.setActivity(newActivity);
+            client.user?.setActivity(newActivity, { type: "WATCHING" });
         }, 10000);
     },
 };
