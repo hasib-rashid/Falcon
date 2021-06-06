@@ -27,6 +27,7 @@
 		"consola": "^2.15.3",
 		"discord.js": "^12.5.3",
 		"dotenv": "^9.0.2",
+		"mathjs": "^9.4.2",
 		"moment": "^2.29.1"
 	},
 	"devDependencies": {
