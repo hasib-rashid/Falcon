@@ -1,6 +1,5 @@
 import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js'
-import { lng } from './translator/langOptions'
 import { default as translate } from "@vitalets/google-translate-api"
 
 const TranslateCommand: Command = {
