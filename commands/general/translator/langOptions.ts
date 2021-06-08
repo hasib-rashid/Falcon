@@ -1,5 +1,4 @@
-let lng
-module.exports = lng = [
+export const lng = [
     { "name": "afrikaans", "abrv": "af" },
     { "name": "albanian", "abrv": "sq", },
     { "name": "arabic", "abrv": "ar", },
