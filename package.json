@@ -26,6 +26,7 @@
 		"axios": "^0.21.1",
 		"common-tags": "^1.8.0",
 		"consola": "^2.15.3",
+		"discord-multipurpose": "^2.1.14",
 		"discord.js": "^12.5.3",
 		"dotenv": "^9.0.2",
 		"mathjs": "^9.4.2",
