@@ -166,6 +166,10 @@ const HelpCommand: Command = {
 
             message.channel.send(embed);
         }
+
+        if (args[0] === "events") {
+            return message.channel.send("These helps are coming soon");
+        }
     },
 }
 
