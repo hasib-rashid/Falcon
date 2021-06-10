@@ -35,9 +35,6 @@ const HelpCommand: Command = {
 
             for (var i = 0; i < 10; ++i) {
                 const result = helpJSON[i];
-
-                console.log(result)
-
                 embed.addField(`${result.emoji} ${result.name}`, `\`${result.number}\``, true)
             }
 
