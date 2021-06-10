@@ -170,6 +170,12 @@ const HelpCommand: Command = {
         if (args[0] === "events") {
             return message.channel.send("These helps are coming soon");
         }
+
+        if (args[0] === "notify") {
+            return message.channel.send(
+                "These features will be added soon"
+            );
+        }
     },
 }
 
