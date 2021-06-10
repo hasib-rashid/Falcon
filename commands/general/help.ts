@@ -176,6 +176,48 @@ const HelpCommand: Command = {
                 "These features will be added soon"
             );
         }
+
+        if (args[0] === "nsfw" || args[0] === "NSFW") {
+            // @ts-expect-error
+            if (!message.channel.nsfw)
+                return message.channel.send(
+                    "**:underage: NSFW Commands. Please be in a NSFW Channel to use them.**"
+                );
+
+            const embed = new MessageEmbed()
+                .setAuthor(
+                    message.author.username,
+                    message.author.displayAvatarURL()
+                )
+                .setTitle(":underage: NSFW")
+                .setDescription(
+                    `
+                        **anal** - NSFW Anal
+                        **ass** - NSFW Ass
+                        **boobs** - NSFW Boobs
+                        **erokemo** - NSFW Erokemo
+                        **fuck** - NSFW Fuck
+                        **gonewild** - NSFW Gonewild
+                        **hentai** - NSFW Hentai
+                        **hentaiass** - NSFW HentaiAss
+                        **hentaithigh** - NSFW HentaiThigh
+                        **hmidriff** - NSFW Hmidriff
+                        **kitsune** - NSFW kitsune
+                        **lewd** - NSFW Lewd
+                        **nekofeet** - NekoFeet
+                        **nekopussy** - NSFW Nekopussy
+                        **nekotits** - NSFW NekoTits
+                        **porngif** - NSFW Porn Gif
+                        **pussy** - NSFW Pussy
+                        **solo** - NSFW Solo
+                        **thigh** - NSFW thigh
+                        **wallpaper** - NSFW Wallpaper
+                    `
+                )
+                .setColor("BLUE");
+
+            message.channel.send(embed);
+        }
     },
 }
 
