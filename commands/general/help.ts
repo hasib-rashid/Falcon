@@ -100,6 +100,39 @@ const HelpCommand: Command = {
 
             message.channel.send(embed);
         }
+
+        if (args[0] === "moderation") {
+            const embed = new MessageEmbed()
+                .setAuthor(
+                    message.author.username,
+                    message.author.displayAvatarURL()
+                )
+                .setTitle("<:ban_hammer:809356434885967882> Moderation")
+                .setDescription(
+                    `
+                            **ban** - Ban a user
+                            **kick** - Kick a user
+                            **addRole** - add Role to a user
+                            **removeRole** - Remove Role of a user
+                            **createRR** - create a reaction role
+                            **deleteRR** - delete a reaction role
+                            **fetchTranscript** - Fetch the transcript of the channel
+                            **giveaway** - Do a Giveaway
+                            **greroll** - Reroll a giveaway
+                            **gedit** - Edit a Giveaway
+                            **lockdown** - Lock down a server during raid
+                            **Unlockdown** - Unlock down the server when a raid stops
+                            **slowmode** - Set the slowmode of a channel
+                            **nuke** - Nuke the channel
+                            **purge** - Purge a certain amount of messages in a channel
+                            **ticket-setup** - Setup a ticket system
+                            **ticket-close** - Close the ticket of a member
+                        `
+                )
+                .setColor("BLUE");
+
+            message.channel.send(embed);
+        }
     },
 }
 
