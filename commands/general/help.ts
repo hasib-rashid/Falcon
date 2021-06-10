@@ -71,7 +71,7 @@ const HelpCommand: Command = {
                         **whois** - See who is the person with this command
                     `
                 )
-                .setColor("GREEN");
+                .setColor("BLUE");
 
             message.channel.send(embed);
         }
