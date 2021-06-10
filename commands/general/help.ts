@@ -75,6 +75,31 @@ const HelpCommand: Command = {
 
             message.channel.send(embed);
         }
+
+        if (args[0] === "games") {
+            const embed = new MessageEmbed()
+                .setAuthor(
+                    message.author.username,
+                    message.author.displayAvatarURL()
+                )
+                .setTitle(":video_game: Games")
+                .setDescription(
+                    `
+                **aki** - Play Akinator
+                **gunfight** - Do a gunfight!
+                **hangman** - Guess the correct words in hangman
+                **quiz** - Play a quiz game!
+                **minesweeper** - A Minesweeper game
+                **rps** - Rock Paper Scissors Shoo
+                **russianroulette** - A game of Russian roulette
+                **snakegame** - Play a OG game of Snake
+                **tictactoe** - Play Tic Tac Toe with your freinds
+            `
+                )
+                .setColor("BLUE");
+
+            message.channel.send(embed);
+        }
     },
 }
 
