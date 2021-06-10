@@ -30,7 +30,7 @@ const HelpCommand: Command = {
                         "\n\n\nTo learn a command and its proper use, specify it's module in help command.\nLike: `!help [Command]`",
                         `Example: \` ${PREFIX}help games \``
                     )
-                    .setColor("BLUE")
+                    .setColor("#0887ff")
                     .setFooter(
                         `Commands: 180`
                     );
@@ -72,7 +72,7 @@ const HelpCommand: Command = {
                             **whois** - See who is the person with this command
                         `
                     )
-                    .setColor("BLUE");
+                    .setColor("#0887ff");
 
                 message.channel.send(embed);
             }
@@ -97,7 +97,7 @@ const HelpCommand: Command = {
                     **tictactoe** - Play Tic Tac Toe with your freinds
                 `
                     )
-                    .setColor("BLUE");
+                    .setColor("#0887ff");
 
                 message.channel.send(embed);
             }
@@ -130,7 +130,7 @@ const HelpCommand: Command = {
                                 **ticket-close** - Close the ticket of a member
                             `
                     )
-                    .setColor("BLUE");
+                    .setColor("#0887ff");
 
                 message.channel.send(embed);
             }
@@ -163,7 +163,7 @@ const HelpCommand: Command = {
                                 **code-radio** - Play the radio to code
                             `
                     )
-                    .setColor("BLUE");
+                    .setColor("#0887ff");
 
                 message.channel.send(embed);
             }
@@ -215,7 +215,7 @@ const HelpCommand: Command = {
                             **wallpaper** - NSFW Wallpaper
                         `
                     )
-                    .setColor("BLUE");
+                    .setColor("#0887ff");
 
                 message.channel.send(embed);
             }
@@ -232,7 +232,7 @@ const HelpCommand: Command = {
                         "\n\n\nTo learn a command and its proper use, specify it's module in help command.\nLike: `!help [Command]`",
                         `Example: \` ${PREFIX}help games \``
                     )
-                    .setColor("BLUE")
+                    .setColor("#0887ff")
                     .setFooter(
                         `Commands: 180`
                     );
@@ -258,7 +258,7 @@ const HelpCommand: Command = {
                     "\n\n\nTo learn a command and its proper use, specify it's module in help command.\nLike: `!help [Command]`",
                     `Example: \` ${PREFIX}help games \``
                 )
-                .setColor("BLUE")
+                .setColor("#0887ff")
                 .setFooter(
                     `Commands: 180`
                 );
