@@ -1,4 +1,6 @@
 import Event from "../constants/event";
+const db = require("../database/index")
+require("dotenv").config();
 
 const ReadyEvent: Event = {
     name: "ready",
@@ -18,6 +20,15 @@ const ReadyEvent: Event = {
 
             client.user?.setActivity(newActivity, { type: "WATCHING" });
         }, 10000);
+
+        db.authenticate().then(() => {
+            console.log("Connected to Database.")
+
+            GuildUser.init(db)
+            GuildUser.sync()
+        }).catch(err => {
+            console.error(err)
+        })
     },
 };
 
