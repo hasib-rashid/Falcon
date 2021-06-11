@@ -1,9 +1,13 @@
-require("dotenv").config()
+import dotenv from 'dotenv'
+dotenv.config()
 
-const { Sequelize } = require("sequelize")
+import { Sequelize } from "sequelize";
+import GuildUser from "../models/GuildUser";
 
-module.exports = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+export const dbConfig = new Sequelize(process.env.DB_NAME || "falcon", process.env.DB_USERNAME || "localhost", process.env.DB_PASSWORD || "root", {
     dialect: "mysql",
     host: process.env.DB_HOSTNAME,
     logging: false,
 })
+
+export const User = GuildUser(dbConfig);

@@ -1,5 +1,6 @@
 import Event from "../constants/event";
 const db = require("../database/index")
+import consola from 'consola'
 require("dotenv").config();
 
 const ReadyEvent: Event = {
@@ -21,14 +22,12 @@ const ReadyEvent: Event = {
             client.user?.setActivity(newActivity, { type: "WATCHING" });
         }, 10000);
 
-        db.authenticate().then(() => {
-            console.log("Connected to Database.")
-
-            GuildUser.init(db)
-            GuildUser.sync()
-        }).catch(err => {
-            console.error(err)
-        })
+        db.sequelize
+            .authenticate()
+            .then(() => consola.info("Connected To The Database"))
+            .catch((err: any) => {
+                console.error(err)
+            });
     },
 };
 

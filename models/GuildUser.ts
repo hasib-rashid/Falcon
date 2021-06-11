@@ -1,18 +1,18 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 
-export interface GuildUser {
+interface GuildUser {
     userID: string,
     guildID: string,
     rank: number
 }
-export interface UserModel extends Model<GuildUser>, GuildUser { }
-export class User extends Model<UserModel, GuildUser> { }
+interface UserModel extends Model<GuildUser>, GuildUser { }
+class User extends Model<UserModel, GuildUser> { }
 
-export type UserStatic = typeof Model & {
+type UserStatic = typeof Model & {
     new(values?: object, options?: BuildOptions): UserModel;
 };
 
-export function UserFactory(sequelize: Sequelize): UserStatic {
+export default function UserFactory(sequelize: Sequelize): UserStatic {
     return <UserStatic>sequelize.define("users", {
         userID: {
             type: DataTypes.STRING,
