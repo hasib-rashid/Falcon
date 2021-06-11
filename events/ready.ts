@@ -23,10 +23,10 @@ const ReadyEvent: Event = {
         }, 10000);
 
         db.sequelize
-            .authenticate()
-            .then(() => consola.info("Connected To The Database"))
-            .catch((err: any) => {
-                console.error(err)
+            .sync()
+            .then(() => consola.info("connected to db"))
+            .catch(() => {
+                throw "error";
             });
     },
 };
