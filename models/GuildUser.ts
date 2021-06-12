@@ -1,29 +1,36 @@
-import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
+import { DataTypes, Model } from "sequelize"
 
-interface GuildUser {
+interface GuildUserModel {
     userID: string,
     guildID: string,
-    rank: number
+    rank: number,
+    rankCache: number,
+    level: number
 }
-interface UserModel extends Model<GuildUser>, GuildUser { }
-class User extends Model<UserModel, GuildUser> { }
 
-type UserStatic = typeof Model & {
-    new(values?: object, options?: BuildOptions): UserModel;
-};
-
-export default function UserFactory(sequelize: Sequelize): UserStatic {
-    return <UserStatic>sequelize.define("users", {
-        userID: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        guildID: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        rank: {
-            type: DataTypes.INTEGER,
-        },
-    });
+module.exports = class GuildUser extends Model {
+    static guilduser(sequelize: any) {
+        return this.init({
+            userID: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            guildID: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            rank: {
+                type: DataTypes.INTEGER,
+            },
+            rankCache: {
+                type: DataTypes.INTEGER,
+            },
+            level: {
+                type: DataTypes.INTEGER
+            }
+        }, {
+            tableName: "GuildUser",
+            sequelize
+        })
+    }
 }
