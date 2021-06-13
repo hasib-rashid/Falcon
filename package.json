@@ -24,6 +24,7 @@
 	"dependencies": {
 		"@vitalets/google-translate-api": "^7.0.0",
 		"aki-api": "^5.2.1",
+		"aki-api.ts": "^1.0.1",
 		"axios": "^0.21.1",
 		"common-tags": "^1.8.0",
 		"consola": "^2.15.3",
