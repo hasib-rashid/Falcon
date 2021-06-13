@@ -1,5 +1,5 @@
 import Command from '../../constants/command';
-import { } from 'discord.js-akinator'
+import { Minigames } from 'discord-multipurpose'
 
 const AkiCommand: Command = {
     name: 'aki',
@@ -14,8 +14,10 @@ const AkiCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        const aki = new Minigames.Akinator(message, "en")
 
-    },
+        aki.run()
+    }
 }
 
 export default AkiCommand;

@@ -116,6 +116,13 @@ aki-api.ts@^1.0.1:
   dependencies:
     axios "^0.21.1"
 
+aki-api@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/aki-api/-/aki-api-5.2.1.tgz#07b411d2db36f137350d663e2703f3348d027d19"
+  integrity sha512-hKncCXEBsP6JOkaUoXVQtLlIZw8VQsWroZNEjtNWW+CVWt6zmXrKEDJtZ00ycg4TzQemRZPH6PhvJnP9Lq3lIw==
+  dependencies:
+    axios "^0.21.1"
+
 ansi-regex@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"

@@ -23,6 +23,7 @@
 	"homepage": "https://github.com/CodeFictions/CodeVert#readme",
 	"dependencies": {
 		"@vitalets/google-translate-api": "^7.0.0",
+		"aki-api": "^5.2.1",
 		"axios": "^0.21.1",
 		"common-tags": "^1.8.0",
 		"consola": "^2.15.3",
