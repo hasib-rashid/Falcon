@@ -1,5 +1,5 @@
 import Event from "../constants/event";
-const db = require("../database/index")
+import { db } from "../database/index"
 import consola from 'consola'
 require("dotenv").config();
 
@@ -21,13 +21,6 @@ const ReadyEvent: Event = {
 
             client.user?.setActivity(newActivity, { type: "WATCHING" });
         }, 10000);
-
-        db.sequelize
-            .sync()
-            .then(() => consola.info("connected to db"))
-            .catch(() => {
-                throw "error";
-            });
     },
 };
 
