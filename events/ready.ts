@@ -1,10 +1,19 @@
 import Event from "../constants/event";
+import consola from 'consola'
+import { Sync } from '../database/sync'
 require("dotenv").config();
 
 const ReadyEvent: Event = {
     name: "ready",
     async run(client) {
-        client.logger.success("client", `[READY] Logged in as ${client.user?.tag}`);
+        try {
+            Sync()
+            consola.info("Connected to Database")
+        } catch (err) {
+            consola.error("Error Connecting to the database. Log the error to find it out")
+        }
+
+        client.logger.info("client", `[READY] Logged in as ${client.user?.tag}`);
 
         const Activities = [
             `Serving ${client.prefix}help`,
