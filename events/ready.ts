@@ -1,6 +1,4 @@
 import Event from "../constants/event";
-import { db } from "../database/index"
-import consola from 'consola'
 require("dotenv").config();
 
 const ReadyEvent: Event = {
