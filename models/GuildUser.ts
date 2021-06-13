@@ -1,36 +1,18 @@
-import { DataTypes, Model } from "sequelize"
+import * as Sequelize from 'sequelize';
+import { SequelizeAttributes } from '../typings/SequelizeAttribues/index';
 
-interface GuildUserModel {
-    userID: string,
-    guildID: string,
-    rank: number,
-    rankCache: number,
-    level: number
-}
+export interface UserAttributes {
+    id?: number;
+    name: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+};
 
-module.exports = class GuildUser extends Model {
-    static guilduser(sequelize: any) {
-        return this.init({
-            userID: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
-            guildID: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
-            rank: {
-                type: DataTypes.INTEGER,
-            },
-            rankCache: {
-                type: DataTypes.INTEGER,
-            },
-            level: {
-                type: DataTypes.INTEGER
-            }
-        }, {
-            tableName: "GuildUser",
-            sequelize
-        })
+
+export const UserFactory = (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes): Sequelize.Model<UserInstance, UserAttributes> => {
+    const attributes: SequelizeAttributes<UserAttributes> = {
+        name: {
+            type: DataTypes.
+      }
     }
 }
