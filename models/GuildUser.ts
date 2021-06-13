@@ -3,9 +3,9 @@ dotenv.config()
 
 import { Sequelize, Model, DataTypes } from "sequelize";
 
-const sequelize = new Sequelize(`mysql://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOSTNAME}:3306/${process.env.DB_NAME}`);
+const sequelize = new Sequelize(`mysql://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOSTNAME}:3306/${process.env.DB_NAME}`, { logging: false });
 
-class GuildUser extends Model {
+export default class GuildUser extends Model {
     public userID!: string;
     public guildID!: string;
     public rank?: string | null;
