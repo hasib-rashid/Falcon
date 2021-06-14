@@ -1,4 +1,6 @@
+import { Message } from 'discord.js';
 import Command from '../../constants/command';
+import { hangman } from './hangmanUtils'
 
 const HangmanCommand: Command = {
     name: 'hangman',
@@ -13,7 +15,9 @@ const HangmanCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-
+        const hang = new hangman({
+            message: message
+        })
     },
 }
 
