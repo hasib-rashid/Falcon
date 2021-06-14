@@ -24,13 +24,13 @@ const HangmanCommand: Command = {
 
         // Hangman Game constiables
         let playWord = "";
-        const boardWord = "";
-        const damage = 0;
-        const guessedList = "";
+        let boardWord = "";
+        let damage = 0;
+        let guessedList: any = "";
         const solvedList = []
 
-        const missList = "Missed Guesses: ";
-        const helperTopic = "Topic: ";
+        let missList = "Missed Guesses: ";
+        let helperTopic = "Topic: ";
         const helperBoard = new MessageEmbed();
         const gameBoard = new MessageEmbed();
         const hangASCII = [
@@ -114,7 +114,7 @@ const HangmanCommand: Command = {
             helperTopic = "Topic: ";
         }
 
-        function findTwoQuotes(string) {
+        function findTwoQuotes(string: string) {
             var j;
             var quotesFound = 0;
             for (j = 0; j < string.length; j++) {
@@ -136,7 +136,7 @@ const HangmanCommand: Command = {
         }
 
         //All functions below this comment were repurposed from my Oatmeal Bot
-        function generateBoardWord(gameWord) {
+        function generateBoardWord(gameWord: string) {
             var i;
             var bWord = "";
             for (i = 0; i < gameWord.length; i++) {
@@ -150,11 +150,11 @@ const HangmanCommand: Command = {
             return bWord;
         }
 
-        function alphaCheck(input) {
+        function alphaCheck(input: any) {
             return input.match("^[a-zA-Z]+$");
         }
 
-        function checkIfGuessed(gList, guess) {
+        function checkIfGuessed(gList: any, guess: any) {
             var j;
             var doubleFlag = false;
             if (gList.length !== undefined) {
@@ -172,7 +172,7 @@ const HangmanCommand: Command = {
          * Retrieved from https://gist.github.com/efenacigiray/9367920
          * November 5 2018
          */
-        function replaceAt(string, index, replace) {
+        function replaceAt(string: any, index: any, replace: any) {
             return string.substring(0, index) + replace + string.substring(index + 1);
         }
     },
