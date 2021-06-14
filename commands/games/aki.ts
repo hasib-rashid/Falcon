@@ -65,13 +65,7 @@ const AkiCommand: Command = {
 				}).join(" | ")
 					}${aki.currentStep > 0 ? " | [B]ack " : ""} | [E]nd**`)
 
-			const sending = await message.channel.send(embed)
-
-			sending
-
-			if (message.author.lastMessage?.content === "y" || "n" || "idk" || "p" || "pn" || "e") {
-				sending.edit(embed)
-			}
+			await message.channel.send(embed)
 
 			const filter = (res: Message) => {
 				return (
