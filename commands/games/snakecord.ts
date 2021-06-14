@@ -1,5 +1,5 @@
 import Command from '../../constants/command';
-const SnakeGame = require('snakecord');
+import SnakeGame from "snakecord"
 
 const snakeGame = new SnakeGame({
     title: 'Snake',
