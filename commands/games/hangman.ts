@@ -1,6 +1,5 @@
 import { Message, MessageReaction, PermissionResolvable } from 'discord.js';
 import Command from '../../constants/command';
-import { hangman } from './hangmanUtils'
 
 const HangmanCommand: Command = {
     name: 'hangman',
