@@ -1,4 +1,5 @@
 import { Message } from "discord.js";
+import { Aki } from 'aki-api.ts'
 import Event from "../constants/event";
 import { stripIndents } from "common-tags";
 import Collection from "@discordjs/collection";
