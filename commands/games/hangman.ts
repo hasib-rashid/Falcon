@@ -14,6 +14,9 @@ const HangmanCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        start("EMBED_LINKS")
+
+
         function start(permission: PermissionResolvable) {
             var letters = [
                 "🇦",
