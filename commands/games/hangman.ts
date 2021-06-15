@@ -14,6 +14,10 @@ const HangmanCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        if (!args) {
+            message.channel.send("**Please give a word to play hangman with**")
+        }
+
         start("EMBED_LINKS")
 
 
