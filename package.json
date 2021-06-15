@@ -30,6 +30,7 @@
 		"consola": "^2.15.3",
 		"discord-multipurpose": "^2.1.14",
 		"discord.js": "^12.5.3",
+		"discord.js-tictactoe": "^1.0.2",
 		"dotenv": "^9.0.2",
 		"mathjs": "^9.4.2",
 		"moment": "^2.29.1",

@@ -1,8 +1,19 @@
+import { createCanvas, loadImage } from 'canvas'
+import { MessageAttachment, MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
 
-const TicTacToe: Command = {
+var xs: any = []
+var os: any = []
+var playerA: any = null
+var playerB: any = null
+var table = Array(9).fill(null)
+var session = false
+var tick = 0
+var fs = require('fs')
+
+const TicTacToeCommand: Command = {
     name: 'tictactoe',
-    description: 'Play tictactoe in discorrd',
+    description: 'Play tictactoe is discord',
     aliases: [
         ''
     ],
@@ -13,200 +24,218 @@ const TicTacToe: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        async function run() {
-            await this.eval_win();
-            if (this.playing_game == true) {
-                if (this.players_go % 2 == 0) {
-                    if (this.send_message == true) {
-                        let grid = await this.ttt_grid();
-                        if (this.players_go == 0) {
-                            this.ttt_message = await this.message.channel.send(
-                                "<@" +
-                                this.message.author.id +
-                                "> it is your turn\n" +
-                                grid
-                            );
-                            for (let i in this.reactions) {
-                                this.ttt_message.react(this.reactions[i]);
-                            }
-                        } else {
-                            this.ttt_message.edit(
-                                "<@" +
-                                this.message.author.id +
-                                "> it is your turn\n" +
-                                grid
-                            );
-                        }
-                    }
-                    this.ttt_message
-                        .awaitReactions(
-                            (reaction, user) =>
-                                user.id == this.message.author.id &&
-                                (reaction.emoji.name == "1️⃣" ||
-                                    reaction.emoji.name == "2️⃣" ||
-                                    reaction.emoji.name == "3️⃣" ||
-                                    reaction.emoji.name == "4️⃣" ||
-                                    reaction.emoji.name == "5️⃣" ||
-                                    reaction.emoji.name == "6️⃣" ||
-                                    reaction.emoji.name == "7️⃣" ||
-                                    reaction.emoji.name == "8️⃣" ||
-                                    reaction.emoji.name == "9️⃣"),
-                            { max: 1, time: 3000000 }
-                        )
-                        .then(async (collected) => {
-                            this.reaction = collected.first().emoji.name;
-                            if (this.reaction == "1️⃣") this.user_input = 0;
-                            if (this.reaction == "2️⃣") this.user_input = 1;
-                            if (this.reaction == "3️⃣") this.user_input = 2;
-                            if (this.reaction == "4️⃣") this.user_input = 3;
-                            if (this.reaction == "5️⃣") this.user_input = 4;
-                            if (this.reaction == "6️⃣") this.user_input = 5;
-                            if (this.reaction == "7️⃣") this.user_input = 6;
-                            if (this.reaction == "8️⃣") this.user_input = 7;
-                            if (this.reaction == "9️⃣") this.user_input = 8;
-                            this.grid[this.user_input] =
-                                ":negative_squared_cross_mark:";
-                            const userReactions =
-                                this.ttt_message.reactions.cache.filter(
-                                    (reaction) =>
-                                        reaction.users.cache.has(
-                                            this.message.author.id
-                                        )
-                                );
-                            for (const reaction of userReactions.values()) {
-                                await reaction.users.remove(this.message.author.id);
-                                this.ttt_message.reactions.cache
-                                    .get(this.reactions[this.user_input])
-                                    .remove();
-                                this.players_go++;
-                                this.send_message = true;
-                                this.run();
-                            }
-                        })
-                        .catch(() => {
-                            this.ttt_message.edit("The game has timed out");
-                            this.end_game(this.player_two, this.message);
-                        });
+
+        var canvas = createCanvas(1080, 1080)
+        var ctx = canvas.getContext('2d')
+        var bkg = await loadImage("./photos/ttt/plansza.png");
+        ctx.drawImage(bkg, 0, 0, canvas.width, canvas.height);
+        //variables(dialogaty)
+        var myString
+        var o = await loadImage("./photos/ttt/o.png");
+        var x = await loadImage("./photos/ttt/x.png");
+        var line = await loadImage("./photos/ttt/linia.png")
+        var lineHorizontal = await loadImage("./photos/ttt/liniaHorizontal.png")
+        var pozycje = {
+            a1: [0, 0],
+            a2: [360, 0],
+            a3: [720, 0],
+            b1: [0, 360],
+            b2: [360, 360],
+            b3: [720, 360],
+            c1: [0, 720],
+            c2: [360, 720],
+            c3: [720, 720]
+        }
+        var a1 = [0, 0]
+        var a2 = [360, 0]
+        var a3 = [720, 0]
+        var b1 = [0, 360]
+        var b2 = [360, 360]
+        var b3 = [720, 360]
+        var c1 = [0, 720]
+        var c2 = [360, 720]
+        var c3 = [720, 720]
+        //Fuctions
+        var even = function (int: any) {
+            var res = int % 2
+            if (res == 0) return true;
+            else return false;
+        }
+        //
+        var check = function (value: any) {
+            var tbo = os.indexOf(value)
+            var tbx = xs.indexOf(value)
+            if (tbo == -1 && tbx == -1) return false
+            else return true
+        }
+        //
+        var read = function () {
+            var winner = null
+            var position = null
+            var mode = null
+            // POZIOM
+            if (table[0] == table[1] && table[1] == table[2] && table[2] != null) {
+                if (table[0] == "x") winner = "x"
+                if (table[0] == "o") winner = "o"
+                position = 'horizontal'
+                mode = 1
+            }
+            if (table[3] == table[4] && table[4] == table[5] && table[5] != null) {
+                if (table[5] == "x") winner = "x"
+                if (table[5] == "o") winner = "o"
+                position = 'horizontal'
+                mode = 2
+            }
+            if (table[6] == table[7] && table[7] == table[8] && table[8] != null) {
+                if (table[8] == "x") winner = "x"
+                if (table[8] == "o") winner = "o"
+                position = 'horizontal'
+                mode = 3
+            }
+            //PION
+            if (table[0] == table[3] && table[3] == table[6] && table[6] != null) {
+                if (table[6] == "x") winner = "x"
+                if (table[6] == "o") winner = "o"
+                position = 'vertical'
+                mode = 1
+            }
+            if (table[1] == table[4] && table[4] == table[7] && table[7] != null) {
+                if (table[7] == "x") winner = "x"
+                if (table[7] == "o") winner = "o"
+                position = 'vertical'
+                mode = 2
+            }
+            if (table[2] == table[5] && table[5] == table[8] && table[8] != null) {
+                if (table[8] == "x") winner = "x"
+                if (table[8] == "o") winner = "o"
+                position = 'vertical'
+                mode = 3
+            }
+            //SKOS
+            if (table[0] == table[4] && table[4] == table[8] && table[8] != null) {
+                if (table[8] == "x") winner = "x"
+                if (table[8] == "o") winner = "o"
+                position = 'right'
+            }
+            if (table[2] == table[4] && table[4] == table[6] && table[6] != null) {
+                if (table[6] == "x") winner = "x"
+                if (table[6] == "o") winner = "o"
+                position = 'left'
+            }
+            return [winner, position, mode]
+        }
+        //
+        var write = function (pos: any) {
+            pos = pos.toLowerCase()
+            if (check(pos) == false) {
+                if (even(tick) == false) {
+                    xs[xs.length] = pos
+                    myString = pos
+                    myString = pos.replace("a", "").replace("b", "").replace("c", "")
+                    var controlInt = 0
+                    if (pos.startsWith("a")) controlInt = -1 //a1 = 0 a2 = 1 a3 = 2
+                    if (pos.startsWith("b")) controlInt = +2 //b1 = 3 b2 = 4 b3 = 5
+                    if (pos.startsWith("c")) controlInt = +5 //c1 = 6 c2 = 7 c3 = 8
+                    // table[Number(myString) + controlInt] = x
+                    // console.log(myString)
+                    var finalInt = Number(myString) + controlInt
+                    table[finalInt] = "x"
                 }
-                if (this.players_go % 2 == 1) {
-                    if (this.send_message == true) {
-                        let grid = await this.ttt_grid();
-                        this.ttt_message.edit(
-                            "<@" + this.player_two.id + "> it is your turn\n" + grid
-                        );
-                        this.ttt_message
-                            .awaitReactions(
-                                (reaction, user) =>
-                                    user.id == this.player_two.id &&
-                                    (reaction.emoji.name == "1️⃣" ||
-                                        reaction.emoji.name == "2️⃣" ||
-                                        reaction.emoji.name == "3️⃣" ||
-                                        reaction.emoji.name == "4️⃣" ||
-                                        reaction.emoji.name == "5️⃣" ||
-                                        reaction.emoji.name == "6️⃣" ||
-                                        reaction.emoji.name == "7️⃣" ||
-                                        reaction.emoji.name == "8️⃣" ||
-                                        reaction.emoji.name == "9️⃣"),
-                                { max: 1, time: 30000 }
-                            )
-                            .then(async (collected) => {
-                                this.reaction = collected.first().emoji.name;
-                                if (this.reaction == "1️⃣") this.user_input = 0;
-                                if (this.reaction == "2️⃣") this.user_input = 1;
-                                if (this.reaction == "3️⃣") this.user_input = 2;
-                                if (this.reaction == "4️⃣") this.user_input = 3;
-                                if (this.reaction == "5️⃣") this.user_input = 4;
-                                if (this.reaction == "6️⃣") this.user_input = 5;
-                                if (this.reaction == "7️⃣") this.user_input = 6;
-                                if (this.reaction == "8️⃣") this.user_input = 7;
-                                if (this.reaction == "9️⃣") this.user_input = 8;
-                                this.grid[this.user_input] =
-                                    ":regional_indicator_o:";
-                                const userReactions =
-                                    this.ttt_message.reactions.cache.filter(
-                                        (reaction) =>
-                                            reaction.users.cache.has(
-                                                this.player_two.id
-                                            )
-                                    );
-                                for (const reaction of userReactions.values()) {
-                                    await reaction.users.remove(this.player_two.id);
-                                    this.ttt_message.reactions.cache
-                                        .get(this.reactions[this.user_input])
-                                        .remove();
-                                    this.players_go++;
-                                    this.send_message = true;
-                                    this.run();
-                                }
-                            })
-                            .catch(() => {
-                                this.ttt_message.edit("The game has timed out");
-                                this.end_game(this.player_two, this.message);
-                            });
-                    }
+                if (even(tick) == true) {
+                    os[os.length] = pos
+                    myString = pos
+                    myString = pos.replace("a", "").replace("b", "").replace("c", "")
+                    var controlInt = 0
+                    if (pos.startsWith("a")) controlInt = -1 //a1 = 0 a2 = 1 a3 = 2
+                    if (pos.startsWith("b")) controlInt = +2 //b1 = 3 b2 = 4 b3 = 5
+                    if (pos.startsWith("c")) controlInt = +5 //c1 = 6 c2 = 7 c3 = 8
+                    var finalInt = Number(myString) + controlInt
+                    table[finalInt] = "o"
+                }
+            } else if (check(pos) == true) {
+                tick -= 1
+                message.reply("To pole jest zajęte")
+            }
+            for (var i = 0; i <= xs.length - 1; i++) {
+                // @ts-ignore
+                pos = pozycje[xs[i]]
+                ctx.drawImage(x, pos[0], pos[1], 344, 346);
+                for (var b = 0; b <= os.length - 1; b++) {
+                    // @ts-ignore
+                    pos = pozycje[os[b]]
+                    ctx.drawImage(o, pos[0], pos[1], 344, 346);
                 }
             }
+            var result = read()
+            var mode: any = result[2]
+            if (result[1] == "vertical") {
+                var coordinates = [145, 505, 865]
+                ctx.drawImage(line, coordinates[mode - 1], 0, 50, 1080)
+            }
+            if (result[1] == "horizontal") {
+                var coordinates = [145, 505, 865]
+                ctx.drawImage(lineHorizontal, 0, coordinates[mode - 1], 1080, 50)
+            }
+            // if(result[1] == "left"){
+            //   ctx.beginPath();
+            //   ctx.moveTo(0,0)
+            //   ctx.lineWidth = 50;
+            //   ctx.strokeStyle = '#ff00aa';
+            //   ctx.stroke()
+            //   ctx.lineTo(1080,1080)
+            // }
+            // if(result[1] == "right"){
+            //   ctx.beginPath();
+            //   ctx.moveTo(0,0)
+            //   ctx.lineWidth = 50;
+            //   ctx.strokeStyle = '#ff00aa';
+            //   ctx.stroke()
+            //   ctx.lineTo(1080,1080)
+            // }
+            if (result[0] == "o") {
+                let embed = new MessageEmbed()
+                    .setColor("BLUE")
+                    .setAuthor("Game Over", playerA.displayAvatarURL)
+                    .setDescription("Winner " + playerA.tag)
+                session = false
+                return message.channel.send(embed)
+            } else if (result[0] == "x") {
+                let embed = new MessageEmbed()
+                    .setColor("BLUE")
+                    .setAuthor("Game Over", playerB.user.displayAvatarURL)
+                    .setDescription("Winner: " + playerB.user.tag)
+                session = false
+                message.channel.send(embed)
+            }
+            tick += 1
         }
-        async ttt_grid() {
-            return `${this.grid[0]}${this.grid[1]}${this.grid[2]}\n${this.grid[3]}${this.grid[4]}${this.grid[5]}\n${this.grid[6]}${this.grid[7]}${this.grid[8]}`;
-        }
-        async eval_win() {
-            const win_combinations = [
-                [0, 1, 2],
-                [3, 4, 5],
-                [6, 7, 8],
-                [0, 3, 6],
-                [1, 4, 7],
-                [2, 5, 8],
-                [0, 4, 8],
-                [2, 4, 6],
-            ];
-            let step_one = -1;
-            while (step_one < 7) {
-                step_one++;
-                if (
-                    this.grid[win_combinations[step_one][0]] ==
-                    ":negative_squared_cross_mark:" &&
-                    this.grid[win_combinations[step_one][1]] ==
-                    ":negative_squared_cross_mark:" &&
-                    this.grid[win_combinations[step_one][2]] ==
-                    ":negative_squared_cross_mark:"
-                ) {
-                    let grid = await this.ttt_grid();
-                    this.ttt_message.edit(
-                        "<@" + this.message.author.id + "> Won!\n" + grid
-                    );
-                    this.end_game(this.player_two, this.message);
+
+        xs = []
+        os = []
+        table = [null, null, null, null, null, null, null, null, null]
+        session = true
+        playerA = message.author
+        playerB = message.mentions.members?.first()
+        tick = 1
+        var attachment = new MessageAttachment(canvas.toBuffer(), 'plansza.png');
+        message.channel.send(attachment)
+
+        if (session == true) {
+            if (message.author.id == playerB.id) {
+                if (even(tick) == false) {
+                    write(message.content)
+                    var attachment = new MessageAttachment(canvas.toBuffer(), 'plansza.png');
+                    message.channel.send(attachment)
                 }
-                if (
-                    this.grid[win_combinations[step_one][0]] ==
-                    ":regional_indicator_o:" &&
-                    this.grid[win_combinations[step_one][1]] ==
-                    ":regional_indicator_o:" &&
-                    this.grid[win_combinations[step_one][2]] ==
-                    ":regional_indicator_o:"
-                ) {
-                    let grid = await this.ttt_grid();
-                    this.ttt_message.edit(
-                        "<@" + this.player_two.id + "> Won!\n" + grid
-                    );
-                    this.end_game(this.player_two, this.message);
-                }
-                if (this.players_go == 9 && step_one == 7) {
-                    let grid = await this.ttt_grid();
-                    this.ttt_message.edit("You drew!\n" + grid);
-                    this.end_game(this.player_two, this.message);
+            } else if (message.author.id == playerA.id) {
+                if (even(tick) == true) {
+                    write(message.content)
+                    var attachment = new MessageAttachment(canvas.toBuffer(), 'plansza.png');
+                    message.channel.send(attachment)
                 }
             }
-        }
-        end_game(player_two, message) {
-            utils.inGame = utils.inGame.filter((i) => i != message.author.id);
-            utils.inGame = utils.inGame.filter((i) => i != player_two.id);
-            this.playing_game = false;
-            this.ttt_message.reactions.removeAll();
-            return;
         }
     },
 }
 
-export default TicTacToe;
+export default TicTacToeCommand;
