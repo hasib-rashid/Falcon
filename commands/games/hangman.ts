@@ -5,7 +5,7 @@ const HangmanCommand: Command = {
     name: 'hangman',
     description: 'Play hangman in discord',
     aliases: [
-        ''
+        'discord-hangman', 'hang-man'
     ],
     guildOnly: false,
     ownerOnly: false,
