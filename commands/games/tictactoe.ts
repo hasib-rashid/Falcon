@@ -1,10 +1,17 @@
 import Command from '../../constants/command';
-import { MessageEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { isSubset, In } from './tttUtil'
 
 let idToGame = {};
 
 class Game {
+    public ids: any;
+    public players: any;
+    public turn: any;
+    public board: any;
+    public x: any;
+    public o: any;
+
     constructor(ctx: any, player1: any, player2: any) {
         this.ids = [player1, player2];
         this.players = [[], []];
@@ -15,7 +22,7 @@ class Game {
         this.recap(ctx);
     }
 
-    recap(ctx) {
+    recap(ctx: any) {
         this.sendMessage(ctx, `${this.x} is X, ${this.o} is O`);
         this.sendMessage(ctx, this.ids[this.turn] + " It's your turn!");
         this.sendBoard(ctx);
@@ -35,11 +42,11 @@ class Game {
         return false;
     }
 
-    sendBoard(ctx) {
-        this.sendMessage(ctx, "```" + this.board.map(x => x.join(" | ")).join('\n') + "```");
+    sendBoard(ctx: any) {
+        this.sendMessage(ctx, "```" + this.board.map((x: any) => x.join(" | ")).join('\n') + "```");
     }
 
-    sendMessage(ctx, message) {
+    sendMessage(ctx: any, message: any) {
         ctx.channel.send(message);
     }
 
@@ -47,14 +54,14 @@ class Game {
         this.turn = (this.turn + 1) % 2;
     }
 
-    win(ctx, result) {
+    win(ctx: any, result: any) {
         this.sendBoard(ctx);
         if (result == 2) this.sendMessage(ctx, "Tie!");
         else this.sendMessage(ctx, this.ids[result] + " wins!!!");
         return true;
     }
 
-    play(ctx, args, senderId) {
+    play(ctx: any, args: string[], senderId: string) {
         if (senderId !== this.ids[this.turn]) {
             return this.sendMessage(ctx, "It's not your turn.");
         }
