@@ -239,12 +239,12 @@ const HangmanCommand: Command = {
                     );
                 message.channel.send(stages[0]).then((m: any) => {
                     // @ts-ignore
-                    nextLetter(m, 0, word);
+                    nextLetter(m, 0, args[0]);
                 });
             } else {
                 message.channel.send(stages[0]).then((m: any) => {
                     // @ts-ignore
-                    nextLetter(m, 0, this.word);
+                    nextLetter(m, 0, args[0]);
                 });
             }
         }
