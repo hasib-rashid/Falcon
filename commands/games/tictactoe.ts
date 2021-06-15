@@ -1,8 +1,11 @@
 import Command from '../../constants/command';
+// @ts-ignore
+const TicTacToe = require('discord-tictactoe');
+const game = new TicTacToe()
 
 const TicTacToeCommand: Command = {
-    name: 'tictactoe',
-    description: 'Play tictactoe is discord',
+    name: 'ttt',
+    description: 'Play tictactoe in disord',
     aliases: [
         ''
     ],
@@ -13,7 +16,7 @@ const TicTacToeCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-
+        game.handleMessage(message);
     },
 }
 
