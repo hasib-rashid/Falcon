@@ -23,6 +23,8 @@ const TriviaCommand: Command = {
                 difficulty: args[1]
             }
         }).then((res) => {
+            if (!res.data) return message.channel.send('**A question could not be fetched at the moment. Try again later!**');
+
             console.log(res.data)
         })
     },
