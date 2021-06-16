@@ -25,6 +25,10 @@ const TriviaCommand: Command = {
         }).then((res) => {
             if (!res.data) return message.channel.send('**A question could not be fetched at the moment. Try again later!**');
 
+            const answers = res.data[0].incorrect_answers.map((answer: any) => decodeURIComponent(answer.toLowerCase()));
+            const correct = decodeURIComponent(res.data[0].correct_answer.toLowerCase());
+            answers.push(correct);
+
             console.log(res.data)
         })
     },
