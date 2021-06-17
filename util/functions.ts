@@ -1,4 +1,4 @@
-import { Message, Channel, User } from "discord.js";
+import { Message, User } from "discord.js";
 
 const MONEY = ['', 'k', 'M', 'G', 'T', 'P', 'E'];
 const inviteRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(\.gg|(app)?\.com\/invite|\.me)\/([^ ]+)\/?/gi;
@@ -25,6 +25,18 @@ module.exports = {
         }
 
         return target;
+    },
+
+    promptMessage: async function (message: Message, author: User, time: number, validReactions: any) {
+        time *= 1000;
+
+        for (const reaction of validReactions) await message.react(reaction);
+
+        const filter = (reaction: any, user: User) => validReactions.includes(reaction.emoji.name) && user.id === author.id;
+
+        return message
+            .awaitReactions(filter, { max: 1, time: time })
+            .then(collected => collected.first() && collected.first()?.emoji.name);
     },
 
     delay(ms: number) {
