@@ -31,7 +31,7 @@ export function list(arr: any, conj = "and") {
     const len = arr.length;
     if (len === 0) return "";
     if (len === 1) return arr[0];
-    return `${arr.slice(0, -1).join("\n ")}${len > 1 ? `${len > 2 ? "" : ""} ${conj} ` : ""
+    return `1. ${arr.slice(0, -1).join("\n ")}2.${len > 1 ? `3. ${len > 2 ? "" : ""} 4.${conj} ` : ""
         }${arr.slice(-1)}`;
 }
 
