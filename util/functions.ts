@@ -1,6 +1,8 @@
 import { Message, User } from "discord.js";
 
 const MONEY = ['', 'k', 'M', 'G', 'T', 'P', 'E'];
+const yes = ['yes', 'y', 'ye', 'yea', 'correct'];
+const no = ['no', 'n', 'nah', 'nope', 'fuck off'];
 const inviteRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(\.gg|(app)?\.com\/invite|\.me)\/([^ ]+)\/?/gi;
 const botInvRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)\.com\/(api\/)?oauth2\/authorize\?([^ ]+)\/?/gi;
 
@@ -55,6 +57,27 @@ export function formatNumber(number: string, minimumFractionDigits = 0) {
 
 export function randomRange(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export async function verify(channel: any, user: User, { time = 30000, extraYes = [], extraNo = [] } = {}) {
+    const filter = (res: any) => {
+        const value = res.content.toLowerCase();
+        return (user ? res.author.id === user.id : true)
+            // @ts-ignore
+            && (yes.includes(value) || no.includes(value) || extraYes.includes(value) || extraNo.includes(value));
+    };
+    const verify = await channel.awaitMessages(filter, {
+        max: 1,
+        time
+    });
+    if (!verify.size) return 0;
+    // @ts-ignore
+    const choice = verify.first().content.toLowerCase();
+    // @ts-ignore
+    if (yes.includes(choice) || extraYes.includes(choice)) return true;
+    // @ts-ignore
+    if (no.includes(choice) || extraNo.includes(choice)) return false;
+    return false;
 }
 
 export function list(arr: any, conj = 'and') {
