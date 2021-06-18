@@ -1,4 +1,4 @@
-import { Message, User } from "discord.js";
+import { GuildMember, Message, User } from "discord.js";
 
 const MONEY = ['', 'k', 'M', 'G', 'T', 'P', 'E'];
 const yes = ['yes', 'y', 'ye', 'yea', 'correct'];
@@ -59,7 +59,7 @@ export function randomRange(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export async function verify(channel: any, user: User, { time = 30000, extraYes = [], extraNo = [] } = {}) {
+export async function verify(channel: any, user: GuildMember, { time = 30000, extraYes = [], extraNo = [] } = {}) {
     const filter = (res: any) => {
         const value = res.content.toLowerCase();
         return (user ? res.author.id === user.id : true)
