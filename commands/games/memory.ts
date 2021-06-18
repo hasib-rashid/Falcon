@@ -1,5 +1,6 @@
 import Command from '../../constants/command';
 import { stripIndents } from 'common-tags'
+import { delay } from '../../util/functions'
 const directions = ['up', 'down', 'left', 'right'];
 const colors = ['red', 'blue', 'green', 'yellow'];
 const fruits = ['apple', 'orange', 'pear', 'banana'];
@@ -22,6 +23,13 @@ const MemoryCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        let ops = {
+            queue: queue,
+            queue2: queue2,
+            queue3: queue3,
+            games: games
+        }
+
         if (!args[0]) return message.channel.send('**How Many Directions Do You Want To Have To Memorize?**');
         let level: any = args[0];
 
@@ -45,14 +53,14 @@ const MemoryCommand: Command = {
             });
             ops.games.delete(message.channel.id);
             if (!messages.size) return message.channel.send(`**Time Uup! It Was ${memorizeDisplay}!**`);
-            const answer = messages.first().content.toLowerCase();
+            const answer = messages.first()?.content.toLowerCase();
             if (answer !== memorizeType) return message.channel.send(`**You Typed It Wrong, It Was ${memorizeDisplay}!**`);
             return message.channel.send('**You Won!**');
         } catch (err) {
             ops.games.delete(message.channel.id);
             throw err;
         };
-        function genArray(level) {
+        function genArray(level: any) {
             const sourceArr = [colors, directions, fruits][Math.floor(Math.random() * 3)];
             const arr = [];
             for (let i = 0; i < level; i++) arr.push(sourceArr[Math.floor(Math.random() * sourceArr.length)]);
