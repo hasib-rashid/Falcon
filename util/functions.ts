@@ -53,6 +53,10 @@ export function formatNumber(number: string, minimumFractionDigits = 0) {
     });
 }
 
+export function randomRange(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export function list(arr: any, conj = 'and') {
     const len = arr.length;
     if (len === 0) return '';
