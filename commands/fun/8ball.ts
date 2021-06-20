@@ -15,13 +15,16 @@ const EightBallCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        const randomIndex = Math.floor(Math.random() * json.length);
+        // @ts-ignore
+        const randomIndex = Math.floor(Math.random() * json.default.length);
+        console.log(json)
 
         const embed = new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL())
             .setTitle("8ball")
             .addField(":grey_question:", args.join(" "))
-            .addField(":8ball:", json[randomIndex])
+            // @ts-ignore
+            .addField(":8ball:", json.default[randomIndex])
             .setColor("GREEN");
 
         message.channel.send(embed);
