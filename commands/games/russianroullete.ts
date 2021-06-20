@@ -90,17 +90,19 @@ const RussianRoullete: Command = {
                 } else {
                     await message.channel
                         .send(`**${player} Pulls The Trigger!**`)
-                        .then(
+                        .then((msg) => {
                             setTimeout(function () {
-                                message.channel.send(stripIndents`
-							**And lives...**
-							${opponent.user.bot
+                                msg.channel.send(stripIndents`
+                                    **And lives...**
+                                    ${opponent?.user.bot
                                         ? "**Continue?"
                                         : `**Will You Take The Gun, ${notPlayer}?`
                                     }** \`(${8 - round - 1} Shots Left!\`)
-						`);
+                                `);
                             }, 4000)
-                        );
+
+                        })
+
 
                     const keepGoing = await verify(
                         message.channel,
