@@ -101,7 +101,7 @@ export function stripInvites(str: string, { guild = true, bot = true, text = '[r
     return str;
 }
 
-export function shuffle(array: string[]) {
+export function shuffle(array: any) {
     const arr = array.slice(0);
     for (let i = arr.length - 1; i >= 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));

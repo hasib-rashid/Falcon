@@ -22,14 +22,14 @@ const RussianRoullete: Command = {
 
         if (!args[0]) return message.channel.send("**Please Enter A User!**");
         let opponent =
-            message.mentions.members.first() ||
-            message.guild.members.cache.get(args[0]) ||
-            message.guild.members.cache.find(
+            message.mentions?.members?.first() ||
+            message.guild?.members.cache.get(args[0]) ||
+            message.guild?.members.cache.find(
                 (r) =>
                     r.user.username.toLowerCase() ===
                     args.join(" ").toLocaleLowerCase()
             ) ||
-            message.guild.members.cache.find(
+            message.guild?.members.cache.find(
                 (r) =>
                     r.displayName.toLowerCase() ===
                     args.join(" ").toLocaleLowerCase()
