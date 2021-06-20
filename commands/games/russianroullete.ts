@@ -69,7 +69,7 @@ const RussianRoullete: Command = {
                 false,
             ]);
             let round = 0;
-            let winner = null;
+            let winner: any = null;
             let quit = false;
             while (!winner) {
                 const player = userTurn ? message.author : opponent;
@@ -77,13 +77,14 @@ const RussianRoullete: Command = {
                 if (gun[round]) {
                     message.channel
                         .send(`**${player} Pulls The Trigger!**`)
-                        .then(
-                            setTimeout(async function () {
-                                message.channel.send("**And Dies!**");
-                                await message.channel.send(
+                        .then((msg) => {
+                            setTimeout(async () => {
+                                msg.channel.send("**And Dies!**");
+                                await msg.channel.send(
                                     `**The Winner Is ${winner}!**`
                                 );
                             }, 4000)
+                        }
                         );
                     winner = notPlayer;
                 } else {
