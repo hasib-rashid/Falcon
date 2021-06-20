@@ -17,7 +17,6 @@ const EightBallCommand: Command = {
     async run(client, message, args) {
         // @ts-ignore
         const randomIndex = Math.floor(Math.random() * json.default.length);
-        console.log(json)
 
         const embed = new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL())
