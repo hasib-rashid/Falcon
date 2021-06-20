@@ -21,7 +21,7 @@ const RussianRoullete: Command = {
         };
 
         if (!args[0]) return message.channel.send("**Please Enter A User!**");
-        let opponent =
+        let opponent: any =
             message.mentions?.members?.first() ||
             message.guild?.members.cache.get(args[0]) ||
             message.guild?.members.cache.find(
