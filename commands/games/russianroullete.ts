@@ -1,5 +1,5 @@
 import Command from '../../constants/command';
-import { shuffle, verify } from "../../util/functions.js"
+import { shuffle, verify } from "../../util/functions"
 import { stripIndents } from "common-tags"
 const games = new Map();
 
