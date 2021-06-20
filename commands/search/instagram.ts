@@ -6,7 +6,7 @@ const InstagramCommand: Command = {
     name: 'instagram',
     description: 'Look at the ig of someone in Instagram',
     aliases: [
-        ''
+        'ig'
     ],
     guildOnly: false,
     ownerOnly: false,
