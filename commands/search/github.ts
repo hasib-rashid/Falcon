@@ -16,6 +16,37 @@ const GithubCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        if (args[1]) {
+            axios.get(`https://api.github.com/repos/${args[0]}/${args[1]}`).then(function (response) {
+                const repoEmbed = new MessageEmbed()
+                    .setAuthor("Github", "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
+                    .setTitle(response.data.full_name)
+                    .setDescription("**Description: **" + response.data.description || "No Description")
+                    .setColor("#2577fa")
+                    .setThumbnail(response.data.owner.avatar_url)
+                    .addFields(
+                        { name: "Owner", value: `[${response.data.owner.login}](${response.data.owner.html_url})`, inline: true },
+                        { name: "Link", value: `[Repository](${response.data.html_url})`, inline: true },
+                        { name: "Homepage", value: response.data.homepage, inline: true },
+                        { name: "Fork?", value: response.data.fork, inline: true },
+                        { name: "Fork Count", value: response.data.forks, inline: true },
+                        { name: "License", value: response.data.license ? response.data.license.name : "No License", inline: true },
+                        { name: "Open Issues", value: response.data.open_issues, inline: true },
+                        { name: "Default Branch", value: response.data.default_branch, inline: true },
+                        { name: "Subscribers", value: response.data.subscribers_count, inline: true },
+                        { name: "Archived?", value: response.data.archived, inline: true },
+                        { name: "Language", value: response.data.language, inline: true },
+                        { name: "Github Pages?", value: response.data.has_pages, inline: true },
+                        { name: "Clone URL", value: response.data.clone_url, inline: true },
+                        { name: "SSH Url", value: response.data.ssh_url, inline: true },
+                        { name: "Created At", value: moment.utc(response.data.created_at).format("MM/DD/YYYY h:mm A"), inline: false },
+                        { name: "Updated At", value: moment.utc(response.data.updated_at).format("MM/DD/YYYY h:mm A"), inline: false },
+                        { name: "Pushed At", value: moment.utc(response.data.pushed_at).format("MM/DD/YYYY h:mm A"), inline: true },
+                    )
+                message.channel.send(repoEmbed)
+            })
+        }
+
         if (!args[1]) {
             axios.get(`https://api.github.com/users/${args[0]}`).then(function (response) {
                 const public_repos = response.data.public_repos || "None"
@@ -57,37 +88,6 @@ const GithubCommand: Command = {
 
                 message.channel.send(userEmbed)
             })
-
-            if (args[1]) {
-                axios.get(`https://api.github.com/repos/${args[0]}/${args[1]}`).then(function (response) {
-                    const repoEmbed = new MessageEmbed()
-                        .setAuthor("Github", "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
-                        .setTitle(response.data.full_name)
-                        .setDescription("**Description: **" + response.data.description || "No Description")
-                        .setColor("#2577fa")
-                        .setThumbnail(response.data.owner.avatar_url)
-                        .addFields(
-                            { name: "Owner", value: `[${response.data.owner.login}](${response.data.owner.html_url})`, inline: true },
-                            { name: "Link", value: `[Repository](${response.data.html_url})`, inline: true },
-                            { name: "Homepage", value: response.data.homepage, inline: true },
-                            { name: "Fork?", value: response.data.fork, inline: true },
-                            { name: "Fork Count", value: response.data.forks, inline: true },
-                            { name: "License", value: response.data.license ? response.data.license.name : "No License", inline: true },
-                            { name: "Open Issues", value: response.data.open_issues, inline: true },
-                            { name: "Default Branch", value: response.data.default_branch, inline: true },
-                            { name: "Subscribers", value: response.data.subscribers_count, inline: true },
-                            { name: "Archived?", value: response.data.archived, inline: true },
-                            { name: "Language", value: response.data.language, inline: true },
-                            { name: "Github Pages?", value: response.data.has_pages, inline: true },
-                            { name: "Clone URL", value: response.data.clone_url, inline: true },
-                            { name: "SSH Url", value: response.data.ssh_url, inline: true },
-                            { name: "Created At", value: moment.utc(response.data.created_at).format("MM/DD/YYYY h:mm A"), inline: false },
-                            { name: "Updated At", value: moment.utc(response.data.updated_at).format("MM/DD/YYYY h:mm A"), inline: false },
-                            { name: "Pushed At", value: moment.utc(response.data.pushed_at).format("MM/DD/YYYY h:mm A"), inline: true },
-                        )
-                    message.channel.send(repoEmbed)
-                })
-            }
         }
     },
 }
