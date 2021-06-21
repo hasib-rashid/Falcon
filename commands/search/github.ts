@@ -15,7 +15,11 @@ const GithubCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        if (!args[1]) {
+            axios.get(`https://api.github.com/users/${args[0]}`).then(function (response) {
 
+            })
+        }
     },
 }
 
