@@ -24,6 +24,7 @@ const InstagramCommand: Command = {
                 .setAuthor("Instagram", "https://brandpalettes.com/wp-content/uploads/2018/10/Instagram-300x300.png?ezimgfmt=ng:webp/ngcb1")
                 .setThumbnail(res.data.graphql.user.profile_pic_url)
                 .setDescription("**Bio:** " + res.data.graphql.user.biography)
+                .addField("**ID: **", res.data.graphql.user.id, true)
 
             message.channel.send(embed)
         })
