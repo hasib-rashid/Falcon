@@ -48,6 +48,12 @@ const GithubCommand: Command = {
                         { name: "Profile", value: `[Link](${profile})`, inline: true },
                         { name: "ID", value: id, inline: true },
                     )
+
+                if (response.data.name === null) {
+                    userEmbed.setTitle(response.data.login)
+                } else {
+                    userEmbed.setTitle(response.data.name)
+                }
             })
         }
     },
