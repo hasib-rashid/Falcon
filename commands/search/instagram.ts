@@ -30,6 +30,7 @@ const InstagramCommand: Command = {
                 .addField("**Category: **", res.data.graphql.user.category_name, true)
                 .addField("Verfied", "**" + res.data.graphql.user.is_verified + "**", true)
                 .addField("Private", "**" + res.data.graphql.user.is_private + "**", true)
+                .addField("Useranme", "**" + res.data.graphql.user.username + "**", true)
 
             message.channel.send(embed)
         })
