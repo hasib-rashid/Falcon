@@ -29,6 +29,7 @@ const InstagramCommand: Command = {
                 .addField("**Following: **", res.data.graphql.user.edge_follow.count, true)
                 .addField("**Category: **", res.data.graphql.user.category_name, true)
                 .addField("Verfied", "**" + res.data.graphql.user.is_verified + "**")
+                .addField("Private", "**" + res.data.graphql.user.is_private + "**")
 
             message.channel.send(embed)
         })
