@@ -1,6 +1,7 @@
 import Command from '../../constants/command';
 import { default as axios } from 'axios'
 import moment from 'moment'
+import { MessageEmbed } from 'discord.js'
 
 const GithubCommand: Command = {
     name: 'github',
@@ -28,6 +29,10 @@ const GithubCommand: Command = {
                 const email = response.data.email || "No Email"
                 const profile = response.data.html_url
                 const id = response.data.id
+
+                const userEmbed = new MessageEmbed()
+                    .setAuthor("Github", "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
+                    .setDescription("**Description: **" + response.data.bio)
             })
         }
     },
