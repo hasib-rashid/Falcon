@@ -1,8 +1,8 @@
 import Command from '../../constants/command';
 // @ts-ignore
-import * as googleIt from 'google-it'
+import googleIt from 'google-it'
 import { MessageEmbed } from 'discord.js';
-import { } from '../../util/Util'
+import { googleShorten } from '../../util/Util'
 
 const GoogleCommand: Command = {
     name: 'google',
