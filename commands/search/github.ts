@@ -1,4 +1,6 @@
 import Command from '../../constants/command';
+import { default as axios } from 'axios'
+import moment from 'moment'
 
 const GithubCommand: Command = {
     name: 'github',
