@@ -36,8 +36,8 @@ const GoogleCommand: Command = {
                 }
 
                 msg.channel.send(embed)
-            }).catch(e => {
-                console.error(e)
+            }).catch((err: any) => {
+                console.error(err)
             })
         })
     },
