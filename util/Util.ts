@@ -80,3 +80,7 @@ export function shuffle(arr: any) {
 export function shorten(text: string, maxLen = 2000) {
     return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text;
 }
+
+export function googleShorten(text: string, maxLen = 80) {
+    return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text;
+}
