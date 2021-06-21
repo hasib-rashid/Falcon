@@ -17,8 +17,6 @@ const InstagramCommand: Command = {
 
     async run(client, message, args) {
         axios.get(`https://instagram.com/${args[0]}/?__a=1`).then((res) => {
-            console.log(res.data)
-
             const embed = new MessageEmbed()
                 .setTitle(res.data.graphql.user.full_name)
                 .setColor("#C13584")
