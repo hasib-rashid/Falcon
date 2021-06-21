@@ -23,6 +23,7 @@ const InstagramCommand: Command = {
                 .setColor("#C13584")
                 .setAuthor("Instagram", "https://brandpalettes.com/wp-content/uploads/2018/10/Instagram-300x300.png?ezimgfmt=ng:webp/ngcb1")
                 .setThumbnail(res.data.graphql.user.profile_pic_url)
+                .setDescription("**Bio:** " + res.data.graphql.user.biography)
 
             message.channel.send(embed)
         })
