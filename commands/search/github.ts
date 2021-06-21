@@ -54,6 +54,8 @@ const GithubCommand: Command = {
                 } else {
                     userEmbed.setTitle(response.data.name)
                 }
+
+                message.channel.send(userEmbed)
             })
         }
     },
