@@ -33,6 +33,8 @@ const GithubCommand: Command = {
                 const userEmbed = new MessageEmbed()
                     .setAuthor("Github", "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
                     .setDescription("**Description: **" + response.data.bio)
+                    .setColor("#2577fa")
+                    .setThumbnail(response.data.avatar_url)
             })
         }
     },
