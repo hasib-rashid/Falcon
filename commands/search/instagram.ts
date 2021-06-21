@@ -25,6 +25,7 @@ const InstagramCommand: Command = {
                 .setThumbnail(res.data.graphql.user.profile_pic_url)
                 .setDescription("**Bio:** " + res.data.graphql.user.biography)
                 .addField("**ID: **", res.data.graphql.user.id, true)
+                .addField("**Followers: **", res.data.graphql.user.edge_followed_by.count, true)
 
             message.channel.send(embed)
         })
