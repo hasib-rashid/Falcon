@@ -35,6 +35,19 @@ const GithubCommand: Command = {
                     .setDescription("**Description: **" + response.data.bio)
                     .setColor("#2577fa")
                     .setThumbnail(response.data.avatar_url)
+                    .addFields(
+                        { name: "Public Repositories", value: public_repos, inline: true },
+                        { name: "Public Gists", value: public_gists, inline: true },
+                        { name: "Followers", value: followers, inline: true },
+                        { name: "Following", value: following, inline: true },
+                        { name: "Created At", value: moment.utc(created_at).format("MM/DD/YYYY h:mm A"), inline: true },
+                        { name: "Company", value: company, inline: true },
+                        { name: "Website", value: website, inline: true },
+                        { name: "Location", value: location, inline: true },
+                        { name: "Email", value: email, inline: true },
+                        { name: "Profile", value: `[Link](${profile})`, inline: true },
+                        { name: "ID", value: id, inline: true },
+                    )
             })
         }
     },
