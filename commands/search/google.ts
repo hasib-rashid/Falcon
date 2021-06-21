@@ -1,4 +1,6 @@
 import Command from '../../constants/command';
+// @ts-ignore
+import * as googleIt from 'google-it'
 
 const GoogleCommand: Command = {
     name: 'google',
