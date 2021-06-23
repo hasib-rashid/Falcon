@@ -41,6 +41,9 @@ const BookCommand: Command = {
                         ? shorten(data.description)
                         : "No description available."
                 )
+                .setThumbnail(
+                    data.imageLinks ? data.imageLinks.thumbnail : null
+                )
 
             message.channel.send(embed)
         })
