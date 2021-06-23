@@ -1,8 +1,8 @@
 import Command from '../../constants/command';
 import { default as axios } from 'axios'
 
-const FoxCommand: Command = {
-    name: 'bird',
+const KoalaCommand: Command = {
+    name: 'koala',
     description: 'Watch some birds!',
     aliases: [
         ''
@@ -14,10 +14,10 @@ const FoxCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        axios.get("https://some-random-api.ml/img/fox").then((res) => {
+        axios.get("https://some-random-api.ml/img/koala").then((res) => {
             message.channel.send(res.data.link)
         })
     },
 }
 
-export default FoxCommand;
+export default KoalaCommand;
