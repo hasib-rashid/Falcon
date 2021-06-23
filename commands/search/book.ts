@@ -33,7 +33,8 @@ const BookCommand: Command = {
                     "https://i.imgur.com/N3oHABo.png",
                     "https://books.google.com/"
                 )
-                .setColor(0xf285f4)
+                .setColor("#337ef5")
+                .setTitle(data.title)
 
             message.channel.send(embed)
         })
