@@ -15,7 +15,16 @@ const BookCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-
+        axios.get("https://www.googleapis.com/books/v1/volumes", {
+            params: {
+                apiKey: process.env.GOOGLE_API,
+                q: args.join(" "),
+                maxResults: 1,
+                printType: "books",
+            }
+        }).then((res) => {
+            if (!res.data.items) return message.channel.send("Could not find any results.");
+        })
     },
 }
 
