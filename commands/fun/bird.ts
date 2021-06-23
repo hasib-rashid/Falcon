@@ -15,7 +15,7 @@ const BirdCommand: Command = {
 
     async run(client, message, args) {
         axios.get("https://some-random-api.ml/img/birb").then((res) => {
-
+            message.channel.send(res.data.link)
         })
     },
 }
