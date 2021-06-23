@@ -1,6 +1,7 @@
 import Command from '../../constants/command';
 import { default as axios } from 'axios'
 import { MessageEmbed } from 'discord.js'
+import { shorten } from '../../util/Util'
 
 const BookCommand: Command = {
     name: 'book',
@@ -35,6 +36,11 @@ const BookCommand: Command = {
                 )
                 .setColor("#337ef5")
                 .setTitle(data.title)
+                .setDescription(
+                    data.description
+                        ? shorten(data.description)
+                        : "No description available."
+                )
 
             message.channel.send(embed)
         })
