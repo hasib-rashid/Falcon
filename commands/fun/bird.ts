@@ -14,7 +14,9 @@ const BirdCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        axios.get("https://some-random-api.ml/img/birb").then((res) => {
 
+        })
     },
 }
 
