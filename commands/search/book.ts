@@ -1,7 +1,7 @@
 import Command from '../../constants/command';
 import { default as axios } from 'axios'
 import { MessageEmbed } from 'discord.js'
-import { shorten } from '../../util/Util'
+import { shorten, formatNumber } from '../../util/Util'
 
 const BookCommand: Command = {
     name: 'book',
@@ -44,6 +44,13 @@ const BookCommand: Command = {
                 .setThumbnail(
                     data.imageLinks ? data.imageLinks.thumbnail : null
                 )
+                .addField("❯ Publisher", data.publisher)
+                .addField("❯ Publish Date", data.publishedDate || "???", true)
+                .addField(
+                    "❯ Page Count",
+                    data.pageCount ? formatNumber(data.pageCount) : "???",
+                    true
+                );
 
             message.channel.send(embed)
         })
