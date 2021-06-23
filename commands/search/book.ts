@@ -33,6 +33,8 @@ const BookCommand: Command = {
                     "https://i.imgur.com/N3oHABo.png",
                     "https://books.google.com/"
                 )
+
+            message.channel.send(embed)
         })
     },
 }
