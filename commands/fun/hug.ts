@@ -16,7 +16,8 @@ const HugCommand: Command = {
 
     async run(client, message, args) {
         axios.get("https://some-random-api.ml/animu/hug").then((res) => {
-
+            const embed = new MessageEmbed()
+                .setAuthor(message.author.username, message.author.displayAvatarURL())
         })
     },
 }
