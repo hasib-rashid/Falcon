@@ -23,7 +23,7 @@ const BookCommand: Command = {
                 printType: "books",
             }
         }).then((res) => {
-            if (!res.data.items) return message.channel.send("Could not find any results.");
+            if (!res.data.items) return message.channel.send("**Could not find any results.**");
         })
     },
 }
