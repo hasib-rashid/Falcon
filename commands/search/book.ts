@@ -27,6 +27,7 @@ const BookCommand: Command = {
 
             const data = res.data.items[0].volumeInfo;
 
+            const embed = new MessageEmbed()
         })
     },
 }
