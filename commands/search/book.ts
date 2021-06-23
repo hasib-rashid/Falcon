@@ -24,6 +24,9 @@ const BookCommand: Command = {
             }
         }).then((res) => {
             if (!res.data.items) return message.channel.send("**Could not find any results.**");
+
+            const data = res.data.items[0].volumeInfo;
+
         })
     },
 }
