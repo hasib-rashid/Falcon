@@ -1,4 +1,5 @@
 import Command from '../../constants/command';
+import { default as axios } from 'axios'
 
 const BirdCommand: Command = {
     name: 'bird',
