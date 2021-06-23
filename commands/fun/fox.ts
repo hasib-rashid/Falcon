@@ -1,7 +1,7 @@
 import Command from '../../constants/command';
 import { default as axios } from 'axios'
 
-const BirdCommand: Command = {
+const FoxCommand: Command = {
     name: 'bird',
     description: 'Watch some birds!',
     aliases: [
@@ -20,4 +20,4 @@ const BirdCommand: Command = {
     },
 }
 
-export default BirdCommand;
+export default FoxCommand;
