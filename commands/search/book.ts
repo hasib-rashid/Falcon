@@ -28,6 +28,11 @@ const BookCommand: Command = {
             const data = res.data.items[0].volumeInfo;
 
             const embed = new MessageEmbed()
+                .setAuthor(
+                    "Google Books",
+                    "https://i.imgur.com/N3oHABo.png",
+                    "https://books.google.com/"
+                )
         })
     },
 }
