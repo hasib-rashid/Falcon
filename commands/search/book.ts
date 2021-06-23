@@ -1,5 +1,6 @@
 import Command from '../../constants/command';
 import { default as axios } from 'axios'
+import { MessageEmbed } from 'discord.js'
 
 const BookCommand: Command = {
     name: 'book',
