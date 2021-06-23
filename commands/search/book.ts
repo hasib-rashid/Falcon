@@ -52,6 +52,13 @@ const BookCommand: Command = {
                     true
                 );
 
+            if (data.authors) {
+                embed.addField(
+                    "❯ Authors",
+                    data.authors.length ? data.authors.join(", ") : "???"
+                );
+            }
+
             message.channel.send(embed)
         })
     },
