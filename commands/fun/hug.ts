@@ -22,6 +22,7 @@ const HugCommand: Command = {
                 .setAuthor(message.author.username, message.author.displayAvatarURL())
                 .setDescription(`<@${message.author.id}> hugged <@${mentioned}>`)
                 .setImage(res.data.link)
+                .setColor("#337ef5")
 
             message.channel.send(embed)
         })
