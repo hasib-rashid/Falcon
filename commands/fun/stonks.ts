@@ -14,7 +14,9 @@ const StonksCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-
+        axios.get(`https://vacefron.nl/api/stonks?user=http${message.author.displayAvatarURL()}`).then((res) => {
+            console.log(res.data)
+        })
     },
 }
 
