@@ -27,6 +27,8 @@ const EjectCommand: Command = {
             "white",
             "yellow"
         ]
+
+        const impostor = [true, false]
     },
 }
 
