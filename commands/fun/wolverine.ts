@@ -2,7 +2,7 @@ import Command from '../../constants/command';
 import { default as axios } from 'axios'
 
 const WolverineCommand: Command = {
-    name: 'wide',
+    name: 'wolverine',
     description: 'Get some Stonks',
     aliases: [
         ''
