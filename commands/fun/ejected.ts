@@ -28,7 +28,7 @@ const EjectCommand: Command = {
             "yellow"
         ]
 
-        const impostor = [true, false]
+        const impostor = [true, false, false, false]
 
         const random_color = colors[Math.floor(Math.random() * colors.length)];
         const random_impostor = impostor[Math.floor(Math.random() * impostor.length)];
