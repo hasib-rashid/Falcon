@@ -5,7 +5,7 @@ const IAmSpeedCommand: Command = {
     name: 'iamspeed',
     description: 'Get some Stonks',
     aliases: [
-        ''
+        'i-am-speed'
     ],
     guildOnly: false,
     ownerOnly: false,
