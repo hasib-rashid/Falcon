@@ -13,7 +13,20 @@ const EjectCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-
+        const colors = [
+            "black",
+            "blue",
+            "brown",
+            "cyan",
+            "darkgreen",
+            "lime",
+            "orange",
+            "pink",
+            "purple",
+            "red",
+            "white",
+            "yellow"
+        ]
     },
 }
 
