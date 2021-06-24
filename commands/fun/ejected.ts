@@ -34,6 +34,7 @@ const EjectCommand: Command = {
         const random_impostor = impostor[Math.floor(Math.random() * impostor.length)];
 
         console.log(random_color)
+        console.log(random_impostor)
     },
 }
 
