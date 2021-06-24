@@ -16,7 +16,7 @@ const WideCommand: Command = {
     async run(client, message, args) {
         const user = message.mentions.users.first()?.displayAvatarURL() || message.guild?.members.cache.get(args[0])?.user.displayAvatarURL() || message.author.displayAvatarURL()
 
-        message.channel.send(`https://vacefron.nl/api/image?user=${user}`)
+        message.channel.send(`https://vacefron.nl/api/wide?image=${user}`)
     },
 }
 
