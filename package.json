@@ -38,7 +38,8 @@
 		"mysql2": "^2.2.5",
 		"reconlx": "^1.3.2",
 		"sequelize": "^6.6.2",
-		"snakecord": "^1.0.7"
+		"snakecord": "^1.0.7",
+		"weather-js": "^2.0.0"
 	},
 	"devDependencies": {
 		"@types/common-tags": "^1.8.0",
