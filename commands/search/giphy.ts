@@ -23,7 +23,10 @@ const GiphyCommand: Command = {
             if (!res.data.data.length)
                 return message.channel.send("Could not find any results.");
 
-
+            return message.channel.send(
+                res.data.data[Math.floor(Math.random() * res.data.data.length)].images
+                    .original.url
+            );
         })
     },
 }
