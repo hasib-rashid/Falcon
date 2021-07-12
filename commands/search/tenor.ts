@@ -14,7 +14,7 @@ const TenorCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        axios.get("https://g.tenor.com/v1/search?q=excited&key=LIVDSRZULELA&limit=8").then((res) => {
+        axios.get(`https://g.tenor.com/v1/search?q=${args.join(" ")}&key=LIVDSRZULELA&limit=8`).then((res) => {
             message.channel.send(res.data.results[Math.floor(Math.random() * res.data.results.length)].itemurl)
         })
     },
