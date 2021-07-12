@@ -1,8 +1,16 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import { Message } from "discord.js";
+// @ts-ignore
+import Nuggies from 'nuggies'
 import { Aki } from 'aki-api.ts'
 import Event from "../constants/event";
 import { stripIndents } from "common-tags";
 import Collection from "@discordjs/collection";
+
+Nuggies.connect(process.env.MONGO_URL)
+
 
 const cooldowns: Collection<string, Collection<string, number>> = new Collection();
 
