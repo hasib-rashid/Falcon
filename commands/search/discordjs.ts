@@ -4,7 +4,7 @@ const DiscordJSCommand: Command = {
     name: 'djs',
     description: 'Search the Djs docs here',
     aliases: [
-        ''
+        'discord.js', 'discordjs'
     ],
     guildOnly: false,
     ownerOnly: false,
