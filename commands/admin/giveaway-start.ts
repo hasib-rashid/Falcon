@@ -43,6 +43,14 @@ const GiveawayStart: Command = {
                 message.reply('**No answer after 30 seconds, operation canceled.**');
             })
 
+        message.channel.send("**What are the requirements of this giveaway? Type 'nothing' to skip.**")
+        await message.channel.awaitMessages(m => m.author.id == message.author.id,
+            { max: 1, time: 30000 }).then(collected => {
+                prize = collected.first()?.content
+            }).catch(() => {
+                message.reply('**No answer after 30 seconds, operation canceled.**');
+            })
+
         Nuggies.giveaways.create({
             message: message,
             prize: prize,
