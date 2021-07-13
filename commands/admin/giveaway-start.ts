@@ -18,6 +18,10 @@ const GiveawayStart: Command = {
 
     async run(client, message, args) {
         let prize
+        let winners
+        let endAfter
+        let requirements
+        let channel
 
         message.channel.send("**What should be the prize of the giveaway**")
         await message.channel.awaitMessages(m => m.author.id == message.author.id,
