@@ -4,9 +4,11 @@ import Nuggies from 'nuggies';
 import discordbuttons from 'discord-buttons'
 
 const GiveawayStart: Command = {
-    name: 'giveaway-start',
+    name: 'giveaway',
     description: 'Start a giveaway!',
     aliases: [
+        'gway',
+        'giveaway-start',
         'g-start',
         'gstart'
     ],
