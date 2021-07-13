@@ -68,10 +68,10 @@ distube
                     message.author.displayAvatarURL()
                 )
                 .setTitle(
-                    `<:Disc:816225417982771201> Playing in \`${voiceChannelName}\`! `
+                    `Playing in \`${voiceChannelName}\`! `
                 )
                 .setDescription(
-                    `<:YouTube:801465200775135282> **[${song.name}](${song.url})** \n\n **Requested By: <@${message.author.id}>**\n\n`
+                    `<:youtube:864559346137956402> **[${song.name}](${song.url})** \n\n **Requested By: <@${message.author.id}>**\n\n`
                 )
                 .addFields(
                     { name: "Views", value: formatNumber(song.views) },
