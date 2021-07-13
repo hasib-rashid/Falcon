@@ -16,7 +16,6 @@ const GiveawayStart: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        console.log(client.prefix)
         Nuggies.giveaways.create({
             message: message,
             prize: 'test',
