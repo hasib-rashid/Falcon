@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 dotenv.config()
-
 import { Message } from "discord.js";
 // @ts-ignore
 import Nuggies from 'nuggies'

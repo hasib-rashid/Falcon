@@ -1,6 +1,7 @@
 import Command from '../../constants/command';
 //@ts-ignore
-import Nuggies from 'nuggies'
+import Nuggies from 'nuggies';
+import discordbuttons from 'discord-buttons'
 
 const GiveawayStart: Command = {
     name: 'giveaway-start',
@@ -15,6 +16,7 @@ const GiveawayStart: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        console.log(client.prefix)
         Nuggies.giveaways.create({
             message: message,
             prize: 'test',
@@ -23,6 +25,10 @@ const GiveawayStart: Command = {
             endAfter: '20s',
             requirements: { enabled: false },
             channel: message.channel.id,
+        });
+
+        client.on('clickButton', button => {
+            Nuggies.buttonclick(client, button);
         });
     },
 }

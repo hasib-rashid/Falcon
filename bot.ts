@@ -1,8 +1,10 @@
+import discordButtons from "discord-buttons";
 import { config } from "dotenv";
 config();
 import Client from "./classes/client";
 
-new Client({
+
+const client = new Client({
     token: process.env.TOKEN,
     ownerID: "548038495617417226",
     commandDir: `${__dirname}/commands`,
@@ -16,3 +18,5 @@ new Client({
         chat: "<:chat:841735309258653708>",
     },
 });
+
+discordButtons(client)
