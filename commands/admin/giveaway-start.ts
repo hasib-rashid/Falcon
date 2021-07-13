@@ -19,12 +19,12 @@ const GiveawayStart: Command = {
     async run(client, message, args) {
         Nuggies.giveaways.create({
             message: message,
-            prize: 'test',
+            prize: args[0],
             host: message.author.id,
-            winners: 1,
-            endAfter: '20s',
-            requirements: { enabled: false },
-            channel: message.channel.id,
+            winners: args[1],
+            endAfter: args[2],
+            requirements: args[3] || { enabled: false },
+            channel: args[4] || message.channel.id,
         });
 
         client.on('clickButton', button => {
