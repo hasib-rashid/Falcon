@@ -13,7 +13,14 @@ const PauseCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        //Code Here!!!!
+        try {
+            client.distube.pause(message)
+            message.channel.send("**Successfully Paused the current song!**");
+        } catch (err) {
+            message.channel.send(
+                "**Either you are not in a voice channel or a song is not playing**"
+            );
+        }
     },
 }
 
