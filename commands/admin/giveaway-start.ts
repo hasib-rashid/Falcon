@@ -55,10 +55,14 @@ const GiveawayStart: Command = {
                 message.reply('**No answer after 30 seconds, operation canceled.**');
             })
 
-        message.channel.send("**What is the channel this giveaway will happen? Type 'nothing' to do the giveaway here. You have 30 seconds to answer this.**")
+        message.channel.send("**What is the channel this giveaway will happen? Type 'here' to do the giveaway here. You have 30 seconds to answer this.**")
         await message.channel.awaitMessages(m => m.author.id == message.author.id,
             { max: 1, time: 30000 }).then(collected => {
-                channel = collected.first()?.content
+                if (collected.first()?.content === "here") {
+                    channel = message.channel.id
+                } else {
+                    channel = collected.first()?.content
+                }
             }).catch(() => {
                 message.reply('**No answer after 30 seconds, operation canceled.**');
             })
