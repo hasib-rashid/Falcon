@@ -7,7 +7,8 @@ const GiveawayStart: Command = {
     name: 'giveaway-start',
     description: 'Start a giveaway!',
     aliases: [
-        ''
+        'g-start',
+        'gstart'
     ],
     guildOnly: false,
     ownerOnly: false,
