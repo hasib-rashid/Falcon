@@ -23,7 +23,7 @@ const GiveawayStart: Command = {
         let requirements
         let channel
 
-        message.channel.send("**What should be the prize of the giveaway**")
+        message.channel.send("**What should be the prize of the giveaway. You have 30 seconds to answer this.**")
         await message.channel.awaitMessages(m => m.author.id == message.author.id,
             { max: 1, time: 30000 }).then(collected => {
                 prize = collected.first()?.content
@@ -31,34 +31,34 @@ const GiveawayStart: Command = {
                 message.reply('**No answer after 30 seconds, operation canceled.**');
             })
 
-        message.channel.send("**How many winners will be there in this giveaway?**")
+        message.channel.send("**How many winners will be there in this giveaway? You have 30 seconds to answer this.**")
         await message.channel.awaitMessages(m => m.author.id == message.author.id,
             { max: 1, time: 30000 }).then(collected => {
-                prize = collected.first()?.content
+                winners = collected.first()?.content
             }).catch(() => {
                 message.reply('**No answer after 30 seconds, operation canceled.**');
             })
 
-        message.channel.send("**After how long will the giveaway end?**")
+        message.channel.send("**After how long will the giveaway end? You have 30 seconds to answer this.**")
         await message.channel.awaitMessages(m => m.author.id == message.author.id,
             { max: 1, time: 30000 }).then(collected => {
-                prize = collected.first()?.content
+                endAfter = collected.first()?.content
             }).catch(() => {
                 message.reply('**No answer after 30 seconds, operation canceled.**');
             })
 
-        message.channel.send("**What are the requirements of this giveaway? Type 'nothing' to skip.**")
+        message.channel.send("**What are the requirements of this giveaway? Type 'nothing' to skip. You have 30 seconds to answer this.**")
         await message.channel.awaitMessages(m => m.author.id == message.author.id,
             { max: 1, time: 30000 }).then(collected => {
-                prize = collected.first()?.content
+                requirements = collected.first()?.content
             }).catch(() => {
                 message.reply('**No answer after 30 seconds, operation canceled.**');
             })
 
-        message.channel.send("**What is the channel this giveaway will happen? Type 'nothing' to do the giveaway here.**")
+        message.channel.send("**What is the channel this giveaway will happen? Type 'nothing' to do the giveaway here. You have 30 seconds to answer this.**")
         await message.channel.awaitMessages(m => m.author.id == message.author.id,
             { max: 1, time: 30000 }).then(collected => {
-                prize = collected.first()?.content
+                channel = collected.first()?.content
             }).catch(() => {
                 message.reply('**No answer after 30 seconds, operation canceled.**');
             })
