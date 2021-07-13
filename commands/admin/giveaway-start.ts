@@ -17,14 +17,24 @@ const GiveawayStart: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        let prize
+
+        message.channel.send("What should be the prize of the giveaway")
+        await message.channel.awaitMessages(m => m.author.id == message.author.id,
+            { max: 1, time: 30000 }).then(collected => {
+                prize = collected.first()?.content
+            }).catch(() => {
+                message.reply('No answer after 30 seconds, operation canceled.');
+            })
+
         Nuggies.giveaways.create({
             message: message,
-            prize: args[0],
+            prize: prize,
             host: message.author.id,
-            winners: args[1],
-            endAfter: args[2],
-            requirements: args[3] || { enabled: false },
-            channel: args[4] || message.channel.id,
+            winners: 1,
+            endAfter: "10s",
+            requirements: { enabled: false },
+            channel: message.channel.id,
         });
 
         client.on('clickButton', button => {
