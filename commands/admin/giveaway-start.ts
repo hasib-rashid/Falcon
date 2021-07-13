@@ -71,10 +71,10 @@ const GiveawayStart: Command = {
             message: message,
             prize: prize,
             host: message.author.id,
-            winners: 1,
-            endAfter: "10s",
-            requirements: { enabled: false },
-            channel: message.channel.id,
+            winners: winners,
+            endAfter: endAfter,
+            requirements: requirements,
+            channel: channel,
         });
 
         client.on('clickButton', button => {
