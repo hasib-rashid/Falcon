@@ -15,6 +15,7 @@ export default class FalconClient extends Client {
     public ownerID: string;
     public emotes;
     public shit;
+    public distube: any;
     public MessageEmbed = NewMessageEmbed;
     // @ts-ignore
     public countryCache: CountryResponse[];
@@ -32,6 +33,7 @@ export default class FalconClient extends Client {
         this.ownerID = config.ownerID;
         this.emotes = config.emotes;
         this.shit = "BullSHIT"
+        this.distube = config.distube
 
         this._loadCommands(config.commandDir);
         this._loadEvents(config.eventDir);

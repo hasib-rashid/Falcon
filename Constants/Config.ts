@@ -2,6 +2,7 @@ export default interface Config {
     token: string | undefined,
     ownerID: string,
     prefix?: string,
+    distube?: any,
     commandDir: string,
     eventDir: string,
     emotes: {
