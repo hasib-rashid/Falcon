@@ -15,7 +15,7 @@ const LoopCommand: Command = {
     async run(client, message, args) {
         try {
             client.distube.loop(message)
-            message.channel.send("**Successfully Paused the current song!**");
+            message.channel.send("**Successfully Looped the current Queue!**");
         } catch (err) {
             message.channel.send(
                 "**Either you are not in a voice channel or a song is not playing or the song is not paused**"
