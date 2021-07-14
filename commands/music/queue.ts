@@ -16,9 +16,8 @@ const QueueCommand: Command = {
 
     async run(client, message, args) {
         try {
-            let queue = client.distube.getQueue(message);
-
-            let embed = new MessageEmbed()
+            const queue = client.distube.getQueue(message);
+            const embed = new MessageEmbed()
                 //@ts-ignore
                 .setAuthor(message.guild?.name, message.guild?.iconURL())
                 .setTitle("Current Queue")
