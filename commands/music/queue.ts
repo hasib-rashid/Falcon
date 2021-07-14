@@ -6,7 +6,7 @@ const QueueCommand: Command = {
     name: 'queue',
     description: 'Get the Guild Queue',
     aliases: [
-        ''
+        'getGuildQueue'
     ],
     guildOnly: false,
     ownerOnly: false,
