@@ -1,5 +1,6 @@
 import discordButtons from "discord-buttons";
 import { Message, MessageEmbed } from "discord.js";
+import { DisTubeOptions } from "distube";
 import Queue from "distube/typings/Queue";
 import Song from "distube/typings/Song";
 import { config } from "dotenv";
