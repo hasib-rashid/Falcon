@@ -14,7 +14,7 @@ const LoopCommand: Command = {
 
     async run(client, message, args) {
         try {
-            client.distube.loop(message)
+            client.distube(message)
             message.channel.send("**Successfully Looped the current Queue!**");
         } catch (err) {
             message.channel.send(
