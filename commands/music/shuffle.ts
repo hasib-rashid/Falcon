@@ -2,7 +2,7 @@ import Command from '../../constants/command';
 
 const ShuffleCommand: Command = {
     name: 'shuffle',
-    description: 'Pause a song in Falcon',
+    description: 'Shuffle the Guilds Queue',
     aliases: [
         ''
     ],
