@@ -19,9 +19,6 @@ const HelpCommand: Command = {
     async run(client, message, args) {
         const PREFIX = "." // Dynamic PRefix incoming
 
-        console.log(GeneralCommands)
-        console.log(FunCommands)
-
         try {
             if (args[0] === "general") {
                 const embed = new MessageEmbed()
