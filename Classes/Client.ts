@@ -91,7 +91,17 @@ export default class FalconClient extends Client {
             .forEach(async (dir: string) => {
                 const files = readdirSync(`${commandDir}/general`);
 
-                GeneralCommands.push(files)
+                for (const file of files) {
+                    const pseudoPull = await import(`${commandDir}/general/${file}`);
+
+                    const pull: Command = pseudoPull.default;
+
+                    pull.category = dir;
+
+                    for (var i = 0; i < files.length; ++i) {
+                        GeneralCommands.push(`**${pull.name}** - ${pull.description}`)
+                    }
+                }
             });
     }
 

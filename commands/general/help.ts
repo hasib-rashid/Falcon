@@ -2,6 +2,8 @@ import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js'
 import { helpAsserts } from '../../assets/json/helpAssersts'
 
+import { AdminCommands, GeneralCommands } from '../../classes/client'
+
 const HelpCommand: Command = {
     name: 'help',
     description: 'Get all the help here',
@@ -17,6 +19,8 @@ const HelpCommand: Command = {
     async run(client, message, args) {
         const PREFIX = "." // Dynamic PRefix incoming
 
+        console.log(GeneralCommands)
+
         try {
             if (args[0] === "general") {
                 const embed = new MessageEmbed()
@@ -25,26 +29,7 @@ const HelpCommand: Command = {
                         message.author.displayAvatarURL()
                     )
                     .setTitle(":smiley: General")
-                    .setDescription(
-                        `
-                            **avatar** - Check someones avatar
-                            **binary** - Turn a text into Binary
-                            **cat** - Take a look in a cute cat!
-                            **changelog** - The changelog of the current version of codevert
-                            **covid** - Check the latest stats of covid 19
-                            **decode** - Decode a binary number
-                            **facts** - Get a random fact!
-                            **help** - Get help to see what commands are in here
-                            **invite** - Get the invite link of this server
-                            **ip** - Check the Ip of a website or a network
-                            **math** - Do maths with this command
-                            **puppy** - Get a pic of a cute Puppy!
-                            **serverInfo** - Get the full info of this server
-                            **translator** - Translate anything you want
-                            **userInfo** - Get the Inforamtion on a user
-                            **whois** - See who is the person with this command
-                        `
-                    )
+                    .setDescription(GeneralCommands)
                     .setColor("#0887ff");
 
                 message.channel.send(embed);
