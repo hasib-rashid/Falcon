@@ -6,6 +6,8 @@ import Command from "../constants/command";
 import Event from "../constants/event";
 import NewMessageEmbed from "../helpers/MessageEmbed";
 
+export const numberOfCommands: any = []
+
 export default class FalconClient extends Client {
     public prefix: string;
     public commands: Collection<string, Command> = new Collection();
@@ -44,12 +46,16 @@ export default class FalconClient extends Client {
             .forEach(async (dir: string) => {
                 const files = readdirSync(`${commandDir}/${dir}`);
 
+                numberOfCommands.push(files.length)
+
                 for (const file of files) {
                     const pseudoPull = await import(`${commandDir}/${dir}/${file}`);
 
                     const pull: Command = pseudoPull.default;
 
+
                     pull.category = dir;
+
                     if (!pull.credit) pull.credit = [];
 
                     pull.credit.push({

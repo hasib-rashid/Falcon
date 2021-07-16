@@ -1,6 +1,6 @@
 import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js'
-import * as helpJSON from '../../assets/json/help.json'
+import { helpAsserts } from '../../assets/json/helpAssersts'
 
 const HelpCommand: Command = {
     name: 'help',
@@ -36,7 +36,7 @@ const HelpCommand: Command = {
                     );
 
                 for (var i = 0; i < 10; ++i) {
-                    const result = helpJSON[i];
+                    const result = helpAsserts[i];
                     embed.addField(`${result.emoji} ${result.name}`, `\`${result.number}\``, true)
                 }
 
@@ -238,7 +238,7 @@ const HelpCommand: Command = {
                     );
 
                 for (var i = 0; i < 10; ++i) {
-                    const result = helpJSON[i];
+                    const result = helpAsserts[i];
                     embed.addField(`${result.emoji} ${result.name}`, `\`${result.number}\``, true)
                 }
 
@@ -264,7 +264,7 @@ const HelpCommand: Command = {
                 );
 
             for (var i = 0; i < 10; ++i) {
-                const result = helpJSON[i];
+                const result = helpAsserts[i];
                 embed.addField(`${result.emoji} ${result.name}`, `\`${result.number}\``, true)
             }
 
