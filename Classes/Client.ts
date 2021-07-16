@@ -8,6 +8,18 @@ import NewMessageEmbed from "../helpers/MessageEmbed";
 
 export const numberOfCommands: any = []
 
+export const AdminCommands: any = []
+export const EventsCommands: any = []
+export const FunCommands: any = []
+export const GamesCommands: any = []
+export const GeneralCommands: any = []
+export const MISCCommands: any = []
+export const MusicCommands: any = []
+export const NotifyCommands: any = []
+export const NSFWCommnads: any = []
+export const OwnerCommands: any = []
+export const SearchCommands: any = []
+
 export default class FalconClient extends Client {
     public prefix: string;
     public commands: Collection<string, Command> = new Collection();
@@ -37,6 +49,7 @@ export default class FalconClient extends Client {
 
         this._loadCommands(config.commandDir);
         this._loadEvents(config.eventDir);
+        this._loadGeneralCommands(config.commandDir)
 
         this.login(config.token);
     }
@@ -70,6 +83,15 @@ export default class FalconClient extends Client {
 
                     this.logger.success("client/commands", `Loaded command ${pull.name.toLowerCase()} successfully`);
                 }
+            });
+    }
+
+    private _loadGeneralCommands(commandDir: string): void {
+        readdirSync(commandDir)
+            .forEach(async (dir: string) => {
+                const files = readdirSync(`${commandDir}/general`);
+
+                GeneralCommands.push(files)
             });
     }
 
