@@ -50,6 +50,7 @@ export default class FalconClient extends Client {
         this._loadCommands(config.commandDir);
         this._loadEvents(config.eventDir);
         this._loadAdminCommands(config.commandDir)
+        this._loadFunCommands(config.commandDir)
         this._loadEventsCommands(config.commandDir)
         this._loadGamesCommands(config.commandDir)
         this._loadGeneralCommands(config.commandDir)

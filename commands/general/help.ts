@@ -20,6 +20,7 @@ const HelpCommand: Command = {
         const PREFIX = "." // Dynamic PRefix incoming
 
         console.log(GeneralCommands)
+        console.log(FunCommands)
 
         try {
             if (args[0] === "general") {
