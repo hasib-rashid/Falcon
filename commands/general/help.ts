@@ -2,7 +2,7 @@ import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js'
 import { helpAsserts } from '../../assets/json/helpAssersts'
 
-import { AdminCommands, GeneralCommands } from '../../classes/client'
+import { AdminCommands, EventsCommands, FunCommands, GamesCommands, GeneralCommands, MISCCommands, MusicCommands, NotifyCommands, NSFWCommnads, OwnerCommands, SearchCommands } from '../../classes/client'
 
 const HelpCommand: Command = {
     name: 'help',
