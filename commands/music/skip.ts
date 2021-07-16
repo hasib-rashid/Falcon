@@ -2,7 +2,7 @@ import Command from '../../constants/command';
 
 const SkipCommand: Command = {
     name: 'skip',
-    description: 'Pause a song in Falcon',
+    description: 'Skip the current song',
     aliases: [
         ''
     ],

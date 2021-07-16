@@ -1,7 +1,5 @@
 import { numberOfCommands } from '../../classes/client'
 
-console.log(numberOfCommands)
-
 export const helpAsserts = [
     {
         "name": "General",
