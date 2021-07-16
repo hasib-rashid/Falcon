@@ -2,7 +2,7 @@ import Command from '../../constants/command';
 
 const ResumeCommand: Command = {
     name: 'resume',
-    description: 'Pause a song in Falcon',
+    description: 'Resume a Song',
     aliases: [
         ''
     ],
