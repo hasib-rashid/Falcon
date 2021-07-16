@@ -2,7 +2,7 @@ import Command from '../../constants/command';
 
 const LoopCommand: Command = {
     name: 'loop',
-    description: 'Pause a song in Falcon',
+    description: 'Loop a song',
     aliases: [
         ''
     ],
