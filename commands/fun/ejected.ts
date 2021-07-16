@@ -33,7 +33,9 @@ const EjectCommand: Command = {
         const random_color = colors[Math.floor(Math.random() * colors.length)];
         const random_impostor = impostor[Math.floor(Math.random() * impostor.length)];
 
-        message.channel.send(`https://vacefron.nl/api/ejected?name=${message.author.username}&impostor=${random_impostor}&crewmate=${random_color}`)
+        const user = message.mentions.members?.first()?.user.username || message.guild?.members.cache.get(args[0])?.user.username || message.author.username
+
+        message.channel.send(`https://vacefron.nl/api/ejected?name=${user}&impostor=${random_impostor}&crewmate=${random_color}`)
     },
 }
 
