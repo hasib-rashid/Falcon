@@ -54,9 +54,7 @@ const AkiCommand: Command = {
 				.setThumbnail("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1dN4TLf1iHslTjNFoeSUtzFhefd35zHInsWc4J1zvCQdU3zRH1sarzIHLVirNqnt3b5I&usqp=CAU")
 				.setAuthor(message.author.tag, message.author.displayAvatarURL() || message.author.defaultAvatarURL)
 				.setTitle(
-					`Akinator: **${aki.currentStep + 1}.**  (${Math.round(
-						(aki.progress, 10)
-					)}%)`
+					`Akinator: **${aki.currentStep + 1}.**  (${Math.round(aki.progress)}%)`
 				)
 				.addField(`Question ${aki.currentStep + 1}`, aki.question)
 				.addField("Answers", `**${aki.answers.map((answer: string) => {
