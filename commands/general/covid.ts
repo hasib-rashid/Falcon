@@ -75,7 +75,7 @@ const CovidCommand: Command = {
                     .setColor("#e6295f");
 
                 message.channel.send(embed);
-            }).catch((err) => console.log(err))
+            })
         }
 
         if (args[0]) {
