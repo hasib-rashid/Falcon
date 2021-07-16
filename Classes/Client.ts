@@ -86,23 +86,16 @@ export default class FalconClient extends Client {
             });
     }
 
-    private _loadGeneralCommands(commandDir: string): void {
-        readdirSync(commandDir)
-            .forEach(async (dir: string) => {
-                const files = readdirSync(`${commandDir}/general`);
+    private async _loadGeneralCommands(commandDir: string) {
+        const files = readdirSync(`${commandDir}/general`);
 
-                for (const file of files) {
-                    const pseudoPull = await import(`${commandDir}/general/${file}`);
+        for (const file of files) {
+            const pseudoPull = await import(`${commandDir}/general/${file}`);
 
-                    const pull: Command = pseudoPull.default;
+            const pull: Command = pseudoPull.default;
 
-                    pull.category = dir;
-
-                    for (var i = 0; i < files.length; ++i) {
-                        GeneralCommands.push(`**${pull.name}** - ${pull.description}`)
-                    }
-                }
-            });
+            GeneralCommands.push(`**${pull.name}** - ${pull.description}`)
+        }
     }
 
     private _loadEvents(eventDir: string) {
