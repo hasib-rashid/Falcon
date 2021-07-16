@@ -35,6 +35,32 @@ const HelpCommand: Command = {
                 message.channel.send(embed);
             }
 
+            if (args[0] === "fun") {
+                const embed = new MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.displayAvatarURL()
+                    )
+                    .setTitle(":smiley: General")
+                    .setDescription(FunCommands)
+                    .setColor("#0887ff");
+
+                message.channel.send(embed);
+            }
+
+            if (args[0] === "misc") {
+                const embed = new MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.displayAvatarURL()
+                    )
+                    .setTitle(":smiley: General")
+                    .setDescription(MISCCommands)
+                    .setColor("#0887ff");
+
+                message.channel.send(embed);
+            }
+
             if (args[0] === "games") {
                 const embed = new MessageEmbed()
                     .setAuthor(
@@ -42,19 +68,20 @@ const HelpCommand: Command = {
                         message.author.displayAvatarURL()
                     )
                     .setTitle(":video_game: Games")
-                    .setDescription(
-                        `
-                    **aki** - Play Akinator
-                    **gunfight** - Do a gunfight!
-                    **hangman** - Guess the correct words in hangman
-                    **quiz** - Play a quiz game!
-                    **minesweeper** - A Minesweeper game
-                    **rps** - Rock Paper Scissors Shoo
-                    **russianroulette** - A game of Russian roulette
-                    **snakegame** - Play a OG game of Snake
-                    **tictactoe** - Play Tic Tac Toe with your freinds
-                `
+                    .setDescription(GamesCommands)
+                    .setColor("#0887ff");
+
+                message.channel.send(embed);
+            }
+
+            if (args[0] === "search") {
+                const embed = new MessageEmbed()
+                    .setAuthor(
+                        message.author.username,
+                        message.author.displayAvatarURL()
                     )
+                    .setTitle(":smiley: General")
+                    .setDescription(SearchCommands)
                     .setColor("#0887ff");
 
                 message.channel.send(embed);
@@ -67,27 +94,7 @@ const HelpCommand: Command = {
                         message.author.displayAvatarURL()
                     )
                     .setTitle("<:ban_hammer:809356434885967882> Moderation")
-                    .setDescription(
-                        `
-                                **ban** - Ban a user
-                                **kick** - Kick a user
-                                **addRole** - add Role to a user
-                                **removeRole** - Remove Role of a user
-                                **createRR** - create a reaction role
-                                **deleteRR** - delete a reaction role
-                                **fetchTranscript** - Fetch the transcript of the channel
-                                **giveaway** - Do a Giveaway
-                                **greroll** - Reroll a giveaway
-                                **gedit** - Edit a Giveaway
-                                **lockdown** - Lock down a server during raid
-                                **Unlockdown** - Unlock down the server when a raid stops
-                                **slowmode** - Set the slowmode of a channel
-                                **nuke** - Nuke the channel
-                                **purge** - Purge a certain amount of messages in a channel
-                                **ticket-setup** - Setup a ticket system
-                                **ticket-close** - Close the ticket of a member
-                            `
-                    )
+                    .setDescription(AdminCommands)
                     .setColor("#0887ff");
 
                 message.channel.send(embed);
@@ -100,27 +107,7 @@ const HelpCommand: Command = {
                         message.author.displayAvatarURL()
                     )
                     .setTitle(":musical_note: Music")
-                    .setDescription(
-                        `
-                                **play** - Play a song in the VC
-                                **pause** - Pause a song
-                                **resume** - Resume a video after pausing it
-                                **stop** - Clears the queue and leaves the voice channel
-                                **skip** - Skip a song
-                                **search** - Search for a song in youtube
-                                **repeat** - Repeat a song many times you want
-                                **shuffle** - Shuffles the queue
-                                **jump** - Jump to a certain song in the queue
-                                **queue** - Shows the queue
-                                **seek** - Moves the song to a certain part of the song
-                                **volume** - Set the volume to a certain amount
-                                **playSkip** - Skip the song and play another one
-                                **addRelatedVideo** - Add a related Video
-                                **setRepeatMode** - Set the Repeat Mode. For example \`setRepeatMode 0 | 1 | 2\`
-                                **toggleAutoplay** - Toggle the Autoplay on or off
-                                **code-radio** - Play the radio to code
-                            `
-                    )
+                    .setDescription(MusicCommands)
                     .setColor("#0887ff");
 
                 message.channel.send(embed);
@@ -149,30 +136,7 @@ const HelpCommand: Command = {
                         message.author.displayAvatarURL()
                     )
                     .setTitle(":underage: NSFW")
-                    .setDescription(
-                        `
-                            **anal** - NSFW Anal
-                            **ass** - NSFW Ass
-                            **boobs** - NSFW Boobs
-                            **erokemo** - NSFW Erokemo
-                            **fuck** - NSFW Fuck
-                            **gonewild** - NSFW Gonewild
-                            **hentai** - NSFW Hentai
-                            **hentaiass** - NSFW HentaiAss
-                            **hentaithigh** - NSFW HentaiThigh
-                            **hmidriff** - NSFW Hmidriff
-                            **kitsune** - NSFW kitsune
-                            **lewd** - NSFW Lewd
-                            **nekofeet** - NekoFeet
-                            **nekopussy** - NSFW Nekopussy
-                            **nekotits** - NSFW NekoTits
-                            **porngif** - NSFW Porn Gif
-                            **pussy** - NSFW Pussy
-                            **solo** - NSFW Solo
-                            **thigh** - NSFW thigh
-                            **wallpaper** - NSFW Wallpaper
-                        `
-                    )
+                    .setDescription(NSFWCommnads)
                     .setColor("#0887ff");
 
                 message.channel.send(embed);
