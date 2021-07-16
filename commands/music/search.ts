@@ -81,7 +81,6 @@ const SearchCommand: Command = {
                 });
             })
             .catch(() => {
-                console.log(console.error);
                 userinput = 404;
             });
         if (userinput === 404) {
