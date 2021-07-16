@@ -219,33 +219,6 @@ const HelpCommand: Command = {
 
                 return message.channel.send(embed);
             }
-
-            if (!args[0]) {
-                const embed = new MessageEmbed()
-                    .setAuthor(
-                        message.author.tag,
-                        message.author.displayAvatarURL()
-                    )
-                    .setTitle(`Server Prefix: \`${PREFIX}\``)
-                    .addField(`If you are using Falcon for the first time in this server then start with \`.help setup\``, "`=setup`")
-                    .addField(
-                        "\n\n\nTo learn a command and its proper use, specify it's module in help command.\nLike: `!help [Command]`",
-                        `Example: \` ${PREFIX}help games \``
-                    )
-                    .setColor("#0887ff")
-                    .setFooter(
-                        `Commands: 180`
-                    );
-
-                for (var i = 0; i < 10; ++i) {
-                    const result = helpAsserts[i];
-                    embed.addField(`${result.emoji} ${result.name}`, `\`${result.number}\``, true)
-                }
-
-                embed.addField("Extra Links", "[Invite Me](https://google.com) • [Discord](https://google.com) • [Website](https://google.com) • [Donate](https://google.com)")
-
-                return message.channel.send(embed);
-            }
         } catch (err) {
             const embed = new MessageEmbed()
                 .setAuthor(
