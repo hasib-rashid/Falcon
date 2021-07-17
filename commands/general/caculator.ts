@@ -3,8 +3,8 @@ import { MessageEmbed } from 'discord.js'
 import { evaluate } from 'mathjs'
 
 const MathCommand: Command = {
-    name: 'math',
-    description: 'Do maths in this command',
+    name: 'calculator',
+    description: 'Calculate anything with a Calculator',
     aliases: [
         'calculate', 'calc'
     ],
