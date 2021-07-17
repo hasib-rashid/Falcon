@@ -1,3 +1,5 @@
+require("moment-duration-format")
+
 import Command from '../../constants/command';
 import { MessageEmbed, version as djsVersion } from 'discord.js'
 import { formatNumber } from '../../util/Util';
