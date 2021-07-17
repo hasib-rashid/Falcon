@@ -2,6 +2,8 @@ import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js'
 import { helpAsserts } from '../../assets/json/helpAssersts'
 
+import { getArraySum } from '../../util/Util'
+
 import { numberOfCommands, AdminCommands, EventsCommands, FunCommands, GamesCommands, GeneralCommands, MISCCommands, MusicCommands, NotifyCommands, NSFWCommnads, OwnerCommands, SearchCommands, totalCommands } from '../../classes/client'
 
 const HelpCommand: Command = {
