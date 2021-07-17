@@ -2750,6 +2750,11 @@ ora@^4.0.3:
     strip-ansi "^6.0.0"
     wcwidth "^1.0.1"
 
+os-utils@^0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/os-utils/-/os-utils-0.0.14.tgz#29e511697b1982b8c627722175fe39797ef64156"
+  integrity sha1-KeURaXsZgrjGJ3Ihdf45eX72QVY=
+
 p-cancelable@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/p-cancelable/-/p-cancelable-1.1.0.tgz#d078d15a3af409220c886f1d9a0ca2e441ab26cc"
