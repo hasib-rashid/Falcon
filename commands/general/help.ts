@@ -2,7 +2,7 @@ import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js'
 import { helpAsserts } from '../../assets/json/helpAssersts'
 
-import { AdminCommands, EventsCommands, FunCommands, GamesCommands, GeneralCommands, MISCCommands, MusicCommands, NotifyCommands, NSFWCommnads, OwnerCommands, SearchCommands } from '../../classes/client'
+import { numberOfCommands, AdminCommands, EventsCommands, FunCommands, GamesCommands, GeneralCommands, MISCCommands, MusicCommands, NotifyCommands, NSFWCommnads, OwnerCommands, SearchCommands, totalCommands } from '../../classes/client'
 
 const HelpCommand: Command = {
     name: 'help',
@@ -141,6 +141,8 @@ const HelpCommand: Command = {
             }
 
             if (!args[0]) {
+
+
                 const embed = new MessageEmbed()
                     .setAuthor(
                         message.author.tag,
@@ -154,12 +156,20 @@ const HelpCommand: Command = {
                     )
                     .setColor("#0887ff")
                     .setFooter(
-                        `Commands: 180`
+                        `Number of Commands: ${getArraySum(numberOfCommands)}`
                     );
 
                 for (var i = 0; i < 10; ++i) {
                     const result = helpAsserts[i];
                     embed.addField(`${result.emoji} ${result.name}`, `\`${result.number}\``, true)
+                }
+
+                function getArraySum(a: any) {
+                    var total = 0;
+                    for (var i in a) {
+                        total += a[i];
+                    }
+                    return total;
                 }
 
                 embed.addField("Extra Links", "[Invite Me](https://google.com) • [Discord](https://google.com) • [Website](https://google.com) • [Donate](https://google.com)")
