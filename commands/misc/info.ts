@@ -3,6 +3,9 @@ import { MessageEmbed, version as djsVersion } from 'discord.js'
 import { formatNumber } from '../../util/Util';
 import { totalCommands } from '../../classes/client'
 import { version, dependencies } from '../../package.json'
+import moment from 'moment'
+
+const deps = { ...dependencies };
 
 const InfoCommand: Command = {
     name: 'info',
