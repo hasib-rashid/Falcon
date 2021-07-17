@@ -84,3 +84,11 @@ export function shorten(text: string, maxLen = 2000) {
 export function googleShorten(text: string, maxLen = 80) {
     return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text;
 }
+
+export function getArraySum(a: any) {
+    var total = 0;
+    for (var i in a) {
+        total += a[i];
+    }
+    return total;
+}

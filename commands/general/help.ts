@@ -162,14 +162,6 @@ const HelpCommand: Command = {
                     embed.addField(`${result.emoji} ${result.name}`, `\`${result.number}\``, true)
                 }
 
-                function getArraySum(a: any) {
-                    var total = 0;
-                    for (var i in a) {
-                        total += a[i];
-                    }
-                    return total;
-                }
-
                 embed.addField("Extra Links", "[Invite Me](https://google.com) • [Discord](https://google.com) • [Website](https://google.com) • [Donate](https://google.com)")
 
                 return message.channel.send(embed);
