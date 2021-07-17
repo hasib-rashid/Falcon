@@ -24,6 +24,7 @@
 	"dependencies": {
 		"@discordjs/opus": "^0.5.3",
 		"@vitalets/google-translate-api": "^7.0.0",
+		"@weky/inlinereply": "^0.0.0",
 		"aki-api": "^5.2.1",
 		"aki-api.ts": "^1.0.1",
 		"axios": "^0.21.1",

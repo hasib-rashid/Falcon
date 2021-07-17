@@ -1,5 +1,8 @@
 import Command from '../../constants/command';
+require("@weky/inlinereply")
 import { MessageEmbed } from 'discord.js'
+// @ts-ignore
+import weky from 'weky'
 import { evaluate } from 'mathjs'
 
 const MathCommand: Command = {
@@ -16,19 +19,19 @@ const MathCommand: Command = {
 
     async run(client, message, args) {
         try {
-            const result = evaluate(args.join(" "))
-            const embed = new MessageEmbed()
-                .setColor("BLUE")
-                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .setTitle("Calculator | Math")
-                .setDescription("Do Maths in Discord.")
-                .setFooter("Powered by MathJS")
-                .setTimestamp()
-                .addField("Question", `\`\`\`css\n${args.join(" ")}\`\`\``)
-                .addField("Answer", `\`\`\`css\n${result}\`\`\``);
-
-            message.channel.send(embed)
+            await weky.Calculator({
+                message: message,
+                embed: {
+                    title: 'Calculator | Falcon',
+                    color: '#3982f7',
+                    timestamp: true
+                },
+                disabledQuery: 'Calculator is disabled!',
+                invalidQuery: 'The provided equation is invalid!',
+                othersMessage: 'Only <@{{author}}> can use the buttons!'
+            });
         } catch (err) {
+            console.error(err)
             message.channel.send("**There has been a error. Please try again with a valid math logic**")
         }
     },
