@@ -6,6 +6,7 @@ import { formatNumber } from '../../util/Util';
 import { totalCommands } from '../../classes/client'
 import { version, dependencies } from '../../package.json'
 import moment from 'moment'
+import * as copyright from '../../assets/json/copyright.json'
 
 const deps = { ...dependencies };
 
@@ -63,6 +64,7 @@ const InfoCommand: Command = {
                 .addField("❯ Source Code", "N/A", true)
                 .addField(
                     "❯ Uptime",
+                    // @ts-ignore
                     moment.duration(client.uptime).format("d:hh:mm:ss"),
                     true
                 )
