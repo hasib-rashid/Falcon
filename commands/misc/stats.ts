@@ -1,4 +1,5 @@
 import Command from '../../constants/command';
+import { } from 'os'
 
 const StatsCommand: Command = {
     name: 'stats',
