@@ -141,8 +141,6 @@ const HelpCommand: Command = {
             }
 
             if (!args[0]) {
-
-
                 const embed = new MessageEmbed()
                     .setAuthor(
                         message.author.tag,
