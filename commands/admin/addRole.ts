@@ -20,14 +20,14 @@ const AddRoleCommand: Command = {
             );
 
         const user = message.mentions.users.first() || message.guild?.members.cache.get(args[0])
-        const nameofrole = args[1]
+        const nameofrole = message.mentions.roles.first()?.name || args[1]
 
         if (message.member.hasPermission("MANAGE_ROLES")) {
             const targetUser = user;
 
             if (!targetUser) {
                 message.channel.send(
-                    ":no_entry: Please specify a user first!"
+                    "**Please specify a user first!**"
                 );
                 return;
             }
@@ -41,7 +41,7 @@ const AddRoleCommand: Command = {
 
             if (!role) {
                 message.channel.send(
-                    `:no_entry: There is no role named as "${roleName}"`
+                    `**There is no role named as "${roleName}"**`
                 );
                 return;
             }
@@ -53,13 +53,13 @@ const AddRoleCommand: Command = {
                 .setTitle("Role Added! :thumbsup:")
                 .setColor("GREEN")
                 .setDescription(
-                    `:thumbsup: ${role} was Successfully added to ${targetUser} by ${message.author.tag}`
+                    `**${role} was Successfully added to ${targetUser} by ${message.author.tag}**`
                 )
-                .setFooter("Copyright @2021 CodeVert");
+                .setFooter("Copyright @2021 Falcon");
 
             message.channel.send(addRoleEmbed);
         } else {
-            message.channel.send(":no_entry: Insufficient Permissions");
+            message.channel.send("**Insufficient Permissions**");
         }
     },
 }
