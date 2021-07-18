@@ -13,7 +13,10 @@ const AddRoleCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-
+        if (!message.member?.hasPermission("MANAGE_ROLES"))
+            return message.channel.send(
+                "**You need `MANAGE_ROLES` permission to use this command**"
+            );
     },
 }
 
