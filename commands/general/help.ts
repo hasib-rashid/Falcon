@@ -54,7 +54,7 @@ const HelpCommand: Command = {
                         message.author.username,
                         message.author.displayAvatarURL()
                     )
-                    .setTitle(":smiley: General")
+                    .setTitle(":wrench: MISC")
                     .setDescription(MISCCommands)
                     .setColor("#0887ff");
 
