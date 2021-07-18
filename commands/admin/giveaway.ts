@@ -19,6 +19,11 @@ const GiveawayStart: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        if (!message.member?.hasPermission("MANAGE_MESSAGES"))
+            return message.channel.send(
+                "**You need `MANAGE_MESSAGES` permission to use this command**"
+            );
+
         let prize
         let winners
         let endAfter
