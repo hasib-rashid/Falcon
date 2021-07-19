@@ -63,7 +63,7 @@ const BanCommand: Command = {
                     .setColor("#ed3737")
                     .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-                targetUser?.send(banEmbed).catch((err) => { message.channel.send("**Messages wasnt sent to this user because this user has his DM's disabled.**") })
+                targetUser?.send(banEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
             }
 
             if (button.id === "ban-no") {
