@@ -20,14 +20,18 @@ const BanCommand: Command = {
                 "**You need `BAN_MEMBERS` permission to use this command**"
             );
 
+
+        const banReason = args.slice(1).join(' ');
+
         const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
 
         const confirmEmbed = new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL())
             .setTitle("Banning A User")
-            .setColor("#ff2424")
-            .setDescription(`**Are you sure you want to ban  ${targetUser}\n\nReason:  \`${args.join(" ")}\`\n\n This Action is irreversable.\n\n React with ✅ if you want to ban this user. And react with ❌ if you want to cancel this request.\n You have 30 seconds to apply the command.**`)
+            .setColor("#ed3737")
+            .setDescription(`**Are you sure you want to ban  ${targetUser} for \`${banReason || "No Reason"}\`**`)
             .setFooter(message.client.user?.username, message.client.user?.displayAvatarURL())
+
         const confirmButton = new MessageButton()
             .setLabel("Yes")
             .setID("ban-yes")
