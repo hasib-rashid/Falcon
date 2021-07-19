@@ -59,7 +59,9 @@ const BanCommand: Command = {
             if (button.id === "ban-yes") {
                 if (!button.message.author) return;
 
-                button.message.channel.send("**Smulate Ban**")
+                targetUser?.ban({ reason: banReason })
+
+                message.channel.send(`**Successfully Banned ${targetUser} from this server.**`)
 
                 const banEmbed = new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL())
