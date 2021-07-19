@@ -28,6 +28,7 @@ const BanCommand: Command = {
         const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
 
         if (targetUser?.id === client.user?.id) return message.channel.send("**<:Bruh:862681013946810388> Seriously Dude....**")
+        if (targetUser?.id === message.author?.id) return message.channel.send("**Haha Very Funny**")
 
         const confirmEmbed = new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL())
