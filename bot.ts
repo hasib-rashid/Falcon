@@ -55,6 +55,16 @@ const distube = new DisTube(client, {
     },
 });
 
+client.on('clickButton', async (button) => {
+    if (button.id === "ban-yes") {
+        button.message.channel.send("**Smulate Ban**")
+    }
+
+    if (button.id === "ban-no") {
+        button.message.channel.send("**Smulate Cancel Ban**")
+    }
+});
+
 client.distube = distube;
 
 distube

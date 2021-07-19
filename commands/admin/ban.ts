@@ -1,6 +1,6 @@
 import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js';
-import { MessageButton } from 'discord-buttons'
+import { MessageActionRow, MessageButton } from 'discord-buttons'
 
 const BanCommand: Command = {
     name: 'ban',
@@ -28,13 +28,21 @@ const BanCommand: Command = {
             .setColor("#ff2424")
             .setDescription(`**Are you sure you want to ban  ${targetUser}\n\nReason:  \`${args.join(" ")}\`\n\n This Action is irreversable.\n\n React with ✅ if you want to ban this user. And react with ❌ if you want to cancel this request.\n You have 30 seconds to apply the command.**`)
             .setFooter(message.client.user?.username, message.client.user?.displayAvatarURL())
-        let button = new MessageButton()
-            .setLabel("This is a button!")
-            .setID("myid")
-            .setStyle("blurple");
+        const confirmButton = new MessageButton()
+            .setLabel("Yes")
+            .setID("ban-yes")
+            .setStyle("green");
 
-        message.channel.send(confirmEmbed, button).then(async (msg) => {
-        })
+
+        const denyButton = new MessageButton()
+            .setLabel("No")
+            .setID("ban-no")
+            .setStyle("red");
+
+        const row = new MessageActionRow()
+            .addComponents(confirmButton, denyButton)
+
+        message.channel.send(confirmEmbed, row)
     },
 }
 
