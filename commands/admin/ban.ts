@@ -47,6 +47,20 @@ const BanCommand: Command = {
             .addComponents(confirmButton, denyButton)
 
         message.channel.send(confirmEmbed, row)
+
+        client.on('clickButton', async (button) => {
+            if (button.id === "ban-yes") {
+                if (!button.message.author) return;
+
+                button.message.channel.send("**Smulate Ban**")
+            }
+
+            if (button.id === "ban-no") {
+                if (!button.message.author) return;
+
+                button.message.channel.send("**Smulate Cancel Ban**")
+            }
+        });
     },
 }
 
