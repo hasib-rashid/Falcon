@@ -15,6 +15,8 @@ const BanCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        if (!message.author) return;
+
         if (!message.member?.hasPermission("BAN_MEMBERS"))
             return message.channel.send(
                 "**You need `BAN_MEMBERS` permission to use this command**"
@@ -72,7 +74,7 @@ const BanCommand: Command = {
             if (button.id === "ban-no") {
                 if (!button.message.author) return;
 
-                button.message.channel.send("**Smulate Cancel Ban**")
+                button.message.channel.send("**Canceled The Action.**")
             }
         });
     },
