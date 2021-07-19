@@ -20,12 +20,12 @@ const BanCommand: Command = {
                 "**You need `BAN_MEMBERS` permission to use this command**"
             );
 
-        if (message.author.id === "839367177899737108") return message.channel.send("Imagine Dragons Deez Nutz right in your face.")
-
-
         const banReason = args.slice(1).join(' ') || "No Reason";
 
         const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
+
+        // @ts-ignore
+        if (!message.guild?.member(targetUser)?.bannable) return message.channel.send("**Could not ban this user due to role hierchy**");
 
         if (targetUser?.id === client.user?.id) return message.channel.send("**<:Bruh:862681013946810388> Seriously Dude....**")
         if (targetUser?.id === message.author?.id) return message.channel.send("**Haha Very Funny**")
