@@ -3,7 +3,7 @@ import { default as axios } from 'axios'
 
 const NotStonksCommand: Command = {
     name: 'notstonks',
-    description: 'Get some Stonks',
+    description: 'Get negative Stonks :)',
     aliases: [
         ''
     ],
