@@ -26,7 +26,7 @@ const UnlockdownCommand: Command = {
         await role?.edit({ permissions: perms });
 
         message.channel.send(
-            ":unlock: Unlocked the Server! Members can chat now!"
+            "**:unlock: Unlocked the Server! Members can chat now!**"
         );
     },
 }
