@@ -3,7 +3,7 @@ import { default as axios } from 'axios'
 
 const TableFlipCommand: Command = {
     name: 'tableflip',
-    description: 'Get some Stonks',
+    description: 'Do a TableFlip',
     aliases: [
         ''
     ],
