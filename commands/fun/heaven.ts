@@ -3,7 +3,7 @@ import { default as axios } from 'axios'
 
 const HeavenCommand: Command = {
     name: 'heaven',
-    description: 'Get some Stonks',
+    description: 'Feel the Heaven',
     aliases: [
         ''
     ],
