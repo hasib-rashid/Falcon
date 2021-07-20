@@ -1,3 +1,4 @@
+import { TextChannel } from 'discord.js';
 import Command from '../../constants/command';
 
 const NukeCommand: Command = {
@@ -13,7 +14,20 @@ const NukeCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        if (!message.member?.hasPermission("MANAGE_MESSAGES"))
+            return message.channel.send(
+                "**You need `MANAGE_MESSAGES` permission to use this command**"
+            );
 
+        // @ts-ignore
+        message.channel.clone().then((channel: TextChannel) => {
+            // @ts-ignore
+            channel.setPosition(message.channel.position);
+            channel.send(
+                "Successfully Nuked this channel! \nhttps://media2.giphy.com/media/oe33xf3B50fsc/giphy.gif"
+            );
+        });
+        message.channel.delete();
     },
 }
 
