@@ -21,6 +21,8 @@ const MessageEvent: Event = {
         // Will keep plugins here
         const prefix = "." //TODO Dynamic Prefix
 
+        if (message.content === prefix) return;
+
         if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
 
         const args = message.content.slice(prefix.length).trim().split(/ +/g);
