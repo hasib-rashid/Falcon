@@ -3,7 +3,7 @@ import { default as axios } from 'axios'
 
 const IAmSpeedCommand: Command = {
     name: 'iamspeed',
-    description: 'Get some Stonks',
+    description: 'Speeeed',
     aliases: [
         'i-am-speed'
     ],
