@@ -3,7 +3,7 @@ import { default as axios } from 'axios'
 
 const WideCommand: Command = {
     name: 'wide',
-    description: 'Get some Stonks',
+    description: "Widen Someone's avatar",
     aliases: [
         ''
     ],
