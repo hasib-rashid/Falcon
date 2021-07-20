@@ -3,7 +3,7 @@ import { default as axios } from 'axios'
 
 const WolverineCommand: Command = {
     name: 'wolverine',
-    description: 'Get some Stonks',
+    description: 'Make a meme with Wolverine',
     aliases: [
         ''
     ],
