@@ -19,8 +19,6 @@ const RemoveRRCommand: Command = {
                     "**You need `MANAGE_ROLES` permission to use this command**"
                 );
 
-            const args = message.content.split(" ").slice(1);
-
             const emoji = args[0];
             if (!emoji)
                 return message
