@@ -31,6 +31,7 @@ export default class FalconClient extends Client {
     public shit;
     public MessageEmbed = NewMessageEmbed;
     public distube: any;
+    public reactionRole: any;
     // @ts-ignore
     public countryCache: CountryResponse[];
 

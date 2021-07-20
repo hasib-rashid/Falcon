@@ -1,3 +1,4 @@
+import { MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
 
 const TestCommand: Command = {
@@ -13,7 +14,7 @@ const TestCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-
+        message.guild?.roles.cache.get("856852868602527795")?.delete()
     },
 }
 

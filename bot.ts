@@ -1,13 +1,12 @@
 import discordButtons from "discord-buttons";
 import { Message, MessageEmbed } from "discord.js";
-import { DisTubeOptions } from "distube";
 import Queue from "distube/typings/Queue";
-import Song from "distube/typings/Song";
 import { config } from "dotenv";
 config();
 import Client from "./classes/client";
 import { formatNumber } from "./util/Util";
-const DisTube = require("distube");
+import DisTube from "distube"
+import { ReactionRoleManager } from "discord.js-collector"
 
 const client = new Client({
     token: process.env.TOKEN,
@@ -23,6 +22,11 @@ const client = new Client({
         chat: "<:chat:841735309258653708>",
     },
 });
+
+// @ts-ignore
+const reactionRoleManager = new ReactionRoleManager(client, { mongoDbLink: process.env.MONGO_URL });
+
+client.reactionRole = reactionRoleManager
 
 const distube = new DisTube(client, {
     youtubeCookie: "",
