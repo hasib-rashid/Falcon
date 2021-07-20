@@ -37,14 +37,14 @@ const SlowmodeCommand: Command = {
                         message.author.tag,
                         message.author.displayAvatarURL()
                     )
-                    .setColor("RANDOM")
+                    .setColor("#387df5")
                     .setDescription(
-                        'Please provide either a number of seconds or the word "off"'
+                        '**Please provide either a number of seconds or the word "off"**'
                     )
                     .setThumbnail(
                         "https://i.pinimg.com/originals/3f/82/40/3f8240fa1d16d0de6d4e7510b43b37ba.gif"
                     )
-                    .setFooter("CodeVert 2021");
+                    .setFooter(client.user?.username, client.user?.displayAvatarURL());
 
                 message.channel.send(embed);
                 return;
@@ -58,15 +58,15 @@ const SlowmodeCommand: Command = {
                     message.author.tag,
                     message.author.displayAvatarURL()
                 )
-                .setColor("RANDOM")
+                .setColor("#387df5")
                 .setDescription(
                     // @ts-ignore
-                    `The slowmode for this channel "${message.channel.name}" was successfully set to ${duration} for ${reason}`
+                    `**The slowmode for ${message.channel} was successfully set to ${duration} seconds for \`${reason}\`**`
                 )
                 .setThumbnail(
                     "https://i.pinimg.com/originals/3f/82/40/3f8240fa1d16d0de6d4e7510b43b37ba.gif"
                 )
-                .setFooter("CodeVert 2021");
+                .setFooter(client.user?.username, client.user?.displayAvatarURL());
 
             message.reply(embed);
         } catch (err) {
