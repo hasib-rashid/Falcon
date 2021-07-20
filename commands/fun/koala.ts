@@ -3,7 +3,7 @@ import { default as axios } from 'axios'
 
 const KoalaCommand: Command = {
     name: 'koala',
-    description: 'Watch some birds!',
+    description: 'Watch some koala!',
     aliases: [
         ''
     ],
