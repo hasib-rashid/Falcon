@@ -5,7 +5,7 @@ const PurgeCommand: Command = {
     name: 'purge',
     description: 'Delete a certain amount of messages with just one command',
     aliases: [
-        ''
+        'clear'
     ],
     guildOnly: false,
     ownerOnly: false,
