@@ -26,11 +26,12 @@ const KickCommand: Command = {
 
         const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
 
-        // @ts-ignore
-        if (!message.guild?.member(targetUser)?.kickable) return message.channel.send("**Could not kick this user due to role hierchy**");
 
         if (targetUser?.id === client.user?.id) return message.channel.send("**<:Bruh:862681013946810388> Seriously Dude....**")
         if (targetUser?.id === message.author?.id) return message.channel.send("**Haha Very Funny**")
+
+        // @ts-ignore
+        if (!message.guild?.member(targetUser)?.kickable) return message.channel.send("**Could not kick this user due to role hierchy**");
 
         const confirmEmbed = new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL())
