@@ -3,7 +3,7 @@ import { default as axios } from 'axios'
 
 const GraveCommand: Command = {
     name: 'grave',
-    description: 'Get some Stonks',
+    description: 'Grave yourself :)',
     aliases: [
         ''
     ],
