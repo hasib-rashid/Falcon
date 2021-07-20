@@ -13,15 +13,22 @@ const LockCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        const role = message.guild?.roles.everyone
+        if (!message.member?.hasPermission("MANAGE_CHANNELS"))
+            return message.channel.send(
+                "**You need `MANAGE_CHANNELS` permission to use this command**"
+            );
 
-        // @ts-ignore
-        message.channel.updateOverwrite(message.guild?.roles.everyone, { SEND_MESSAGES: false }).then(() => {
-            message.channel.send("**Successfully Put a Lockdown on the server.**")
-        }).catch((error: any) => {
-            console.log(error);
-        });
+        const role = message.guild?.roles.everyone;
 
+        const perms = role?.permissions.toArray();
+
+        const newPerms = perms?.filter((perm) => perm !== "SEND_MESSAGES");
+
+        await role?.edit({ permissions: newPerms });
+
+        message.channel.send(
+            ":lock: Locked down the Server! Use `lockdown false` command to Unlock the Lockdown!"
+        );
 
     },
 }
