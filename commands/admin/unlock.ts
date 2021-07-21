@@ -15,7 +15,7 @@ const UnlockCommand: Command = {
     async run(client, message, args) {
         // @ts-ignore
         message.channel.updateOverwrite(message.guild?.roles.everyone, { SEND_MESSAGES: true }).then(() => {
-            message.channel.send('**Channel has been locked**');
+            message.channel.send('**Channel has been Unlocked**');
         }).catch((error: any) => {
             console.log(error);
         });
