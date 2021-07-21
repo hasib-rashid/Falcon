@@ -16,7 +16,7 @@ const MuteCommand: Command = {
     async run(client, message, args) {
         const muteReason = args.slice(1).join(' ') || "No Reason";
 
-        if (!message.member?.hasPermission('MANAGE_MESSAGES')) return message.channel.send('You do not have permissions to use this command')
+        if (!message.member?.hasPermission('MANAGE_MESSAGES')) return message.channel.send('**You need `MANAGE_MESSAGES` permission to use this command**')
         const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
         if (!Member) return message.channel.send('Member is not found.')
         const role = message.guild?.roles.cache.find(role => role.name.toLowerCase() === 'muted')
@@ -40,7 +40,7 @@ const MuteCommand: Command = {
         };
         let role2 = message.guild?.roles.cache.find(r => r.name.toLowerCase() === 'muted')
         // @ts-ignore
-        if (Member.roles.cache.has(role2?.id)) return message.channel.send(`${Member.displayName} has already been muted.`)
+        if (Member.roles.cache.has(role2?.id)) return message.channel.send(`**${Member} has already been muted.**`)
         // @ts-ignore
         await Member.roles.add(role2)
         message.channel.send(`**${Member} was successfully muted.**`)
