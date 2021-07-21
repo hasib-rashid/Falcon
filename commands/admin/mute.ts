@@ -22,6 +22,10 @@ const MuteCommand: Command = {
                 "**You need `BAN_MEMBERS` permission to use this command**"
             );
 
+        if (!message.guild?.roles.cache.find((role) => role.name === "Muted")) {
+            message.guild?.roles.create({ data: { name: "Muted", permissions: "READ_MESSAGE_HISTORY", color: "GRAY" } })
+        } else return
+
         const muteReason = args.slice(1).join(' ') || "No Reason";
 
         const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
