@@ -47,8 +47,8 @@ const MuteCommand: Command = {
 
         const muteEmbed = new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL())
-            .setTitle(`Banned from ${message.guild?.name}`)
-            .setDescription(`**${message.author} Has Banned you from ${message.guild?.name} for \`${muteReason}\`. Please contact him if you want to get unbanned.**`)
+            .setTitle(`Muted from ${message.guild?.name}`)
+            .setDescription(`**${message.author} Has Muted you from ${message.guild?.name} for \`${muteReason}\`. Please contact him if you want to get unmuted.**`)
             .setColor("#ed3737")
             .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
