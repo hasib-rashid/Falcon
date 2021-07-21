@@ -13,7 +13,12 @@ const LockCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-
+        // @ts-ignore
+        message.channel.updateOverwrite(message.guild?.roles.everyone, { SEND_MESSAGES: false }).then(() => {
+            message.channel.send('**Channel has been locked**');
+        }).catch((error: any) => {
+            console.log(error);
+        });
     },
 }
 
