@@ -1065,6 +1065,14 @@ discord-buttons@^4.0.0:
   resolved "https://registry.yarnpkg.com/discord-buttons/-/discord-buttons-4.0.0.tgz#0068ae5cc18cdd30112fca19b4b4c453ccc2ac73"
   integrity sha512-E/eQX4Ktj7nKwNDsTfCezBNCu73FtPWJfQcpKohfl0jct/ucMUO+7uhL2MhGsZr4SCfojk7OzccAznuntB564w==
 
+discord-moderator@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/discord-moderator/-/discord-moderator-1.1.6.tgz#764f09412232deb9a5964e2cdffcd8a6dce30e06"
+  integrity sha512-Ypcb29BsiYy6ZNsziLMzbeiq/T2OqyYRTxX/HOfCIZyK0AtwvuGnrHORUC+zupXVi055nbowikq5+91ciePL/w==
+  dependencies:
+    discord.js "^12.5.3"
+    quick.db "^7.1.3"
+
 discord-multipurpose@^2.1.14:
   version "2.1.14"
   resolved "https://registry.yarnpkg.com/discord-multipurpose/-/discord-multipurpose-2.1.14.tgz#6209a4ec23283e303d9c54a0d781fc920e507d71"
