@@ -7,7 +7,6 @@ import Client from "./classes/client";
 import { formatNumber } from "./util/Util";
 import DisTube from "distube"
 import { ReactionRoleManager } from "discord.js-collector"
-import Moderator from 'discord-moderator'
 
 const client = new Client({
     token: process.env.TOKEN,
@@ -23,10 +22,6 @@ const client = new Client({
         chat: "<:chat:841735309258653708>",
     },
 });
-
-const moderator = new Moderator(client)
-
-client.moderator = moderator
 
 // @ts-ignore
 const reactionRoleManager = new ReactionRoleManager(client, { mongoDbLink: process.env.MONGO_URL });

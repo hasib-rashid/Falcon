@@ -1,5 +1,4 @@
-import { MessageActionRow, MessageButton } from 'discord-buttons';
-import { GuildMemberRoleManager, MessageEmbed } from 'discord.js';
+import { MessageEmbed, Role, RoleManager, RoleResolvable } from 'discord.js';
 import Command from '../../constants/command';
 
 const MuteCommand: Command = {
@@ -15,37 +14,37 @@ const MuteCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        if (!message.author) return;
+        if (!message.member?.hasPermission('MANAGE_MESSAGES')) return message.channel.send('You do not have permissions to use this command')
+        const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
+        if (!Member) return message.channel.send('Member is not found.')
+        const role = message.guild?.roles.cache.find(role => role.name.toLowerCase() === 'muted')
+        if (!role) {
+            try {
+                message.channel.send('Muted role is not found, attempting to create muted role.')
 
-        if (!message.member?.hasPermission("BAN_MEMBERS"))
-            return message.channel.send(
-                "**You need `BAN_MEMBERS` permission to use this command**"
-            );
-
-        if (!message.guild?.roles.cache.find((role) => role.name === "Muted")) {
-            message.guild?.roles.create({ data: { name: "Muted", permissions: "READ_MESSAGE_HISTORY", color: "GRAY" } })
-        } else return
-
-        const muteReason = args.slice(1).join(' ') || "No Reason";
-
-        const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
-
+                let muterole = await message.guild?.roles.create({
+                    data: {
+                        name: 'muted',
+                        permissions: []
+                    }
+                });
+                message.guild?.channels.cache.filter(c => c.type === 'text').forEach(async (channel, id) => {
+                    await channel.createOverwrite(muterole || "", {
+                        SEND_MESSAGES: false,
+                        ADD_REACTIONS: false
+                    })
+                });
+                message.channel.send('Muted role has sucessfully been created.')
+            } catch (error) {
+                console.log(error)
+            }
+        };
+        let role2 = message.guild?.roles.cache.find(r => r.name.toLowerCase() === 'muted')
         // @ts-ignore
-        if (!message.guild?.member(targetUser)?.bannable) return message.channel.send("**Could not ban this user due to role hierchy**");
-
-        if (targetUser?.id === client.user?.id) return message.channel.send("**<:Bruh:862681013946810388> Seriously Dude....**")
-        if (targetUser?.id === message.author?.id) return message.channel.send("**Haha Very Funny**")
-
-        message.channel.send(`**Successfully Muted ${targetUser} from this server.**`)
-
-        const muteEmbed = new MessageEmbed()
-            .setAuthor(message.author.username, message.author.displayAvatarURL())
-            .setTitle(`Muted in ${message.guild?.name}`)
-            .setDescription(`**${message.author} Has Muted you from ${message.guild?.name} for \`${muteReason}\`. Please contact him if you want to get unbanned.**`)
-            .setColor("#ed3737")
-            .setFooter(client.user?.username, client.user?.displayAvatarURL())
-
-        targetUser?.send(muteEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+        if (Member.roles.cache.has(role2?.id)) return message.channel.send(`${Member.displayName} has already been muted.`)
+        // @ts-ignore
+        await Member.roles.add(role2)
+        message.channel.send(`${Member} is now muted.`)
     },
 }
 
