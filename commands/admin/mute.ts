@@ -1,5 +1,5 @@
 import { MessageActionRow, MessageButton } from 'discord-buttons';
-import { MessageEmbed } from 'discord.js';
+import { GuildMemberRoleManager, MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
 
 const MuteCommand: Command = {
