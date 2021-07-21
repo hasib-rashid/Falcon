@@ -27,7 +27,7 @@ const LockCommand: Command = {
         await role?.edit({ permissions: newPerms });
 
         message.channel.send(
-            ":lock: Locked down the Server! Use `lockdown false` command to Unlock the Lockdown!"
+            "**:lock: Locked down the Server! Use `unlockdown` command to Unlock the Lockdown!**"
         );
 
     },
