@@ -1,5 +1,5 @@
 Arguments: 
-  D:\Windows Documents\NodeJS\node.exe C:\Users\WC Harun\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add ms
+  D:\Windows Documents\NodeJS\node.exe C:\Users\WC Harun\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add -D @types/ms
 
 PATH: 
   C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python39\Scripts\;C:\Python39\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Windows Documents\Git\cmd;C:\ProgramData\chocolatey\bin;D:\Windows Documents\NodeJS\;C:\Program Files\dotnet\;C:\Users\WC Harun\AppData\Local\Microsoft\WindowsApps;D:\Windows Documents\Microsoft VS Code\bin;D:\Windows Documents\heroku\bin;C:\Users\WC Harun\AppData\Roaming\npm;C:\MinGW\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin

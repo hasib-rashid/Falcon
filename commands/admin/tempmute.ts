@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
+import ms from 'ms'
 
 const TempMuteCommand: Command = {
     name: 'tempmute',
@@ -16,10 +17,11 @@ const TempMuteCommand: Command = {
     async run(client, message, args) {
         if (!message.member?.hasPermission('MANAGE_MESSAGES')) return message.channel.send('You do not have permissions to use this command')
         const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
-        const input_time = args[1]
+
+        const time = args[1]
 
         if (!Member) return message.channel.send('Member is not found.')
-        if (!input_time) return message.channel.send('Please specify a time.')
+        if (!time) return message.channel.send('Please specify a time.')
         const role = message.guild?.roles.cache.find(role => role.name.toLowerCase() === 'muted')
         if (!role) {
             try {
@@ -53,8 +55,9 @@ const TempMuteCommand: Command = {
         setTimeout(async () => {
             // @ts-ignore
             await Member.roles.remove(role2)
-            message.channel.send(`${Member.displayName} is now unmuted`)
-        }, +input_time)
+            message.channel.send(`**${Member.displayName} is now unmuted.**`)
+            // @ts-ignore
+        }, ms(time))
     },
 }
 
