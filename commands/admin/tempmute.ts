@@ -1,6 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
 import ms from 'ms'
+import MuteUser from '../../models/MuteUser'
 
 const TempMuteCommand: Command = {
     name: 'tempmute',
@@ -19,6 +20,8 @@ const TempMuteCommand: Command = {
         const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
 
         const time = args[1]
+
+        MuteUser.create({ userID: Member?.id, guildID: message.guild?.id, time: time })
 
         if (!Member) return message.channel.send('Member is not found.')
         if (!time) return message.channel.send('Please specify a time.')

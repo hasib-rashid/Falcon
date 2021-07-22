@@ -24,12 +24,12 @@ GuildUser.init(
             allowNull: false
         },
         time: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         }
     },
     {
-        tableName: "guilduser",
+        tableName: "muteuser",
         sequelize,
     }
 );
