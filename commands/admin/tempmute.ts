@@ -16,20 +16,18 @@ const TempMuteCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        if (!message.member?.hasPermission('MANAGE_MESSAGES')) return message.channel.send('You do not have permissions to use this command')
+        if (!message.member?.hasPermission('MANAGE_MESSAGES')) return message.channel.send('**You need `MANAGE_MESSAGES` permission to use this command**')
         const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
 
         const time = args[1]
 
         MuteUser.create({ userID: Member?.id, guildID: message.guild?.id, time: time })
 
-        if (!Member) return message.channel.send('Member is not found.')
-        if (!time) return message.channel.send('Please specify a time.')
+        if (!Member) return message.channel.send('**Member is not found.**')
+        if (!time) return message.channel.send('**Please specify a time.**')
         const role = message.guild?.roles.cache.find(role => role.name.toLowerCase() === 'muted')
         if (!role) {
             try {
-                message.channel.send('Muted role is not found, attempting to create muted role.')
-
                 let muterole = await message.guild?.roles.create({
                     data: {
                         name: 'muted',
@@ -43,14 +41,13 @@ const TempMuteCommand: Command = {
                         ADD_REACTIONS: false
                     })
                 });
-                message.channel.send('Muted role has sucessfully been created.')
             } catch (error) {
                 console.log(error)
             }
         };
         let role2 = message.guild?.roles.cache.find(r => r.name.toLowerCase() === 'muted')
         // @ts-ignore
-        if (Member.roles.cache.has(role2?.id)) return message.channel.send(`${Member.displayName} has already been muted.`)
+        if (Member.roles.cache.has(role2?.id)) return message.channel.send(`**${Member.displayName} has already been muted.**`)
         // @ts-ignore
         await Member.roles.add(role2)
         message.channel.send(`${Member.displayName} is now muted.`)
