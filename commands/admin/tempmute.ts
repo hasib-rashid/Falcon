@@ -1,7 +1,8 @@
+import { MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
 
 const TempMuteCommand: Command = {
-    name: 'mute',
+    name: 'tempmute',
     description: 'Temporarily Mute a Member',
     aliases: [
         ''
@@ -13,71 +14,47 @@ const TempMuteCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        var time = "";
-        var time2 = "";
-        var time3 = "";
-        if (!message.member?.hasPermission("ADMINISTRATOR"))
-            return message.channel.send(
-                "You don't have enough permissions to use this command."
-            );
+        if (!message.member?.hasPermission('MANAGE_MESSAGES')) return message.channel.send('You do not have permissions to use this command')
+        const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
+        const input_time = args[1]
 
-        let actual_duration_hours
+        if (!Member) return message.channel.send('Member is not found.')
+        if (!input_time) return message.channel.send('Please specify a time.')
+        const role = message.guild?.roles.cache.find(role => role.name.toLowerCase() === 'muted')
+        if (!role) {
+            try {
+                message.channel.send('Muted role is not found, attempting to create muted role.')
 
-        if (!args) {
-            return message.channel.send(
-                `You didn\'t state a duration or a price for the giveaway.`
-            );
-        }
-
-        const stated_duration_hours: any = message.content.split(" ")[1];
-        const stated_duration_hours2: any =
-            stated_duration_hours.toLowerCase() || stated_duration_hours;
-        if (stated_duration_hours2.includes("s")) {
-            var time = "s";
-        }
-        if (stated_duration_hours2.includes("m")) {
-            var time = "m";
-        }
-        if (stated_duration_hours2.includes("h")) {
-            var time = "h";
-        }
-        if (stated_duration_hours2.includes("d")) {
-            var time = "d";
-        }
-        const stated_duration_hours3: any = stated_duration_hours2.replace(time, "");
-        if (stated_duration_hours3 === "0") {
-            message.channel.send("The duration has to be atleast one.");
-        }
-        if (isNaN(stated_duration_hours3)) {
-            message.channel.send(
-                "The duration has to be a valid time variable."
-            );
-        }
-        if (stated_duration_hours3 > 1) {
-            var time3 = "s";
-        }
-        if (time === "s") {
-            actual_duration_hours = stated_duration_hours3 * 1000;
-        }
-        if (time === "m") {
-            actual_duration_hours = stated_duration_hours3 * 60000;
-        }
-        if (time === "h") {
-            actual_duration_hours = stated_duration_hours3 * 3600000;
-        }
-        if (time === "d") {
-            actual_duration_hours = stated_duration_hours3 * 86400000;
-        }
-        if (!isNaN(stated_duration_hours3)) {
-            const prize = message.content.split(" ").slice(2).join(" ");
-            if (prize === "")
-                return message.channel.send("You have to enter a price.");
-            if (stated_duration_hours3 !== "0") {
-                setTimeout(() => {
-
-                }, actual_duration_hours)
+                let muterole = await message.guild?.roles.create({
+                    data: {
+                        name: 'muted',
+                        permissions: []
+                    }
+                });
+                message.guild?.channels.cache.filter(c => c.type === 'text').forEach(async (channel, id) => {
+                    // @ts-ignore
+                    await channel.createOverwrite(muterole, {
+                        SEND_MESSAGES: false,
+                        ADD_REACTIONS: false
+                    })
+                });
+                message.channel.send('Muted role has sucessfully been created.')
+            } catch (error) {
+                console.log(error)
             }
-        }
+        };
+        let role2 = message.guild?.roles.cache.find(r => r.name.toLowerCase() === 'muted')
+        // @ts-ignore
+        if (Member.roles.cache.has(role2?.id)) return message.channel.send(`${Member.displayName} has already been muted.`)
+        // @ts-ignore
+        await Member.roles.add(role2)
+        message.channel.send(`${Member.displayName} is now muted.`)
+
+        setTimeout(async () => {
+            // @ts-ignore
+            await Member.roles.remove(role2)
+            message.channel.send(`${Member.displayName} is now unmuted`)
+        }, +input_time)
     },
 }
 
