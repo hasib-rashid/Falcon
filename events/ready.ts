@@ -2,6 +2,7 @@ import Event from "../constants/event";
 import consola from 'consola'
 import { Sync } from '../database/sync'
 require("dotenv").config();
+import MuteUser from '../models/MuteUser'
 
 const ReadyEvent: Event = {
     name: "ready",
@@ -33,6 +34,10 @@ const ReadyEvent: Event = {
             ev.members.cache.map((member) => {
                 // @ts-ignore
                 if (member.roles.cache.has(ev?.roles.cache.find(r => r.name.toLowerCase() === 'muted')?.id)) {
+                    // @ts-ignore
+                    MuteUser.findOne({ where: { userID: member.id, guildID: member.guild.id } }).then((response, error) => {
+
+                    })
                     // @ts-ignore
                     ev.channels.cache.get("827571278063599617")?.send(`**${member.displayName} is currently Muted**`)
                 }

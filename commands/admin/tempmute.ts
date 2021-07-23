@@ -51,6 +51,20 @@ const TempMuteCommand: Command = {
         // @ts-ignore
         await Member.roles.add(role2)
         message.channel.send(`${Member.displayName} is now muted.`)
+
+        // @ts-ignore
+        MuteUser.findOne({ where: { userID: Member?.id, guildID: message.guild?.id } }).then((response, error) => {
+            setTimeout(async () => {
+                // @ts-ignore
+                await Member.roles.remove(role2)
+                message.channel.send(`**${Member.displayName} is now unmuted.**`)
+
+
+                MuteUser.destroy({ where: { userID: Member?.id, guildID: message.guild?.id } })
+                // @ts-ignore
+            }, ms(response.dataValues.time))
+        })
+
     },
 }
 
