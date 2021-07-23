@@ -76,19 +76,7 @@ const MessageEvent: Event = {
 			`));
         }
 
-        console.log(client.guilds
-        // @ts-ignore
-        MuteUser.findOne({ where: { userID: client.guilds.cache.get(response.dataValues.guildID)?.members.cache.get(response.dataValues.userID)?.id, guildID: client.guilds.cache.get(response.dataValues.guildID)?.id } }).then((response, error) => {
-            setTimeout(async () => {
-                // @ts-ignore
-                await client.guilds.cache.get(response.dataValues.guildID)?.members.cache.get(response.dataValues.userID)?.roles.remove(role2)
-                message.channel.send(`**${client.guilds.cache.get(response.dataValues.guildID)?.members.cache.get(response.dataValues.userID)?.displayName} is now unmuted.**`)
 
-
-                MuteUser.destroy({ where: { userID: client.guilds.cache.get(response.dataValues.guildID)?.members.cache.get(response.dataValues.userID)?.id, guildID: client.guilds.cache.get(response.dataValues.guildID)?.id } })
-                // @ts-ignore
-            }, ms(response.dataValues.time))
-        })
     },
 };
 

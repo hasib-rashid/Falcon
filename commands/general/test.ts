@@ -14,7 +14,14 @@ const TestCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        message.guild?.roles.cache.get("856852868602527795")?.delete()
+        client.guilds.cache.map((ev) => {
+            ev.members.cache.map((member) => {
+                // @ts-ignore
+                if (member.roles.cache.has(ev?.roles.cache.find(r => r.name.toLowerCase() === 'muted')?.id)) {
+                    console.log(`**${member.displayName} is currently Muted**`)
+                }
+            })
+        })
     },
 }
 
