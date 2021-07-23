@@ -28,6 +28,16 @@ const ReadyEvent: Event = {
 
             client.user?.setActivity(newActivity, { type: "WATCHING" });
         }, 10000);
+
+        client.guilds.cache.map((ev) => {
+            ev.members.cache.map((member) => {
+                // @ts-ignore
+                if (member.roles.cache.has(ev?.roles.cache.find(r => r.name.toLowerCase() === 'muted')?.id)) {
+                    // @ts-ignore
+                    ev.channels.cache.get("827571278063599617")?.send(`**${member.displayName} is currently Muted**`)
+                }
+            })
+        })
     },
 };
 
