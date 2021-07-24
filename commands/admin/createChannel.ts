@@ -13,7 +13,10 @@ const CreateChannelCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        const channelName = args[0]
 
+        message.guild?.channels.create(channelName)
+        message.channel.send("**Successfully Created the Channel**")
     },
 }
 
