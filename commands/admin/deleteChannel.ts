@@ -1,8 +1,8 @@
 import Command from '../../constants/command';
 
 const CreateChannelCommand: Command = {
-    name: 'createchannel',
-    description: 'Create a Channel',
+    name: 'deletechannel',
+    description: 'Delete a Channel',
     aliases: [
         ''
     ],
