@@ -14,6 +14,11 @@ const CreateRoleCommand: Command = {
 
     async run(client, message, args) {
         try {
+            if (!message.member?.hasPermission("MANAGE_ROLES"))
+                return message.channel.send(
+                    "**You need `MANAGE_ROLES` permission to use this command**"
+                );
+
             let color
             let name
 
