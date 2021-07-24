@@ -13,7 +13,12 @@ const DeleteRoleCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        const role = message.mentions.roles.first() || message.guild?.roles.cache.get(args[0])
 
+        // @ts-ignore
+        message.guild?.roles.cache.get(role?.id)?.delete()
+
+        message.channel.send("**Succesfully Deleted the role**")
     },
 }
 
