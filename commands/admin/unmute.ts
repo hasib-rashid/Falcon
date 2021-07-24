@@ -14,6 +14,11 @@ const UnmuteCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        if (!message.member?.hasPermission("MANAGE_EMOJIS"))
+            return message.channel.send(
+                "**You need `MANAGE_EMOJIS` permission to use this command**"
+            );
+
         const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
 
         if (!Member) return message.channel.send('**Please enter a valid user**')
