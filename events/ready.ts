@@ -45,8 +45,6 @@ const ReadyEvent: Event = {
 
                             // @ts-ignore
                         }, ms(response.dataValues.time))
-
-                        console.log(response)
                     })
                     // @ts-ignore
                 }
