@@ -13,10 +13,12 @@ const CreateChannelCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        const channelName = args[0]
+        const channel = message.mentions.channels.first() || message.guild?.channels.cache.get(args[0])
 
-        message.guild?.channels.create(channelName)
-        message.channel.send("**Successfully Created the Channel**")
+        // @ts-ignore
+        message.guild?.channels.cache.get(channel?.id)?.delete()
+
+        message.channel.send("**Successfully Deleted the Channel**")
     },
 }
 
