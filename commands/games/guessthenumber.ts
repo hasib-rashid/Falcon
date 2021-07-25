@@ -15,6 +15,9 @@ const GTNCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        if (!args[0]) return message.channel.send("**Please Specify the minimum and the Maximum Number.**")
+        if (!args[1]) return message.channel.send("**Please Specify the minimum and the Maximum Number.**")
+
         await weky.GuessTheNumber({
             message: message,
             embed: {
@@ -24,7 +27,7 @@ const GTNCommand: Command = {
                 timestamp: true,
             },
             publicGame: true,
-            number: 189,
+            number: Math.random() * (+args[1] - +args[0] + 1),
             time: 60000,
             winMessage: {
                 publicGame:
