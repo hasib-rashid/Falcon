@@ -20,7 +20,7 @@ const ChaosWordsCommand: Command = {
             embed: {
                 title: 'ChaosWords | Falcon',
                 description: '**You have *{{time}}* to find the hidden words in the below sentence.**',
-                color: '#7289da',
+                color: 'BLUE',
                 field1: 'Sentence:',
                 field2: 'Words Found/Remaining Words:',
                 field3: 'Words found:',
