@@ -8,7 +8,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/CodeFictions/CodeVert.git"
+		"url": "git+https://github.com/hasib-rashid/Falcon.git"
 	},
 	"keywords": [
 		"discord.js",
@@ -18,9 +18,9 @@
 	"author": "Hasib Al Rashid",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/CodeFictions/CodeVert/issues"
+		"url": "https://github.com/hasib-rashid/Falcon/issues"
 	},
-	"homepage": "https://github.com/CodeFictions/CodeVert#readme",
+	"homepage": "https://github.com/hasib-rashid/Falcon#readme",
 	"dependencies": {
 		"@discordjs/opus": "^0.5.3",
 		"@vitalets/google-translate-api": "^7.0.0",
