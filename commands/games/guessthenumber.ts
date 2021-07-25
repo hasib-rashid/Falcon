@@ -27,7 +27,7 @@ const GTNCommand: Command = {
                 timestamp: true,
             },
             publicGame: true,
-            number: Math.random() * (+args[1] - +args[0] + 1),
+            number: Math.round(Math.random() * (+args[1] - +args[0] + 1)),
             time: 60000,
             winMessage: {
                 publicGame:
