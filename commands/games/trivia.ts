@@ -19,7 +19,7 @@ const TriviaCommand: Command = {
         await weky.Trivia({
             message: message,
             embed: {
-                title: 'Trivia | Weky Development',
+                title: 'Trivia | Falcon',
                 description: 'You only have **{{time}}** to guess the answer!',
                 color: '#7289da',
                 timestamp: true,
