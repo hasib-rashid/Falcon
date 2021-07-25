@@ -3,12 +3,12 @@ import { numberOfCommands } from '../../classes/client'
 export const helpAsserts = [
     {
         "name": "General",
-        "number": numberOfCommands[3],
+        "number": numberOfCommands[4],
         "emoji": ":smiley:"
     },
     {
         "name": "Games",
-        "number": numberOfCommands[2],
+        "number": numberOfCommands[3],
         "emoji": ":video_game:"
     },
     {
