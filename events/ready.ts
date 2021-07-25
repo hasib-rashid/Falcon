@@ -3,6 +3,7 @@ import consola from 'consola'
 import { Sync } from '../database/sync'
 require("dotenv").config();
 import MuteUser from '../models/MuteUser'
+// @ts-ignore
 import ms from 'ms'
 
 const ReadyEvent: Event = {

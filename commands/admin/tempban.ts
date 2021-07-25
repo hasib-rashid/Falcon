@@ -1,7 +1,6 @@
 import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js';
 import { MessageActionRow, MessageButton } from 'discord-buttons'
-import ms from 'ms'
 
 const TempBanCommand: Command = {
     name: 'tempban',

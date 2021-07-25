@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
+// @ts-ignore
 import ms from 'ms'
 import MuteUser from '../../models/MuteUser'
 
