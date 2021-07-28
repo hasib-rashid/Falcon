@@ -17,7 +17,7 @@ const SoloCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-
+        message.channel.send(await nsfw.solo())
     },
 }
 
