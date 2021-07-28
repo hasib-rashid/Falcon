@@ -2,6 +2,8 @@ import Command from '../../constants/command';
 // @ts-ignore
 import NSFW from 'discord-nsfw'
 
+const nsfw = new NSFW()
+
 const KitsuneCommand: Command = {
     name: 'kitsune',
     description: 'NSFW kitsune',
