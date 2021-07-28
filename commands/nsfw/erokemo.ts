@@ -5,8 +5,8 @@ import NSFW from 'discord-nsfw'
 const nsfw = new NSFW()
 
 const ErokemoCommand: Command = {
-    name: 'erokemon',
-    description: 'NSFW erokemon',
+    name: 'erokemo',
+    description: 'NSFW erokemo',
     aliases: [
         ''
     ],
@@ -17,7 +17,7 @@ const ErokemoCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-
+        message.channel.send(await nsfw.erokemo())
     },
 }
 
