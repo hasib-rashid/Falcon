@@ -23,6 +23,7 @@
 	"homepage": "https://github.com/hasib-rashid/Falcon#readme",
 	"dependencies": {
 		"@discordjs/opus": "^0.5.3",
+		"@types/consola": "^2.2.5",
 		"@vitalets/google-translate-api": "^7.0.0",
 		"@weky/inlinereply": "^0.0.0",
 		"aki-api": "^5.2.1",
