@@ -7,7 +7,7 @@ import { Aki } from 'aki-api.ts'
 import Event from "../constants/event";
 import { stripIndents } from "common-tags";
 import Collection from "@discordjs/collection";
-import MuteUser from '../models/MuteUser'
+import BlackList from '../models/BlackListUsers'
 
 Nuggies.connect(process.env.MONGO_URL)
 
@@ -34,6 +34,8 @@ const MessageEvent: Event = {
         const command = client.commands.get(commandName) || client.commands.get(client.aliases.get(commandName));
 
         if (!command) return;
+
+
 
         if (command.guildOnly && !message.guild) return message.channel.send(`${client.emotes.error} This command can only be used in Servers!`);
 
