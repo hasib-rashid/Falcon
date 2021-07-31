@@ -17,7 +17,7 @@ const BlackListCommand: Command = {
         const user = client.users.cache.get(args[0])
         const reason = args.slice(1).join(' ') || "No Reason";
 
-        BlackList.create({ userID: user?.id, time: Date.now(), reason: reason })
+        BlackList.create({ userID: args[0], time: Date.now(), reason: reason })
         message.channel.send(`${user?.username} was successfully Blacklisted.`)
     },
 }

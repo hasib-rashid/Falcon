@@ -22,7 +22,7 @@ BlackListUser.init(
             allowNull: true
         },
         time: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DATE,
             allowNull: false
         }
     },
