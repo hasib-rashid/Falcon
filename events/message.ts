@@ -36,6 +36,7 @@ const MessageEvent: Event = {
         if (!command) return;
 
         if (message.content === `${prefix}${command.name}`) {
+            // @ts-ignore
             BlackList.findOne({ where: { userID: message.author.id } }).then((response: any) => {
                 if (message.author.id === response.dataValues.userID) return message.channel.send(`**${message.author} you have been blacklisted by the owner. Check your dm's to see how to get whitelisted again**`)
             })
