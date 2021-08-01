@@ -1,6 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
 import { formatNumber, shorten } from '../../util/Util';
+import { default as axios } from 'axios'
 
 const UrbanCommand: Command = {
     name: 'urban',
@@ -16,35 +17,37 @@ const UrbanCommand: Command = {
 
     async run(client, message, args) {
         try {
-            const { body } = await request
-                .get("http://api.urbandictionary.com/v0/define")
-                .query({ term: args[0] });
-            if (!body.list.length)
-                return message.channel.send("Could not find any results.");
-            const data = body.list[0];
-            const embed = new MessageEmbed()
-                .setColor("BLUE")
-                .setAuthor(
-                    "Urban Dictionary",
-                    "https://i.imgur.com/Fo0nRTe.png",
-                    "https://www.urbandictionary.com/"
-                )
-                .setURL(data.permalink)
-                .setTitle(data.word)
-                .setDescription(shorten(data.definition.replace(/\[|\]/g, "")))
-                .setFooter(
-                    `👍 ${formatNumber(data.thumbs_up)} 👎 ${formatNumber(
-                        data.thumbs_down
-                    )}`
-                )
-                .setTimestamp(new Date(data.written_on))
-                .addField(
-                    "❯ Example",
-                    data.example
-                        ? shorten(data.example.replace(/\[|\]/g, ""), 1000)
-                        : "None"
-                );
-            return message.channel.send(embed);
+            axios.get(`http://api.urbandictionary.com/v0/define?term=${args[0]}`).then((res) => {
+                const { data } = res
+
+                if (!data.list.length)
+                    return message.channel.send("Could not find any results.");
+                const dataWord = data.list[0];
+                const embed = new MessageEmbed()
+                    .setColor("BLUE")
+                    .setAuthor(
+                        "Urban Dictionary",
+                        "https://i.imgur.com/Fo0nRTe.png",
+                        "https://www.urbandictionary.com/"
+                    )
+                    .setURL(dataWord.permalink)
+                    .setTitle(dataWord.word)
+                    .setDescription(shorten(dataWord.definition.replace(/\[|\]/g, "")))
+                    .setFooter(
+                        `👍 ${formatNumber(dataWord.thumbs_up)} 👎 ${formatNumber(
+                            dataWord.thumbs_down
+                        )}`
+                    )
+                    .setTimestamp(new Date(dataWord.written_on))
+                    .addField(
+                        "❯ Example",
+                        dataWord.example
+                            ? shorten(dataWord.example.replace(/\[|\]/g, ""), 1000)
+                            : "None"
+                    );
+                return message.channel.send(embed);
+            })
+
         } catch (err) {
             console.error(err);
         }
