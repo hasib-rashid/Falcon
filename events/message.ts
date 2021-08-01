@@ -35,10 +35,10 @@ const MessageEvent: Event = {
 
         if (!command) return;
 
-        const blacklisted = await BlackList.findOne({ where: { userID: message.author.id } })
-
-        if (message.author.id === blacklisted?.userID) {
-            message.channel.send("Bro ur blacklisted")
+        if (message.content === `${prefix}${command.name}`) {
+            BlackList.findOne({ where: { userID: message.author.id } }).then((response: any) => {
+                if (message.author.id === response.dataValues.userID) return message.channel.send(`**${message.author} you have been blacklisted by the owner. Check your dm's to see how to get whitelisted again**`)
+            })
         }
 
         if (command.guildOnly && !message.guild) return message.channel.send(`${client.emotes.error} This command can only be used in Servers!`);

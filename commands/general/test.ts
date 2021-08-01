@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
+import BlackList from '../../models/BlackListUsers'
 
 const TestCommand: Command = {
     name: 'test',
@@ -14,14 +15,7 @@ const TestCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        client.guilds.cache.map((ev) => {
-            ev.members.cache.map((member) => {
-                // @ts-ignore
-                if (member.roles.cache.has(ev?.roles.cache.find(r => r.name.toLowerCase() === 'muted')?.id)) {
-                    console.log(`**${member.displayName} is currently Muted**`)
-                }
-            })
-        })
+
     },
 }
 
