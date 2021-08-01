@@ -15,6 +15,8 @@ const WhitelistCommand: Command = {
 
     async run(client, message, args) {
         BlackList.destroy({ where: { userID: args[0] } })
+
+        message.channel.send(`${client.users.cache.get(args[0])?.username} has been sucessfully whitelisted.`)
     },
 }
 
