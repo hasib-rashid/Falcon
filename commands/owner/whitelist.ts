@@ -14,9 +14,7 @@ const WhitelistCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        BlackList.findOne({ where: { userID: args[0] } }).then((response: any) => {
-
-        })
+        BlackList.destroy({ where: { userID: args[0] } })
     },
 }
 
