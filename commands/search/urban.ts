@@ -18,12 +18,12 @@ const UrbanCommand: Command = {
         try {
             const { body } = await request
                 .get("http://api.urbandictionary.com/v0/define")
-                .query({ term: word });
+                .query({ term: args[0] });
             if (!body.list.length)
-                return message.say("Could not find any results.");
+                return message.channel.send("Could not find any results.");
             const data = body.list[0];
             const embed = new MessageEmbed()
-                .setColor(0x32a8f0)
+                .setColor("BLUE")
                 .setAuthor(
                     "Urban Dictionary",
                     "https://i.imgur.com/Fo0nRTe.png",
@@ -44,7 +44,7 @@ const UrbanCommand: Command = {
                         ? shorten(data.example.replace(/\[|\]/g, ""), 1000)
                         : "None"
                 );
-            return message.embed(embed);
+            return message.channel.send(embed);
         } catch (err) {
             console.error(err);
         }
