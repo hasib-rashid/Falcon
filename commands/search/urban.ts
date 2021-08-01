@@ -1,4 +1,6 @@
+import { MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
+import { formatNumber, shorten } from '../../util/Util';
 
 const UrbanCommand: Command = {
     name: 'urban',
@@ -20,7 +22,7 @@ const UrbanCommand: Command = {
             if (!body.list.length)
                 return message.say("Could not find any results.");
             const data = body.list[0];
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor(0x32a8f0)
                 .setAuthor(
                     "Urban Dictionary",
