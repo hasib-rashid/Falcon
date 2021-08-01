@@ -1,4 +1,7 @@
+import { MessageEmbed, User } from 'discord.js';
 import Command from '../../constants/command';
+import { trimArray } from '../../util/Util';
+import moment from 'moment'
 
 const NPMCommand: Command = {
     name: 'npm',
@@ -18,16 +21,16 @@ const NPMCommand: Command = {
                 `https://registry.npmjs.com/${pkg}`
             );
             if (body.time.unpublished)
-                return msg.say("This package no longer exists.");
+                return message.channel.send("**This package no longer exists.**");
             const version = body.versions[body["dist-tags"].latest];
             const maintainers = trimArray(
-                body.maintainers.map((user) => user.name)
+                body.maintainers.map((user: any) => user.name)
             );
             const dependencies = version.dependencies
                 ? trimArray(Object.keys(version.dependencies))
                 : null;
-            const embed = new Discord.MessageEmbed()
-                .setColor(0xcb0000)
+            const embed = new MessageEmbed()
+                .setColor("BLUE")
                 .setAuthor(
                     "NPM",
                     "https://i.imgur.com/ErKf5Y0.png",
@@ -61,10 +64,10 @@ const NPMCommand: Command = {
                         : "None"
                 )
                 .addField("❯ Maintainers", maintainers.join(", "));
-            return message.embed(embed);
+            return message.channel.send(embed);
         } catch (err) {
             if (err.status === 404)
-                return msg.say("Could not find any results.");
+                return message.channel.send("**Could not find any results.**");
             console.error(err);
         }
     },
