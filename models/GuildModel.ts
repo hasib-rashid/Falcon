@@ -15,23 +15,23 @@ export default class GuildUser extends Model {
 
 GuildUser.init(
     {
-        userID: {
+        guildID: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        guildID: {
+        prefix: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        rank: {
+        serverLog: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
         },
-        rankCache: {
+        modLogs: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
         },
-        level: {
+        voiceLogs: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
         }
