@@ -4,7 +4,7 @@ const SetPrefixCommand: Command = {
     name: 'setprefix',
     description: 'Set the prefix to something else',
     aliases: [
-        ''
+        'prefix', 'prefixset'
     ],
     guildOnly: false,
     ownerOnly: false,
