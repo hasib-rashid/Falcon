@@ -15,11 +15,9 @@ const TestCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        const oldPrefix = client.prefix
-        const newPrefix = args.join(" ")
-
-        GuildModel.create({ guildID: message.guild?.id, prefix: "$" })
-        message.channel.send(`**Successfully Changed the server prefix from \`${oldPrefix}\` to \`${newPrefix}\``)
+        GuildModel.findOne({ where: { guildID: message.guild?.id } }).then((response) => {
+            console.log(response)
+        })
     },
 }
 
