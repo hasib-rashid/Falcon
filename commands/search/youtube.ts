@@ -30,7 +30,6 @@ const YoutubeCommand: Command = {
                 },
             })
             .then(function (response) {
-                console.log(response.data)
                 const embed = new MessageEmbed()
                     .setAuthor(
                         "Youtube",
