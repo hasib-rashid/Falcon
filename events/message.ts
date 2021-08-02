@@ -21,8 +21,15 @@ const MessageEvent: Event = {
 
         const GetPrefix = await GuildModel.findOne({ where: { guildID: message.guild?.id } })
 
+        let prefix: any
+
         // @ts-ignore
-        let prefix = GetPrefix.dataValues.prefix || "."
+        try {
+            // @ts-ignore
+            prefix = GetPrefix.dataValues.prefix
+        } catch (err) {
+            prefix = "."
+        }
 
         if (!message.content.includes(prefix)) return;
 

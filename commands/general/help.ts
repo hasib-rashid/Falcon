@@ -23,7 +23,14 @@ const HelpCommand: Command = {
         const GetPrefix = await GuildModel.findOne({ where: { guildID: message.guild?.id } })
 
         // @ts-ignore
-        const PREFIX = GetPrefix.dataValues.prefix
+        let PREFIX: any
+
+        try {
+            // @ts-ignore
+            PREFIX = GetPrefix.dataValues.prefix
+        } catch (err) {
+            PREFIX = "."
+        }
 
         try {
             if (args[0] === "general") {
@@ -153,7 +160,7 @@ const HelpCommand: Command = {
                         message.author.displayAvatarURL()
                     )
                     .setTitle(`Server Prefix: \`${PREFIX}\``)
-                    .addField(`If you are using Falcon for the first time in this server then start with \`.help setup\``, "`=setup`")
+                    .addField(`If you are using Falcon for the first time in this server then start with \`${PREFIX}help setup\``, `\`${PREFIX}setup\``)
                     .addField(
                         "\n\n\nTo learn a command and its proper use, specify it's module in help command.\nLike: `!help [Command]`",
                         `Example: \` ${PREFIX}help games \``
