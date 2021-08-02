@@ -1,4 +1,5 @@
 import Command from '../../constants/command';
+import GuildModel from '../../models/GuildModel'
 
 const SetPrefixCommand: Command = {
     name: 'setprefix',
@@ -13,7 +14,12 @@ const SetPrefixCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        const oldPrefix = client.prefix
+        const newPrefix = args.join(" ")
 
+        GuildModel.create({ guildID: message.guild?.id, prefix: newPrefix })
+
+        message.channel.send(`**Successfully Changed the server prefix from \`${oldPrefix}\` to \`${newPrefix}\``)
     },
 }
 

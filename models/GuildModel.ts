@@ -23,27 +23,21 @@ GuildUser.init(
         },
         prefix: {
             type: DataTypes.STRING,
-            allowNull: false
         },
         welcomeLog: {
             type: DataTypes.STRING,
-            allowNull: true
         },
         welcomeMessage: {
             type: DataTypes.STRING,
-            allowNull: true
         },
         serverLog: {
             type: DataTypes.INTEGER,
-            defaultValue: 0,
         },
         modLogs: {
             type: DataTypes.INTEGER,
-            defaultValue: 0,
         },
         voiceLogs: {
             type: DataTypes.INTEGER,
-            defaultValue: 0,
         }
     },
     {
