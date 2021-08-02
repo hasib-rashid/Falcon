@@ -37,7 +37,7 @@ GuildUser.init(
         }
     },
     {
-        tableName: "guilduser",
+        tableName: "guildmodel",
         sequelize,
     }
 );
