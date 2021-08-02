@@ -25,6 +25,14 @@ GuildUser.init(
             type: DataTypes.STRING,
             allowNull: false
         },
+        welcomeLog: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        welcomeMessage: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         serverLog: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
