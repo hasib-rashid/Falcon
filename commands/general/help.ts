@@ -19,7 +19,8 @@ const HelpCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        const PREFIX = "." // Dynamic PRefix incoming
+        const PREFIX = client.prefix
+        console.log(client.prefix)
 
         try {
             if (args[0] === "general") {
