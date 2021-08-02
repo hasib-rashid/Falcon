@@ -15,22 +15,6 @@ const YoutubeCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        const options = {
-            method: "GET",
-            url: "https://youtube-v31.p.rapidapi.com/search",
-            params: {
-                q: "microsoft",
-                part: "snippet,id",
-                regionCode: "US",
-                maxResults: "5",
-                order: "date",
-            },
-            headers: {
-                "x-rapidapi-key": process.env.API_KEY,
-                "x-rapidapi-host": "youtube-v31.p.rapidapi.com",
-            },
-        };
-
         axios
             .get("https://youtube-v31.p.rapidapi.com/search", {
                 method: "GET",
