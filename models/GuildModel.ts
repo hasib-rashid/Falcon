@@ -8,6 +8,8 @@ const sequelize = new Sequelize(`mysql://${process.env.DB_USERNAME}:${process.en
 export default class GuildUser extends Model {
     public guildID!: string;
     public prefix?: string;
+    public welcomeLog?: string;
+    public welcomeMessage?: string;
     public serverLog?: string;
     public modLogs?: string;
     public voiceLogs?: string;
