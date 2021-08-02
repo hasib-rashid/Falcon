@@ -18,7 +18,7 @@ const WikiCommand: Command = {
         if (!args[0]) return message.channel.send("**Please Enter A Query!**");
         let m = await message.channel.send({
             embed: {
-                color: "GREEN",
+                color: "BLUE",
                 title: `Searching Wikipedia just for you ⌛`,
                 description: `Please stand by...`,
             },
@@ -28,7 +28,7 @@ const WikiCommand: Command = {
         if (!search.results.length) {
             return m.edit({
                 embed: {
-                    color: "GREEN",
+                    color: "BLUE",
                     title: "What was that again? 📚🤓",
                     description:
                         "Even Wikipedia doesn't seem to know what you're talking about.",
@@ -45,7 +45,7 @@ const WikiCommand: Command = {
             if (description.length > 8192) {
                 const FirstEmbed = new MessageEmbed()
                     .setAuthor(result.raw.title)
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(
                         `${description.substring(
                             0,
@@ -58,17 +58,17 @@ const WikiCommand: Command = {
             if (description.length < 2048) {
                 const SecondEmbed = new MessageEmbed()
                     .setAuthor(result.raw.title)
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(`${description.slice(0, 2048)}`);
                 return m.edit("", SecondEmbed);
             }
             if (description.length > 2048) {
                 const ThirdEmbed = new MessageEmbed()
                     .setAuthor(result.raw.title)
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(description.slice(0, 2048));
                 const FourthEmbed = new MessageEmbed()
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(description.slice(2048, 4096));
                 m.edit("", ThirdEmbed);
                 message.channel.send("", FourthEmbed);
@@ -76,13 +76,13 @@ const WikiCommand: Command = {
             if (description.length > 4096 && description.length < 6144) {
                 const FifthEmbed = new MessageEmbed()
                     .setAuthor(result.raw.title)
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(description.slice(0, 2048));
                 const SixthEmbed = new MessageEmbed()
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(description.slice(2048, 4096));
                 const SeventhEmbed = new MessageEmbed()
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(
                         description.slice(4096, description.length)
                     );
@@ -92,16 +92,16 @@ const WikiCommand: Command = {
             }
             if (description.length > 6144 && description.length < 8192) {
                 const EightEmbed = new MessageEmbed()
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(description.slice(0, 2048));
                 const NinthEmbed = new MessageEmbed()
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(description.slice(2048, 4096));
                 const TenthEmbed = new MessageEmbed()
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(description.slice(4096, 6144));
                 const EleventhEmbed = new MessageEmbed()
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setDescription(
                         description.slice(6144, description.length)
                     );
