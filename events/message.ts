@@ -3,7 +3,6 @@ dotenv.config()
 import { Message } from "discord.js";
 // @ts-ignore
 import Nuggies from 'nuggies'
-import { Aki } from 'aki-api.ts'
 import Event from "../constants/event";
 import { stripIndents } from "common-tags";
 import Collection from "@discordjs/collection";
