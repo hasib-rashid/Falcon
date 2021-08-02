@@ -162,7 +162,7 @@ const HelpCommand: Command = {
                     .setTitle(`Server Prefix: \`${PREFIX}\``)
                     .addField(`If you are using Falcon for the first time in this server then start with \`${PREFIX}help setup\``, `\`${PREFIX}setup\``)
                     .addField(
-                        "\n\n\nTo learn a command and its proper use, specify it's module in help command.\nLike: `!help [Command]`",
+                        `\n\n\nTo learn a command and its proper use, specify it's module in help command.\nLike: \`${PREFIX}help [Command]\``,
                         `Example: \` ${PREFIX}help games \``
                     )
                     .setColor("#0887ff")
