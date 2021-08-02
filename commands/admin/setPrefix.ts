@@ -17,9 +17,9 @@ const SetPrefixCommand: Command = {
         const oldPrefix = client.prefix
         const newPrefix = args.join(" ")
 
-        GuildModel.create({ guildID: message.guild?.id, prefix: newPrefix })
+        GuildModel.create({ guildID: message.guild?.id, prefix: "$" })
+        message.channel.send(`**Successfully Changed the server prefix from \`${oldPrefix}\` to \`${newPrefix}\`**`)
 
-        message.channel.send(`**Successfully Changed the server prefix from \`${oldPrefix}\` to \`${newPrefix}\``)
     },
 }
 

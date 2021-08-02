@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
-import BlackList from '../../models/BlackListUsers'
+import GuildModel from '../../models/GuildModel'
 
 const TestCommand: Command = {
     name: 'test',
@@ -15,7 +15,11 @@ const TestCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        const oldPrefix = client.prefix
+        const newPrefix = args.join(" ")
 
+        GuildModel.create({ guildID: message.guild?.id, prefix: "$" })
+        message.channel.send(`**Successfully Changed the server prefix from \`${oldPrefix}\` to \`${newPrefix}\``)
     },
 }
 
