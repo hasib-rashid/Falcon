@@ -675,6 +675,11 @@ camelcase@^2.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
   integrity sha1-fB0W1nmhu+WcoCys7PsBHiAfWh8=
 
+camelcase@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
+  integrity sha1-1UVjW+HjPFQmScaRc+Xeas+uNN0=
+
 canvas@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/canvas/-/canvas-2.8.0.tgz#f99ca7f25e6e26686661ffa4fec1239bbef74461"
@@ -909,6 +914,13 @@ create-require@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
+
+cross-fetch@^3.0.2:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.4.tgz#9723f3a3a247bf8b89039f3a380a9244e8fa2f39"
+  integrity sha512-1eAtFWdIubi6T4XPy6ei9iUFoKpUkIF971QLN8lIvvvwueI65+Nw5haMNKUwfJxabqlIIDODJKGrQ66gxC0PbQ==
+  dependencies:
+    node-fetch "2.6.1"
 
 cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
@@ -1914,6 +1926,11 @@ human-signals@^2.1.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
 
+hyntax@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/hyntax/-/hyntax-1.1.9.tgz#7fd69747d534dd87e342e1249d60175d93676a39"
+  integrity sha512-xjxyDLbVDdLgjPnl4NM+Iu6il3UPmk6PNCBXruQKeuKDc/HtaZx1hk1AtMgw3vsn9YnLZRfoBpPxYMXcoT5KAA==
+
 "i18n@ ^0.13.2":
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/i18n/-/i18n-0.13.3.tgz#5820f48d87a77cf14e064719bee9bc682ed550eb"
@@ -1982,6 +1999,13 @@ inflight@^1.0.4:
   dependencies:
     once "^1.3.0"
     wrappy "1"
+
+infobox-parser@3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/infobox-parser/-/infobox-parser-3.6.1.tgz#841aeae194b3248d575b1ff268fb520d19839f1c"
+  integrity sha512-y/Z3iI0V4ZBjK/Un21K/a2h2iA2UItETd14shEdj6ZajrRHmysTVVmfxn0z2LsXs4Pb9byxIMb+rA+6luB3kyw==
+  dependencies:
+    camelcase "^4.1.0"
 
 inherits@2, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.3:
   version "2.0.4"
@@ -2724,7 +2748,7 @@ node-addon-api@^3.2.1:
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.2.1.tgz#81325e0a2117789c0128dab65e7e38f07ceba161"
   integrity sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==
 
-node-fetch@^2.6.1:
+node-fetch@2.6.1, node-fetch@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
@@ -4027,6 +4051,15 @@ wide-align@^1.1.0:
   integrity sha512-QGkOQc8XL6Bt5PwnsExKBPuMKBxnGxWWW3fU55Xt4feHozMUhdUMaBCk290qpm/wG5u/RSKzwdAC4i51YigihA==
   dependencies:
     string-width "^1.0.2 || 2"
+
+wikijs@^6.2.3:
+  version "6.2.3"
+  resolved "https://registry.yarnpkg.com/wikijs/-/wikijs-6.2.3.tgz#f26ca0deccf6942af9e86a97763278476e1e4e43"
+  integrity sha512-oRwb3akb4KGH6rvjb+rnzBNgajigbM6WBLHpqi/Pq8rarnG+eeT5ZR+YEX3E8ux71QFCXLBoTKiT/69Ebsf9Cw==
+  dependencies:
+    cross-fetch "^3.0.2"
+    hyntax "^1.1.9"
+    infobox-parser "3.6.1"
 
 wkx@^0.5.0:
   version "0.5.0"
