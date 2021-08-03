@@ -30,6 +30,8 @@ const SetupCommand: Command = {
 
                 ***Note: More are coming as the Bot Updates.***
             `)
+
+        message.channel.send(embed)
     },
 }
 
