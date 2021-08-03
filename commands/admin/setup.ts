@@ -1,3 +1,4 @@
+import { MessageEmbed } from 'discord.js';
 import Command from '../../constants/command';
 
 const SetupCommand: Command = {
@@ -17,6 +18,18 @@ const SetupCommand: Command = {
             return message.channel.send(
                 "**You need `MANAGE_GUILD` permission to use this command**"
             );
+
+        const embed = new MessageEmbed()
+            .setAuthor(message.guild?.name, message.guild?.iconURL() || "")
+            .setTitle(`Setup ${message.guild?.name}`)
+            .setColor("BLUE")
+            .setTimestamp()
+            .setFooter("Falcon Bot")
+            .setDescription(`
+                **prefix** - Change the prefix of the server.
+
+                ***Note: More are coming as the Bot Updates.***
+            `)
     },
 }
 
