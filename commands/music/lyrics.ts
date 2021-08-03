@@ -1,4 +1,7 @@
 import Command from '../../constants/command';
+// @ts-ignore
+import lyrics from 'findthelyrics'
+import { MessageEmbed } from 'discord.js';
 
 const LyricsCommand: Command = {
     name: 'lyrics',
@@ -13,7 +16,20 @@ const LyricsCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        if (!args.join(" ")) return message.channel.send("**Please mention the song you want the lyrics of.**")
+        lyrics.find(args.join(" "), function (err: Error, resp: any) {
+            if (!err) {
+                const embed = new MessageEmbed()
+                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setTitle("Lyrics")
+                    .setDescription(resp)
 
+                message.channel.send(embed)
+                console.log(resp)
+            } else {
+                console.log(err)
+            }
+        });
     },
 }
 

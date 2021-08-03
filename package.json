@@ -40,6 +40,7 @@
 		"distube": "^2.8.15",
 		"dotenv": "^9.0.2",
 		"ffmpeg-static": "^4.4.0",
+		"findthelyrics": "^1.1.0",
 		"google-it": "^1.6.2",
 		"mathjs": "^9.4.2",
 		"moment": "^2.29.1",
