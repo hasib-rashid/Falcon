@@ -4,7 +4,7 @@ const LyricsCommand: Command = {
     name: 'lyrics',
     description: 'Look at the lyrics of Falcon',
     aliases: [
-        ''
+        'lyric'
     ],
     guildOnly: false,
     ownerOnly: false,
