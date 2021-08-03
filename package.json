@@ -39,6 +39,7 @@
 		"discord.js-collector": "^1.8.9",
 		"distube": "^2.8.15",
 		"dotenv": "^9.0.2",
+		"express": "^4.17.1",
 		"ffmpeg-static": "^4.4.0",
 		"findthelyrics": "^1.1.0",
 		"google-it": "^1.6.2",
