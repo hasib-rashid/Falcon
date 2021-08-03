@@ -21,11 +21,11 @@ const LyricsCommand: Command = {
             if (!err) {
                 const embed = new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL())
-                    .setTitle("Lyrics")
+                    .setTitle(args.join(" "))
                     .setDescription(resp)
+                    .setColor("BLUE")
 
                 message.channel.send(embed)
-                console.log(resp)
             } else {
                 console.log(err)
             }
