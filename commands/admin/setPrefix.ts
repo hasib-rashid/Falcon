@@ -17,6 +17,8 @@ const SetPrefixCommand: Command = {
         const oldPrefix = client.prefix
         const newPrefix = args.join(" ")
 
+        if (!newPrefix) return message.channel.send("**Please Mention a prefix to set**")
+
         const prefix = await GuildModel.findOne({ where: { guildID: message.guild?.id } })
 
         // @ts-ignore
