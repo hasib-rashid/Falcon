@@ -7,6 +7,16 @@ import Client from "./classes/client";
 import { formatNumber } from "./util/Util";
 import DisTube from "distube"
 import { ReactionRoleManager } from "discord.js-collector"
+import express from 'express'
+
+const app = express()
+const port = process.env.PORT || 8080
+
+app.get('/', async (req, res) => {
+    res.send('Falcon Bot Is Online')
+})
+
+app.listen(port, () => console.log(`App listening on port ${port}!`))
 
 const client = new Client({
     token: process.env.TOKEN,
