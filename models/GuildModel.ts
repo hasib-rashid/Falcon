@@ -10,6 +10,8 @@ export default class GuildUser extends Model {
     public prefix?: string;
     public welcomeLog?: string;
     public welcomeMessage?: string;
+    public goodbyeLog?: string;
+    public goodbyeMessage?: string;
     public serverLog?: string;
     public modLogs?: string;
     public voiceLogs?: string;
