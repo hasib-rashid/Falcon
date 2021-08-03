@@ -14,15 +14,16 @@ const SetPrefixCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        const oldPrefix = client.prefix
+        
         const newPrefix = args.join(" ")
 
         if (!newPrefix) return message.channel.send("**Please Mention a prefix to set**")
 
         const prefix = await GuildModel.findOne({ where: { guildID: message.guild?.id } })
-
         // @ts-ignore
-        if (!prefix.dataValues.prefix) {
+const oldPrefix = prefix._previousDataValues.prefix
+        // @ts-ignore
+        if (prefix === null) {
             GuildModel.create({ guildID: message.guild?.id, prefix: args.join(" ") })
         } else {
             GuildModel.update({ prefix: args.join(" ") }, { where: { guildID: message.guild?.id } })
