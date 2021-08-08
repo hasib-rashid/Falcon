@@ -51,7 +51,7 @@ class Falcon extends Client {
         });
         eventFiles.map(async (eventFile: string) => {
             const ev = (await import(eventFile)) as Event;
-            console.log(ev)
+            this.on(ev.name, ev.run)
         });
     }
 }
