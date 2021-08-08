@@ -1,6 +1,6 @@
 import { Falcon } from "../classes/client";
 
-interface RunFunction {
+export interface RunFunction {
     // eslint-disable-next-line
     (client: Falcon, ...args: any[]): Promise<any>,
 };

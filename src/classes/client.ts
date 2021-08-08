@@ -25,12 +25,7 @@ class Falcon extends Client {
     public config: Config;
     public constructor() {
         super({
-            // @ts-ignore
-            ws: { intents: Intents.ALL },
-            messageCacheLifetime: 180,
-            messageCacheMaxSize: 200,
-            messageSweepInterval: 180,
-            messageEditHistoryMaxSize: 200,
+            intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS],
             partials: ['MESSAGE', 'GUILD_MEMBER', 'CHANNEL', 'REACTION', 'USER'],
         });
     }
