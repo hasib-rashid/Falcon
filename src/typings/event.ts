@@ -1,11 +1,15 @@
-import { Falcon } from "../classes/client";
-
+import { Falcon } from '../classes/Client';
+import { EventEmitter } from 'events';
 export interface RunFunction {
-    // eslint-disable-next-line
-    (client: Falcon, ...args: any[]): Promise<any>,
-};
+    (client: Falcon, ...params: unknown[]): Promise<unknown>;
+}
+
+export interface FunctionForEE {
+    (client: Falcon): EventEmitter;
+}
 
 export interface Event {
-    name: string,
-    run: RunFunction,
-};
+    name: string;
+    run: RunFunction;
+    emitter?: EventEmitter | FunctionForEE;
+}

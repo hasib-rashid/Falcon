@@ -12,6 +12,7 @@ import glob from 'glob'
 import { Command } from '../typings/Command';
 import { Event } from '../typings/Event';
 import { Config } from '../typings/Config';
+import EventEmitter from 'events';
 
 const globPromise = promisify(glob);
 class Falcon extends Client {
@@ -51,8 +52,14 @@ class Falcon extends Client {
         });
         eventFiles.map(async (eventFile: string) => {
             const ev = (await import(eventFile)) as Event;
-            this.on(ev.name, ev.run)
-        });
+            if (ev.emitter && typeof ev.emitter == 'function') {
+                ev.emitter(this).on(ev.name, ev.run.bind(null, this));
+            } else if (ev.emitter && ev.emitter instanceof EventEmitter) {
+                (ev.emitter as EventEmitter).on(ev.name, ev.run.bind(null, this));
+            } else {
+                this.on(ev.name, ev.run.bind(null, this));
+            }
+        })
     }
 }
 export { Falcon };
