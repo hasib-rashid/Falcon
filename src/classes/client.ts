@@ -8,10 +8,10 @@ import {
     MessageEmbedOptions,
 } from 'discord.js';
 import { promisify } from 'util'
-import { Command } from '../interfaces/Command';
-import { Event } from '../interfaces/Event';
-import { Schema } from '../interfaces/Schema';
-import { Config } from '../interfaces/Config';
+import glob from 'glob'
+import { Command } from '../typings/Command';
+import { Event } from '../typings/Event';
+import { Config } from '../typings/Config';
 
 const globPromise = promisify(glob);
 class Falcon extends Client {
@@ -19,7 +19,6 @@ class Falcon extends Client {
     public commands: Collection<string, Command> = new Collection();
     public aliases: Collection<string, string> = new Collection();
     public cooldowns: Collection<string, number> = new Collection();
-    public schemas: Collection<string, Schema> = new Collection();
     public categories: Set<string> = new Set();
     public prefix: string;
     public owners: Array<string>;
@@ -47,9 +46,6 @@ class Falcon extends Client {
         const eventFiles: string[] = await globPromise(
             `${__dirname}/../events/**/*{.js,.ts}`
         );
-        const schemaFiles: string[] = await globPromise(
-            `${__dirname}/../models/**/*{.js,.ts}`
-        );
         commandFiles.map(async (cmdFile: string) => {
             const cmd = (await import(cmdFile)) as Command;
             this.commands.set(cmd.name, { cooldown: 3000, ...cmd });
@@ -61,10 +57,6 @@ class Falcon extends Client {
         eventFiles.map(async (eventFile: string) => {
             const ev = (await import(eventFile)) as Event;
             console.log(ev)
-        });
-        schemaFiles.map(async (schemaFile: string) => {
-            const sch = (await import(schemaFile)) as Schema;
-            this.schemas.set(sch.name, sch);
         });
     }
 }

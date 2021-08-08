@@ -5,7 +5,7 @@ interface RunFunction {
     (client: Falcon, ...args: any[]): Promise<any>,
 };
 
-export default interface Event {
+export interface Event {
     name: string,
     run: RunFunction,
 };
