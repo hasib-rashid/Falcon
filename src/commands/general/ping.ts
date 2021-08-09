@@ -1,4 +1,7 @@
 import { RunFunction } from '../../typings/command';
+export const name: string = 'ping';
+export const category: string = 'info';
+export const description: string = 'Get the ping of the bot';
 
 export const run: RunFunction = async (client, message) => {
     const msg = await message.channel.send('Ponging..');
@@ -8,7 +11,3 @@ export const run: RunFunction = async (client, message) => {
         `WebSocket ping: \`${ws}\`MS, Discord API Ping: \`${edit}\`MS`
     );
 };
-
-export const name: string = 'ping';
-export const category: string = 'info';
-export const description: string = 'Get the ping of the bot';
