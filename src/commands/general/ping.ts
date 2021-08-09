@@ -1,9 +1,16 @@
-import { RunFunction } from '../../typings/command';
+import { Command, RunFunction } from '../../typings/command';
 
-export const name: string = 'ping';
-export const category: string = 'general';
-export const description: string = 'Pong Command';
+export const command: Command = {
+    name: "ping",
+    category: "general",
+    description: "Pong Command",
+    aliases: [],
+    ownerOnly: false,
+    usage: `ping`,
+    userPermissions: "SEND_MESSAGES",
+    cooldown: 0,
 
-export const run: RunFunction = async (client, message) => {
-    message.channel.send("Pong")
+    run: async (client, message) => {
+        message.channel.send("Pong")
+    }
 }
