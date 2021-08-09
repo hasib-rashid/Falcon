@@ -1,15 +1,10 @@
-import { Falcon } from '../classes/client';
-import { EventEmitter } from 'events';
-export interface RunFunction {
-    (client: Falcon, ...params: unknown[]): Promise<unknown>;
-}
+import FalconClient from "../classes/client";
 
-export interface FunctionForEE {
-    (client: Falcon): EventEmitter;
-}
+interface RunFunction {
+    (client: FalconClient, ...args: any[]): Promise<any>,
+};
 
-export interface Event {
-    name: string;
-    run: RunFunction;
-    emitter?: EventEmitter | FunctionForEE;
-}
+export default interface Event {
+    name: string,
+    run: RunFunction,
+};
