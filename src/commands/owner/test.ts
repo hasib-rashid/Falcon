@@ -13,7 +13,7 @@ const testCommand: Command = {
         ''
     ],
     guildOnly: false,
-    ownerOnly: false,
+    ownerOnly: true,
     disabled: false,
     nsfw: false,
     cooldown: 0,
