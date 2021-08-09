@@ -1,0 +1,17 @@
+{
+    "discord": {
+        "prefix": "discord",
+        "body": [
+            "import { RunFunction } from '../../typings/command';",
+            "\r",
+            "export const name: string = '${1:name}';\r",
+            "export const category: string = '${2:category}';\r",
+            "export const description: string = '${3:description}';\r",
+            "\r",
+            "export const run: RunFunction = async (client, message) => {\r",
+            "   ${4:code}\r",
+            "}\r",
+            "\r"
+        ]
+    }
+}
