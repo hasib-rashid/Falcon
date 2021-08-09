@@ -21,13 +21,17 @@ export const run: RunFunction = async (client, message: Message) => {
     }
     if (!cmd.length) return;
 
-    command.run(client, message, args).catch((e: Error) => {
-        client.logger.error(e)
-        return (
-            (client.channels.cache.get('866620950841131018') as TextChannel).send(`
-            Command Name: ${command.name}
-            Error: ${e.message}
-            `)
-        )
-    });
+    if (command === undefined) {
+        return;
+    } else {
+        command.run(client, message, args).catch((e: Error) => {
+            client.logger.error(e)
+            return (
+                (client.channels.cache.get('866620950841131018') as TextChannel).send(`
+                Command Name: ${command.name}
+                Error: ${e.message}
+                `)
+            )
+        });
+    }
 };
