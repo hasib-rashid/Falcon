@@ -15,6 +15,7 @@
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-angular": "^13.1.0",
     "@types/node": "^16.4.13",
+    "@types/os-utils": "^0.0.1",
     "husky": "^7.0.1",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
