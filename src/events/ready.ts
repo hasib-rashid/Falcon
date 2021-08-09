@@ -1,18 +1,26 @@
-import { RunFunction } from '../typings/event';
-import { GuildMember, User } from 'discord.js';
+import consola from 'consola'
+import Event from '../typings/event'
+require("dotenv").config();
 
-export const name: string = 'ready';
-export const run: RunFunction = async (client) => {
-    client.logger.success(`${client.user.tag} is now online!`);
-    await client.user.setActivity(`${client.prefix}help | Falcon`, {
-        type: 'WATCHING',
-    });
-    if (client.config.onlyUsed) {
-        client.guilds.cache
-            .get('784470505607528448')
-            .roles.cache.get('809733163252187156')
-            .members.map((value: GuildMember) => {
-                client.config.onlyUsed.push(value.id);
-            });
-    }
+const ReadyEvent: Event = {
+    name: "ready",
+    async run(client) {
+        client.logger.info("client", `[READY] Logged in as ${client.user?.tag}`);
+
+        const Activities = [
+            `Serving ${client.prefix}help`,
+            `In ${client.guilds.cache.size} Servers!`,
+            `Serving ${client.users.cache.size} users!`,
+        ]
+
+        client.user?.setStatus("idle")
+        setInterval(() => {
+            const randomIndex = Math.floor(Math.random() * (Activities.length - 1) + 1);
+            const newActivity = Activities[randomIndex];
+
+            client.user?.setActivity(newActivity, { type: "WATCHING" });
+        }, 10000);
+    },
 };
+
+export default ReadyEvent;
