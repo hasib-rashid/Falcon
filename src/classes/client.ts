@@ -9,9 +9,9 @@ import {
 } from 'discord.js';
 import { promisify } from 'util'
 import glob from 'glob'
-import { Command } from '../typings/Command';
-import { Event } from '../typings/Event';
-import { Config } from '../typings/Config';
+import { Command } from '../typings/command';
+import { Event } from '../typings/event';
+import { Config } from '../typings/config';
 import EventEmitter from 'events';
 
 const globPromise = promisify(glob);

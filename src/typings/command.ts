@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { Falcon } from '../classes/Client';
+import { Falcon } from '../classes/client';
 
 export interface RunFunction {
     (client: Falcon, message: Message, args: string[]): Promise<unknown>;

@@ -1,19 +1,18 @@
 import { Message, TextChannel } from 'discord.js';
-import { RunFunction } from '../typings/Event';
-import { Command } from '../typings/Command';
+import { RunFunction } from '../typings/event';
+import { Command } from '../typings/command';
 
 export const name: string = 'messageCreate';
 export const run: RunFunction = async (client, message: Message) => {
-    console.log(message)
-    if (!message.guild) return;
+    if (message.author.bot || message.webhookId) return;
 
-    if (message.author.bot) return;
     const Prefix = "."
     if (!message.content.toLowerCase().startsWith(Prefix)) return;
     const [cmd, ...args]: string[] = message.content
         .slice(Prefix.length)
         .trim()
         .split(/ +/g);
+
     const command: Command =
         client.commands.get(cmd.toLowerCase()) ||
         client.commands.get(client.aliases.get(cmd.toLowerCase()));

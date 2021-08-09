@@ -1,4 +1,4 @@
-import { Falcon } from '../classes/Client';
+import { Falcon } from '../classes/client';
 import { EventEmitter } from 'events';
 export interface RunFunction {
     (client: Falcon, ...params: unknown[]): Promise<unknown>;
