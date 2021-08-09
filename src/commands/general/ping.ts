@@ -1,6 +1,6 @@
 import { Command, RunFunction } from '../../typings/command';
 
-export const command: Command = {
+const command: Command = {
     name: "ping",
     category: "general",
     description: "Pong Command",
@@ -14,3 +14,5 @@ export const command: Command = {
         message.channel.send("Pong")
     }
 }
+
+export default command;
