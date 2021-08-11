@@ -1,5 +1,4 @@
 import { Client, Intents, Collection } from "discord.js";
-import disbut from 'discord-buttons'
 import { readdirSync } from "fs";
 import Config from "../typings/config";
 import Logger from "../helpers/logger";
@@ -52,8 +51,6 @@ export default class FalconClient extends Client {
         this._loadEvents(config.eventDir);
 
         this.login(config.token);
-        
-        disbut(this)
     }
 
     private _loadCommands(commandDir: string): void {
