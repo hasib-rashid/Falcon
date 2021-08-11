@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 
 const AddRoleCommand: Command = {
     name: 'addrole',
@@ -14,7 +14,7 @@ const AddRoleCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        if (!message.member?.hasPermission("MANAGE_ROLES"))
+        if (!message.member?.permissions.has("MANAGE_ROLES"))
             return message.channel.send(
                 "**You need `MANAGE_ROLES` permission to use this command**"
             );
@@ -22,7 +22,7 @@ const AddRoleCommand: Command = {
         const user = message.mentions.users.first() || message.guild?.members.cache.get(args[0])
         const nameofrole = message.mentions.roles.first()?.name || args[1]
 
-        if (message.member.hasPermission("MANAGE_ROLES")) {
+        if (message.member.permissions.has("MANAGE_ROLES")) {
             const targetUser = user;
 
             if (!targetUser) {
