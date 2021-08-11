@@ -54,8 +54,20 @@ export default class FalconClient extends Client {
         this._loadCommands(config.commandDir);
         this._loadEvents(config.eventDir);
 
-        this.login(config.token);
+        this._loadAdminCommands(config.commandDir)
+        this._loadEventsCommands(config.commandDir)
+        this._loadFunCommands(config.commandDir)
+        this._loadGamesCommands(config.commandDir)
+        this._loadGeneralCommands(config.commandDir)
+        this._loadMISCCommands(config.commandDir)
+        this._loadMusicCommands(config.commandDir)        
+        this._loadNSFWCommands(config.commandDir)
+        this._loadNotifyCommands(config.commandDir)
+        this._loadOwnerCommands(config.commandDir)
+        this._loadSearchCommands(config.commandDir)
+        this._loadNotifyCommands(config.commandDir)
         
+        this.login(config.token);
         
         const distube = new DisTube(this, {
             youtubeCookie: "",
