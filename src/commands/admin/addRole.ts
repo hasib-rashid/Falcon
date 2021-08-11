@@ -57,7 +57,7 @@ const AddRoleCommand: Command = {
                 )
                 .setFooter("Copyright @2021 Falcon");
 
-            message.channel.send(addRoleEmbed);
+            message.channel.send({ embeds: [addRoleEmbed] });
         } else {
             message.channel.send("**Insufficient Permissions**");
         }
