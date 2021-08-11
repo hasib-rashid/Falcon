@@ -14,12 +14,12 @@ const PurgeCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        if (!message.member?.permissions.has("MANAGE_MESSAGES"))
+        if (!message.member?.hasPermission("MANAGE_MESSAGES"))
             return message.channel.send(
                 "**You need `MANAGE_MESSAGES` permission to use this command**"
             );
 
-        if (message.member?.permissions.has("MANAGE_MESSAGES")) {
+        if (message.member?.hasPermission("MANAGE_MESSAGES")) {
             const args = message.content.split(" ").slice(1);
             const amount = args.join(" ");
 
@@ -55,7 +55,7 @@ const PurgeCommand: Command = {
                 .setColor("#4287f5")
                 .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-            message.channel.send({ embeds: [purgeEmbed] }).then((msg) => {
+            message.channel.send(purgeEmbed).then((msg) => {
                 setTimeout(() => msg.delete(), 5000);
             });
         }

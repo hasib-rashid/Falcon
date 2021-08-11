@@ -37,7 +37,7 @@ const QueueCommand: Command = {
                     .join("\n")
             );
 
-            message.channel.send({ embeds: [embed] });
+            message.channel.send(embed);
         } catch (err) {
             console.error(err);
             message.channel.send(

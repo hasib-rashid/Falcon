@@ -14,7 +14,7 @@ const SetupCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        if (!message.member?.permissions.has("MANAGE_GUILD"))
+        if (!message.member?.hasPermission("MANAGE_GUILD"))
             return message.channel.send(
                 "**You need `MANAGE_GUILD` permission to use this command**"
             );
@@ -31,7 +31,7 @@ const SetupCommand: Command = {
                 ***Note: More are coming as the Bot Updates.***
             `)
 
-        message.channel.send({ embeds: [embed] })
+        message.channel.send(embed)
     },
 }
 

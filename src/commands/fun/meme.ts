@@ -26,7 +26,7 @@ const MemeCommand: Command = {
                 .setColor("BLUE")
                 .setImage(response.data.image);
 
-            message.channel.send({ embeds: [embed] });
+            message.channel.send(embed);
         });
     },
 }

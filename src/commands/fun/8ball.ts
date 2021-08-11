@@ -26,7 +26,7 @@ const EightBallCommand: Command = {
             .addField(":8ball:", json.default[randomIndex])
             .setColor("GREEN");
 
-        message.channel.send({ embeds: [embed] });
+        message.channel.send(embed);
     },
 }
 

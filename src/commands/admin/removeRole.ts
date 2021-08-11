@@ -14,7 +14,7 @@ const RemoveRole: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        if (!message.member?.permissions.has("MANAGE_ROLES"))
+        if (!message.member?.hasPermission("MANAGE_ROLES"))
             return message.channel.send(
                 "**You need `MANAGE_ROLES` permission to use this command**"
             );
@@ -22,7 +22,7 @@ const RemoveRole: Command = {
         const user = message.mentions.users.first() || message.guild?.members.cache.get(args[0])
         const nameofrole = message.mentions.roles.first()?.name || args[1]
 
-        if (message.member.permissions.has("MANAGE_ROLES")) {
+        if (message.member.hasPermission("MANAGE_ROLES")) {
             const targetUser = user;
 
             if (!targetUser) {
@@ -57,7 +57,7 @@ const RemoveRole: Command = {
                 )
                 .setFooter("Copyright @2021 Falcon");
 
-            message.channel.send({ embeds: [removeRoleEmbed] });
+            message.channel.send(removeRoleEmbed);
         } else {
             message.channel.send("**Insufficient Permissions**");
         }

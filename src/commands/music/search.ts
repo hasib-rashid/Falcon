@@ -44,7 +44,7 @@ const SearchCommand: Command = {
             .setColor("BLUE")
             .setDescription(searchresult)
 
-        const searchEmbed = await message.channel.send({ embeds: [embed] })
+        const searchEmbed = await message.channel.send(embed)
 
         let userinput: any;
 
@@ -62,7 +62,7 @@ const SearchCommand: Command = {
                         .setColor("RED")
                         .setDescription("**Not a right number. So I use number 1!")
 
-                    message.channel.send({ embeds: [embed] })
+                    message.channel.send(embed)
 
                     userinput = 1;
                 }
@@ -72,7 +72,7 @@ const SearchCommand: Command = {
                         .setColor("RED")
                         .setDescription("**Not a right number. So I use number 1!")
 
-                    message.channel.send({ embeds: [embed] })
+                    message.channel.send(embed)
 
                     userinput = 1;
                 }
@@ -90,7 +90,7 @@ const SearchCommand: Command = {
                 .setColor("RED")
                 .setDescription("**Something Went Wrong**")
 
-            message.channel.send({ embeds: [embed] })
+            message.channel.send(embed)
         }
 
         return client.distube.play(message, result[userinput - 1].url);

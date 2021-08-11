@@ -1,5 +1,4 @@
 import { MessageEmbed } from 'discord.js';
-import { createAudioPlayer, createAudioResource, joinVoiceChannel, NoSubscriberBehavior } from '@discordjs/voice'
 import Command from '../../typings/command';
 
 const CodeRadioCommand: Command = {
@@ -45,24 +44,10 @@ const CodeRadioCommand: Command = {
                     );
                 }
 
-                const connection = joinVoiceChannel({
-                    channelId: voiceChannel.id,
-                    guildId: voiceChannel.guild.id,
-                    adapterCreator: voiceChannel.guild.voiceAdapterCreator
-                })
-
-                const player = createAudioPlayer()
-
-                const resource = createAudioResource("https://coderadio-admin.freecodecamp.org/radio/8010/radio.mp3")
-
-                player.play(resource)
-
-                connection.subscribe(player)
-                
-                // .then((connection) => {
-                //     connectionDispatcher = connection.play(
-                //         "https://coderadio-admin.freecodecamp.org/radio/8010/radio.mp3"
-                //     );
+                voiceChannel.join().then((connection) => {
+                    connectionDispatcher = connection.play(
+                        "https://coderadio-admin.freecodecamp.org/radio/8010/radio.mp3"
+                    );
 
                     const radio_play_embed = new MessageEmbed()
                         .setTitle("Started Playing the Radio!")
@@ -77,7 +62,15 @@ const CodeRadioCommand: Command = {
                             client.user?.username,
                             client.user?.displayAvatarURL()
                         );
-                    message.channel.send({ embeds: [radio_play_embed] });
+                    message.channel.send(radio_play_embed);
+                });
+            }
+
+            if (cmd == "stop") {
+                voiceChannel?.leave();
+                message.channel.send(
+                    ":white_check_mark: Stopped the Radio and left the Voice channel!"
+                );
             }
         } catch (err) {
             console.error(err);

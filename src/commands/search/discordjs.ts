@@ -22,7 +22,7 @@ const DiscordJSCommand: Command = {
         }
         axios.get(`https://djsdocs.sorta.moe/v2/embed?src=${encodeURIComponent(version)}&q=${encodeURIComponent(args[0])}`).then((res) => {
             const embed = new MessageEmbed(res.data)
-            message.channel.send({ embeds: [embed] })
+            message.channel.send(embed)
         })
     },
 }

@@ -25,7 +25,7 @@ const LyricsCommand: Command = {
                     .setDescription(resp)
                     .setColor("BLUE")
 
-                message.channel.send({ embeds: [embed] })
+                message.channel.send(embed)
             } else {
                 console.log(err)
             }
