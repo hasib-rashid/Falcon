@@ -1,7 +1,6 @@
 import Command from '../../typings/command';
 import { MessageEmbed } from 'discord.js'
 import { helpAsserts } from '../../assets/json/helpAssersts'
-import GuildModel from '../../models/GuildModel'
 
 import { getArraySum } from '../../util/Util'
 
@@ -20,18 +19,8 @@ const HelpCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        const GetPrefix = await GuildModel.findOne({ where: { guildID: message.guild?.id } })
-
-        // @ts-ignore
-        let PREFIX: any
-
-        try {
-            // @ts-ignore
-            PREFIX = GetPrefix.dataValues.prefix
-        } catch (err) {
-            PREFIX = "."
-        }
-
+        const PREFIX = "."
+        
         try {
             if (args[0] === "general") {
                 const embed = new MessageEmbed()
