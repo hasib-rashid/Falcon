@@ -14,6 +14,7 @@ const SetPrefixCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
+        if (!message.member.permissions.has("MANAGE_GUILD")) return message.channel.send("**You need `MANAGE_MESSAGES` permission to use this command**")
 
         const newPrefix = args.join(" ")
 
