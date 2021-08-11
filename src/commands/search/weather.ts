@@ -40,7 +40,7 @@ const WeatherCommand: Command = {
                     { name: "Date", value: result[0].current.date, inline: true },
                 )
                 .setColor("#037ffc");
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         })
     }
 }

@@ -31,7 +31,7 @@ const WeatherCommand: Command = {
                 const results = result[0].forecast[i]
                 embed.addField(results.day, `Highest: ${results.high}\nLowest: ${results.low}\nCondition: ${results.skytextday}`)
             }
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         });
     },
 }

@@ -45,7 +45,7 @@ const UrbanCommand: Command = {
                             ? shorten(dataWord.example.replace(/\[|\]/g, ""), 1000)
                             : "None"
                     );
-                return message.channel.send(embed);
+                return message.channel.send({ embeds: [embed] });
             })
 
         } catch (err) {

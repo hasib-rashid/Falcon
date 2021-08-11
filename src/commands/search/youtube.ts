@@ -45,7 +45,7 @@ const YoutubeCommand: Command = {
                     );
                 }
 
-                message.channel.send(embed);
+                message.channel.send({ embeds: [embed] });
             })
             .catch(function (error) {
                 console.error(error);

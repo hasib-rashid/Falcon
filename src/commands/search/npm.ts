@@ -65,7 +65,7 @@ const NPMCommand: Command = {
                             : "None"
                     )
                     .addField("❯ Maintainers", maintainers.join(", "));
-                return message.channel.send(embed);
+                return message.channel.send({ embeds: [embed] });
             })
         } catch (err) {
             if (err.status === 404)

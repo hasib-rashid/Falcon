@@ -25,7 +25,7 @@ const CatCommand: Command = {
                     .setColor("BLUE")
                     .setImage(data[0].url)
 
-                message.channel.send(embed);
+                message.channel.send({ embeds: [embed] });
             })
 
         } catch (err) {

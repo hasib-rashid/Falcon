@@ -32,7 +32,7 @@ const CountryCommand: Command = {
                     "❯ Languages",
                     data[0].languages.map((lang: any) => lang.name).join("/")
                 );
-            return message.channel.send(embed);
+            return message.channel.send({ embeds: [embed] });
         })
     },
 }

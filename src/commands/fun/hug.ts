@@ -24,7 +24,7 @@ const HugCommand: Command = {
                 .setImage(res.data.link)
                 .setColor("#337ef5")
 
-            message.channel.send(embed)
+            message.channel.send({ embeds: [embed] })
         })
     },
 }

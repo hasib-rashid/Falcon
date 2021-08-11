@@ -30,7 +30,7 @@ const SeekCommand: Command = {
                 .setColor("BLUE")
                 .setDescription(`Seeked the song to \`${args[0]} seconds\``)
 
-            message.channel.send(embed)
+            message.channel.send({ embeds: [embed] })
 
             await delay(5000);
             //@ts-ignore

@@ -31,7 +31,7 @@ const InstagramCommand: Command = {
                 .addField("Private", "**" + res.data.graphql.user.is_private + "**", true)
                 .addField("Useranme", "**" + res.data.graphql.user.username + "**", true)
 
-            message.channel.send(embed)
+            message.channel.send({ embeds: [embed] })
         })
     },
 }

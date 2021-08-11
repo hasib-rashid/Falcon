@@ -24,7 +24,7 @@ const PuppyCommand: Command = {
                 .setColor("BLUE")
                 .setImage(response.data.message);
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }).catch((err) => {
             consola.error(err)
         })
