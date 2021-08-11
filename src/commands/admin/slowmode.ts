@@ -18,7 +18,7 @@ const SlowmodeCommand: Command = {
             let time = args[0]
             const reason = args.slice(1).join(' ') || "No Reason";
 
-            if (!message.member?.hasPermission("MANAGE_CHANNELS"))
+            if (!message.member?.permissions.has("MANAGE_CHANNELS"))
                 return message.channel.send(
                     "**You need `MANAGE_CHANNELS` permission to use this command**"
                 );
@@ -46,7 +46,7 @@ const SlowmodeCommand: Command = {
                     )
                     .setFooter(client.user?.username, client.user?.displayAvatarURL());
 
-                message.channel.send(embed);
+                message.channel.send({ embeds: [embed] });
                 return;
             }
 
@@ -68,7 +68,7 @@ const SlowmodeCommand: Command = {
                 )
                 .setFooter(client.user?.username, client.user?.displayAvatarURL());
 
-            message.reply(embed);
+            message.reply({ embeds: [embed] });
         } catch (err) {
             console.error(err);
         }
