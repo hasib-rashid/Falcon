@@ -1,4 +1,4 @@
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 
 const LoopCommand: Command = {
     name: 'loop',

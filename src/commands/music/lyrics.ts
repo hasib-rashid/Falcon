@@ -1,4 +1,4 @@
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 // @ts-ignore
 import lyrics from 'findthelyrics'
 import { MessageEmbed } from 'discord.js';

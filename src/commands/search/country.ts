@@ -1,4 +1,4 @@
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 import { default as axios } from 'axios'
 import { formatNumber } from '../../util/Util';
 import { MessageEmbed } from 'discord.js';

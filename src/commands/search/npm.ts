@@ -1,5 +1,5 @@
 import { MessageEmbed, User } from 'discord.js';
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 import { trimArray } from '../../util/Util';
 import moment from 'moment'
 import { default as axios } from 'axios'

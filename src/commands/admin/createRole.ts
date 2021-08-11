@@ -1,4 +1,4 @@
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 
 const CreateRoleCommand: Command = {
     name: 'createrole',

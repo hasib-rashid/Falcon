@@ -1,5 +1,5 @@
 import { TextChannel } from 'discord.js';
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 
 const NukeCommand: Command = {
     name: 'nuke',

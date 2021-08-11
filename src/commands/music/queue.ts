@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import Song from 'distube/typings/Song';
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 
 const QueueCommand: Command = {
     name: 'queue',

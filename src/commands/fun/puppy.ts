@@ -1,4 +1,4 @@
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 import { MessageEmbed } from 'discord.js'
 import { default as axios } from 'axios'
 import consola from 'consola';

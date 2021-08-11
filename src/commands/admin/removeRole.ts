@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 
 const RemoveRole: Command = {
     name: 'removerole',

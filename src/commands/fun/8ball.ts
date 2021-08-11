@@ -1,4 +1,4 @@
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 import { MessageEmbed } from 'discord.js'
 import * as json from "../../assets/JSON/8ball.json"
 

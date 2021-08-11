@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 import { default as axios } from 'axios'
 
 const GiphyCommand: Command = {
