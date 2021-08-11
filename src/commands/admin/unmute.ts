@@ -14,9 +14,9 @@ const UnmuteCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        if (!message.member?.hasPermission("MANAGE_EMOJIS"))
+        if (!message.member?.permissions.has("MANAGE_MESSAGES"))
             return message.channel.send(
-                "**You need `MANAGE_EMOJIS` permission to use this command**"
+                "**You need `MANAGE_MESSAGES` permission to use this command**"
             );
 
         const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
@@ -35,7 +35,7 @@ const UnmuteCommand: Command = {
             .setColor("#41d16a")
             .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-        Member?.send(unmuteEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+        Member?.send({ embeds: [unmuteEmbed] }).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
 
         message.channel.send(`**${Member} was sucessfully unmuted**`)
     },
