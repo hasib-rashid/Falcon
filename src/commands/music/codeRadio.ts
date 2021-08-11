@@ -44,7 +44,7 @@ const CodeRadioCommand: Command = {
                     );
                 }
 
-                voiceChannel.join().then((connection) => {
+                voiceChannel().then((connection) => {
                     connectionDispatcher = connection.play(
                         "https://coderadio-admin.freecodecamp.org/radio/8010/radio.mp3"
                     );
