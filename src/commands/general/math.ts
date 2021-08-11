@@ -1,13 +1,11 @@
-import Command from '../../typings/command';
-import { evaluate } from 'mathjs'
+import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js'
+import { evaluate } from 'mathjs'
 
 const MathCommand: Command = {
     name: 'math',
-    description: 'Calculate anything with a Maths',
-    aliases: [
-        'calculate', 'calc'
-    ],
+    description: 'Do maths in Discord. Use calculator command for better understanding',
+    aliases: [''],
     guildOnly: false,
     ownerOnly: false,
     disabled: false,

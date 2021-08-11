@@ -1,4 +1,4 @@
-import Command from '../../typings/command';
+import Command from '../../constants/command';
 import { MessageEmbed } from 'discord.js'
 
 const MemberCountCommand: Command = {
