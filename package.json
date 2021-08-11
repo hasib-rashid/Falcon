@@ -63,6 +63,7 @@
     }
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "consola": "^2.15.3",
     "deta": "^1.0.0",
     "discord.js": "^13.0.1",
