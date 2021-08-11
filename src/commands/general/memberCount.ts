@@ -19,7 +19,7 @@ const MemberCountCommand: Command = {
             .setTitle("Number of Users: " + message.guild?.memberCount)
             .setColor("BLUE");
 
-        message.channel.send({ embeds: [embed] });
+        message.channel.send(embed);
     },
 }
 

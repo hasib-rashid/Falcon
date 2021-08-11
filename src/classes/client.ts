@@ -5,6 +5,7 @@ import Logger from "../helpers/logger";
 import Command from "../typings/command";
 import Event from "../typings/event";
 import DisTube from "distube";
+import disbut from 'discord-buttons'
 import Queue from "distube/typings/Queue";
 import { formatNumber } from "../util/Util";
 
@@ -88,6 +89,8 @@ export default class FalconClient extends Client {
         });
         
         this.distube = distube
+
+        disbut(this)
 
         distube
             .on("playSong", async (message: Message, queue: Queue, song: any) => {

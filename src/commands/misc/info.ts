@@ -82,7 +82,7 @@ const InfoCommand: Command = {
                     Object.keys(deps).sort().join(", ")
                 );
 
-            message.channel.send({ embeds: [embed] });
+            message.channel.send(embed);
         } catch (err) {
             console.error(err);
         }

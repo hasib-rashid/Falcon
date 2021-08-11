@@ -31,7 +31,7 @@ const DecodeCommand: Command = {
                     .setColor("#118eed")
                     .setDescription(response.data.text);
 
-                message.channel.send({ embeds: [embed] });
+                message.channel.send(embed);
             });
         } catch (e) {
             return message.channel.send(

@@ -8,9 +8,9 @@ import Collection from "@discordjs/collection";
 const cooldowns: Collection<string, Collection<string, number>> = new Collection();
 
 const MessageEvent: Event = {
-    name: "messageCreate",
+    name: "message",
     async run(client, message: Message) {
-        if (message.author.bot || message.webhookId) return;
+        if (message.author.bot || message.webhookID) return;
 
         const prefix = "."
 

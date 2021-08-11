@@ -28,7 +28,7 @@ const InviteCommand: Command = {
             );
 
 
-        message.channel.send({ embeds: [embed] });
+        message.channel.send(embed);
     },
 }
 

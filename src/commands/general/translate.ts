@@ -36,7 +36,7 @@ const TranslateCommand: Command = {
                         "Powered By Google Translate",
                         translate_image
                     )
-                message.channel.send({ embeds: [embed] })
+                message.channel.send(embed)
             }
             )
             .catch((err) => {

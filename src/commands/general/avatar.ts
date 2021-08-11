@@ -27,7 +27,7 @@ const AvatarCommand: Command = {
             .setImage(image)
             .setColor("#347aeb")
 
-        message.channel.send({ embeds: [embed] })
+        message.channel.send(embed)
     },
 }
 

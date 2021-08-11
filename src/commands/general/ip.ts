@@ -41,7 +41,7 @@ const IPCommand: Command = {
                 .addField("❯ Organization", response.data.org || "None", true)
                 .addField("❯ Proxy", "Yes", true);
 
-            message.channel.send({ embeds: [embed] });
+            message.channel.send(embed);
         })
     },
 }

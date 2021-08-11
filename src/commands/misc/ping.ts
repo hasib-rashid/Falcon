@@ -31,7 +31,7 @@ const PingCommand: Command = {
 
             if (client.ws.ping > 500) pingEmbed.setColor("RED");
 
-            message.channel.send({ embeds: [pingEmbed] })
+            message.channel.send(pingEmbed)
         });
     },
 }

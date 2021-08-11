@@ -29,7 +29,7 @@ const MathCommand: Command = {
                 .addField("Question", `\`\`\`css\n${args.join(" ")}\`\`\``)
                 .addField("Answer", `\`\`\`css\n${result}\`\`\``);
 
-            message.channel.send({ embeds: [embed] })
+            message.channel.send(embed)
         } catch (err) {
             message.channel.send("**There has been a error. Please try again with a valid math logic**")
         }

@@ -32,7 +32,7 @@ const StatsCommand: Command = {
                 .addField("RAM", `${process.memoryUsage().heapUsed / 1024 / 1024} %`, true)
                 .setColor("BLUE");
 
-            return message.channel.send({ embeds: [embed] });
+            return message.channel.send(embed);
         } catch (err) {
             console.error(err);
         }

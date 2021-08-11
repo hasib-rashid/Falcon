@@ -31,7 +31,7 @@ const BinaryCommand: Command = {
                     .setColor("#118eed")
                     .setDescription(response.data.binary);
 
-                message.channel.send({ embeds: [embed] });
+                message.channel.send(embed);
             });
         } catch (err) {
             message.channel.send(
