@@ -1,6 +1,6 @@
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 import { MessageEmbed } from 'discord.js';
-import { MessageActionRow, MessageButton } from 'discord-buttons'
+import { MessageActionRow, MessageButton } from 'discord.js'
 
 const BanCommand: Command = {
     name: 'ban',
@@ -17,7 +17,7 @@ const BanCommand: Command = {
     async run(client, message, args) {
         if (!message.author) return;
 
-        if (!message.member?.hasPermission("BAN_MEMBERS"))
+        if (!message.member?.permissions.has("BAN_MEMBERS"))
             return message.channel.send(
                 "**You need `BAN_MEMBERS` permission to use this command**"
             );
@@ -41,14 +41,14 @@ const BanCommand: Command = {
 
         const confirmButton = new MessageButton()
             .setLabel("Yes")
-            .setID("ban-yes")
-            .setStyle("green");
+            .setCustomId("ban-yes")
+            .setStyle("SUCCESS");
 
 
         const denyButton = new MessageButton()
             .setLabel("No")
-            .setID("ban-no")
-            .setStyle("red");
+            .setCustomId("ban-no")
+            .setStyle("DANGER");
 
         const row = new MessageActionRow()
             .addComponents(confirmButton, denyButton)
@@ -56,28 +56,29 @@ const BanCommand: Command = {
         message.channel.send(confirmEmbed, row)
 
         client.on('clickButton', async (button) => {
-            if (button.id === "ban-yes") {
-                if (!button.message.author) return;
+            console.log(button)
+            // if (button.type === "ban-yes") {
+            //     if (!button.message.author) return;
 
-                targetUser?.ban({ reason: banReason })
+            //     targetUser?.ban({ reason: banReason })
 
-                message.channel.send(`**Successfully Banned ${targetUser} from this server.**`)
+            //     message.channel.send(`**Successfully Banned ${targetUser} from this server.**`)
 
-                const banEmbed = new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
-                    .setTitle(`Banned from ${message.guild?.name}`)
-                    .setDescription(`**${message.author} Has Banned you from ${message.guild?.name} for \`${banReason}\`. Please contact him if you want to get unbanned.**`)
-                    .setColor("#ed3737")
-                    .setFooter(client.user?.username, client.user?.displayAvatarURL())
+            //     const banEmbed = new MessageEmbed()
+            //         .setAuthor(message.author.username, message.author.displayAvatarURL())
+            //         .setTitle(`Banned from ${message.guild?.name}`)
+            //         .setDescription(`**${message.author} Has Banned you from ${message.guild?.name} for \`${banReason}\`. Please contact him if you want to get unbanned.**`)
+            //         .setColor("#ed3737")
+            //         .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-                targetUser?.send(banEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
-            }
+            //     targetUser?.send(banEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+            // }
 
-            if (button.id === "ban-no") {
-                if (!button.message.author) return;
+            // if (button.id === "ban-no") {
+            //     if (!button.message.author) return;
 
-                button.message.channel.send("**Canceled The Action.**")
-            }
+            //     button.message.channel.send("**Canceled The Action.**")
+            // }
         });
     },
 }
