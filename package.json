@@ -63,6 +63,7 @@
     }
   },
   "dependencies": {
+    "@vitalets/google-translate-api": "^7.0.0",
     "@weky/inlinereply": "^0.0.0",
     "axios": "^0.21.1",
     "consola": "^2.15.3",
