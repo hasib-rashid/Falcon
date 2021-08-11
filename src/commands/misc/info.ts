@@ -1,6 +1,6 @@
 import Command from '../../typings/command';
 import { MessageEmbed, version as djsVersion } from 'discord.js'
-import { formatNumber } from '../../util/util';
+import { formatNumber } from '../../util/Util';
 import { totalCommands } from '../../classes/client'
 import { version, dependencies } from '../../../package.json'
 
