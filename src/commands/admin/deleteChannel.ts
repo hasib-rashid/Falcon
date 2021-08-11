@@ -13,7 +13,7 @@ const CreateChannelCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        if (!message.member?.hasPermission("MANAGE_CHANNELS"))
+        if (!message.member?.permissions.has("MANAGE_CHANNELS"))
             return message.channel.send(
                 "**You need `MANAGE_CHANNELS` permission to use this command**"
             );
@@ -21,7 +21,6 @@ const CreateChannelCommand: Command = {
 
         if (!channel) return message.channel.send("**Please mention a channel to delete**")
 
-        // @ts-ignore
         message.guild?.channels.cache.get(channel?.id)?.delete()
 
         message.channel.send("**Successfully Deleted the Channel**")
