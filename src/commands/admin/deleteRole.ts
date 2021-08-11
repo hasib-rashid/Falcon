@@ -13,7 +13,7 @@ const DeleteRoleCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        if (!message.member?.hasPermission("BAN_MEMBERS"))
+        if (!message.member?.permissions.has("BAN_MEMBERS"))
             return message.channel.send(
                 "**You need `BAN_MEMBERS` permission to use this command**"
             );
@@ -22,7 +22,6 @@ const DeleteRoleCommand: Command = {
 
         if (!role) return message.channel.send("**Please specify a role to delete**")
 
-        // @ts-ignore
         message.guild?.roles.cache.get(role?.id)?.delete()
 
         message.channel.send("**Succesfully Deleted the role**")
