@@ -42,6 +42,22 @@ export function formatNumber(number: string, minimumFractionDigits = 0) {
     });
 }
 
+export async function verify(message: Message) {
+    const yes = ["yes", "y", "ye", "yeah", "yep", "yup", "yea"];
+    const no = ["no", "n", "nope", "nah", "never", "nop"];
+
+    const verify = await message.channel.awaitMessages((res: Message) => res.author.id === message.author.id && (yes.includes(res.content.toLowerCase()) || no.includes(res.content.toLowerCase())), {
+        max: 1,
+        time: 60 * 1000,
+    });
+
+    if (!verify.size) return 0;
+    // @ts-ignore
+    if (yes.includes(verify.first()?.content.toLowerCase())) return true;
+
+    return false;
+}
+
 export function trimArray(arr: any, maxLen = 10) {
     if (arr.length > maxLen) {
         const len = arr.length - maxLen;
