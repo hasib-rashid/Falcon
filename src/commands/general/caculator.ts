@@ -1,4 +1,4 @@
-import Command from '../../constants/command';
+import Command from '../../typings/command';
 require("@weky/inlinereply")
 import { MessageEmbed } from 'discord.js'
 // @ts-ignore
