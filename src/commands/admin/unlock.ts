@@ -13,7 +13,7 @@ const UnlockCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        if (!message.member?.hasPermission("MANAGE_CHANNELS"))
+        if (!message.member?.permissions.has("MANAGE_CHANNELS"))
             return message.channel.send(
                 "**You need `MANAGE_CHANNELS` permission to use this command**"
             );
