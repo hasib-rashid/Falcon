@@ -2,16 +2,26 @@ import consola from 'consola'
 import Event from '../typings/event'
 import Nuggies from 'nuggies'
 require("dotenv").config();
+import express from 'express'
 import ms from 'ms'
 import { Deta } from 'deta'
 import { ENV } from '../classes/env';
 const deta = Deta(ENV.db)
 const db = deta.Base("muted")
 
+const app = express()
+const port = 8080
+
 const ReadyEvent: Event = {
     name: "ready",
     async run(client) {
         client.logger.info("client", `[READY] Logged in as ${client.user?.tag}`);
+
+        app.get("/", (req, res) => {
+            res.send("Falcon Is Online")
+        })
+        
+        app.listen(port, () => console.log(`App listening on port ${port}`))
 
         const Activities = [
             `Serving ${client.prefix}help`,
