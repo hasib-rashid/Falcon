@@ -21,7 +21,7 @@ const TempMuteCommand: Command = {
     async run(client, message, args) {
         if (!message.member?.hasPermission('MANAGE_MESSAGES')) return message.channel.send('**You need `MANAGE_MESSAGES` permission to use this command**')
         const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
-        const muteReason = args.slice(1).join(' ') || "No Reason";
+        const muteReason = args.slice(2).join(' ') || "No Reason";
 
         const time = args[1]
 
