@@ -1,5 +1,6 @@
 import consola from 'consola'
 import Event from '../typings/event'
+import Nuggies from 'nuggies'
 require("dotenv").config();
 
 const ReadyEvent: Event = {
@@ -20,6 +21,8 @@ const ReadyEvent: Event = {
 
             client.user?.setActivity(newActivity, { type: "WATCHING" });
         }, 10000);
+
+        Nuggies.giveaways.startAgain(client);
     },
 };
 
