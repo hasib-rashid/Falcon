@@ -70,8 +70,6 @@ const TempMuteCommand: Command = {
         setTimeout(async () => {
             await Member.roles.remove(role2)
             message.channel.send(`**${Member.displayName} is now unmuted.**`)
-
-            console.log(muteTime.items[0].key as any)
             db.delete((muteTime.items[0].key as any))
         }, ms(time))
     },
