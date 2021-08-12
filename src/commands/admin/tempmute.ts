@@ -70,7 +70,17 @@ const TempMuteCommand: Command = {
         setTimeout(async () => {
             await Member.roles.remove(role2)
             message.channel.send(`**${Member.displayName} is now unmuted.**`)
+            const unmuteEmbed = new MessageEmbed()
+                .setAuthor(message.author.username, message.author.displayAvatarURL())
+                .setTitle(`Unmuted from ${message.guild?.name}`)
+                .setDescription(`**I have unmuted you from ${message.guild?.name} after \`${ms(ms(muteTime.items[0].time), { long: true })}\` of your punishment.**`)
+                .setColor("#41d16a")
+                .setFooter(client.user?.username, client.user?.displayAvatarURL())
+
             db.delete((muteTime.items[0].key as any))
+
+            Member?.send(unmuteEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+
         }, ms(time))
     },
 }
