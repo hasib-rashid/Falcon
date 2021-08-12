@@ -4,6 +4,10 @@ import { Message } from "discord.js";
 // @ts-ignore
 import Event from "../typings/event";
 import Collection from "@discordjs/collection";
+import { Deta } from 'deta'
+import { ENV } from '../classes/env';
+const deta = Deta(ENV.db)
+const guildModel = deta.Base("guild")
 
 const cooldowns: Collection<string, Collection<string, number>> = new Collection();
 
@@ -12,7 +16,15 @@ const MessageEvent: Event = {
     async run(client, message: Message) {
         if (message.author.bot || message.webhookID) return;
 
-        const prefix = "."
+        const guildCache = await guildModel.fetch({ guildID: message.guild.id })
+
+        let prefix: any;
+
+        try {
+            prefix = guildCache.items[0].prefix
+        } catch (err) {
+            prefix = client.prefix
+        }
 
         if (!message.content.includes(prefix)) return;
 

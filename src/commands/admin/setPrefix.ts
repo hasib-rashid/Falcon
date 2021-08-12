@@ -24,15 +24,22 @@ const SetPrefixCommand: Command = {
         if (!newPrefix) return message.channel.send("**Please Mention a prefix to set**")
 
         const prefix = await db.fetch({ guildID: message.guild?.id })
+        let oldPrefix
 
-        if (!prefix.items[0]) {
-            db.put({ guildID: message.guild.id, prefix: args.join(" ") })
-        } else {
-            const key: any = prefix.items[0].key
-            db.update({ prefix: args.join(" ") }, key)
+        try {
+            oldPrefix = prefix.items[0].prefix
+        } catch (err) {
+            oldPrefix = client.prefix
         }
 
-        message.channel.send(`**Successfully Changed the server prefix from \`${prefix.items[0].prefix}\` to \`${newPrefix}\`**`)
+        try {
+            const key: any = prefix.items[0].key
+            db.update({ prefix: args.join(" ") }, key)    
+        } catch (err) {
+            db.put({ guildID: message.guild.id, prefix: args.join(" ") })
+        }
+
+        message.channel.send(`**Successfully Changed the server prefix from \`${oldPrefix}\` to \`${newPrefix}\`**`)
     },
 }
 
