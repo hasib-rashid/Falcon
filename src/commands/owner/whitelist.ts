@@ -21,7 +21,9 @@ const WhitelistCommand: Command = {
 
         const fetch = await db.fetch({ userID: args[0] })
 
-        console.log(fetch)
+        db.delete((fetch.items[0].key as any))
+
+        message.channel.send("**Successfully Whitelisted the User**")
     },
 }
 
