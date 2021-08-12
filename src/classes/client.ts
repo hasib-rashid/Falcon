@@ -8,6 +8,8 @@ import DisTube from "distube";
 import disbut from 'discord-buttons'
 import Queue from "distube/typings/Queue";
 import { formatNumber } from "../util/Util";
+import { ENV } from "./env";
+import { GiveawaysManager } from "discord-giveaways";
 
 export const numberOfCommands: any = []
 export const totalCommands: any = numberOfCommands[0] + numberOfCommands[1] + numberOfCommands[2] + numberOfCommands[3] + numberOfCommands[4] + numberOfCommands[5] + numberOfCommands[6] + numberOfCommands[7] + numberOfCommands[8] + numberOfCommands[9] + numberOfCommands[10]
@@ -32,6 +34,7 @@ export default class FalconClient extends Client {
     public ownerID: string;
     public emotes;
     public shit;
+    public giveaway;
     public distube: any;
     public reactionRole: any;
     public moderator: any;
@@ -68,7 +71,7 @@ export default class FalconClient extends Client {
         this._loadNotifyCommands(config.commandDir)
         
         this.login(config.token);
-        
+
         const distube = new DisTube(this, {
             youtubeCookie: "",
             searchSongs: false,
@@ -99,6 +102,19 @@ export default class FalconClient extends Client {
                 mcompand: "mcompand",
             },
         });
+
+        const giveaway = new GiveawaysManager(this, {
+            updateCountdownEvery: 10000,
+            default: {
+                botsCanWin: false,
+                embedColor: "BLUE",
+                embedColorEnd: "GREEN",
+                exemptPermissions: ["ADMINISTRATOR", "MANAGE_GUILD", "MANAGE_MESSAGES", "MANAGE_CHANNELS"],
+                reaction: "🎉"
+            }
+        })
+
+        this.giveaway = giveaway
         
         this.distube = distube
 
