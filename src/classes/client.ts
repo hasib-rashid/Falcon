@@ -8,6 +8,7 @@ import DisTube from "distube";
 import disbut from 'discord-buttons'
 import Queue from "distube/typings/Queue";
 import { formatNumber } from "../util/Util";
+import { ReactionRoleManager } from "discord.js-collector"
 import { ENV } from "./env";
 import Nuggies from 'nuggies'
 
@@ -108,6 +109,11 @@ export default class FalconClient extends Client {
         Nuggies.handleInteractions(this)
         
         this.distube = distube
+        
+        // @ts-ignore
+        const reactionRoleManager = new ReactionRoleManager(this, { mongoDbLink: ENV.mongoURL });
+
+        this.reactionRole = reactionRoleManager
 
         disbut(this)
 
