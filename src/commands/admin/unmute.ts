@@ -1,5 +1,9 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../typings/command';
+import { Deta } from 'deta'
+import { ENV } from '../../classes/env';
+const deta = Deta(ENV.db)
+const db = deta.Base("muted")
 
 const UnmuteCommand: Command = {
     name: 'unmute',
@@ -24,6 +28,18 @@ const UnmuteCommand: Command = {
         if (!Member) return message.channel.send('**Please enter a valid user**')
 
         const role = message.guild?.roles.cache.find(r => r.name.toLowerCase() === 'muted');
+
+        const mutedUser = await db.fetch({ userID: Member.id })
+
+        let state: boolean
+
+        if (mutedUser.items[0] === undefined) state = true
+
+        try {
+            db.delete(mutedUser.items[0].key as any)
+        } catch (err) {
+            
+        }
 
         // @ts-ignore
         await Member.roles.remove(role)
