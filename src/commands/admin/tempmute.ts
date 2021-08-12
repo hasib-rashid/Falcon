@@ -1,8 +1,10 @@
 import { MessageEmbed } from 'discord.js';
 import Command from '../../typings/command';
-// @ts-ignore
 import ms from 'ms'
-import MuteUser from '../../models/MuteUser'
+import { Deta } from 'deta'
+import { ENV } from '../../classes/env';
+const deta = Deta(ENV.db)
+const db = deta.Base("muted")
 
 const TempMuteCommand: Command = {
     name: 'tempmute',
@@ -22,7 +24,9 @@ const TempMuteCommand: Command = {
 
         const time = args[1]
 
-        MuteUser.create({ userID: Member?.id, guildID: message.guild?.id, time: time })
+        db.put({ userID: Member?.id, guildID: message.guild?.id, time: time })
+
+        const muteTime = await db.fetch({ userID: Member.id })
 
         if (!Member) return message.channel.send('**Member is not found.**')
         if (!time) return message.channel.send('**Please specify a time.**')
@@ -47,25 +51,19 @@ const TempMuteCommand: Command = {
             }
         };
         let role2 = message.guild?.roles.cache.find(r => r.name.toLowerCase() === 'muted')
-        // @ts-ignore
+        
         if (Member.roles.cache.has(role2?.id)) return message.channel.send(`**${Member.displayName} has already been muted.**`)
-        // @ts-ignore
+
         await Member.roles.add(role2)
-        message.channel.send(`${Member.displayName} is now muted.`)
+        message.channel.send(`**${Member.displayName} is now muted.**`)
 
-        // @ts-ignore
-        MuteUser.findOne({ where: { userID: Member?.id, guildID: message.guild?.id } }).then((response, error) => {
-            setTimeout(async () => {
-                // @ts-ignore
-                await Member.roles.remove(role2)
-                message.channel.send(`**${Member.displayName} is now unmuted.**`)
+        setTimeout(async () => {
+            await Member.roles.remove(role2)
+            message.channel.send(`**${Member.displayName} is now unmuted.**`)
 
-
-                MuteUser.destroy({ where: { userID: Member?.id, guildID: message.guild?.id } })
-                // @ts-ignore
-            }, ms(response.dataValues.time))
-        })
-
+            console.log(muteTime.items[0].key as any)
+            db.delete((muteTime.items[0].key as any))
+        }, ms(time))
     },
 }
 
