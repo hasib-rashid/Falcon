@@ -19,7 +19,7 @@ const testCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        
+        db.put({ test: "test" })
     },
 }
 
