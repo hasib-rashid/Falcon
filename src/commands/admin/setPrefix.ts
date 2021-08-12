@@ -1,5 +1,9 @@
 import Command from '../../typings/command';
-import GuildModel from '../../models/GuildModel'
+import { Deta } from 'deta'
+import { ENV } from '../../classes/env';
+
+const deta = Deta(ENV.db)
+const db = deta.Base("guild")
 
 const SetPrefixCommand: Command = {
     name: 'setprefix',
@@ -19,17 +23,16 @@ const SetPrefixCommand: Command = {
 
         if (!newPrefix) return message.channel.send("**Please Mention a prefix to set**")
 
-        const prefix = await GuildModel.findOne({ where: { guildID: message.guild?.id } })
-        // @ts-ignore
-        const oldPrefix = prefix._previousDataValues.prefix
-        // @ts-ignore
-        if (prefix === null) {
-            GuildModel.create({ guildID: message.guild?.id, prefix: args.join(" ") })
+        const prefix = await db.fetch({ guildID: message.guild?.id })
+
+        if (!prefix.items[0]) {
+            db.put({ guildID: message.guild.id, prefix: args.join(" ") })
         } else {
-            GuildModel.update({ prefix: args.join(" ") }, { where: { guildID: message.guild?.id } })
+            const key: any = prefix.items[0].key
+            db.update({ prefix: args.join(" ") }, key)
         }
 
-        message.channel.send(`**Successfully Changed the server prefix from \`${oldPrefix}\` to \`${newPrefix}\`**`)
+        message.channel.send(`**Successfully Changed the server prefix from \`${prefix.items[0].prefix}\` to \`${newPrefix}\`**`)
     },
 }
 

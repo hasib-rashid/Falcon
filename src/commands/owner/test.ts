@@ -4,7 +4,7 @@ config()
 import { Deta } from 'deta'
 
 const deta = Deta(process.env.DEFAULT_DB)
-const db = deta.Base("test")
+const db = deta.Base("guild")
 
 const testCommand: Command = {
     name: 'test',
@@ -19,8 +19,7 @@ const testCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        const data = await db.fetch({ "name": "hasib" })
-        console.log(data)
+        
     },
 }
 

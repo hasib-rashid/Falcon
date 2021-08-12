@@ -8,5 +8,5 @@ export const ENV: Environment = {
     google_api_key: process.env.GOOGLE_API_KEY,
     giphy_api_key: process.env.GIPHY_API_KEY,
     rapid_api_key: process.env.RAPID_API_KEY,
-    db: process.env.DB
+    db: process.env.DEFAULT_DB
 }
