@@ -17,14 +17,11 @@ const WhitelistCommand: Command = {
     cooldown: 0,
 
     async run(client, message, args) {
-        try {
-            const key: any = await db.fetch({ userID: args[0] })
-            db.delete(key.items[0].key)
-            
-            message.channel.send(`${client.users.cache.get(args[0])?.username} has been sucessfully whitelisted.`)
-        } catch (err) {
-            message.channel.send("**This user is not blacklisted.**")
-        }
+        const user = client.users.cache.get(args[0])
+
+        const fetch = await db.fetch({ userID: args[0] })
+
+        console.log(fetch)
     },
 }
 

@@ -21,7 +21,7 @@ const BlackListCommand: Command = {
         const reason = args.slice(1).join(' ') || "No Reason";
 
         try {
-            db.put({ userID: user.id, time: Date.now(), reason: reason })
+            db.put({ userID: user.id, time: Date.now(), reason: reason, condition: true })
             message.channel.send("**Sucessfully Blacklisted this user**")
         } catch (err) {
             message.channel.send("**This user is already Blacklisted**")
