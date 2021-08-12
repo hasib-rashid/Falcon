@@ -21,6 +21,7 @@ const TempMuteCommand: Command = {
     async run(client, message, args) {
         if (!message.member?.hasPermission('MANAGE_MESSAGES')) return message.channel.send('**You need `MANAGE_MESSAGES` permission to use this command**')
         const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
+        const muteReason = args.slice(1).join(' ') || "No Reason";
 
         const time = args[1]
 
@@ -56,6 +57,15 @@ const TempMuteCommand: Command = {
 
         await Member.roles.add(role2)
         message.channel.send(`**${Member.displayName} is now muted.**`)
+
+        const tempMuteEmbed = new MessageEmbed()
+            .setAuthor(message.author.username, message.author.displayAvatarURL())
+            .setTitle(`Muted from ${message.guild?.name}`)
+            .setDescription(`**${message.author} Has Muted you temporarily for \`${ms(ms(time), { long: true })}\` from ${message.guild?.name} for \`${muteReason}\`. Please contact or dm him if you want to get unmuted.**`)
+            .setColor("#ed3737")
+            .setFooter(client.user?.username, client.user?.displayAvatarURL())
+
+        Member?.send(tempMuteEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
 
         setTimeout(async () => {
             await Member.roles.remove(role2)

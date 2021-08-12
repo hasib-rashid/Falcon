@@ -6,7 +6,6 @@ import Event from "../typings/event";
 import Collection from "@discordjs/collection";
 import { Deta } from 'deta'
 import { ENV } from '../classes/env';
-import BlackListUser from '../models/BlackListUsers';
 const deta = Deta(ENV.db)
 const guildModel = deta.Base("guild")
 const blacklistModel = deta.Base("blacklist")
