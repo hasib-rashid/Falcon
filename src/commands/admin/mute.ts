@@ -1,4 +1,4 @@
-import { MessageEmbed, Role, RoleManager, RoleResolvable } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import Command from '../../typings/command';
 
 const MuteCommand: Command = {
