@@ -1,8 +1,6 @@
 import { Message, TextChannel } from 'discord.js';
 import { RunFunction } from '../../interfaces/Event';
 import { Anything } from '../../interfaces/Anything';
-import leven from 'leven';
-import { Command } from '../../interfaces/Command';
 
 export const name: string = 'message';
 export const run: RunFunction = async (client, message: Message) => {
@@ -104,16 +102,7 @@ export const run: RunFunction = async (client, message: Message) => {
 			const cooldownTime: string = client.utils.formatMS(
 				client.cooldowns.get(`${message.author.id}${command.name}`) - Date.now()
 			);
-			return message.channel.send(
-				client.embed(
-					{
-						description: `You can use this command again in \`${
-							cooldownTime.split('').length == 0 ? '1 second' : cooldownTime
-						}\`\nDid you know, people who donate to Spencer have their cooldown time halfed! Exciting times! *Please note: For donation perks to work, you have to join Spencer support!*`,
-					},
-					message
-				)
-			);
+			return message.channel.send(`**You can use this command again in \`${cooldownTime.split('').length == 0 ? '1 second' : cooldownTime}\`**`)
 		}
 		client.cooldowns.set(
 			`${message.author.id}${command.name}`,
