@@ -1,3 +1,5 @@
-/node_modules/
-.env
-/dist/
+dist
+.idea
+config.json
+.husky/_
+node_modules
