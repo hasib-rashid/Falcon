@@ -9,6 +9,7 @@ const deps = { ...dependencies };
 export const name = 'info'
 export const category = 'misc'
 export const description = 'Information about Falcon'
+export const aliases = ["information"]
 
 export const run: RunFunction = async (client, message, args) => {
     try {
