@@ -6,7 +6,6 @@ export interface RunFunction {
 }
 export interface Command {
 	name: string;
-	run: RunFunction;
 	aliases?: string[];
 	description: string;
 	cooldown?: number;
