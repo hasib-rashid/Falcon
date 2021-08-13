@@ -1,16 +1,11 @@
-import { RunFunction } from '../../interfaces/Command';
+import { RunFunction } from '../../interfaces/Command'; 
 
 export default {
-    name: "ping",
-    category: "info",
-    description: "desc"
+   name: 'ping',
+   category: 'misc',
+   description: 'Check the ping of the websocket and the bot',
 }
 
-export const run: RunFunction = async (client, message) => {
-	const msg = await message.channel.send('Ponging..');
-	const ws: number = client.ws.ping;
-	const edit: number = msg.createdTimestamp - message.createdTimestamp;
-	await msg.edit(
-		`WebSocket ping: \`${ws}\`MS, Discord API Ping: \`${edit}\`MS`
-	);
-};
+export const run: RunFunction = async (client, message, args) => {
+	message.channel.send(`Websocket ping is ${client.ws.ping}`)
+}

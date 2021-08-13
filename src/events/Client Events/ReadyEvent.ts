@@ -1,9 +1,6 @@
 import { RunFunction } from '../../interfaces/Event';
-import { Document } from 'mongoose';
-import { Anything } from '../../interfaces/Anything';
-import { GuildMember, User } from 'discord.js';
+import { GuildMember } from 'discord.js';
 import express from 'express';
-import ms from 'ms';
 
 export const name: string = 'ready';
 export const run: RunFunction = async (client) => {
@@ -19,13 +16,12 @@ export const run: RunFunction = async (client) => {
 				client.config.onlyUsed.push(value.id);
 			});
 	}
-	if (client.config.webAuth) {
-		const server = express();
-		server.get('/', (req, res) => res.status(200).json({ msg: '🚀' }));
-		server.listen(client.config.webPort, () =>
-			client.logger.success(
-				`Webhook server listening on port ${client.config.webPort}`
-			)
-		);
-	}
+
+	const app = express();
+	app.get('/', (req, res) => res.status(200).json({ msg: '🚀' }));
+	app.listen(8080, () =>
+		client.logger.success(
+			`Webhook app listening on port 8080`
+		)
+	);
 };
