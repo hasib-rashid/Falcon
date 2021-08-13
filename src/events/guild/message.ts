@@ -7,24 +7,6 @@ export const run: RunFunction = async (client, message: Message) => {
 	if (message.partial) await message.fetch();
 	if (message.member?.partial) await message.member.fetch();
 	if (!message.guild) return;
-	if (
-		/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi.test(
-			message.content
-		)
-	) {
-		try {
-			await message.delete();
-			const msg: Message = await message.channel.send(
-				client.embed({ description: 'No links allowed.' }, message)
-			);
-			setTimeout(async () => {
-				try {
-					await msg.delete();
-				} catch {}
-			}, 3000);
-		} catch {}
-	}
-	
 	if (message.author.bot) return;
 	const Prefix = client.prefix
 	if (!message.content.toLowerCase().startsWith(Prefix)) return;
@@ -32,14 +14,38 @@ export const run: RunFunction = async (client, message: Message) => {
 		.slice(Prefix.length)
 		.trim()
 		.split(/ +/g);
-	const command: Anything =
-		client.commands.get(cmd.toLowerCase()) ||
-		client.commands.get(client.aliases.get(cmd.toLowerCase()));
+
+	const command: Anything = client.commands.get(cmd.toLowerCase()) || client.commands.get(client.aliases.get(cmd.toLowerCase()));
+
 	if (client.config.onlyUsed) {
 		if (!client.config.onlyUsed.includes(message.author.id)) return;
 	}
+
 	if (!cmd.length) return;
 	if (command) {
+		if (
+			command.ownerOnly &&
+			command.ownerOnly == true &&
+			!client.owners.includes(message.author.id)
+		)
+			return;
+		if (client.cooldowns.has(`${message.author.id}${command.name}`)) {
+			const cooldownTime: string = client.utils.formatMS(
+				client.cooldowns.get(`${message.author.id}${command.name}`) - Date.now()
+			);
+			return message.channel.send(`**You can use this command again in \`${cooldownTime.split('').length == 0 ? '1 second' : cooldownTime}\`**`)
+		}
+		client.cooldowns.set(
+			`${message.author.id}${command.name}`,
+			client.utils.checkMultipleRoles('784470505607528448', message.author.id, [
+				'787656384808353803',
+				'787656420258086922',
+				'787656471679991829',
+			])
+				? Date.now() + command?.cooldown / 2
+				: Date.now() + command?.cooldown
+		);
+
 		if (command.userPermissions) {
 			if (!message.member.permissions.has(command.userPermissions))
 				return message.channel.send(
@@ -91,29 +97,6 @@ export const run: RunFunction = async (client, message: Message) => {
 					)
 				);
 		}
-
-		if (
-			command.ownerOnly &&
-			command.ownerOnly == true &&
-			!client.owners.includes(message.author.id)
-		)
-			return;
-		if (client.cooldowns.has(`${message.author.id}${command.name}`)) {
-			const cooldownTime: string = client.utils.formatMS(
-				client.cooldowns.get(`${message.author.id}${command.name}`) - Date.now()
-			);
-			return message.channel.send(`**You can use this command again in \`${cooldownTime.split('').length == 0 ? '1 second' : cooldownTime}\`**`)
-		}
-		client.cooldowns.set(
-			`${message.author.id}${command.name}`,
-			client.utils.checkMultipleRoles('784470505607528448', message.author.id, [
-				'787656384808353803',
-				'787656420258086922',
-				'787656471679991829',
-			])
-				? Date.now() + command?.cooldown / 2
-				: Date.now() + command?.cooldown
-		);
 	}
 	command.run(client, message, args).catch((e: Error) => {
 		client.logger.error(e);

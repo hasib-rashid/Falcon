@@ -1,14 +1,9 @@
-import { Command, RunFunction } from '../../interfaces/Command'; 
+import { RunFunction } from '../../interfaces/Command'; 
 
-const command: Command = {
-	name: 'ping',
-	category: 'misc',
-	description: 'Check the ping of the websocket and the bot',
-	usage: "PING PONG"
-}
+export const name = 'ping'
+export const category = "misc"
+export const description = "Description"
 
 export const run: RunFunction = async (client, message, args) => {
-	message.channel.send(`Websocket ping is ${client.ws.ping}`)
+    message.channel.send(client.ws.ping)
 }
-
-export default command
