@@ -9,13 +9,14 @@ export const run: RunFunction = async (client, message, args) => {
 	message.channel.send("Loading data! :thinking:").then(async (msg) => {
 		const pingEmbed = new MessageEmbed()
 			.setTitle("Ping")
-			.setAuthor(`Requested by ${message.author.tag}`)
+			.setAuthor(message.author.username, message.author.displayAvatarURL())
 			.setDescription(
 				`**🏓 Pong! Your Latency is \`${msg.createdTimestamp - message.createdTimestamp
 				}ms\` and API Latency is \`${Math.round(
 					client.ws.ping
-				)}\` ms!**`
-			);
+				)}\` ms!**\r`
+			)
+			.setFooter(client.user.username, client.user.displayAvatarURL())
 
 		if (client.ws.ping < 120) pingEmbed.setColor("GREEN");
 
