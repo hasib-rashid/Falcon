@@ -131,7 +131,7 @@ export const run: RunFunction = async (client, message: Message) => {
 		if (e?.message?.toLowerCase()?.includes('missing permissions') || false)
 			return;
 		return (
-			client.channels.cache.get('787685747649019925') as TextChannel
+			client.channels.cache.get('875785159331434607') as TextChannel
 		).send(
 			client.embed(
 				{
