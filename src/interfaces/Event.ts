@@ -1,11 +1,11 @@
-import { Spencer } from '../client/Client';
+import { Falcon } from '../client/Client';
 import { EventEmitter } from 'events';
 export interface RunFunction {
-	(client: Spencer, ...params: unknown[]): Promise<unknown>;
+	(client: Falcon, ...params: unknown[]): Promise<unknown>;
 }
 
 export interface FunctionForEE {
-	(client: Spencer): EventEmitter;
+	(client: Falcon): EventEmitter;
 }
 export interface Event {
 	name: string;

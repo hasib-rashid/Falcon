@@ -18,7 +18,7 @@ import { Config } from '../interfaces/Config';
 import EventEmitter from 'events';
 
 const globPromise = promisify(glob);
-class Spencer extends Client {
+class Falcon extends Client {
 	public logger: Consola = consola;
 	public commands: Collection<string, Command> = new Collection();
 	public aliases: Collection<string, string> = new Collection();
@@ -94,4 +94,4 @@ class Spencer extends Client {
 		});
 	}
 }
-export { Spencer };
+export { Falcon };

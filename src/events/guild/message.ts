@@ -105,7 +105,7 @@ export const run: RunFunction = async (client, message: Message) => {
 				client.embed(
 					{
 						title: `❌ An error came about..`,
-						description: `\`\`\`\n${e.message}\`\`\`\nPlease join [Spencer Support](https://discord.gg/22TtDpJcNE) and report it.`,
+						description: `\`\`\`\n${e.message}\`\`\`\nPlease join [Falcon Support](https://discord.gg/22TtDpJcNE) and report it.`,
 					},
 					message
 				)

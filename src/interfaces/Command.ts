@@ -1,8 +1,8 @@
 import { Message } from 'discord.js';
-import { Spencer } from '../client/Client';
+import { Falcon } from '../client/Client';
 
 export interface RunFunction {
-	(client: Spencer, message: Message, args: string[]): Promise<unknown>;
+	(client: Falcon, message: Message, args: string[]): Promise<unknown>;
 }
 export interface Command {
 	name: string;

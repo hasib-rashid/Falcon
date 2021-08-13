@@ -1,7 +1,7 @@
 import { config } from 'dotenv'
 config()
-import { Spencer } from './client/Client';
-new Spencer().start({
+import { Falcon } from './client/Client';
+new Falcon().start({
     token: process.env.TOKEN,
     mongoURI: process.env.MONGO_URL,
     prefix: ".",

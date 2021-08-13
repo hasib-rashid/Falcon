@@ -10,11 +10,11 @@ import {
 } from 'discord.js';
 import { Document } from 'mongoose';
 import { URL } from 'url';
-import { Spencer } from '../client/Client';
+import { Falcon } from '../client/Client';
 import { Anything } from '../interfaces/Anything';
 class UtilsManager {
-	private client: Spencer;
-	public constructor(client: Spencer) {
+	private client: Falcon;
+	public constructor(client: Falcon) {
 		this.client = client;
 		this.client.logger.info('Utils has been constructed');
 	}
