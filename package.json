@@ -1,7 +1,7 @@
 {
-	"name": "spencer",
+	"name": "falcon",
 	"version": "1.0.0",
-	"description": "Spencer is a discord bot developed by Salvage_Dev.",
+	"description": "The mordern utility discord bot that will scale to mars",
 	"main": "dist/src/index.js",
 	"scripts": {
 		"dev": "ts-node-dev --respawn --transpile-only --poll ./src/index.ts",
@@ -9,13 +9,12 @@
 		"lint": "prettier --write .",
 		"build": "tsc --diagnostics",
 		"start:core": "del-cli ./dist && yarn && yarn build",
-		"update": "n latest && git pull && yarn && yarn start:core && pm2 reload Spencer --update-env && pm2 logs Spencer",
 		"doctor": "doctor",
 		"sdk": "yarn pnpify --sdk",
 		"gbump": "yarn bump && yarn sdk && yarn git 'chore(Deps): bump deps'",
 		"new": "ts-node ./src/scripts/New.ts",
 		"nb": "git checkout master && git pull && git checkout -b",
-		"start": "yarn start:core && pm2 start dist/src/index.js --name Spencer"
+		"start": "yarn start:core && pm2 start dist/src/index.js --name Falcon"
 	},
 	"license": "Creative Commons",
 	"dependencies": {
