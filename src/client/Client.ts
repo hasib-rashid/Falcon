@@ -32,10 +32,6 @@ class Spencer extends Client {
 	public constructor() {
 		super({
 			ws: { intents: Intents.ALL },
-			messageCacheLifetime: 180,
-			messageCacheMaxSize: 200,
-			messageSweepInterval: 180,
-			messageEditHistoryMaxSize: 200,
 			partials: ['MESSAGE', 'GUILD_MEMBER', 'CHANNEL', 'REACTION', 'USER'],
 		});
 	}
