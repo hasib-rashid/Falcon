@@ -59,6 +59,12 @@ class UtilsManager {
 	): EmbedFieldData {
 		return { name, value, inline };
 	}
+	public formatNumber(number: string, minimumFractionDigits = 0) {
+		return Number.parseFloat(number).toLocaleString(undefined, {
+			minimumFractionDigits,
+			maximumFractionDigits: 2,
+		});
+	}
 	public formatDate(date: Date, str: string): string {
 		return str
 			.replace(
