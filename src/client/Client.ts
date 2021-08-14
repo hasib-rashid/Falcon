@@ -12,7 +12,6 @@ import { UtilsManager } from '../utils/Utils';
 import glob from 'glob';
 import { promisify } from 'util';
 import mongoose from 'mongoose';
-import { readdirSync } from "fs";
 import { Command } from '../interfaces/Command';
 import { Event } from '../interfaces/Event';
 import { Schema } from '../interfaces/Schema';
