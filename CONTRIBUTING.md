@@ -1,7 +1,3 @@
-# Hi 👋
-
-This file goes over a few things you should keep in mind when contributing.
-
 # 😒 Installing
 
 You need to install the following things:
