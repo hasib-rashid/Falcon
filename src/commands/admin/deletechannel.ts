@@ -1,8 +1,10 @@
+import { PermissionResolvable } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'deletechannel'
 export const category = 'admin'
 export const description = 'Delete a channel'
+export const userPermissions: PermissionResolvable = "MANAGE_CHANNELS"
 
 export const run: RunFunction = async (client, message, args) => {
     if (!message.member?.hasPermission("MANAGE_CHANNELS"))
