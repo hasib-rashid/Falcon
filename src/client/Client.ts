@@ -122,7 +122,7 @@ class Falcon extends Client {
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
-			GeneralCommands.push(cmd.name)
+			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
 		});
 	}
 }
