@@ -41,6 +41,7 @@
 		"os-name": "^4.0.0",
 		"os-utils": "^0.0.14",
 		"prompts": "^2.4.1",
+		"snakecord": "^1.0.8",
 		"tmath": "^2.2.0",
 		"tslib": "^2.3.0",
 		"txtgen": "^2.2.8",
