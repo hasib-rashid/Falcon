@@ -46,6 +46,51 @@ export const run: RunFunction = async (client, message: Message) => {
 				: Date.now() + command?.cooldown
 		);
 
+        command.run(client, message, args).catch((e: Error) => {
+			client.logger.error(e);
+			message.channel
+				.send(
+					client.embed(
+						{
+							title: `❌ An error came about..`,
+							description: `\`\`\`\n${e.message}\`\`\`\nPlease join [Falcon Support](https://discord.gg/22TtDpJcNE) and report it.`,
+						},
+						message
+					)
+				)
+				.catch(() => client.logger.error("Can't send error message"));
+			if (e?.message?.toLowerCase()?.includes('missing permissions') || false)
+				return;
+			return (
+				client.channels.cache.get('875785159331434607') as TextChannel
+			).send(
+				client.embed(
+					{
+						title: `❌ An error came about..`,
+						description: `\`\`\`\n${e.stack}\`\`\`\n\`\`\`\n${
+							e.message
+						}\`\`\`\nNOTES: GID: ${message.guild.id} | UID: ${
+							message.author.id
+						} | CMD: ${command.name} | ARGS: ${args.join(' ')}`,
+					},
+					message
+				)
+			);
+		});
+
+		setTimeout(
+			() => {
+				client.cooldowns.delete(`${message.author.id}${command.name}`);
+			},
+			client.utils.checkMultipleRoles('784470505607528448', message.author.id, [
+				'787656384808353803',
+				'787656420258086922',
+				'787656471679991829',
+			])
+				? command?.cooldown / 2
+				: command?.cooldown
+		);
+
 		if (command.userPermissions) {
 			if (!message.member.permissions.has(command.userPermissions))
 				return message.channel.send(
@@ -98,47 +143,4 @@ export const run: RunFunction = async (client, message: Message) => {
 				);
 		}
 	}
-	command.run(client, message, args).catch((e: Error) => {
-		client.logger.error(e);
-		message.channel
-			.send(
-				client.embed(
-					{
-						title: `❌ An error came about..`,
-						description: `\`\`\`\n${e.message}\`\`\`\nPlease join [Falcon Support](https://discord.gg/22TtDpJcNE) and report it.`,
-					},
-					message
-				)
-			)
-			.catch(() => client.logger.error("Can't send error message"));
-		if (e?.message?.toLowerCase()?.includes('missing permissions') || false)
-			return;
-		return (
-			client.channels.cache.get('875785159331434607') as TextChannel
-		).send(
-			client.embed(
-				{
-					title: `❌ An error came about..`,
-					description: `\`\`\`\n${e.stack}\`\`\`\n\`\`\`\n${
-						e.message
-					}\`\`\`\nNOTES: GID: ${message.guild.id} | UID: ${
-						message.author.id
-					} | CMD: ${command.name} | ARGS: ${args.join(' ')}`,
-				},
-				message
-			)
-		);
-	});
-	setTimeout(
-		() => {
-			client.cooldowns.delete(`${message.author.id}${command.name}`);
-		},
-		client.utils.checkMultipleRoles('784470505607528448', message.author.id, [
-			'787656384808353803',
-			'787656420258086922',
-			'787656471679991829',
-		])
-			? command?.cooldown / 2
-			: command?.cooldown
-	);
 };
