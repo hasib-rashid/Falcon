@@ -1,9 +1,11 @@
 import { RunFunction } from '../../interfaces/Command';
 import Nuggies from 'nuggies'
+import { PermissionResolvable } from 'discord.js';
 
 export const name = 'drop'
 export const category = 'admin'
 export const description = 'Drop a item in Discord'
+export const userPermissions: PermissionResolvable = "MANAGE_GUILD"
 
 export const run: RunFunction = async (client, message, args) => {
     let prize
