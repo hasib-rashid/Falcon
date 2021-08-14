@@ -1,5 +1,6 @@
 import { RunFunction } from '../../interfaces/Command';
 import weky from 'weky'
+import '@weky/inlinereply'
 
 export const name = 'chaoswords'
 export const category = 'games'
