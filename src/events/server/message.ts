@@ -46,7 +46,7 @@ export const run: RunFunction = async (client, message: Message) => {
 				: Date.now() + command?.cooldown
 		);
 
-        command.run(client, message, args).catch((e: Error) => {
+		command.run(client, message, args).catch((e: Error) => {
 			client.logger.error(e);
 			message.channel
 				.send(
@@ -67,11 +67,9 @@ export const run: RunFunction = async (client, message: Message) => {
 				client.embed(
 					{
 						title: `❌ An error came about..`,
-						description: `\`\`\`\n${e.stack}\`\`\`\n\`\`\`\n${
-							e.message
-						}\`\`\`\nNOTES: GID: ${message.guild.id} | UID: ${
-							message.author.id
-						} | CMD: ${command.name} | ARGS: ${args.join(' ')}`,
+						description: `\`\`\`\n${e.stack}\`\`\`\n\`\`\`\n${e.message
+							}\`\`\`\nNOTES: GID: ${message.guild.id} | UID: ${message.author.id
+							} | CMD: ${command.name} | ARGS: ${args.join(' ')}`,
 					},
 					message
 				)
@@ -96,46 +94,45 @@ export const run: RunFunction = async (client, message: Message) => {
 				return message.channel.send(
 					client.embed(
 						{
-							description: `You need to have ${
-								typeof command.userPermissions == 'string' ||
+							color: "BLUE",
+							description: `You need to have ${typeof command.userPermissions == 'string' ||
 								command.userPermissions.length == 1
-									? `\`${
-											typeof command.userPermissions == 'string'
-												? command.userPermissions
-														.replace(/_/gi, ' ')
-														.split(/ +/g)
-														.map(
-															(value: string) =>
-																value[0].toUpperCase() +
-																value.slice(1).toLowerCase()
-														)
-														.join(' ')
-												: command.userPermissions[0]
-														.replace(/_/gi, ' ')
-														.split(/ +/g)
-														.map(
-															(value: string) =>
-																value[0].toUpperCase() +
-																value.slice(1).toLowerCase()
-														)
-														.join(' ')
-									  }\``
-									: `all of these permissions: ${command.userPermissions
-											.map(
-												(value: string) =>
-													`\`${value
-														.toLowerCase()
-														.replace(/_/gi, ' ')
-														.split(/ +/g)
-														.map(
-															(value: string) =>
-																value[0].toUpperCase() +
-																value.slice(1).toLowerCase()
-														)
-														.join(' ')}\``
-											)
-											.join(', ')}`
-							}`,
+								? `\`${typeof command.userPermissions == 'string'
+									? command.userPermissions
+										.replace(/_/gi, ' ')
+										.split(/ +/g)
+										.map(
+											(value: string) =>
+												value[0].toUpperCase() +
+												value.slice(1).toLowerCase()
+										)
+										.join(' ')
+									: command.userPermissions[0]
+										.replace(/_/gi, ' ')
+										.split(/ +/g)
+										.map(
+											(value: string) =>
+												value[0].toUpperCase() +
+												value.slice(1).toLowerCase()
+										)
+										.join(' ')
+								}\``
+								: `all of these permissions: ${command.userPermissions
+									.map(
+										(value: string) =>
+											`\`${value
+												.toLowerCase()
+												.replace(/_/gi, ' ')
+												.split(/ +/g)
+												.map(
+													(value: string) =>
+														value[0].toUpperCase() +
+														value.slice(1).toLowerCase()
+												)
+												.join(' ')}\``
+									)
+									.join(', ')}`
+								}`,
 							title: `❌ You can't use that!`,
 						},
 						message
