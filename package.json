@@ -27,6 +27,7 @@
 		"common-tags": "^1.8.0",
 		"consola": "^2.15.3",
 		"dayjs": "^1.10.6",
+		"deta": "^1.0.0",
 		"discord-buttons": "^4.0.0",
 		"discord-tictactoe": "^2.1.1",
 		"discord.js": "^12.5.1",
