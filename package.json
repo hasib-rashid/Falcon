@@ -24,6 +24,7 @@
 		"axios": "^0.21.1",
 		"bufferutil": "^4.0.3",
 		"cleverbot-free": "^1.0.5",
+		"common-tags": "^1.8.0",
 		"consola": "^2.15.3",
 		"dayjs": "^1.10.6",
 		"discord-buttons": "^4.0.0",
