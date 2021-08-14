@@ -7,6 +7,7 @@ import {
 	MessageEmbed,
 	MessageEmbedOptions,
 } from 'discord.js';
+import discordButtons from 'discord-buttons';
 import { UtilsManager } from '../utils/Utils';
 import glob from 'glob';
 import { promisify } from 'util';
@@ -40,6 +41,7 @@ class Falcon extends Client {
 		this.prefix = config.prefix;
 		this.owners = config.owners;
 		this.login(config.token).catch((e) => this.logger.error(e));
+		discordButtons(this)
 		mongoose
 			.connect(config.mongoURI, {
 				useNewUrlParser: true,
