@@ -43,6 +43,7 @@ class Falcon extends Client {
 	public categories: Set<string> = new Set();
 	public utils: UtilsManager;
 	public prefix: string;
+	public reactionRoles;
 	public owners: Array<string>;
 	public config: Config;
 	public constructor() {
