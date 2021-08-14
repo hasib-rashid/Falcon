@@ -1,4 +1,4 @@
-import { RunFunction } from '../../interfaces/Command'; 
+import { RunFunction } from '../../interfaces/Command';
 import { evaluate } from 'mathjs'
 import { MessageEmbed } from 'discord.js';
 

@@ -19,6 +19,7 @@
 	"license": "Creative Commons",
 	"dependencies": {
 		"@top-gg/sdk": "^3.1.2",
+		"@vitalets/google-translate-api": "^7.0.0",
 		"@weky/inlinereply": "^0.0.0",
 		"axios": "^0.21.1",
 		"bufferutil": "^4.0.3",
