@@ -12,6 +12,7 @@ import { UtilsManager } from '../utils/Utils';
 import glob from 'glob';
 import { promisify } from 'util';
 import mongoose from 'mongoose';
+import { readdirSync } from "fs";
 import { Command } from '../interfaces/Command';
 import { Event } from '../interfaces/Event';
 import { Schema } from '../interfaces/Schema';
@@ -57,6 +58,9 @@ class Falcon extends Client {
 		this.owners = config.owners;
 		this.login(config.token).catch((e) => this.logger.error(e));
 		discordButtons(this)
+
+		this._loadGeneralCommands(config.commandDir)
+
 		mongoose
 			.connect(config.mongoURI, {
 				useNewUrlParser: true,
@@ -108,6 +112,17 @@ class Falcon extends Client {
 					format: 'png',
 				}),
 			},
+		});
+	}
+
+	private async _loadGeneralCommands(commandDir: string) {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/**/*{.js,.ts}`
+		);
+
+		commandFiles.map(async (cmdFile: string) => {
+			const cmd = (await import(cmdFile)) as Command;
+			GeneralCommands.push(cmd.name)
 		});
 	}
 }
