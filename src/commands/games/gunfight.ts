@@ -1,6 +1,6 @@
 import { RunFunction } from '../../interfaces/Command';
 import weky from 'weky'
-import { verify, delay, randomRange } from "../../util/functions"
+import { verify, delay, randomRange } from "../../utils/functions"
 const words = ["fire", "draw", "shoot", "bang", "pull", "boom"];
 const games = new Map();
 
