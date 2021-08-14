@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { MessageAttachment, MessageEmbed } from 'discord.js';
 import { UtilsManager } from '../../utils/Utils'
 const { formatNumber } = UtilsManager.prototype
 import { default as axios } from 'axios'
@@ -130,6 +130,6 @@ export const run: RunFunction = async (client, message, args) => {
                 .setColor("#e6295f");
 
             message.channel.send(embed);
-        }).catch((err) => { console.error(err) })
+        }).catch((err) => { message.channel.send("**Country not found or doesn't have any cases**") })
     } 
 }
