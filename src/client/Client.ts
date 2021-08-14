@@ -18,6 +18,21 @@ import { Schema } from '../interfaces/Schema';
 import { Config } from '../interfaces/Config';
 import EventEmitter from 'events';
 
+export const numberOfCommands: any = []
+export const totalCommands: any = numberOfCommands[0] + numberOfCommands[1] + numberOfCommands[2] + numberOfCommands[3] + numberOfCommands[4] + numberOfCommands[5] + numberOfCommands[6] + numberOfCommands[7] + numberOfCommands[8] + numberOfCommands[9] + numberOfCommands[10]
+
+export const AdminCommands: any = []
+export const EventsCommands: any = []
+export const FunCommands: any = []
+export const GamesCommands: any = []
+export const GeneralCommands: any = []
+export const MISCCommands: any = []
+export const MusicCommands: any = []
+export const NotifyCommands: any = []
+export const NSFWCommnads: any = []
+export const OwnerCommands: any = []
+export const SearchCommands: any = []
+
 const globPromise = promisify(glob);
 class Falcon extends Client {
 	public logger: Consola = consola;
