@@ -68,6 +68,14 @@ class UtilsManager {
 	public googleShorten(text: string, maxLen = 80) {
 		return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text;
 	}
+	public trimArray(arr: any, maxLen = 10) {
+		if (arr.length > maxLen) {
+			const len = arr.length - maxLen;
+			arr = arr.slice(0, maxLen);
+			arr.push(`${len} more...`);
+		}
+		return arr;
+	}
 	public formatDate(date: Date, str: string): string {
 		return str
 			.replace(
