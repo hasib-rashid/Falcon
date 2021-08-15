@@ -41,9 +41,9 @@ class UtilsManager {
 
 		for (const [key, value] of noDetails === true
 			? Object.entries(times).filter(
-					(value: [string, any]) =>
-						value[0] != 'hour' && value[0] != 'minute' && value[0] != 'second'
-			  )
+				(value: [string, any]) =>
+					value[0] != 'hour' && value[0] != 'minute' && value[0] != 'second'
+			)
 			: Object.entries(times)) {
 			if (value > 0) string += ` ${value} ${key}${value > 1 ? 's, ' : ','}`;
 		}
@@ -64,6 +64,9 @@ class UtilsManager {
 			minimumFractionDigits,
 			maximumFractionDigits: 2,
 		});
+	}
+	public googleShorten(text: string, maxLen = 80) {
+		return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text;
 	}
 	public formatDate(date: Date, str: string): string {
 		return str
