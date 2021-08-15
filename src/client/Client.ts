@@ -18,6 +18,7 @@ import mongoose from 'mongoose';
 import { Command } from '../interfaces/Command';
 import { Event } from '../interfaces/Event';
 import { Schema } from '../interfaces/Schema';
+import DisTube from "distube";
 import { Config } from '../interfaces/Config';
 import { ReactionRoleManager } from "discord.js-collector"
 import EventEmitter from 'events';
@@ -51,6 +52,7 @@ class Falcon extends Client {
 	public utils: UtilsManager;
 	public prefix: string;
 	public reactionRoles;
+	public distube;
 	public owners: Array<string>;
 	public config: Config;
 	public constructor() {
@@ -67,6 +69,39 @@ class Falcon extends Client {
 		discordButtons(this)
 
 		Nuggies.handleInteractions(this)
+
+		const distube = new DisTube(this, {
+			youtubeCookie: "",
+			searchSongs: false,
+			emitNewSongOnly: false,
+			highWaterMark: 1 << 25,
+			leaveOnEmpty: true,
+			leaveOnFinish: true,
+			leaveOnStop: true,
+			customFilters: {
+				clear: "dynaudnorm=f=200",
+				bassboost: "bass=g=20,dynaudnorm=f=200",
+				"8d": "apulsator=hz=0.08",
+				vaporwave: "aresample=48000,asetrate=48000*0.8",
+				nightcore: "aresample=48000,asetrate=48000*1.25",
+				phaser: "aphaser=in_gain=0.4",
+				purebass: "bass=g=20,dynaudnorm=f=200,asubboost",
+				tremolo: "tremolo",
+				vibrato: "vibrato=f=6.5",
+				reverse: "areverse",
+				treble: "treble=g=5",
+				surrounding: "surround",
+				pulsator: "apulsator=hz=1",
+				subboost: "asubboost",
+				karaoke: "stereotools=mlev=0.03",
+				flanger: "flanger",
+				gate: "agate",
+				haas: "haas",
+				mcompand: "mcompand",
+			},
+		});
+
+		this.distube = distube
 
 		// @ts-ignore
 		const reactionRoleManager = new ReactionRoleManager(this, { mongoDbLink: process.env.MONGO_URL });
