@@ -259,7 +259,7 @@ class Falcon extends Client {
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
-			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+			AdminCommands.push(`**${cmd.name}** - ${cmd.description}`)
 		});
 	}
 
@@ -270,7 +270,7 @@ class Falcon extends Client {
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
-			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+			FunCommands.push(`**${cmd.name}** - ${cmd.description}`)
 		});
 	}
 
@@ -281,7 +281,7 @@ class Falcon extends Client {
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
-			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+			GamesCommands.push(`**${cmd.name}** - ${cmd.description}`)
 		});
 	}
 
@@ -303,7 +303,7 @@ class Falcon extends Client {
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
-			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+			MISCCommands.push(`**${cmd.name}** - ${cmd.description}`)
 		});
 	}
 
@@ -314,7 +314,7 @@ class Falcon extends Client {
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
-			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+			MusicCommands.push(`**${cmd.name}** - ${cmd.description}`)
 		});
 	}
 
@@ -325,7 +325,7 @@ class Falcon extends Client {
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
-			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+			NSFWCommnads.push(`**${cmd.name}** - ${cmd.description}`)
 		});
 	}
 
@@ -336,7 +336,7 @@ class Falcon extends Client {
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
-			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+			OwnerCommands.push(`**${cmd.name}** - ${cmd.description}`)
 		});
 	}
 
@@ -347,7 +347,7 @@ class Falcon extends Client {
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
-			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+			SearchCommands.push(`**${cmd.name}** - ${cmd.description}`)
 		});
 	}
 }
