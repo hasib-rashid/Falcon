@@ -1,3 +1,6 @@
+import { config } from 'dotenv'
+config()
+
 import consola, { Consola } from 'consola';
 import {
 	Client,
@@ -16,7 +19,11 @@ import { Command } from '../interfaces/Command';
 import { Event } from '../interfaces/Event';
 import { Schema } from '../interfaces/Schema';
 import { Config } from '../interfaces/Config';
+import { ReactionRoleManager } from "discord.js-collector"
 import EventEmitter from 'events';
+import Nuggies from 'nuggies'
+
+Nuggies.connect(process.env.MONGO_URL)
 
 export const numberOfCommands: any = []
 export const totalCommands: any = numberOfCommands[0] + numberOfCommands[1] + numberOfCommands[2] + numberOfCommands[3] + numberOfCommands[4] + numberOfCommands[5] + numberOfCommands[6] + numberOfCommands[7] + numberOfCommands[8] + numberOfCommands[9] + numberOfCommands[10]
@@ -58,6 +65,12 @@ class Falcon extends Client {
 		this.owners = config.owners;
 		this.login(config.token).catch((e) => this.logger.error(e));
 		discordButtons(this)
+
+		Nuggies.handleInteractions(this)
+
+		// @ts-ignore
+		const reactionRoleManager = new ReactionRoleManager(this, { mongoDbLink: process.env.MONGO_URL });
+		this.reactionRoles = reactionRoleManager
 
 		this._loadGeneralCommands(config.commandDir)
 
