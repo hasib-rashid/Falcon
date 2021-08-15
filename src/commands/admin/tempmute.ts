@@ -1,12 +1,10 @@
 import { MessageEmbed, PermissionResolvable } from 'discord.js';
 import ms from 'ms';
 import { RunFunction } from '../../interfaces/Command';
-
-
 import { Deta } from 'deta'
 
 const deta = Deta(process.env.DEFAULT_DB)
-const db = deta.Base("guild")
+const db = deta.Base("muted")
 
 export const name = 'tempmute'
 export const category = 'admin'
