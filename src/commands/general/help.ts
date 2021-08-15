@@ -1,5 +1,5 @@
 import { RunFunction } from '../../interfaces/Command';
-import { GeneralCommands } from '../../client/Client'
+import { GeneralCommands, AdminCommands, EventsCommands, FunCommands, GamesCommands, MISCCommands, MusicCommands, NSFWCommnads, NotifyCommands, OwnerCommands, SearchCommands, numberOfCommands, totalCommands } from '../../client/Client'
 import { MessageEmbed } from 'discord.js';
 
 export const name = 'help'
