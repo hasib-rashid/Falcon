@@ -197,6 +197,14 @@ class Falcon extends Client {
 		this.reactionRoles = reactionRoleManager
 
 		this._loadGeneralCommands(config.commandDir)
+		this._loadAdminCommands(config.commandDir)
+		this._loadFunCommands(config.commandDir)
+		this._loadGamesCommands(config.commandDir)
+		this._loadMISCCommands(config.commandDir)
+		this._loadMusicCommands(config.commandDir)
+		this._loadNSFWCommands(config.commandDir)
+		this._loadOwnerCommands(config.commandDir)
+		this._loadSearchCommands(config.commandDir)
 
 		mongoose
 			.connect(config.mongoURI, {
