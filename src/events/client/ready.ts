@@ -1,6 +1,7 @@
 import { RunFunction } from '../../interfaces/Event';
 import { GuildMember } from 'discord.js';
 import express from 'express';
+import Nuggies from 'nuggies'
 
 export const name: string = 'ready';
 export const run: RunFunction = async (client) => {
@@ -16,6 +17,8 @@ export const run: RunFunction = async (client) => {
 				client.config.onlyUsed.push(value.id);
 			});
 	}
+
+	Nuggies.giveaways.startAgain(client);
 
 	const app = express();
 	app.get('/', (req, res) => res.status(200).json({ msg: '🚀' }));
