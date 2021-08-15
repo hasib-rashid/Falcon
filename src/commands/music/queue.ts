@@ -1,3 +1,5 @@
+import { MessageEmbed } from 'discord.js';
+import Song from 'distube/typings/Song';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'queue'
