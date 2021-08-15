@@ -252,9 +252,97 @@ class Falcon extends Client {
 		});
 	}
 
+	private async _loadAdminCommands(commandDir: string) {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/admin/*{.js,.ts}`
+		);
+
+		commandFiles.map(async (cmdFile: string) => {
+			const cmd = (await import(cmdFile)) as Command;
+			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+		});
+	}
+
+	private async _loadFunCommands(commandDir: string) {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/fun/*{.js,.ts}`
+		);
+
+		commandFiles.map(async (cmdFile: string) => {
+			const cmd = (await import(cmdFile)) as Command;
+			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+		});
+	}
+
+	private async _loadGamesCommands(commandDir: string) {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/games/*{.js,.ts}`
+		);
+
+		commandFiles.map(async (cmdFile: string) => {
+			const cmd = (await import(cmdFile)) as Command;
+			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+		});
+	}
+
 	private async _loadGeneralCommands(commandDir: string) {
 		const commandFiles: string[] = await globPromise(
-			`${__dirname}/../commands/**/*{.js,.ts}`
+			`${__dirname}/../commands/general/*{.js,.ts}`
+		);
+
+		commandFiles.map(async (cmdFile: string) => {
+			const cmd = (await import(cmdFile)) as Command;
+			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+		});
+	}
+
+	private async _loadMISCCommands(commandDir: string) {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/misc/*{.js,.ts}`
+		);
+
+		commandFiles.map(async (cmdFile: string) => {
+			const cmd = (await import(cmdFile)) as Command;
+			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+		});
+	}
+
+	private async _loadMusicCommands(commandDir: string) {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/music/*{.js,.ts}`
+		);
+
+		commandFiles.map(async (cmdFile: string) => {
+			const cmd = (await import(cmdFile)) as Command;
+			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+		});
+	}
+
+	private async _loadNSFWCommands(commandDir: string) {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/nsfw/*{.js,.ts}`
+		);
+
+		commandFiles.map(async (cmdFile: string) => {
+			const cmd = (await import(cmdFile)) as Command;
+			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+		});
+	}
+
+	private async _loadOwnerCommands(commandDir: string) {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/owner/*{.js,.ts}`
+		);
+
+		commandFiles.map(async (cmdFile: string) => {
+			const cmd = (await import(cmdFile)) as Command;
+			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
+		});
+	}
+
+	private async _loadSearchCommands(commandDir: string) {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/search/*{.js,.ts}`
 		);
 
 		commandFiles.map(async (cmdFile: string) => {
