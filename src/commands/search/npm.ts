@@ -2,6 +2,8 @@ import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
 import moment from 'moment';
 import { RunFunction } from '../../interfaces/Command';
+import { UtilsManager } from '../../utils/Utils'
+const { trimArray } = UtilsManager.prototype
 
 export const name = 'npm'
 export const category = 'search'
