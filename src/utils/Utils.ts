@@ -76,6 +76,13 @@ class UtilsManager {
 		}
 		return arr;
 	}
+	public getArraySum(a: any) {
+		var total = 0;
+		for (var i in a) {
+			total += a[i];
+		}
+		return total;
+	}
 	public formatDate(date: Date, str: string): string {
 		return str
 			.replace(
