@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { TextChannel } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'github'
