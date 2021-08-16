@@ -1,23 +1,13 @@
-import Command from '../../typings/command';
+import { RunFunction } from '../../interfaces/Command'; 
 import { default as axios } from 'axios'
 
-const FactsCommand: Command = {
-    name: 'fact',
-    description: 'Get a random fact!',
-    aliases: [
-        'facts'
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'facts'
+export const category = 'general'
+export const description = 'Just check a random Fact'
+export const aliases = ["fact"]
 
-    async run(client, message, args) {
-        axios.get("https://uselessfacts.jsph.pl/random.json?language=en").then((response) => {
-            message.channel.send(`**${response.data.text}**`)
-        })
-    },
+export const run: RunFunction = async (client, message, args) => {
+    axios.get("https://uselessfacts.jsph.pl/random.json?language=en").then((response) => {
+        message.channel.send(`**${response.data.text}**`)
+    })
 }
-
-export default FactsCommand;

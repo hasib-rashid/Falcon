@@ -1,35 +1,23 @@
-import Command from '../../typings/command';
-import { MessageEmbed } from 'discord.js'
+import { MessageEmbed } from 'discord.js';
+import { RunFunction } from '../../interfaces/Command'; 
 
-const InviteCommand: Command = {
-    name: 'invite',
-    description: 'Invite people with this links!',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'invite'
+export const category = 'misc'
+export const description = 'Invite Falcon'
 
-    async run(client, message, args) {
-        const embed = new MessageEmbed()
-            .setAuthor(
-                message.author.username,
-                message.author.displayAvatarURL()
-            )
-            .setColor("RANDOM")
-            .setTitle("Invite CodeVert!")
-            .setTimestamp()
-            .addField(
-                "[Support Server](https://discord.gg/X2dDeENmJh)",
-                "[Invite Me](https://discord.com/api/oauth2/authorize?client_id=799543154692718602&permissions=8&scope=bot)"
-            );
+export const run: RunFunction = async (client, message, args) => {
+    const embed = new MessageEmbed()
+        .setAuthor(
+            message.author.username,
+            message.author.displayAvatarURL()
+        )
+        .setColor("BLUE")
+        .setTitle("Invite CodeVert!")
+        .setTimestamp()
+        .setDescription(
+            "[Support Server](https://discord.gg/X2dDeENmJh)\r[Invite Me](https://discord.com/api/oauth2/authorize?client_id=799543154692718602&permissions=8&scope=bot)"
+        );
 
 
-        message.channel.send(embed);
-    },
+    message.channel.send(embed);
 }
-
-export default InviteCommand;

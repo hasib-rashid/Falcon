@@ -1,38 +1,23 @@
-import { MessageEmbed } from 'discord.js';
-import Command from '../../typings/command';
+import { RunFunction } from '../../interfaces/Command';
+import { MessageEmbed, PermissionResolvable } from 'discord.js'
 
-const SetupCommand: Command = {
-    name: 'setup',
-    description: 'Setup the server',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'setup'
+export const category = 'admin'
+export const description = 'Setup the server'
+export const userPermissions: PermissionResolvable = "MANAGE_GUILD"
 
-    async run(client, message, args) {
-        if (!message.member?.hasPermission("MANAGE_GUILD"))
-            return message.channel.send(
-                "**You need `MANAGE_GUILD` permission to use this command**"
-            );
+export const run: RunFunction = async (client, message, args) => {
+    const embed = new MessageEmbed()
+        .setAuthor(message.guild?.name, message.guild?.iconURL() || "")
+        .setTitle(`Setup ${message.guild?.name}`)
+        .setColor("BLUE")
+        .setTimestamp()
+        .setFooter("Falcon Bot")
+        .setDescription(`
+        **prefix** - Change the prefix of the server.
 
-        const embed = new MessageEmbed()
-            .setAuthor(message.guild?.name, message.guild?.iconURL() || "")
-            .setTitle(`Setup ${message.guild?.name}`)
-            .setColor("BLUE")
-            .setTimestamp()
-            .setFooter("Falcon Bot")
-            .setDescription(`
-                **prefix** - Change the prefix of the server.
+        ***Note: More are coming as the Bot Updates.***
+    `)
 
-                ***Note: More are coming as the Bot Updates.***
-            `)
-
-        message.channel.send(embed)
-    },
+    message.channel.send(embed)
 }
-
-export default SetupCommand;

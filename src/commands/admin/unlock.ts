@@ -1,30 +1,16 @@
-import Command from '../../typings/command';
+import { PermissionResolvable } from 'discord.js';
+import { RunFunction } from '../../interfaces/Command';
 
-const UnlockCommand: Command = {
-    name: 'unlock',
-    description: 'Unlock the locked Channel',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'unlock'
+export const category = 'admin'
+export const description = 'Unlock a channel'
+export const userPermissions: PermissionResolvable = "MANAGE_CHANNELS"
 
-    async run(client, message, args) {
-        if (!message.member?.hasPermission("MANAGE_CHANNELS"))
-            return message.channel.send(
-                "**You need `MANAGE_CHANNELS` permission to use this command**"
-            );
-
-        // @ts-ignore
-        message.channel.updateOverwrite(message.guild?.roles.everyone, { SEND_MESSAGES: true }).then(() => {
-            message.channel.send('**Channel has been Unlocked**');
-        }).catch((error: any) => {
-            console.log(error);
-        });
-    },
+export const run: RunFunction = async (client, message, args) => {
+    // @ts-ignore
+    message.channel.updateOverwrite(message.guild?.roles.everyone, { SEND_MESSAGES: true }).then(() => {
+        message.channel.send('**Channel has been Unlocked**');
+    }).catch((error: any) => {
+        console.log(error);
+    });
 }
-
-export default UnlockCommand;

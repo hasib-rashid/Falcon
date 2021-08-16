@@ -1,23 +1,12 @@
-import Command from '../../typings/command';
-import { default as axios } from 'axios'
+import axios from 'axios';
+import { RunFunction } from '../../interfaces/Command';
 
-const TenorCommand: Command = {
-    name: 'tenor',
-    description: 'Search GIF of Tenor from Falcon',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'tenor'
+export const category = 'search'
+export const description = 'Search Tenor'
 
-    async run(client, message, args) {
-        axios.get(`https://g.tenor.com/v1/search?q=${args.join(" ")}&key=LIVDSRZULELA&limit=8`).then((res) => {
-            message.channel.send(res.data.results[Math.floor(Math.random() * res.data.results.length)].itemurl)
-        })
-    },
+export const run: RunFunction = async (client, message, args) => {
+    axios.get(`https://g.tenor.com/v1/search?q=${args.join(" ")}&key=LIVDSRZULELA&limit=8`).then((res) => {
+        message.channel.send(res.data.results[Math.floor(Math.random() * res.data.results.length)].itemurl)
+    })
 }
-
-export default TenorCommand;

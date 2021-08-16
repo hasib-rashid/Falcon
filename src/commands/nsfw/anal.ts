@@ -1,24 +1,12 @@
-import Command from '../../typings/command';
-// @ts-ignore
-import NSFW from 'discord-nsfw'
+import { RunFunction } from '../../interfaces/Command';
 
+import NSFW from 'discord-nsfw'
 const nsfw = new NSFW();
 
-const AnalCommand: Command = {
-    name: 'anal',
-    description: 'NSFW anal',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: true,
-    cooldown: 0,
+export const name = 'anal'
+export const category = 'nsfw'
+export const description = 'Anal NSFW'
 
-    async run(client, message, args) {
-        message.channel.send(await nsfw.anal())
-    },
+export const run: RunFunction = async (client, message, args) => {
+    message.channel.send(await nsfw.anal())
 }
-
-export default AnalCommand;

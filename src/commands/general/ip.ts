@@ -1,21 +1,13 @@
-import Command from '../../typings/command';
+import { RunFunction } from '../../interfaces/Command'; 
 import { MessageEmbed } from 'discord.js'
 import { default as axios } from 'axios'
 
-const IPCommand: Command = {
-    name: 'ip',
-    description: 'Check the IP of a website or anything here',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'ip'
+export const category = 'general'
+export const description = 'Find the Information about a IP or website'
 
-    async run(client, message, args) {
-        if (!args[0]) return message.channel.send("**Please put a IP or a name of a website.**")
+export const run: RunFunction = async (client, message, args) => {
+     if (!args[0]) return message.channel.send("**Please put a IP or a name of a website.**")
         axios.get(`http://ip-api.com/json/${args.join(" ")}`).then((response) => {
             if (response.data.status === "fail") return message.channel.send("**Please Enter a valid IP or a website**")
             const embed = new MessageEmbed()
@@ -43,7 +35,4 @@ const IPCommand: Command = {
 
             message.channel.send(embed);
         })
-    },
 }
-
-export default IPCommand;

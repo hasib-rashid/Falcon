@@ -1,19 +1,16 @@
-import Command from '../../typings/command';
+import { RunFunction } from '../../interfaces/Command';
 
-const StopCommand: Command = {
-	name: 'stop',
-	description: 'Stop the music and leave the voice channel',
-	aliases: [''],
-	guildOnly: false,
-	ownerOnly: false,
-	disabled: false,
-	nsfw: false,
-	cooldown: 0,
+export const name = 'stop'
+export const category = 'music'
+export const description = 'Stops the song and leaves the voice channel'
 
-	async run(client, message, args) {
-		client.distube.stop(message);
-		message.channel.send('**Stopped the music and left the voice channel**');
-	}
-};
-
-export default StopCommand;
+export const run: RunFunction = async (client, message, args) => {
+    try {
+        client.distube.skip(message)
+        message.channel.send("**Successfully Skipped the current song!**");
+    } catch (err) {
+        message.channel.send(
+            "**Either you are not in a voice channel or a song is not playing.**"
+        );
+    }
+}

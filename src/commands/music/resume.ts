@@ -1,27 +1,16 @@
-import Command from '../../typings/command';
+import { RunFunction } from '../../interfaces/Command';
 
-const ResumeCommand: Command = {
-    name: 'resume',
-    description: 'Resume a Song',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'resume'
+export const category = 'music'
+export const description = 'Resume a paused Song'
 
-    async run(client, message, args) {
-        try {
-            client.distube.resume(message)
-            message.channel.send("**Successfully Resumed the current song!**");
-        } catch (err) {
-            message.channel.send(
-                "**Either you are not in a voice channel or a song is not playing or the song is not paused**"
-            );
-        }
-    },
+export const run: RunFunction = async (client, message, args) => {
+    try {
+        client.distube.resume(message)
+        message.channel.send("**Successfully Resumed the current song!**");
+    } catch (err) {
+        message.channel.send(
+            "**Either you are not in a voice channel or a song is not playing or the song is not paused**"
+        );
+    }
 }
-
-export default ResumeCommand;

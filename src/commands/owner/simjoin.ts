@@ -1,23 +1,11 @@
-import Command from '../../typings/command';
+import { RunFunction } from '../../interfaces/Command';
 
-const SimJoinCommand: Command = {
-    name: 'simjoin',
-    description: 'Simulate a Join',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: true,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'simjoin'
+export const category = 'owner'
+export const description = 'Simulate Join'
 
-    async run(client, message, args) {
-        // @ts-ignore
-        client.emit("guildMemberAdd", message.member)
+export const run: RunFunction = async (client, message, args) => {
+    client.emit("guildMemberAdd", message.member)
 
-        message.channel.send("**Successfully Simulated GuildMemberAdd**")
-    },
+    message.channel.send("**Successfully Simulated GuildMemberAdd**")
 }
-
-export default SimJoinCommand;

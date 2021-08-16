@@ -1,27 +1,16 @@
-import Command from '../../typings/command';
+import { RunFunction } from '../../interfaces/Command';
 
-const LoopCommand: Command = {
-    name: 'loop',
-    description: 'Loop a song',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'loop'
+export const category = 'music'
+export const description = 'Loop through a music'
 
-    async run(client, message, args) {
-        try {
-            client.distube(message)
-            message.channel.send("**Successfully Looped the current Queue!**");
-        } catch (err) {
-            message.channel.send(
-                "**Either you are not in a voice channel or a song is not playing or the song is not paused**"
-            );
-        }
-    },
+export const run: RunFunction = async (client, message, args) => {
+    try {
+        client.distube(message)
+        message.channel.send("**Successfully Looped the current Queue!**");
+    } catch (err) {
+        message.channel.send(
+            "**Either you are not in a voice channel or a song is not playing or the song is not paused**"
+        );
+    }
 }
-
-export default LoopCommand;

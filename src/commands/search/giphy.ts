@@ -1,33 +1,19 @@
-import dotenv from 'dotenv'
-dotenv.config()
+import axios from 'axios';
+import { RunFunction } from '../../interfaces/Command';
 
-import Command from '../../typings/command';
-import { default as axios } from 'axios'
+export const name = 'github'
+export const category = 'search'
+export const description = 'Search Github'
 
-const GiphyCommand: Command = {
-    name: 'giphy',
-    description: 'Search GIF in Giphy',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const run: RunFunction = async (client, message, args) => {
+    // @ts-ignore
+    axios.get("http://api.giphy.com/v1/gifs/search", { params: { q: args.join(""), api_key: process.env.GIPHY_API_KEY, rating: message.channel.nsfw ? "r" : "pg" } }).then((res) => {
+        if (!res.data.data.length)
+            return message.channel.send("Could not find any results.");
 
-    async run(client, message, args) {
-        //@ts-ignore
-        axios.get("http://api.giphy.com/v1/gifs/search", { params: { q: args.join(""), api_key: process.env.GIPHY_API_KEY, rating: message.channel.nsfw ? "r" : "pg" } }).then((res) => {
-            if (!res.data.data.length)
-                return message.channel.send("Could not find any results.");
-
-            return message.channel.send(
-                res.data.data[Math.floor(Math.random() * res.data.data.length)].images
-                    .original.url
-            );
-        })
-    },
+        return message.channel.send(
+            res.data.data[Math.floor(Math.random() * res.data.data.length)].images
+                .original.url
+        );
+    })
 }
-
-export default GiphyCommand;

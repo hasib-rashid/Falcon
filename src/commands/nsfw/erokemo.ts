@@ -1,24 +1,12 @@
-import Command from '../../typings/command';
-// @ts-ignore
+import { RunFunction } from '../../interfaces/Command';
+
 import NSFW from 'discord-nsfw'
+const nsfw = new NSFW();
 
-const nsfw = new NSFW()
+export const name = 'erokemo'
+export const category = 'nsfw'
+export const description = 'NSFW Erokemo'
 
-const ErokemoCommand: Command = {
-    name: 'erokemo',
-    description: 'NSFW erokemo',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: true,
-    cooldown: 0,
-
-    async run(client, message, args) {
-        message.channel.send(await nsfw.erokemo())
-    },
+export const run: RunFunction = async (client, message, args) => {
+    message.channel.send(await nsfw.erokemo())
 }
-
-export default ErokemoCommand;

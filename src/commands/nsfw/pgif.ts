@@ -1,24 +1,13 @@
-import Command from '../../typings/command';
-// @ts-ignore
+import { RunFunction } from '../../interfaces/Command';
+
 import NSFW from 'discord-nsfw'
+const nsfw = new NSFW();
 
-const nsfw = new NSFW()
+export const name = 'pgid'
+export const category = 'nsfw'
+export const description = 'NSFW Porn Gid'
+export const aliases = ["porngif"]
 
-const PGIFCommand: Command = {
-    name: 'pgif',
-    description: 'NSFW pgif',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: true,
-    cooldown: 0,
-
-    async run(client, message, args) {
-        message.channel.send(await nsfw.pgif())
-    },
+export const run: RunFunction = async (client, message, args) => {
+    message.channel.send(await nsfw.pgif())
 }
-
-export default PGIFCommand;

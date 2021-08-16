@@ -1,65 +1,56 @@
-import { MessageEmbed } from 'discord.js';
-import Command from '../../typings/command';
+import { MessageEmbed, PermissionResolvable } from 'discord.js';
+import { RunFunction } from '../../interfaces/Command';
 
-const PurgeCommand: Command = {
-    name: 'purge',
-    description: 'Delete a certain amount of messages with just one command',
-    aliases: [
-        'clear'
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'purge'
+export const category = 'admin'
+export const description = 'Purge a amount of messages'
+export const userPermissions: PermissionResolvable = "MANAGE_MESSAGES"
+export const aliases = ["clear"]
 
-    async run(client, message, args) {
-        if (!message.member?.hasPermission("MANAGE_MESSAGES"))
+export const run: RunFunction = async (client, message, args) => {
+    if (!message.member?.hasPermission("MANAGE_MESSAGES"))
+        return message.channel.send(
+            "**You need `MANAGE_MESSAGES` permission to use this command**"
+        );
+
+    if (message.member?.hasPermission("MANAGE_MESSAGES")) {
+        const args = message.content.split(" ").slice(1);
+        const amount = args.join(" ");
+
+        if (!amount)
             return message.channel.send(
-                "**You need `MANAGE_MESSAGES` permission to use this command**"
+                "**You haven't given an amount of messages which should be deleted!**"
             );
 
-        if (message.member?.hasPermission("MANAGE_MESSAGES")) {
-            const args = message.content.split(" ").slice(1);
-            const amount = args.join(" ");
+        // @ts-ignore
+        if (isNaN(amount))
+            return message.channel.send(
+                "**The amount parameter isn`t a number!**"
+            );
 
-            if (!amount)
-                return message.channel.send(
-                    "**You haven't given an amount of messages which should be deleted!**"
-                );
+        if (+amount > 100)
+            return message.channel.send(
+                "**You can`t delete more than 100 messages at once!**"
+            );
+        if (+amount < 1)
+            return message.channel.send(
+                "**You have to delete at least 1 message!**"
+            );
 
-            // @ts-ignore
-            if (isNaN(amount))
-                return message.channel.send(
-                    "**The amount parameter isn`t a number!**"
-                );
+        // @ts-ignore
+        message.channel.bulkDelete(amount);
 
-            if (+amount > 100)
-                return message.channel.send(
-                    "**You can`t delete more than 100 messages at once!**"
-                );
-            if (+amount < 1)
-                return message.channel.send(
-                    "**You have to delete at least 1 message!**"
-                );
+        const purgeEmbed = new MessageEmbed()
+            .setAuthor(message.author.username, message.author.displayAvatarURL())
+            .setTitle("Purged Messages")
+            .setDescription(
+                `**${amount} Messages has been deleted! by ${message.author.tag}**`
+            )
+            .setColor("#4287f5")
+            .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-            // @ts-ignore
-            message.channel.bulkDelete(amount);
-
-            const purgeEmbed = new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .setTitle("Purged Messages")
-                .setDescription(
-                    `**${amount} Messages has been deleted! by ${message.author.tag}**`
-                )
-                .setColor("#4287f5")
-                .setFooter(client.user?.username, client.user?.displayAvatarURL())
-
-            message.channel.send(purgeEmbed).then((msg) => {
-                setTimeout(() => msg.delete(), 5000);
-            });
-        }
-    },
+        message.channel.send(purgeEmbed).then((msg) => {
+            setTimeout(() => msg.delete(), 5000);
+        });
+    }
 }
-
-export default PurgeCommand;

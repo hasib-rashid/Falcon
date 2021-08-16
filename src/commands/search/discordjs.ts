@@ -1,30 +1,19 @@
-import Command from '../../typings/command';
-import { default as axios } from 'axios';
+import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
+import { RunFunction } from '../../interfaces/Command';
 
-const DiscordJSCommand: Command = {
-    name: 'djs',
-    description: 'Search the Djs docs here',
-    aliases: [
-        'discord.js', 'discordjs'
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'discordjs'
+export const category = 'search'
+export const description = 'Search the docs of discord.js'
 
-    async run(client, message, args) {
-        let version = args[1]
+export const run: RunFunction = async (client, message, args) => {
+    let version = args[1]
 
-        if (!version) {
-            version = "stable"
-        }
-        axios.get(`https://djsdocs.sorta.moe/v2/embed?src=${encodeURIComponent(version)}&q=${encodeURIComponent(args[0])}`).then((res) => {
-            const embed = new MessageEmbed(res.data)
-            message.channel.send(embed)
-        })
-    },
+    if (!version) {
+        version = "stable"
+    }
+    axios.get(`https://djsdocs.sorta.moe/v2/embed?src=${encodeURIComponent(version)}&q=${encodeURIComponent(args[0])}`).then((res) => {
+        const embed = new MessageEmbed(res.data)
+        message.channel.send(embed)
+    })
 }
-
-export default DiscordJSCommand;

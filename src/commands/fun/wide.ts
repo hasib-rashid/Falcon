@@ -1,23 +1,11 @@
-import Command from '../../typings/command';
-import { default as axios } from 'axios'
+import { RunFunction } from '../../interfaces/Command';
 
-const WideCommand: Command = {
-    name: 'wide',
-    description: "Widen Someone's avatar",
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'wide'
+export const category = 'fun'
+export const description = 'Widen your avatar'
 
-    async run(client, message, args) {
-        const user = message.mentions.users.first()?.displayAvatarURL() || message.guild?.members.cache.get(args[0])?.user.displayAvatarURL() || message.author.displayAvatarURL()
+export const run: RunFunction = async (client, message, args) => {
+    const user = message.mentions.users.first()?.displayAvatarURL() || message.guild?.members.cache.get(args[0])?.user.displayAvatarURL() || message.author.displayAvatarURL()
 
-        message.channel.send(`https://vacefron.nl/api/wide?image=${user}`)
-    },
+    message.channel.send(`https://vacefron.nl/api/tableflip?user=${user}`)
 }
-
-export default WideCommand;

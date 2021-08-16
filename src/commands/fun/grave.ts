@@ -1,23 +1,12 @@
-import Command from '../../typings/command';
+import { RunFunction } from '../../interfaces/Command';
 import { default as axios } from 'axios'
 
-const GraveCommand: Command = {
-    name: 'grave',
-    description: 'Grave yourself :)',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'grave'
+export const category = 'fun'
+export const description = 'Grave yourself or other member'
 
-    async run(client, message, args) {
-        const user = message.mentions.users.first()?.displayAvatarURL() || message.guild?.members.cache.get(args[0])?.user.displayAvatarURL() || message.author.displayAvatarURL()
+export const run: RunFunction = async (client, message, args) => {
+    const user = message.mentions.users.first()?.displayAvatarURL() || message.guild?.members.cache.get(args[0])?.user.displayAvatarURL() || message.author.displayAvatarURL()
 
-        message.channel.send(`https://vacefron.nl/api/grave?user=${user}`)
-    },
+    message.channel.send(`https://vacefron.nl/api/grave?user=${user}`)
 }
-
-export default GraveCommand;

@@ -1,36 +1,21 @@
-import Command from '../../typings/command';
+import { PermissionResolvable } from 'discord.js';
+import { RunFunction } from '../../interfaces/Command';
 
-const LockCommand: Command = {
-    name: 'lockdown',
-    description: 'Lock down a server',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'lockdown'
+export const category = 'admin'
+export const description = 'Lockdown the server'
+export const userPermissions: PermissionResolvable = "MANAGE_CHANNELS"
 
-    async run(client, message, args) {
-        if (!message.member?.hasPermission("MANAGE_CHANNELS"))
-            return message.channel.send(
-                "**You need `MANAGE_CHANNELS` permission to use this command**"
-            );
+export const run: RunFunction = async (client, message, args) => {
+    const role = message.guild?.roles.everyone;
 
-        const role = message.guild?.roles.everyone;
+    const perms = role?.permissions.toArray();
 
-        const perms = role?.permissions.toArray();
+    const newPerms = perms?.filter((perm) => perm !== "SEND_MESSAGES");
 
-        const newPerms = perms?.filter((perm) => perm !== "SEND_MESSAGES");
+    await role?.edit({ permissions: newPerms });
 
-        await role?.edit({ permissions: newPerms });
-
-        message.channel.send(
-            "**:lock: Locked down the Server! Use `unlockdown` command to Unlock the Lockdown!**"
-        );
-
-    },
+    message.channel.send(
+        "**:lock: Locked down the Server! Use `unlockdown` command to Unlock the Lockdown!**"
+    );
 }
-
-export default LockCommand;

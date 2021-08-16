@@ -1,26 +1,9 @@
-import Command from '../../typings/command';
-import { config } from 'dotenv'
-config()
-import { Deta } from 'deta'
+import { RunFunction } from '../../interfaces/Command';
 
-const deta = Deta(process.env.DEFAULT_DB)
-const db = deta.Base("guild")
+export const name = 'test'
+export const category = 'owner'
+export const description = 'Test Command for Owner'
 
-const testCommand: Command = {
-    name: 'test',
-    description: 'See the Ping of Falcon',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: true,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const run: RunFunction = async (client, message, args) => {
 
-    async run(client, message, args) {
-        db.put({ test: "test" })
-    },
 }
-
-export default testCommand;

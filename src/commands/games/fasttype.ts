@@ -1,41 +1,27 @@
-import Command from '../../typings/command';
-// @ts-ignore
+import { RunFunction } from '../../interfaces/Command';
 import weky from 'weky'
-import { default as axios } from 'axios'
+import '@weky/inlinereply'
 import { sentence } from 'txtgen'
 
-const FastTypeCommand: Command = {
-    name: 'fasttype',
-    description: 'Type a sentence Fast and Furious',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'fasttype'
+export const category = 'games'
+export const description = 'Type Fast enough to win'
 
-    async run(client, message, args) {
-        axios.get("https://random-words-api.vercel.app/word").then(async (res) => {
-            await weky.FastType({
-                message: message,
-                embed: {
-                    title: 'FastType | Falcon',
-                    description: '**You have **{{time}}** to type the below sentence.**',
-                    color: 'BLUE',
-                    timestamp: true
-                },
-                sentence: sentence(),
-                winMessage: '**GG, you have a wpm of **{{wpm}}** and You made it in **{{time}}**.**',
-                loseMessage: '**Better luck next time!**',
-                cancelMessage: '**You ended the game!**',
-                time: 60000,
-                buttonText: 'Cancel',
-                othersMessage: '**Only <@{{author}}> can use the buttons!**'
-            });
-        })
-    },
+export const run: RunFunction = async (client, message, args) => {
+    await weky.FastType({
+        message: message,
+        embed: {
+            title: 'FastType | Falcon',
+            description: '**You have **{{time}}** to type the below sentence.**',
+            color: 'BLUE',
+            timestamp: true
+        },
+        sentence: sentence(),
+        winMessage: '**GG, you have a wpm of **{{wpm}}** and You made it in **{{time}}**.**',
+        loseMessage: '**Better luck next time!**',
+        cancelMessage: '**You ended the game!**',
+        time: 60000,
+        buttonText: 'Cancel',
+        othersMessage: '**Only <@{{author}}> can use the buttons!**'
+    });
 }
-
-export default FastTypeCommand;

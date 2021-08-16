@@ -1,34 +1,22 @@
-import Command from '../../typings/command';
-import { MessageEmbed } from 'discord.js'
+import { RunFunction } from '../../interfaces/Command';
 import { default as axios } from 'axios'
-import consola from 'consola';
+import { MessageEmbed } from 'discord.js';
 
-const PuppyCommand: Command = {
-    name: 'puppy',
-    description: 'Get the pic of a random puppy',
-    aliases: [
-        'dog'
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'puppy'
+export const category = 'fun'
+export const description = 'Watch an image of a Puppy'
 
-    async run(client, message, args) {
-        axios.get("https://dog.ceo/api/breeds/image/random").then((response) => {
-            const embed = new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .setTitle("Puppy!")
-                .setDescription("Here's your random puppy!")
-                .setColor("BLUE")
-                .setImage(response.data.message);
+export const run: RunFunction = async (client, message, args) => {
+    axios.get("https://dog.ceo/api/breeds/image/random").then((response) => {
+        const embed = new MessageEmbed()
+            .setAuthor(message.author.username, message.author.displayAvatarURL())
+            .setTitle("Puppy!")
+            .setDescription("Here's your random puppy!")
+            .setColor("BLUE")
+            .setImage(response.data.message);
 
-            message.channel.send(embed);
-        }).catch((err) => {
-            consola.error(err)
-        })
-    },
+        message.channel.send(embed);
+    }).catch((err) => {
+        client.logger.error(err)
+    })
 }
-
-export default PuppyCommand;

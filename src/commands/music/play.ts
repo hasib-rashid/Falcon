@@ -1,18 +1,11 @@
-import Command from '../../typings/command';
+import { RunFunction } from '../../interfaces/Command';
 
-const PlayCommand: Command = {
-    name: 'play',
-    description: 'Play a music in Falcon',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'play'
+export const category = 'music'
+export const description = 'Play a song'
 
-    async run(client, message, args) {
+export const run: RunFunction = async (client, message, args) => {
+    try {
         if (!args)
             return message.channel.send(
                 "**Please sepcify which song do i play!**"
@@ -25,7 +18,7 @@ const PlayCommand: Command = {
         );
 
         client.distube.play(message, args.join(" "));
-    },
+    } catch (err) {
+        message.channel.send("**You have to be in a voice channel to use this command**")
+    }
 }
-
-export default PlayCommand;

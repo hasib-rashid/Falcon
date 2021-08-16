@@ -1,27 +1,16 @@
-import Command from '../../typings/command';
+import { RunFunction } from '../../interfaces/Command';
 
-const SkipCommand: Command = {
-    name: 'skip',
-    description: 'Skip the current song',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'skip'
+export const category = 'music'
+export const description = 'Skip a song'
 
-    async run(client, message, args) {
-        try {
-            client.distube.skip(message)
-            message.channel.send("**Successfully Skipped the current song!**");
-        } catch (err) {
-            message.channel.send(
-                "**Either you are not in a voice channel or a song is not playing.**"
-            );
-        }
-    },
+export const run: RunFunction = async (client, message, args) => {
+    try {
+        client.distube.skip(message)
+        message.channel.send("**Successfully Skipped the current song!**");
+    } catch (err) {
+        message.channel.send(
+            "**Either you are not in a voice channel or a song is not playing.**"
+        );
+    }
 }
-
-export default SkipCommand;

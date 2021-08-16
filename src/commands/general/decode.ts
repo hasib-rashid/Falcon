@@ -1,21 +1,13 @@
-import Command from '../../typings/command';
-import { MessageEmbed } from 'discord.js'
-import { default as axios } from 'axios'
+import { MessageEmbed } from 'discord.js';
+import { default as axios } from 'axios';
+import { RunFunction } from '../../interfaces/Command'; 
 
-const DecodeCommand: Command = {
-    name: 'decode',
-    description: 'Use this command to decode binary',
-    aliases: [
-        ''
-    ],
-    guildOnly: false,
-    ownerOnly: false,
-    disabled: false,
-    nsfw: false,
-    cooldown: 0,
+export const name = 'decode'
+export const category = 'general'
+export const description = 'Decode a encoded Binary'
 
-    async run(client, message, args) {
-        if (!args.join(" "))
+export const run: RunFunction = async (client, message, args) => {
+	if (!args.join(" "))
             return message.channel.send(
                 "**Please send a Binary Code to Decode**"
             );
@@ -38,7 +30,4 @@ const DecodeCommand: Command = {
                 `**An error occured, please try again and put binary codes this time.**`
             );
         }
-    },
 }
-
-export default DecodeCommand;
