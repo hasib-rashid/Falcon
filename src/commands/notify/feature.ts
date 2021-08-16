@@ -24,7 +24,7 @@ export const run: RunFunction = async (client, message, args) => {
         .setTitle("Feature")
         .setColor("GREEN")
         .addField("Information", `GuildID: ${message.guild.id} | UserID: ${message.author.id}`)
-        .setDescription(`\`\`\`txt${feature}\`\`\``)
+        .setDescription(`\`\`\`${feature}\`\`\``)
 
     return (client.channels.cache.get("876620815653830676") as TextChannel).send(embed).catch((err) => {
         message.channel.send("**Maybe the Feature Message is too big. Try reducing the size of the message :)**")
