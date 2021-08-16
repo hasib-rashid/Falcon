@@ -9,9 +9,10 @@ export const run: RunFunction = async (client, message, args) => {
     let bug
     let bugMessage
 
-    message.channel.send("**Explain briefly about the bug. If no bugs found then type `cancel`.**")
+    message.channel.send("**Explain briefly about the bug. If no bugs found then type `cancel`. You have 2 minutes to explain.**")
     await message.channel.awaitMessages(m => m.author.id == message.author.id,
-        { max: 1, time: 30000 }).then(collected => {
+        // 2 minutes
+        { max: 1, time: 2 * 60 * 10000 }).then(collected => {
             if (collected.first()?.content === "cancel") return message.channel.send("**Canceled the operation**")
             bug = collected.first()?.content
         }).catch(() => {
