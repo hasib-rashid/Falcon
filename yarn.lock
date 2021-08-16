@@ -4577,10 +4577,10 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2 || 2"
 
-wikijs@^6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/wikijs/-/wikijs-6.3.0.tgz#60739abd7c6de8b8f1fc336097bd24c9adbbbf8c"
-  integrity sha512-E5AXmL/PsbdBT5OwvMfvu4tGBdV4QAMipOukzgEvXFgUVUAPF6s0Z9AIbtojqGCxV/UDLXtzSwoSmD9Y1F1TlQ==
+wikijs@^6.3.2:
+  version "6.3.2"
+  resolved "https://registry.yarnpkg.com/wikijs/-/wikijs-6.3.2.tgz#b42eebcfb83ddcee34e14bf88144e6f2d5ea9798"
+  integrity sha512-/bkbGw4DNqVl+qT1r/BLIKWInxBkQBGJZzHcjboDTHRXFSVxPkXEDwBhBHn1fcWR5iXDC9FdGbXcKoxsvazsDw==
   dependencies:
     cross-fetch "^3.0.2"
     hyntax "^1.1.9"
