@@ -25,6 +25,7 @@ import EventEmitter from 'events';
 import Nuggies from 'nuggies'
 import Queue from 'distube/typings/Queue';
 import { formatNumber } from '../utils/functions';
+import { readdirSync } from 'fs';
 
 Nuggies.connect(process.env.MONGO_URL)
 
@@ -196,6 +197,8 @@ class Falcon extends Client {
 		const reactionRoleManager = new ReactionRoleManager(this, { mongoDbLink: process.env.MONGO_URL });
 		this.reactionRoles = reactionRoleManager
 
+		this._loadCommands(config.commandDir)
+
 		this._loadGeneralCommands(config.commandDir)
 		this._loadAdminCommands(config.commandDir)
 		this._loadFunCommands(config.commandDir)
@@ -258,6 +261,15 @@ class Falcon extends Client {
 				}),
 			},
 		});
+	}
+
+	private _loadCommands(commandDir: string): void {
+		readdirSync(commandDir)
+			.forEach(async (dir: string) => {
+				const files = readdirSync(`${commandDir}/${dir}`);
+
+				numberOfCommands.push(files.length)
+			});
 	}
 
 	private async _loadAdminCommands(commandDir: string) {
