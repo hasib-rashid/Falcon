@@ -1,6 +1,13 @@
+import { config } from 'dotenv';
+config()
+
 import { Message, TextChannel } from 'discord.js';
 import { RunFunction } from '../../interfaces/Event';
 import { Anything } from '../../interfaces/Anything';
+
+import { Deta } from 'deta'
+const deta = Deta(process.env.DEFAULT_DB)
+const guildModel = deta.Base("guild")
 
 export const name: string = 'message';
 export const run: RunFunction = async (client, message: Message) => {
@@ -8,7 +15,17 @@ export const run: RunFunction = async (client, message: Message) => {
 	if (message.member?.partial) await message.member.fetch();
 	if (!message.guild) return;
 	if (message.author.bot) return;
-	const Prefix = client.prefix
+
+	const guildCache = await guildModel.fetch({ guildID: message.guild.id })
+
+	let Prefix: any;
+
+	try {
+		Prefix = guildCache.items[0].prefix
+	} catch (err) {
+		Prefix = client.prefix
+	}
+
 	if (!message.content.toLowerCase().startsWith(Prefix)) return;
 	const [cmd, ...args]: string[] = message.content
 		.slice(Prefix.length)
