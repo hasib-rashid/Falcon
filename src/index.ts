@@ -7,5 +7,4 @@ new Falcon().start({
     commandDir: `${__dirname}/commands`,
     prefix: ".",
     owners: ["548038495617417226"]
-
 });
