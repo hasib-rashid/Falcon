@@ -314,6 +314,8 @@ class Falcon extends Client {
 			`${__dirname}/../commands/games/*{.js,.ts}`
 		);
 
+		GamesNumber = commandFiles.length
+
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			GamesCommands.push(`**${cmd.name}** - ${cmd.description}`)
