@@ -392,6 +392,8 @@ class Falcon extends Client {
 			`${__dirname}/../commands/search/*{.js,.ts}`
 		);
 
+		SearchNumber = commandFiles.length
+
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			SearchCommands.push(`**${cmd.name}** - ${cmd.description}`)
