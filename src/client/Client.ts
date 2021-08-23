@@ -263,13 +263,12 @@ class Falcon extends Client {
 		});
 	}
 
-	private _loadCommands(commandDir: string): void {
-		readdirSync(commandDir)
-			.forEach(async (dir: string) => {
-				const files = readdirSync(`${commandDir}/${dir}`);
+	private async _loadCommands(commandDir: string) {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/**/*{.js,.ts}`
+		);
 
-				numberOfCommands.push(files.length)
-			});
+		numberOfCommands.push(commandFiles.length)
 	}
 
 	private async _loadAdminCommands(commandDir: string) {
