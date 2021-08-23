@@ -301,6 +301,8 @@ class Falcon extends Client {
 			`${__dirname}/../commands/fun/*{.js,.ts}`
 		);
 
+		FunNumber = commandFiles.length
+
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			FunCommands.push(`**${cmd.name}** - ${cmd.description}`)
