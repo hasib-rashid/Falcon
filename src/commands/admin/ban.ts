@@ -17,7 +17,8 @@ export const run: RunFunction = async (client, message, args) => {
 
     const banReason = args.slice(1).join(' ') || "No Reason";
 
-    const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
+    const targetUser = message.mentions.
+        members?.first() || message.guild?.members.cache.get(args[0])
 
     // @ts-ignore
     if (!message.guild?.member(targetUser)?.bannable) return message.channel.send("**Could not ban this user due to role hierchy**");
