@@ -353,6 +353,8 @@ class Falcon extends Client {
 			`${__dirname}/../commands/music/*{.js,.ts}`
 		);
 
+		MusicNumber = commandFiles.length
+
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			MusicCommands.push(`**${cmd.name}** - ${cmd.description}`)
