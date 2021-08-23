@@ -52,9 +52,10 @@ export const run: RunFunction = async (client, message, args) => {
         if (button.id === "ban-yes") {
             if (!button.message.author) return;
 
-            targetUser?.ban({ reason: banReason }).then((btn) => {
-                confirmButton.setDisabled()
-                denyButton.setDisabled()
+            // targetUser?.ban({ reason: banReason })
+
+            banMessage.then((msg: Message) => {
+                msg.delete()
             })
 
             message.channel.send(`**Successfully Banned ${targetUser} from this server.**`)
