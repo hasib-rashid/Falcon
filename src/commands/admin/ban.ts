@@ -32,13 +32,13 @@ export const run: RunFunction = async (client, message, args) => {
         .setDescription(`**Are you sure you want to ban  ${targetUser} for \`${banReason}\`**`)
         .setFooter(message.client.user?.username, message.client.user?.displayAvatarURL())
 
-    const confirmButton = new MessageButton()
+    let confirmButton = new MessageButton()
         .setLabel("Yes")
         .setID("ban-yes")
         .setStyle("green");
 
 
-    const denyButton = new MessageButton()
+    let denyButton = new MessageButton()
         .setLabel("No")
         .setID("ban-no")
         .setStyle("red");
@@ -46,13 +46,16 @@ export const run: RunFunction = async (client, message, args) => {
     const row = new MessageActionRow()
         .addComponents(confirmButton, denyButton)
 
-    message.channel.send(confirmEmbed, row)
+    const banMessage = await message.channel.send(confirmEmbed, row)
 
     client.on('clickButton', async (button) => {
         if (button.id === "ban-yes") {
             if (!button.message.author) return;
 
-            targetUser?.ban({ reason: banReason })
+            targetUser?.ban({ reason: banReason }).then((btn) => {
+                confirmButton.setDisabled()
+                denyButton.setDisabled()
+            })
 
             message.channel.send(`**Successfully Banned ${targetUser} from this server.**`)
 
@@ -70,6 +73,13 @@ export const run: RunFunction = async (client, message, args) => {
             if (!button.message.author) return;
 
             button.message.channel.send("**Canceled The Action.**")
+            confirmButton = confirmButton.setDisabled()
+            denyButton = denyButton.setDisabled()
+
+            button.message.edit(banMessage, confirmButton)
+            button.message.edit(banMessage, denyButton)
         }
-    });
+    })
+
+    return;
 }
