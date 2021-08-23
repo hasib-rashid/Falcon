@@ -69,6 +69,10 @@ export const run: RunFunction = async (client, message, args) => {
         if (button.id === "kick-no") {
             if (!button.message.author) return;
 
+            kickMessage.then((msg: Message) => {
+                msg.delete()
+            })
+
             button.message.channel.send("**Canceled The Action.**")
         }
     });
