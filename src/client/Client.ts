@@ -379,6 +379,8 @@ class Falcon extends Client {
 			`${__dirname}/../commands/owner/*{.js,.ts}`
 		);
 
+		OwnerNumber = commandFiles.length
+
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			OwnerCommands.push(`**${cmd.name}** - ${cmd.description}`)
