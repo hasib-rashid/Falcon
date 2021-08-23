@@ -1,6 +1,3 @@
-import { config } from 'dotenv'
-config()
-
 import { PermissionResolvable } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 import { Deta } from 'deta'
