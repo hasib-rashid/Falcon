@@ -327,6 +327,8 @@ class Falcon extends Client {
 			`${__dirname}/../commands/general/*{.js,.ts}`
 		);
 
+		GeneralNumber = commandFiles.length
+
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			GeneralCommands.push(`**${cmd.name}** - ${cmd.description}`)
