@@ -1,9 +1,7 @@
-import { config } from 'dotenv';
-config()
-
 import { RunFunction } from '../../interfaces/Command';
 import { Deta } from 'deta'
-const deta = Deta(process.env.DEFAULT_DB)
+import { env } from '../../client/env';
+const deta = Deta(env.db)
 const db = deta.Base("blacklist")
 
 export const name = 'whitelist'
