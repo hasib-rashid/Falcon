@@ -1,6 +1,3 @@
-import { config } from 'dotenv';
-config()
-
 import { RunFunction } from '../../interfaces/Event';
 import { GuildMember } from 'discord.js';
 import express from 'express';
@@ -8,7 +5,9 @@ import Nuggies from 'nuggies'
 
 import { Deta } from 'deta'
 import ms from 'ms';
-const deta = Deta(process.env.DEFAULT_DB)
+import { env } from '../../client/env';
+
+const deta = Deta(env.db)
 const db = deta.Base("muted")
 
 export const name: string = 'ready';
