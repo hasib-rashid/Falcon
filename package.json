@@ -54,7 +54,7 @@
 		"prompts": "^2.4.1",
 		"snakecord": "^1.0.8",
 		"tmath": "^2.2.0",
-		"tslib": "^2.3.0",
+		"tslib": "^2.3.1",
 		"txtgen": "^2.2.8",
 		"tyvn": "^1.8.0",
 		"utf-8-validate": "^5.0.4",
