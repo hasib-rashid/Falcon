@@ -340,6 +340,8 @@ class Falcon extends Client {
 			`${__dirname}/../commands/misc/*{.js,.ts}`
 		);
 
+		MISCNumber = commandFiles.length
+
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			MISCCommands.push(`**${cmd.name}** - ${cmd.description}`)
