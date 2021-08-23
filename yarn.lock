@@ -3178,14 +3178,12 @@ nth-check@^2.0.0:
   dependencies:
     boolbase "^1.0.0"
 
-nuggies@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/nuggies/-/nuggies-1.4.3.tgz#66fb07b78631948b6cb4b60217762751bf32c0fb"
-  integrity sha512-6EbaMp8UCQICLU5BwG1sf/hyGOVe/oJXHYiqe2Q+JIlaDtMABHD4vS5ZG20zs3+wkZDBPGE+HbKFKRpZ/2SvuQ==
+nuggies@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/nuggies/-/nuggies-2.0.1.tgz#3de97fcbba6315a83a0ad59890de2c035188dd56"
+  integrity sha512-ccHWMExxwrv5txXkfcZcMD7Y5dS2hKPcYaC1Z5e2NYI5RnTL2UcTNAWS9hHilDSgb+LItBR4CFMZxx6j67A3Gw==
   dependencies:
     deepmerge "^4.2.2"
-    discord-buttons "^4.0.0"
-    discord.js "^12.5.3"
     mongoose "^5.12.14"
     ms "^2.1.2"
 
@@ -4652,10 +4650,10 @@ yn@3.1.1:
   resolved "https://registry.npmjs.org/yn/-/yn-3.1.1.tgz"
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 
-yn@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/yn/-/yn-5.0.0.tgz#63fc2e2e0056cf294397eed6ad4a3fbdf707f26f"
-  integrity sha512-+l37+9TyGEsyxGLaTg6QgYy5KnOp74ZZl4dPFLQpBWSkO99uBC5jnS0pOGwXFViPbiaEtWbParH2KrgWWF2duQ==
+yn@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/yn/-/yn-4.0.0.tgz#611480051ea43b510da1dfdbe177ed159f00a979"
+  integrity sha512-huWiiCS4TxKc4SfgmTwW1K7JmXPPAmuXWYy4j9qjQo4+27Kni8mGhAAi1cloRWmBe2EqcLgt3IGqQoRL/MtPgg==
 
 yocto-queue@^0.1.0:
   version "0.1.0"
