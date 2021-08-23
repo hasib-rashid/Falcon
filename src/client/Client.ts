@@ -324,7 +324,7 @@ class Falcon extends Client {
 
 	private async _loadGeneralCommands(commandDir: string) {
 		const commandFiles: string[] = await globPromise(
-			`${__dirname}/../commands/general/*{.js,.ts}`
+			`${__dirname}/../commands/admin/*{.js,.ts}`
 		);
 
 		GeneralNumber = commandFiles.length
@@ -400,4 +400,5 @@ class Falcon extends Client {
 		});
 	}
 }
+
 export { Falcon };
