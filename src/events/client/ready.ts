@@ -36,7 +36,6 @@ export const run: RunFunction = async (client) => {
 					setInterval(async () => {
 						// @ts-ignore
 						await member.roles.remove(member.guild.roles.cache.find((role) => role.name.toLowerCase() === "muted"))
-
 						db.delete(response.items[0].key as any)
 					}, ms(response.items[0].time as string))
 				})
