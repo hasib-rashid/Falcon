@@ -1,5 +1,3 @@
-import { config } from 'dotenv'
-config()
 import { Falcon } from './client/Client';
 import { env } from './client/env';
 new Falcon().start({
