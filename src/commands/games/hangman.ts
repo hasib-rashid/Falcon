@@ -158,7 +158,7 @@ export const run: RunFunction = async (client, message, args) => {
                             });
                     } else {
                         // @ts-ignore
-                        nextLetter(message, index, word);
+                        nextLetter(message, index, "deeznutz");
                     }
                 }
             });
