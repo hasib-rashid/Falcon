@@ -366,6 +366,8 @@ class Falcon extends Client {
 			`${__dirname}/../commands/nsfw/*{.js,.ts}`
 		);
 
+		NSFWNumber = commandFiles.length
+
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			NSFWCommnads.push(`**${cmd.name}** - ${cmd.description}`)
