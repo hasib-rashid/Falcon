@@ -32,6 +32,18 @@ Nuggies.connect(process.env.MONGO_URL)
 export const numberOfCommands: any = []
 export const totalCommands: any = numberOfCommands[0] + numberOfCommands[1] + numberOfCommands[2] + numberOfCommands[3] + numberOfCommands[4] + numberOfCommands[5] + numberOfCommands[6] + numberOfCommands[7] + numberOfCommands[8] + numberOfCommands[9] + numberOfCommands[10]
 
+export let AdminNumber
+export let EventsNumber
+export let FunNumber
+export let GamesNumber
+export let GeneralNumber
+export let MISCNumber
+export let MusicNumber
+export let NotifyNumber
+export let NSFWNumber
+export let OwnerNumber
+export let SearchNumber
+
 export const AdminCommands: any = []
 export const EventsCommands: any = []
 export const FunCommands: any = []
