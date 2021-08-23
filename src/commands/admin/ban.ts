@@ -1,5 +1,5 @@
-import { MessageActionRow, MessageButton } from 'discord-buttons';
-import { MessageEmbed, PermissionResolvable } from 'discord.js';
+import { MessageActionRow, MessageButton, MessageComponent } from 'discord-buttons';
+import { Message, MessageEmbed, PermissionResolvable } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'ban'
@@ -46,7 +46,7 @@ export const run: RunFunction = async (client, message, args) => {
     const row = new MessageActionRow()
         .addComponents(confirmButton, denyButton)
 
-    const banMessage = await message.channel.send(confirmEmbed, row)
+    const banMessage = message.channel.send(confirmEmbed, row)
 
     client.on('clickButton', async (button) => {
         if (button.id === "ban-yes") {
@@ -73,11 +73,9 @@ export const run: RunFunction = async (client, message, args) => {
             if (!button.message.author) return;
 
             button.message.channel.send("**Canceled The Action.**")
-            confirmButton = confirmButton.setDisabled()
-            denyButton = denyButton.setDisabled()
-
-            button.message.edit(banMessage, confirmButton)
-            button.message.edit(banMessage, denyButton)
+            banMessage.then((msg: Message) => {
+                msg.delete()
+            })
         }
     })
 
