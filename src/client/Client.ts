@@ -288,8 +288,6 @@ class Falcon extends Client {
 			`${__dirname}/../commands/admin/*{.js,.ts}`
 		);
 
-		AdminNumber = commandFiles.length
-
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			AdminCommands.push(`**${cmd.name}** - ${cmd.description}`)
@@ -300,8 +298,6 @@ class Falcon extends Client {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/fun/*{.js,.ts}`
 		);
-
-		FunNumber = commandFiles.length
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
@@ -314,8 +310,6 @@ class Falcon extends Client {
 			`${__dirname}/../commands/games/*{.js,.ts}`
 		);
 
-		GamesNumber = commandFiles.length
-
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			GamesCommands.push(`**${cmd.name}** - ${cmd.description}`)
@@ -326,8 +320,6 @@ class Falcon extends Client {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/admin/*{.js,.ts}`
 		);
-
-		GeneralNumber = commandFiles.length
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
@@ -340,8 +332,6 @@ class Falcon extends Client {
 			`${__dirname}/../commands/misc/*{.js,.ts}`
 		);
 
-		MISCNumber = commandFiles.length
-
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			MISCCommands.push(`**${cmd.name}** - ${cmd.description}`)
@@ -352,8 +342,6 @@ class Falcon extends Client {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/music/*{.js,.ts}`
 		);
-
-		MusicNumber = commandFiles.length
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
@@ -366,8 +354,6 @@ class Falcon extends Client {
 			`${__dirname}/../commands/nsfw/*{.js,.ts}`
 		);
 
-		NSFWNumber = commandFiles.length
-
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			NSFWCommnads.push(`**${cmd.name}** - ${cmd.description}`)
@@ -379,8 +365,6 @@ class Falcon extends Client {
 			`${__dirname}/../commands/owner/*{.js,.ts}`
 		);
 
-		OwnerNumber = commandFiles.length
-
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
 			OwnerCommands.push(`**${cmd.name}** - ${cmd.description}`)
@@ -391,8 +375,6 @@ class Falcon extends Client {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/search/*{.js,.ts}`
 		);
-
-		SearchNumber = commandFiles.length
 
 		commandFiles.map(async (cmdFile: string) => {
 			const cmd = (await import(cmdFile)) as Command;
