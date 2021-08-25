@@ -46,6 +46,7 @@ export const run: RunFunction = async (client, message, args) => {
 
     client.on('clickButton', async (button) => {
         if (button.id === "kick-yes") {
+            if (button.message.author.id !== message.author.id) return;
             if (!button.message.author) return;
 
             targetUser?.kick()
@@ -67,7 +68,7 @@ export const run: RunFunction = async (client, message, args) => {
         }
 
         if (button.id === "kick-no") {
-            if (!button.message.author) return;
+            if (button.message.author.id !== message.author.id) return;
 
             kickMessage.then((msg: Message) => {
                 msg.delete()
