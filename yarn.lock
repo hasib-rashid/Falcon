@@ -1099,7 +1099,7 @@ cross-fetch@^3.0.2:
   dependencies:
     node-fetch "2.6.1"
 
-cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
+cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz"
   integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
@@ -1682,19 +1682,19 @@ event-target-shim@^5.0.0:
   resolved "https://registry.npmjs.org/event-target-shim/-/event-target-shim-5.0.1.tgz"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
-execa@^4.0.2:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/execa/-/execa-4.1.0.tgz"
-  integrity sha512-j5W0//W7f8UxAn8hXVnwG8tLwdiUy4FJLcSupCg6maBYZDpyBvTApK7KyuI4bKj8KOh1r2YH+6ucuYtJv1bTZA==
+execa@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-5.1.1.tgz#f80ad9cbf4298f7bd1d4c9555c21e93741c411dd"
+  integrity sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==
   dependencies:
-    cross-spawn "^7.0.0"
-    get-stream "^5.0.0"
-    human-signals "^1.1.1"
+    cross-spawn "^7.0.3"
+    get-stream "^6.0.0"
+    human-signals "^2.1.0"
     is-stream "^2.0.0"
     merge-stream "^2.0.0"
-    npm-run-path "^4.0.0"
-    onetime "^5.1.0"
-    signal-exit "^3.0.2"
+    npm-run-path "^4.0.1"
+    onetime "^5.1.2"
+    signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
 
 execa@~5.0.0:
@@ -2000,7 +2000,7 @@ get-stream@^4.1.0:
   dependencies:
     pump "^3.0.0"
 
-get-stream@^5.0.0, get-stream@^5.1.0:
+get-stream@^5.1.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/get-stream/-/get-stream-5.2.0.tgz"
   integrity sha512-nBF+F1rAZVCu/p7rjzgA+Yb4lfYXrpl7a6VmJrU8wF9I1CKvP/QwPNZHnOlwbTkY6dvtFIzFMSyQXbLoTQPRpA==
@@ -2261,11 +2261,6 @@ https-proxy-agent@^5.0.0:
   dependencies:
     agent-base "6"
     debug "4"
-
-human-signals@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/human-signals/-/human-signals-1.1.1.tgz"
-  integrity sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
 
 human-signals@^2.1.0:
   version "2.1.0"
@@ -2764,10 +2759,10 @@ m3u8stream@^0.8.3:
     miniget "^4.0.0"
     sax "^1.2.4"
 
-macos-release@^2.2.0:
-  version "2.4.1"
-  resolved "https://registry.npmjs.org/macos-release/-/macos-release-2.4.1.tgz"
-  integrity sha512-H/QHeBIN1fIGJX517pvK8IEK53yQOW7YcEI55oYtgjDdoCQQz7eJS94qt5kNrscReEyuD/JcdFCm2XBEcGOITg==
+macos-release@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/macos-release/-/macos-release-3.0.0.tgz#2dd203bd27545ff45c000ac795878b0f8c30ce6d"
+  integrity sha512-y+uUjBt2D1YK0w8k0D19r6O8BYrCkSokWMaTJPvE68RjUOVYQmPXUD7Y4wGphM+/DEJNU+e46hl1lXOzPpvo+w==
 
 make-dir@^3.0.0:
   version "3.1.0"
@@ -3162,7 +3157,7 @@ normalize-url@^6.0.1:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-6.1.0.tgz#40d0885b535deffe3f3147bec877d05fe4c5668a"
   integrity sha512-DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A==
 
-npm-run-path@^4.0.0, npm-run-path@^4.0.1:
+npm-run-path@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/npm-run-path/-/npm-run-path-4.0.1.tgz"
   integrity sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==
@@ -3294,13 +3289,13 @@ ora@^4.0.3:
     strip-ansi "^6.0.0"
     wcwidth "^1.0.1"
 
-os-name@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/os-name/-/os-name-4.0.0.tgz"
-  integrity sha512-caABzDdJMbtykt7GmSogEat3faTKQhmZf0BS5l/pZGmP0vPWQjXWqOhbLyK+b6j2/DQPmEvYdzLXJXXLJNVDNg==
+os-name@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/os-name/-/os-name-5.0.0.tgz#287be8ceccc017855753aace59505b8efd0d82a2"
+  integrity sha512-2NNINSnda99omAve/ayz0vIOwwS7fC1jNlutqxAcAsS8NXOGU3Rdku1lCm00fDNFdOMLd1YCVTNnfUsVs5471Q==
   dependencies:
-    macos-release "^2.2.0"
-    windows-release "^4.0.0"
+    macos-release "^3.0.0"
+    windows-release "^5.0.0"
 
 os-utils@^0.0.14:
   version "0.0.14"
@@ -4601,12 +4596,12 @@ wikijs@^6.3.2:
     hyntax "^1.1.9"
     infobox-parser "3.6.1"
 
-windows-release@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/windows-release/-/windows-release-4.0.0.tgz"
-  integrity sha512-OxmV4wzDKB1x7AZaZgXMVsdJ1qER1ed83ZrTYd5Bwq2HfJVg3DJS8nqlAG4sMoJ7mu8cuRmLEYyU13BKwctRAg==
+windows-release@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/windows-release/-/windows-release-5.0.0.tgz#43e0b2fa59a37ebc3c8f34db06ed838021d3b531"
+  integrity sha512-oiBC+rh4zgwD2E1WvsdcuaBlcNtO+bfoq4GT7sR36J8X+AZNJuXXf+5BjLflDqhEZty25SahBMYSEBhg/V8ikg==
   dependencies:
-    execa "^4.0.2"
+    execa "^5.1.1"
 
 word-list@^2.0.0:
   version "2.0.0"
@@ -4685,10 +4680,10 @@ yn@3.1.1:
   resolved "https://registry.npmjs.org/yn/-/yn-3.1.1.tgz"
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 
-yn@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/yn/-/yn-5.0.0.tgz#63fc2e2e0056cf294397eed6ad4a3fbdf707f26f"
-  integrity sha512-+l37+9TyGEsyxGLaTg6QgYy5KnOp74ZZl4dPFLQpBWSkO99uBC5jnS0pOGwXFViPbiaEtWbParH2KrgWWF2duQ==
+yn@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/yn/-/yn-4.0.0.tgz#611480051ea43b510da1dfdbe177ed159f00a979"
+  integrity sha512-huWiiCS4TxKc4SfgmTwW1K7JmXPPAmuXWYy4j9qjQo4+27Kni8mGhAAi1cloRWmBe2EqcLgt3IGqQoRL/MtPgg==
 
 yocto-queue@^0.1.0:
   version "0.1.0"
