@@ -1,5 +1,5 @@
-import { MessageActionRow, MessageButton } from 'discord-buttons';
-import { MessageEmbed, PermissionResolvable } from 'discord.js';
+import { MessageActionRow, MessageButton, MessageComponent } from 'discord-buttons';
+import { Message, MessageEmbed, PermissionResolvable } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'ban'
@@ -17,7 +17,8 @@ export const run: RunFunction = async (client, message, args) => {
 
     const banReason = args.slice(1).join(' ') || "No Reason";
 
-    const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
+    const targetUser = message.mentions.
+        members?.first() || message.guild?.members.cache.get(args[0])
 
     // @ts-ignore
     if (!message.guild?.member(targetUser)?.bannable) return message.channel.send("**Could not ban this user due to role hierchy**");
@@ -32,13 +33,13 @@ export const run: RunFunction = async (client, message, args) => {
         .setDescription(`**Are you sure you want to ban  ${targetUser} for \`${banReason}\`**`)
         .setFooter(message.client.user?.username, message.client.user?.displayAvatarURL())
 
-    const confirmButton = new MessageButton()
+    let confirmButton = new MessageButton()
         .setLabel("Yes")
         .setID("ban-yes")
         .setStyle("green");
 
 
-    const denyButton = new MessageButton()
+    let denyButton = new MessageButton()
         .setLabel("No")
         .setID("ban-no")
         .setStyle("red");
@@ -46,13 +47,17 @@ export const run: RunFunction = async (client, message, args) => {
     const row = new MessageActionRow()
         .addComponents(confirmButton, denyButton)
 
-    message.channel.send(confirmEmbed, row)
+    const banMessage = message.channel.send(confirmEmbed, row)
 
     client.on('clickButton', async (button) => {
         if (button.id === "ban-yes") {
             if (!button.message.author) return;
 
             targetUser?.ban({ reason: banReason })
+
+            banMessage.then((msg: Message) => {
+                msg.delete()
+            })
 
             message.channel.send(`**Successfully Banned ${targetUser} from this server.**`)
 
@@ -70,6 +75,11 @@ export const run: RunFunction = async (client, message, args) => {
             if (!button.message.author) return;
 
             button.message.channel.send("**Canceled The Action.**")
+            banMessage.then((msg: Message) => {
+                msg.delete()
+            })
         }
-    });
+    })
+
+    return;
 }

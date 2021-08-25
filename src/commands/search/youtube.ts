@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
+import { env } from '../../client/env';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'youtube'
@@ -17,7 +18,7 @@ export const run: RunFunction = async (client, message, args) => {
                 order: "date",
             },
             headers: {
-                "x-rapidapi-key": process.env.RAPID_API_KEY,
+                "x-rapidapi-key": env.rapid_api,
                 "x-rapidapi-host": "youtube-v31.p.rapidapi.com",
             },
         })

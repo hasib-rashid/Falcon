@@ -1,12 +1,11 @@
-import { config } from 'dotenv';
-config()
-
 import { Message, TextChannel } from 'discord.js';
 import { RunFunction } from '../../interfaces/Event';
 import { Anything } from '../../interfaces/Anything';
 
 import { Deta } from 'deta'
-const deta = Deta(process.env.DEFAULT_DB)
+import { env } from '../../client/env';
+
+const deta = Deta(env.db)
 const guildModel = deta.Base("guild")
 
 export const name: string = 'message';

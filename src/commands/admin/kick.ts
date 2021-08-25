@@ -1,5 +1,5 @@
 import { MessageActionRow, MessageButton } from 'discord-buttons';
-import { MessageEmbed, PermissionResolvable } from 'discord.js';
+import { Message, MessageEmbed, PermissionResolvable } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'kick'
@@ -42,13 +42,17 @@ export const run: RunFunction = async (client, message, args) => {
     const row = new MessageActionRow()
         .addComponents(confirmButton, denyButton)
 
-    message.channel.send(confirmEmbed, row)
+    const kickMessage = message.channel.send(confirmEmbed, row)
 
     client.on('clickButton', async (button) => {
         if (button.id === "kick-yes") {
             if (!button.message.author) return;
 
             targetUser?.kick()
+
+            kickMessage.then((msg: Message) => {
+                msg.delete()
+            })
 
             message.channel.send(`**Successfully Kicked ${targetUser} from this server.**`)
 
@@ -64,6 +68,10 @@ export const run: RunFunction = async (client, message, args) => {
 
         if (button.id === "kick-no") {
             if (!button.message.author) return;
+
+            kickMessage.then((msg: Message) => {
+                msg.delete()
+            })
 
             button.message.channel.send("**Canceled The Action.**")
         }

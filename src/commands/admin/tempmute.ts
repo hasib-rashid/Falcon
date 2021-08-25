@@ -2,8 +2,9 @@ import { MessageEmbed, PermissionResolvable } from 'discord.js';
 import ms from 'ms';
 import { RunFunction } from '../../interfaces/Command';
 import { Deta } from 'deta'
+import { env } from '../../client/env';
 
-const deta = Deta(process.env.DEFAULT_DB)
+const deta = Deta(env.db)
 const db = deta.Base("muted")
 
 export const name = 'tempmute'

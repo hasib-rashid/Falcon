@@ -1,6 +1,3 @@
-import { config } from 'dotenv';
-config()
-
 import { RunFunction } from '../../interfaces/Event';
 import { GuildMember } from 'discord.js';
 import express from 'express';
@@ -8,15 +5,26 @@ import Nuggies from 'nuggies'
 
 import { Deta } from 'deta'
 import ms from 'ms';
-const deta = Deta(process.env.DEFAULT_DB)
+import { env } from '../../client/env';
+
+const deta = Deta(env.db)
 const db = deta.Base("muted")
 
 export const name: string = 'ready';
 export const run: RunFunction = async (client) => {
 	client.logger.success(`${client.user.tag} is now online!`);
-	await client.user.setActivity(`${client.prefix}help | 👦 Falcon`, {
-		type: 'WATCHING',
-	});
+	const Activities = [
+		`Serving ${client.prefix}help | 🎉`,
+		`In ${client.guilds.cache.size} Servers!| 🎉`,
+		`Serving ${client.users.cache.size} users! | 🎉`,
+	]
+
+	setInterval(async () => {
+		const randomIndex = Math.floor(Math.random() * (Activities.length - 1) + 1);
+		const newActivity = Activities[randomIndex];
+
+		await client.user?.setActivity(newActivity, { type: "WATCHING" });
+	}, 10000);
 	if (client.config.onlyUsed) {
 		client.guilds.cache
 			.get('784470505607528448')
@@ -36,7 +44,6 @@ export const run: RunFunction = async (client) => {
 					setInterval(async () => {
 						// @ts-ignore
 						await member.roles.remove(member.guild.roles.cache.find((role) => role.name.toLowerCase() === "muted"))
-
 						db.delete(response.items[0].key as any)
 					}, ms(response.items[0].time as string))
 				})

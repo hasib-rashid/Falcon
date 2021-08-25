@@ -1,6 +1,3 @@
-import { config } from 'dotenv';
-config()
-
 import { RunFunction } from '../../interfaces/Command';
 import { GeneralCommands, AdminCommands, EventsCommands, FunCommands, GamesCommands, MISCCommands, MusicCommands, NSFWCommnads, NotifyCommands, OwnerCommands, SearchCommands, numberOfCommands, totalCommands } from '../../client/Client'
 import { MessageEmbed } from 'discord.js';
@@ -9,7 +6,8 @@ import { helpAsserts } from '../../assets/help';
 const { getArraySum } = UtilsManager.prototype
 
 import { Deta } from 'deta'
-const deta = Deta(process.env.DEFAULT_DB)
+import { env } from '../../client/env';
+const deta = Deta(env.db)
 const guildModel = deta.Base("guild")
 
 export const name = 'help'

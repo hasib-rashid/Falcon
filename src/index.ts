@@ -1,11 +1,9 @@
-import { config } from 'dotenv'
-config()
 import { Falcon } from './client/Client';
+import { env } from './client/env';
 new Falcon().start({
-    token: process.env.TOKEN,
-    mongoURI: process.env.MONGO_URL,
+    token: env.token,
+    mongoURI: env.mongo_url,
+    prefix: env.prefix,
     commandDir: `${__dirname}/commands`,
-    prefix: ".",
     owners: ["548038495617417226"]
-
 });
