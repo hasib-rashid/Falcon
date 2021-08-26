@@ -26,18 +26,18 @@ export default class CodeFictionist extends Client {
 
 	public async start() {
 		await this.__loadEvents();
-		await this.__loadCommands();
+		await this.__loadSlashCommands();
 		this.login(process.env.TOKEN);
 	}
 
-	private async __loadCommands() {
-		const subDirs = await readdir(join(__dirname, "../Commands"));
+	private async __loadSlashCommands() {
+		const subDirs = await readdir(join(__dirname, "../slashcommands"));
 
-		for(const subDir of subDirs) {
-			const files = await readdir(join(__dirname, "../Commands", subDir));
+		for (const subDir of subDirs) {
+			const files = await readdir(join(__dirname, "../slashcommands", subDir));
 
-			for(const file of files) {
-				const pseudoPull = await import(join(__dirname, "../Commands", subDir, file));
+			for (const file of files) {
+				const pseudoPull = await import(join(__dirname, "../slashcommands", subDir, file));
 
 				const pull: BaseSlashCommand = new pseudoPull.default(this);
 
@@ -51,7 +51,7 @@ export default class CodeFictionist extends Client {
 	private async __loadEvents() {
 		const files = await readdir(join(__dirname, "../Events"));
 
-		for(const file of files) {
+		for (const file of files) {
 			const pseudoPull = await import(join(__dirname, "../Events", file));
 
 			const pull: BaseEvent = new pseudoPull.default(this);
