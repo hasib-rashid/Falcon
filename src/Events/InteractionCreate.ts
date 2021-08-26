@@ -1,6 +1,6 @@
 import { CommandInteraction, Interaction } from "discord.js";
-import BaseEvent from "../Base/BaseEvent";
-import CodeFictionist from "../Base/Client";
+import BaseEvent from "../base/BaseEvent";
+import CodeFictionist from "../base/Client";
 
 export default class InteractionCreateEvent extends BaseEvent {
 	constructor(client: CodeFictionist) {
@@ -8,7 +8,7 @@ export default class InteractionCreateEvent extends BaseEvent {
 	}
 
 	public async run(interaction: Interaction) {
-		if(interaction.isCommand()) await this.__handleCommand(interaction);
+		if (interaction.isCommand()) await this.__handleCommand(interaction);
 	}
 
 	private async __handleCommand(interaction: CommandInteraction) {
@@ -19,7 +19,7 @@ export default class InteractionCreateEvent extends BaseEvent {
 		try {
 			await command?.run(interaction);
 		}
-		catch(err) {
+		catch (err) {
 			interaction.editReply(`${":x:"} An error occurred while running the command`);
 
 			this.client.logger.error("client/commands", (err as Error).message, (err as Error).stack);

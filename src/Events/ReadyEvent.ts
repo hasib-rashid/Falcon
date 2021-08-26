@@ -1,5 +1,5 @@
-import BaseEvent from "../Base/BaseEvent";
-import CodeFictionist from "../Base/Client";
+import BaseEvent from "../base/BaseEvent";
+import CodeFictionist from "../base/Client";
 
 export default class ReadyEvent extends BaseEvent {
 	constructor(client: CodeFictionist) {

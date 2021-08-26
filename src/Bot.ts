@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 config();
 
-import CodeFictionist from "./Base/Client";
+import CodeFictionist from "./base/Client";
 
 new CodeFictionist()
 	.start();

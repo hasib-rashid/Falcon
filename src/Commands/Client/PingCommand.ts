@@ -1,6 +1,6 @@
 import { CommandInteraction } from "discord.js";
-import BaseSlashCommand from "../../Base/BaseSlashCommand";
-import CodeFictionist from "../../Base/Client";
+import BaseSlashCommand from "../../base/BaseSlashCommand";
+import CodeFictionist from "../../base/Client";
 
 export default class PingCommand extends BaseSlashCommand {
 	constructor(client: CodeFictionist) {
