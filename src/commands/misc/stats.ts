@@ -1,4 +1,4 @@
-import { RunFunction } from '../../interfaces/Command'; 
+import { RunFunction } from '../../interfaces/Command';
 import Discord from 'discord.js'
 import osutils from 'os-utils'
 
@@ -25,7 +25,7 @@ export const run: RunFunction = async (client, message, args) => {
             .addField("RAM", `${process.memoryUsage().heapUsed / 1024 / 1024} %`, true)
             .setColor("BLUE");
 
-        return message.channel.send(embed);
+        return message.channel.send({ embeds: [embed] });
     } catch (err) {
         console.error(err);
     }
