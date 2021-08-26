@@ -15,7 +15,7 @@ export const run: RunFunction = async (client, message, args) => {
             "**You need `BAN_MEMBERS` permission to use this command**"
         );
 
-    const banReason = args.slice(1).join(' ') || "No Reason";
+    const banReason = args.slice(1).join(' ') ? args.slice(1).join(' ') : "No Reason";
 
     const targetUser = message.mentions.
         members?.first() || message.guild?.members.cache.get(args[0])
