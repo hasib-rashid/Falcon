@@ -12,15 +12,15 @@ import Falcon from "../../base/Client";
 export default class PingCommand extends BaseSlashCommand {
     constructor(client: Falcon) {
         super(client, {
-            name: "ping",
-            description: "Get the API Latency of the Bot",
+            name: "info",
+            description: "Information About Falcon",
         });
     }
 
     public async run(interaction: CommandInteraction) {
         try {
             // @ts-ignore
-            let totalSeconds = (client.uptime / 1000);
+            let totalSeconds = (this.client.uptime / 1000);
             let days = Math.floor(totalSeconds / 86400);
             totalSeconds %= 86400;
             let hours = Math.floor(totalSeconds / 3600);
