@@ -7,8 +7,8 @@ import osutils from 'os-utils'
 export default class PingCommand extends BaseSlashCommand {
     constructor(client: Falcon) {
         super(client, {
-            name: "invite",
-            description: "Invite Falcon",
+            name: "stats",
+            description: "Statistics on Falcon",
         });
     }
 
