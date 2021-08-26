@@ -1,6 +1,6 @@
 import { RunFunction } from '../../interfaces/Command';
 import { MessageEmbed, version as djsVersion } from 'discord.js'
-import { UtilsManager } from '../../utils/Utils';
+import { UtilsManager } from '../../util/Utils';
 const { formatNumber } = UtilsManager.prototype
 import { version, dependencies } from '../../../package.json'
 
@@ -70,7 +70,7 @@ export const run: RunFunction = async (client, message, args) => {
                 Object.keys(deps).sort().join(", ")
             );
 
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     } catch (err) {
         console.error(err);
     }
