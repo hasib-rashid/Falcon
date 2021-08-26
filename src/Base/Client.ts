@@ -58,20 +58,6 @@ export default class CodeFictionist extends Client {
 		}
 	}
 
-	public embed(data: MessageEmbedOptions, message: Message): MessageEmbed {
-		return new MessageEmbed({
-			color: 'RANDOM',
-			...data,
-			footer: {
-				text: `${message.author.tag} | Falcon`,
-				iconURL: message.author.displayAvatarURL({
-					dynamic: true,
-					format: 'png',
-				}),
-			},
-		});
-	}
-
 	private async __loadSlashCommands() {
 		const subDirs = await readdir(join(__dirname, "../slashcommands"));
 

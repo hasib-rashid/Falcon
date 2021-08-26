@@ -12,7 +12,7 @@ export default class InteractionCreateEvent extends BaseEvent {
 	}
 
 	private async __handleCommand(interaction: CommandInteraction) {
-		const command = this.client.commands.get(interaction.commandName);
+		const command = this.client.slashcommands.get(interaction.commandName);
 
 		await interaction.deferReply();
 
