@@ -1,7 +1,7 @@
 {
   "name": "falcon",
   "version": "2.0.0",
-  "description": "Community Bot for CodeFiction",
+  "description": "A Modern Discord Utility bot that will scale to mars",
   "scripts": {
     "build": "tsc",
     "start": "tsc && node dist/bot",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SpiderMath/Falcon.git"
+    "url": "git+https://github.com/hasib-rashid/Falcon.git"
   },
   "author": "SpiderMath",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SpiderMath/Falcon/issues"
+    "url": "https://github.com/hasib-rashid/Falcon/issues"
   },
-  "homepage": "https://github.com/SpiderMath/Falcon#readme",
+  "homepage": "https://github.com/hasib-rashid/Falcon#readme",
   "devDependencies": {
     "@types/common-tags": "^1.8.0",
     "@types/glob": "^7.1.4",
