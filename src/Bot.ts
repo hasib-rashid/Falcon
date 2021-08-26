@@ -3,5 +3,4 @@ config();
 
 import CodeFictionist from "./base/Client";
 
-new CodeFictionist()
-	.start();
+new CodeFictionist().start();
