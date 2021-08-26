@@ -5,10 +5,18 @@ import BaseEvent from "./BaseEvent";
 import BaseSlashCommand from "./BaseSlashCommand";
 import Logger from "./Logger";
 import glob from 'glob'
+import { Command } from "../interfaces/Command";
+import { Config } from "../interfaces/Config";
 
 export default class CodeFictionist extends Client {
-	public commands: Collection<string, BaseSlashCommand> = new Collection();
+	public slashcommands: Collection<string, BaseSlashCommand> = new Collection();
 	public logger = new Logger();
+	public commands: Collection<string, Command> = new Collection();
+	public aliases: Collection<string, string> = new Collection();
+	public cooldowns: Collection<string, number> = new Collection();
+	public config: Config | any;
+	public owners: Array<string> | any;
+	public utils: UtilsManager;
 
 	constructor() {
 		super({
@@ -25,11 +33,12 @@ export default class CodeFictionist extends Client {
 		});
 	}
 
-	public async start() {
+	public async start(config: Config): Promise<void> {
 		await this.__loadEvents();
 		await this.__loadSlashCommands();
 		await this.__loadCommands();
 		this.login(process.env.TOKEN);
+		this.config(config)
 	}
 
 	private async __loadCommands() {
@@ -43,7 +52,7 @@ export default class CodeFictionist extends Client {
 
 				const pull: BaseSlashCommand = new pseudoPull.default(this);
 
-				this.commands.set(pull.config.name, pull);
+				this.slashcommands.set(pull.config.name, pull);
 
 				this.logger.success("client/commands", `Loaded command ${pull.config.name}`);
 			}
@@ -61,7 +70,7 @@ export default class CodeFictionist extends Client {
 
 				const pull: BaseSlashCommand = new pseudoPull.default(this);
 
-				this.commands.set(pull.config.name, pull);
+				this.slashcommands.set(pull.config.name, pull);
 
 				this.logger.success("client/commands", `Loaded command ${pull.config.name}`);
 			}
