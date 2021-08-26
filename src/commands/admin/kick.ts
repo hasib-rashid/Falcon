@@ -10,7 +10,9 @@ export const userPermissions: PermissionResolvable = "KICK_MEMBERS"
 export const run: RunFunction = async (client, message, args) => {
     if (!message.author) return;
 
-    const kickReason = args.slice(1).join(' ') || "No Reason";
+    const kickReason = args.slice(1).join(' ') ? args.slice(1).join(' ') : "No Reason";
+
+    console.log(kickReason)
 
     const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
 
@@ -46,10 +48,7 @@ export const run: RunFunction = async (client, message, args) => {
 
     client.on('clickButton', async (button) => {
         if (button.id === "kick-yes") {
-            if (button.message.author.id !== message.author.id) return;
-            if (!button.message.author) return;
-
-            targetUser?.kick()
+            if (button.clicker.user.id !== message.author.id) return;
 
             kickMessage.then((msg: Message) => {
                 msg.delete()
@@ -64,11 +63,12 @@ export const run: RunFunction = async (client, message, args) => {
                 .setColor("#ed3737")
                 .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-            targetUser?.send(kickEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+            await targetUser?.send(kickEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+            targetUser?.kick()
         }
 
         if (button.id === "kick-no") {
-            if (button.message.author.id !== message.author.id) return;
+            if (button.clicker.user.id !== message.author.id) return;
 
             kickMessage.then((msg: Message) => {
                 msg.delete()
