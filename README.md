@@ -1,27 +1,7 @@
-# Falcon
+# CodeFictionist
 
-### Functionalities
+This is the official repository for CodeFictionist bot, made for [CodeFiction](https://discord.gg/rAYfqUcRDN). Licensed under [MIT License](https://github.com/SpiderMath/CodeFictionist)  
 
--   Admin or Moderation Commands
--   Games
--   Search anything 
--   Music Commands
--   Gereral 
--   Fun Commands
--   Miscellenious
--   Fun Commands
--   NSFW (18+ command)
+Feel free to use this as your learning material  
 
-### Hosting the Bot
-
--   Rename .env.example to .env
--   Fill the proper info in .env
--   Run `npm install` or `yarn` to install all the required Dependencies
--   Run `tsc` and have `typescript` to compile the typescript
--   Run `node .` to run the bot
--   Give atleast some form of proof that you copied this code from project
-
-### Needed
-
--   Must Star this Project
--   Fork this Project
+---
