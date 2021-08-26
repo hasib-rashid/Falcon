@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { RunFunction } from '../../interfaces/Command';
+import { RunFunction } from '../../interfaces/Command'; 
 
 export const name = 'invite'
 export const category = 'misc'
@@ -19,5 +19,5 @@ export const run: RunFunction = async (client, message, args) => {
         );
 
 
-    message.channel.send({ embeds: [embed] });
+    message.channel.send(embed);
 }
