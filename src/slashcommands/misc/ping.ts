@@ -1,4 +1,4 @@
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, MessageEmbed } from "discord.js";
 import BaseSlashCommand from "../../base/BaseSlashCommand";
 import CodeFictionist from "../../base/Client";
 
@@ -11,6 +11,24 @@ export default class PingCommand extends BaseSlashCommand {
 	}
 
 	public async run(interaction: CommandInteraction) {
-		interaction.editReply(`WebSocket ping is: ${this.client.ws.ping} ms`);
+		interaction.editReply("Loading data! :thinking:").then(async (msg) => {
+			const pingEmbed = new MessageEmbed()
+				.setTitle("Ping")
+				.setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+				.setDescription(
+					`**🏓 Pong! The API Latency is \`${Math.round(
+						this.client.ws.ping
+					)}\` ms!**\r`
+				)
+				.setFooter(interaction.user.username, interaction.user.displayAvatarURL())
+
+			if (this.client.ws.ping < 120) pingEmbed.setColor("GREEN");
+
+			if (this.client.ws.ping < 500) pingEmbed.setColor("YELLOW");
+
+			if (this.client.ws.ping > 500) pingEmbed.setColor("RED");
+
+			interaction.editReply({ embeds: [pingEmbed] })
+		});
 	}
 };
