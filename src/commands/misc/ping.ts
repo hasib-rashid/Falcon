@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { RunFunction } from '../../interfaces/Command'; 
+import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'ping'
 export const category = 'misc'
@@ -24,6 +24,6 @@ export const run: RunFunction = async (client, message, args) => {
 
 		if (client.ws.ping > 500) pingEmbed.setColor("RED");
 
-		message.channel.send(pingEmbed)
-	}); 
+		message.channel.send({ embeds: [pingEmbed] })
+	});
 }
