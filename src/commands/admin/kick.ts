@@ -12,10 +12,7 @@ export const run: RunFunction = async (client, message, args) => {
 
     const kickReason = args.slice(1).join(' ') ? args.slice(1).join(' ') : "No Reason";
 
-    console.log(kickReason)
-
     const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
-
 
     if (targetUser?.id === client.user?.id) return message.channel.send("**<:Bruh:862681013946810388> Seriously Dude....**")
     if (targetUser?.id === message.author?.id) return message.channel.send("**Haha Very Funny**")
