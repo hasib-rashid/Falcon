@@ -1,4 +1,4 @@
-import { Client, Intents, Collection } from "discord.js";
+import { Client, Intents, Collection, MessageEmbed, MessageEmbedOptions, Message } from "discord.js";
 import { readdir } from "fs/promises";
 import { join } from "path";
 import BaseEvent from "./BaseEvent";
@@ -7,6 +7,7 @@ import Logger from "./Logger";
 import glob from 'glob'
 import { Command } from "../interfaces/Command";
 import { Config } from "../interfaces/Config";
+import { UtilsManager } from "../util/Utils";
 
 export default class CodeFictionist extends Client {
 	public slashcommands: Collection<string, BaseSlashCommand> = new Collection();
@@ -14,9 +15,8 @@ export default class CodeFictionist extends Client {
 	public commands: Collection<string, Command> = new Collection();
 	public aliases: Collection<string, string> = new Collection();
 	public cooldowns: Collection<string, number> = new Collection();
-	public config: Config | any;
 	public owners: Array<string> | any;
-	public utils: UtilsManager;
+	public utils: UtilsManager | any;
 
 	constructor() {
 		super({
@@ -33,12 +33,11 @@ export default class CodeFictionist extends Client {
 		});
 	}
 
-	public async start(config: Config): Promise<void> {
+	public async start(): Promise<void> {
 		await this.__loadEvents();
 		await this.__loadSlashCommands();
 		await this.__loadCommands();
 		this.login(process.env.TOKEN);
-		this.config(config)
 	}
 
 	private async __loadCommands() {
@@ -57,6 +56,20 @@ export default class CodeFictionist extends Client {
 				this.logger.success("client/commands", `Loaded command ${pull.config.name}`);
 			}
 		}
+	}
+
+	public embed(data: MessageEmbedOptions, message: Message): MessageEmbed {
+		return new MessageEmbed({
+			color: 'RANDOM',
+			...data,
+			footer: {
+				text: `${message.author.tag} | Falcon`,
+				iconURL: message.author.displayAvatarURL({
+					dynamic: true,
+					format: 'png',
+				}),
+			},
+		});
 	}
 
 	private async __loadSlashCommands() {
