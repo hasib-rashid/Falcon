@@ -11,7 +11,7 @@ export default class ReadyEvent extends BaseEvent {
 
 		// @ts-ignore
 		this.client.guilds.cache.get(process.env.GUILD_ID)?.commands.set(
-			this.client.commands.map(cmd => cmd.config),
+			this.client.slashcommands.map(cmd => cmd.config),
 		);
 	}
 };

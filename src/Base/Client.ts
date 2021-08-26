@@ -5,9 +5,12 @@ import BaseEvent from "./BaseEvent";
 import BaseSlashCommand from "./BaseSlashCommand";
 import Logger from "./Logger";
 import glob from 'glob'
+import { promisify } from 'util';
 import { Command } from "../interfaces/Command";
 import { Config } from "../interfaces/Config";
 import { UtilsManager } from "../util/Utils";
+
+const globPromise = promisify(glob)
 
 export default class CodeFictionist extends Client {
 	public slashcommands: Collection<string, BaseSlashCommand> = new Collection();
@@ -41,21 +44,9 @@ export default class CodeFictionist extends Client {
 	}
 
 	private async __loadCommands() {
-		const subDirs = await readdir(join(__dirname, "../commands"));
-
-		for (const subDir of subDirs) {
-			const files = await readdir(join(__dirname, "../commands", subDir));
-
-			for (const file of files) {
-				const pseudoPull = await import(join(__dirname, "../commands", subDir, file));
-
-				const pull: BaseSlashCommand = new pseudoPull.default(this);
-
-				this.slashcommands.set(pull.config.name, pull);
-
-				this.logger.success("client/commands", `Loaded command ${pull.config.name}`);
-			}
-		}
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/**/*{.js,.ts}`
+		);
 	}
 
 	private async __loadSlashCommands() {
