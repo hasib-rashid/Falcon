@@ -3,7 +3,9 @@
   "version": "2.0.0",
   "description": "Community Bot for CodeFiction",
   "scripts": {
-    "dev": "npx ts-node-dev ./Source/Bot",
+    "build": "tsc",
+    "start": "tsc && node dist/bot",
+    "dev": "npx ts-node-dev ./src/bot",
     "lint": "npx eslint . --ext .ts"
   },
   "repository": {
