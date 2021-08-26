@@ -41,6 +41,18 @@ export default class CodeFictionist extends Client {
 		await this.__loadSlashCommands();
 		await this.__loadCommands();
 		this.login(process.env.TOKEN);
+
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/**/*{.js,.ts}`
+		);
+
+		commandFiles.map(async (cmdFile: string) => {
+			const cmd = (await import(cmdFile)) as Command;
+			this.commands.set(cmd.name, { cooldown: 3000, ...cmd });
+			if (cmd.aliases) {
+				cmd.aliases.map((alias: string) => this.aliases.set(alias, cmd.name));
+			}
+		});
 	}
 
 	private async __loadCommands() {
