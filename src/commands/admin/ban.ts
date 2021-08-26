@@ -33,13 +33,13 @@ export const run: RunFunction = async (client, message, args) => {
         .setDescription(`**Are you sure you want to ban  ${targetUser} for \`${banReason}\`**`)
         .setFooter(message.client.user?.username, message.client.user?.displayAvatarURL())
 
-    let confirmButton = new MessageButton()
+    const confirmButton = new MessageButton()
         .setLabel("Yes")
         .setID("ban-yes")
         .setStyle("green");
 
 
-    let denyButton = new MessageButton()
+    const denyButton = new MessageButton()
         .setLabel("No")
         .setID("ban-no")
         .setStyle("red");
