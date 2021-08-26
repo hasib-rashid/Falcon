@@ -20,6 +20,7 @@
   "homepage": "https://github.com/SpiderMath/CodeFictionist#readme",
   "devDependencies": {
     "@types/common-tags": "^1.8.0",
+    "@types/glob": "^7.1.4",
     "@types/node": "^15.12.2",
     "@typescript-eslint/parser": "^4.26.1",
     "eslint": "^7.28.0",
@@ -31,6 +32,7 @@
     "common-tags": "^1.8.0",
     "consola": "^2.15.3",
     "discord.js": "^13.1.0",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "glob": "^7.1.7"
   }
 }

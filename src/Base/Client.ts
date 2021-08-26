@@ -4,6 +4,7 @@ import { join } from "path";
 import BaseEvent from "./BaseEvent";
 import BaseSlashCommand from "./BaseSlashCommand";
 import Logger from "./Logger";
+import glob from 'glob'
 
 export default class CodeFictionist extends Client {
 	public commands: Collection<string, BaseSlashCommand> = new Collection();
@@ -27,7 +28,26 @@ export default class CodeFictionist extends Client {
 	public async start() {
 		await this.__loadEvents();
 		await this.__loadSlashCommands();
+		await this.__loadCommands();
 		this.login(process.env.TOKEN);
+	}
+
+	private async __loadCommands() {
+		const subDirs = await readdir(join(__dirname, "../commands"));
+
+		for (const subDir of subDirs) {
+			const files = await readdir(join(__dirname, "../commands", subDir));
+
+			for (const file of files) {
+				const pseudoPull = await import(join(__dirname, "../commands", subDir, file));
+
+				const pull: BaseSlashCommand = new pseudoPull.default(this);
+
+				this.commands.set(pull.config.name, pull);
+
+				this.logger.success("client/commands", `Loaded command ${pull.config.name}`);
+			}
+		}
 	}
 
 	private async __loadSlashCommands() {
