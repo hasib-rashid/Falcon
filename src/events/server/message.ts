@@ -7,6 +7,7 @@ import { env } from '../../client/env';
 
 const deta = Deta(env.db)
 const guildModel = deta.Base("guild")
+const blacklistModel = deta.Base("blacklist")
 
 export const name: string = 'message';
 export const run: RunFunction = async (client, message: Message) => {
@@ -24,6 +25,9 @@ export const run: RunFunction = async (client, message: Message) => {
 	} catch (err) {
 		Prefix = client.prefix
 	}
+
+	const blacklistedData = await blacklistModel.fetch({ userID: message.author.id })
+
 
 	if (!message.content.toLowerCase().startsWith(Prefix)) return;
 	const [cmd, ...args]: string[] = message.content

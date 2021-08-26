@@ -15,7 +15,7 @@ export const run: RunFunction = async (client, message, args) => {
             "**You need `BAN_MEMBERS` permission to use this command**"
         );
 
-    const banReason = args.slice(1).join(' ') || "No Reason";
+    const banReason = args.slice(1).join(' ') ? args.slice(1).join(' ') : "No Reason";
 
     const targetUser = message.mentions.
         members?.first() || message.guild?.members.cache.get(args[0])
@@ -33,13 +33,13 @@ export const run: RunFunction = async (client, message, args) => {
         .setDescription(`**Are you sure you want to ban  ${targetUser} for \`${banReason}\`**`)
         .setFooter(message.client.user?.username, message.client.user?.displayAvatarURL())
 
-    let confirmButton = new MessageButton()
+    const confirmButton = new MessageButton()
         .setLabel("Yes")
         .setID("ban-yes")
         .setStyle("green");
 
 
-    let denyButton = new MessageButton()
+    const denyButton = new MessageButton()
         .setLabel("No")
         .setID("ban-no")
         .setStyle("red");
@@ -51,9 +51,8 @@ export const run: RunFunction = async (client, message, args) => {
 
     client.on('clickButton', async (button) => {
         if (button.id === "ban-yes") {
-            if (button.message.author.id !== message.author.id) return;
+            if (button.clicker.user.id !== message.author.id) return;
 
-            targetUser?.ban({ reason: banReason })
 
             banMessage.then((msg: Message) => {
                 msg.delete()
@@ -68,11 +67,12 @@ export const run: RunFunction = async (client, message, args) => {
                 .setColor("#ed3737")
                 .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-            targetUser?.send(banEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+            await targetUser?.send(banEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+            targetUser?.ban({ reason: banReason })
         }
 
         if (button.id === "ban-no") {
-            if (button.message.author.id !== message.author.id) return;
+            if (button.clicker.user.id !== message.author.id) return;
 
             button.message.channel.send("**Canceled The Action.**")
             banMessage.then((msg: Message) => {

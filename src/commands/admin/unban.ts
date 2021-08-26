@@ -10,7 +10,7 @@ export const run: RunFunction = async (client, message, args) => {
     message.guild.fetchBans().then((bans) => {
         if (bans.size === 0) return message.channel.send("**There is no users banned**")
 
-        const banUser = bans.find((b) => b.user.id === targetUser.id)
+        const banUser = bans.find((b) => b.user.id === args[0])
 
         if (!banUser) return message.channel.send("**This user is not banned**")
 
