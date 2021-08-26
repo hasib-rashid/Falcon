@@ -53,7 +53,6 @@ export const run: RunFunction = async (client, message, args) => {
         if (button.id === "ban-yes") {
             if (button.clicker.user.id !== message.author.id) return;
 
-            targetUser?.ban({ reason: banReason })
 
             banMessage.then((msg: Message) => {
                 msg.delete()
@@ -68,7 +67,8 @@ export const run: RunFunction = async (client, message, args) => {
                 .setColor("#ed3737")
                 .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-            targetUser?.send(banEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+            await targetUser?.send(banEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+            targetUser?.ban({ reason: banReason })
         }
 
         if (button.id === "ban-no") {
