@@ -51,7 +51,7 @@ export const run: RunFunction = async (client, message, args) => {
 
     client.on('clickButton', async (button) => {
         if (button.id === "ban-yes") {
-            if (button.message.author.id !== message.author.id) return;
+            if (button.clicker.user.id !== message.author.id) return;
 
             targetUser?.ban({ reason: banReason })
 
@@ -72,7 +72,7 @@ export const run: RunFunction = async (client, message, args) => {
         }
 
         if (button.id === "ban-no") {
-            if (button.message.author.id !== message.author.id) return;
+            if (button.clicker.user.id !== message.author.id) return;
 
             button.message.channel.send("**Canceled The Action.**")
             banMessage.then((msg: Message) => {
