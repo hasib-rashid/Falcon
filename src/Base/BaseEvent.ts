@@ -1,11 +1,11 @@
 import { ClientEvents } from "discord.js";
-import CodeFictionist from "./Client";
+import Falcon from "./Client";
 
 export default abstract class BaseEvent {
-	public client: CodeFictionist;
+	public client: Falcon;
 	public name: keyof ClientEvents;
 
-	constructor(client: CodeFictionist, name: keyof ClientEvents) {
+	constructor(client: Falcon, name: keyof ClientEvents) {
 		this.client = client;
 
 		Object.defineProperty(this, "client", {

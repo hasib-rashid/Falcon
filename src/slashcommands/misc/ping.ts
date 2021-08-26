@@ -1,9 +1,9 @@
 import { CommandInteraction, MessageEmbed } from "discord.js";
 import BaseSlashCommand from "../../base/BaseSlashCommand";
-import CodeFictionist from "../../base/Client";
+import Falcon from "../../base/Client";
 
 export default class PingCommand extends BaseSlashCommand {
-	constructor(client: CodeFictionist) {
+	constructor(client: Falcon) {
 		super(client, {
 			name: "ping",
 			description: "Get the API Latency of the Bot",

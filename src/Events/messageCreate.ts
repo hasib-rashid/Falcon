@@ -1,10 +1,10 @@
 import { CommandInteraction, Interaction, Message, TextChannel } from "discord.js";
 import consola from 'consola'
 import BaseEvent from "../base/BaseEvent";
-import CodeFictionist from "../base/Client";
+import Falcon from "../base/Client";
 
 export default class MessageCreateEvent extends BaseEvent {
-    constructor(client: CodeFictionist) {
+    constructor(client: Falcon) {
         super(client, "messageCreate");
     }
 

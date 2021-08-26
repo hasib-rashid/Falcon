@@ -12,7 +12,7 @@ import { UtilsManager } from "../util/Utils";
 
 const globPromise = promisify(glob)
 
-export default class CodeFictionist extends Client {
+export default class Falcon extends Client {
 	public slashcommands: Collection<string, BaseSlashCommand> = new Collection();
 	public logger = new Logger();
 	public commands: Collection<string, Command> = new Collection();

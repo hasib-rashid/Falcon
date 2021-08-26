@@ -1,9 +1,9 @@
 import { CommandInteraction, Interaction } from "discord.js";
 import BaseEvent from "../base/BaseEvent";
-import CodeFictionist from "../base/Client";
+import Falcon from "../base/Client";
 
 export default class InteractionCreateEvent extends BaseEvent {
-	constructor(client: CodeFictionist) {
+	constructor(client: Falcon) {
 		super(client, "interactionCreate");
 	}
 

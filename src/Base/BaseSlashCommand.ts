@@ -1,14 +1,14 @@
 import { ApplicationCommandData, CommandInteraction } from "discord.js";
-import CodeFictionist from "./Client";
+import Falcon from "./Client";
 
 export default abstract class BaseSlashCommand {
 	public config: ApplicationCommandData = {
 		name: "",
 		description: "",
 	};
-	public client: CodeFictionist;
+	public client: Falcon;
 
-	constructor(client: CodeFictionist, commandConfig: ApplicationCommandData) {
+	constructor(client: Falcon, commandConfig: ApplicationCommandData) {
 		this.client = client;
 		Object.assign(this.config, commandConfig);
 
