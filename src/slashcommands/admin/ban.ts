@@ -35,8 +35,6 @@ export default class PingCommand extends BaseSlashCommand {
             const targetUser = interaction.guild.members.cache.get(interaction.options.get("user").user.id)
             const banReason = interaction.options.get("reason")
 
-            console.log(banReason)
-
             const confirmEmbed = new MessageEmbed()
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTitle("Banning A User")
@@ -72,6 +70,15 @@ export default class PingCommand extends BaseSlashCommand {
                         i.reply({ content: "**You did not send this command. So you cannot use it unless you send the command yourself**", ephemeral: true })
                     } else {
                         interaction.editReply({ content: `**Successfully Banned ${targetUser} for \`${banReason.value}\`**`, embeds: [], components: [] })
+
+                        const banEmbed = new MessageEmbed()
+                            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                            .setTitle(`Banned from ${interaction.guild?.name}`)
+                            .setDescription(`**${interaction.user} Has Banned you from ${interaction.guild?.name} for \`${banReason.value}\`. Please contact him if you want to get unbanned.**`)
+                            .setColor("#ed3737")
+                            .setFooter(this.client.user?.username, this.client.user?.displayAvatarURL())
+
+                        await targetUser?.send({ embeds: [banEmbed] }).catch((err) => { i.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
                     }
                 }
             });
@@ -81,7 +88,7 @@ export default class PingCommand extends BaseSlashCommand {
                     if (i.user.id !== interaction.user.id) {
                         i.reply({ content: "**You did not send this command. So you cannot use it unless you send the command yourself**", ephemeral: true })
                     } else {
-                        interaction.editReply({ content: "No Ban", components: [] })
+                        interaction.editReply({ content: "**Cancelled the action**", components: [] })
                     }
                 }
             });
