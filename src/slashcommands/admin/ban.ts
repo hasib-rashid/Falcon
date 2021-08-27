@@ -51,7 +51,11 @@ export default class PingCommand extends BaseSlashCommand {
 
             banYesCollector.on('collect', async (i: MessageComponentInteraction) => {
                 if (i.customId === 'ban-yes') {
-                    interaction.editReply({ content: "Ban", components: [] })
+                    if (i.user.id !== interaction.user.id) {
+                        i.reply({ content: "**You did not send this command. So you cannot use it unless you send the command yourself**", ephemeral: true })
+                    } else {
+                        interaction.editReply({ content: "Ban", components: [] })
+                    }
                 }
             });
 
@@ -60,7 +64,7 @@ export default class PingCommand extends BaseSlashCommand {
                     if (i.user.id !== interaction.user.id) {
                         i.reply({ content: "**You did not send this command. So you cannot use it unless you send the command yourself**", ephemeral: true })
                     } else {
-                        interaction.editReply({ content: "Ban", components: [] })
+                        interaction.editReply({ content: "No Ban", components: [] })
                     }
                 }
             });
