@@ -26,7 +26,9 @@ export default class PingCommand extends BaseSlashCommand {
                 "**You need `BAN_MEMBERS` permission to use this command**"
             );
 
-            interaction.editReply(interaction.options.get("user").user.username)
+            const targetUser = interaction.guild.members.cache.get(interaction.options.get("user").user.id)
+
+
         } catch (err) {
             console.error(err);
         }
