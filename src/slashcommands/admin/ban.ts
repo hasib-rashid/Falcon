@@ -1,4 +1,4 @@
-import { CommandInteraction, GuildMember, MessageActionRow, MessageButton, MessageComponentInteraction } from "discord.js";
+import { CommandInteraction, GuildMember, MessageActionRow, MessageButton, MessageComponentInteraction, MessageEmbed } from "discord.js";
 import BaseSlashCommand from "../../base/BaseSlashCommand";
 import Falcon from "../../base/Client";
 
@@ -13,6 +13,12 @@ export default class PingCommand extends BaseSlashCommand {
                     description: "Specify the User to ban",
                     type: "USER",
                     required: true,
+                },
+                {
+                    name: "ban-reason",
+                    description: "The reason why the user is getting banned",
+                    type: "STRING",
+                    required: false
                 }
             ]
         });
@@ -27,6 +33,17 @@ export default class PingCommand extends BaseSlashCommand {
             );
 
             const targetUser = interaction.guild.members.cache.get(interaction.options.get("user").user.id)
+            const banReason = interaction.options.get("ban-reason")
+
+            console.log(banReason)
+
+            const confirmEmbed = new MessageEmbed()
+                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                .setTitle("Banning A User")
+                .setColor("#ed3737")
+                .setDescription(`**Are you sure you want to ban  ${targetUser} for \`${banReason}\`**`)
+                .setFooter(this.client.user?.username, this.client.user?.displayAvatarURL())
+
 
             const confirmButton = new MessageButton()
                 .setCustomId("ban-yes")
