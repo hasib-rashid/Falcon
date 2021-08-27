@@ -7,6 +7,14 @@ export default class PingCommand extends BaseSlashCommand {
         super(client, {
             name: "ban",
             description: "Ban Someone from the server",
+            options: [
+                {
+                    name: "user",
+                    description: "Specify the User to ban",
+                    type: "USER",
+                    required: true,
+                }
+            ]
         });
     }
 
@@ -18,7 +26,7 @@ export default class PingCommand extends BaseSlashCommand {
                 "**You need `BAN_MEMBERS` permission to use this command**"
             );
 
-            interaction.editReply("SDsadasdadasddasdsa")
+            interaction.editReply(interaction.options.get("user").user.username)
         } catch (err) {
             console.error(err);
         }
