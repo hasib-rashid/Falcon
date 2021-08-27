@@ -1,4 +1,4 @@
-import { CommandInteraction, GuildMember, MessageActionRow, MessageButton } from "discord.js";
+import { CommandInteraction, GuildMember, MessageActionRow, MessageButton, MessageComponentInteraction } from "discord.js";
 import BaseSlashCommand from "../../base/BaseSlashCommand";
 import Falcon from "../../base/Client";
 
@@ -41,7 +41,25 @@ export default class PingCommand extends BaseSlashCommand {
             const row = new MessageActionRow()
                 .addComponents(confirmButton, denyButton)
 
+            const banYesFilter = (i: MessageComponentInteraction) => i.customId === 'ban-yes'
+            const banYesCollector = interaction.channel.createMessageComponentCollector({ filter: banYesFilter, time: 30000 });
+
+            const banNoFilter = (i: MessageComponentInteraction) => i.customId === 'ban-no'
+            const banNoCollector = interaction.channel.createMessageComponentCollector({ filter: banNoFilter, time: 30000 });
+
             interaction.editReply({ content: "U sure Dude?", components: [row] })
+
+            banYesCollector.on('collect', async (i: MessageComponentInteraction) => {
+                if (i.customId === 'ban-yes') {
+                    console.log("Ban")
+                }
+            });
+
+            banNoCollector.on('collect', async (i: MessageComponentInteraction) => {
+                if (i.customId === 'ban-no') {
+                    console.log("No Ban Pls")
+                }
+            });
         } catch (err) {
             console.error(err);
         }
