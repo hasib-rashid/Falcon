@@ -15,7 +15,7 @@ export default class PingCommand extends BaseSlashCommand {
                     required: true,
                 },
                 {
-                    name: "ban-reason",
+                    name: "reason",
                     description: "The reason why the user is getting banned",
                     type: "STRING",
                     required: false
@@ -33,7 +33,7 @@ export default class PingCommand extends BaseSlashCommand {
             );
 
             const targetUser = interaction.guild.members.cache.get(interaction.options.get("user").user.id)
-            const banReason = interaction.options.get("ban-reason")
+            const banReason = interaction.options.get("reason")
 
             console.log(banReason)
 
@@ -41,7 +41,7 @@ export default class PingCommand extends BaseSlashCommand {
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTitle("Banning A User")
                 .setColor("#ed3737")
-                .setDescription(`**Are you sure you want to ban  ${targetUser} for \`${banReason}\`**`)
+                .setDescription(`**Are you sure you want to ban  ${targetUser} for \`${banReason.value}\`**`)
                 .setFooter(this.client.user?.username, this.client.user?.displayAvatarURL())
 
 
@@ -64,14 +64,14 @@ export default class PingCommand extends BaseSlashCommand {
             const banNoFilter = (i: MessageComponentInteraction) => i.customId === 'ban-no'
             const banNoCollector = interaction.channel.createMessageComponentCollector({ filter: banNoFilter, time: 30000 });
 
-            interaction.editReply({ content: "U sure Dude?", components: [row] })
+            interaction.editReply({ embeds: [confirmEmbed], components: [row] })
 
             banYesCollector.on('collect', async (i: MessageComponentInteraction) => {
                 if (i.customId === 'ban-yes') {
                     if (i.user.id !== interaction.user.id) {
                         i.reply({ content: "**You did not send this command. So you cannot use it unless you send the command yourself**", ephemeral: true })
                     } else {
-                        interaction.editReply({ content: "Ban", components: [] })
+                        interaction.editReply({ content: `**Successfully Banned ${targetUser} for \`${banReason.value}\`**`, embeds: [], components: [] })
                     }
                 }
             });
