@@ -1,9 +1,11 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import { MessageEmbed, PermissionResolvable } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 import { Deta } from 'deta'
-import { env } from '../../client/env';
 
-const deta = Deta(env.db)
+const deta = Deta(process.env.DB)
 const db = deta.Base("muted")
 
 export const name = 'unmute'
@@ -40,7 +42,7 @@ export const run: RunFunction = async (client, message, args) => {
         .setColor("#41d16a")
         .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-    Member?.send(unmuteEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+    Member?.send({ embeds: [unmuteEmbed] }).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
 
     message.channel.send(`**${Member} was sucessfully unmuted**`)
 }
