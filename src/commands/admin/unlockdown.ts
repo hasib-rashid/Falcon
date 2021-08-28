@@ -7,6 +7,10 @@ export const description = 'Unlockdown the server'
 export const userPermissions: PermissionResolvable = "MANAGE_GUILD"
 
 export const run: RunFunction = async (client, message, args) => {
+    if (!message.member.permissions.has("MANAGE_GUILD"))
+        return message.channel.send(
+            "**You need `MANAGE_GUILD` permission to use this command**"
+        );
     const role = message.guild?.roles.everyone;
 
     const perms = role?.permissions.toArray();
