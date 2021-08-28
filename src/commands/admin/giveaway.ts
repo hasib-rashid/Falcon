@@ -1,4 +1,4 @@
-import { PermissionResolvable } from 'discord.js';
+import { Message, PermissionResolvable } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 import Nuggies from 'nuggies'
 
@@ -16,7 +16,7 @@ export const run: RunFunction = async (client, message, args) => {
     let channel
 
     message.channel.send("**What should be the prize of the giveaway. You have 30 seconds to answer this.**")
-    await message.channel.awaitMessages({ max: 1, time: 30000 }).then(collected => {
+    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
         if (collected.first().author.id !== message.author.id) return;
         prize = collected.first()?.content
     }).catch(() => {
@@ -24,7 +24,7 @@ export const run: RunFunction = async (client, message, args) => {
     })
 
     message.channel.send("**How many winners will be there in this giveaway? You have 30 seconds to answer this.**")
-    await message.channel.awaitMessages({ max: 1, time: 30000 }).then(collected => {
+    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
         if (collected.first().author.id !== message.author.id) return;
         winners = collected.first()?.content
     }).catch(() => {
@@ -32,7 +32,7 @@ export const run: RunFunction = async (client, message, args) => {
     })
 
     message.channel.send("**After how long will the giveaway end? You have 30 seconds to answer this.**")
-    await message.channel.awaitMessages({ max: 1, time: 30000 }).then(collected => {
+    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
         if (collected.first().author.id !== message.author.id) return;
         endAfter = collected.first()?.content
     }).catch(() => {
@@ -40,7 +40,7 @@ export const run: RunFunction = async (client, message, args) => {
     })
 
     message.channel.send("**What are the requirements of this giveaway? Type 'nothing' to skip. You have 30 seconds to answer this.**")
-    await message.channel.awaitMessages({ max: 1, time: 30000 }).then(collected => {
+    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
         if (collected.first().author.id !== message.author.id) return;
         requirements = collected.first()?.content
     }).catch(() => {
@@ -48,7 +48,7 @@ export const run: RunFunction = async (client, message, args) => {
     })
 
     message.channel.send("**What is the channel this giveaway will happen? Type 'here' to do the giveaway here. You have 30 seconds to answer this.**")
-    await message.channel.awaitMessages({ max: 1, time: 30000 }).then(collected => {
+    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
         if (collected.first().author.id !== message.author.id) return;
         if (collected.first()?.content === "here") {
             channel = message.channel.id
