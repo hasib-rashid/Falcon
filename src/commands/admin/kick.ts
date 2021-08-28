@@ -1,5 +1,4 @@
-import { MessageActionRow, MessageButton } from 'discord-buttons';
-import { Message, MessageEmbed, PermissionResolvable } from 'discord.js';
+import { Message, MessageActionRow, MessageButton, MessageComponentInteraction, MessageEmbed, PermissionResolvable } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'kick'
@@ -10,15 +9,21 @@ export const userPermissions: PermissionResolvable = "KICK_MEMBERS"
 export const run: RunFunction = async (client, message, args) => {
     if (!message.author) return;
 
+    if (!message.member.permissions.has("KICK_MEMBERS"))
+        return message.channel.send(
+            "**You need `KICK_MEMBERS` permission to use this command**"
+        );
+
     const kickReason = args.slice(1).join(' ') ? args.slice(1).join(' ') : "No Reason";
 
-    const targetUser = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
+    const targetUser = message.mentions.
+        members?.first() || message.guild?.members.cache.get(args[0])
+
+    // @ts-ignore
+    if (!message.guild?.member(targetUser)?.bannable) return message.channel.send("**Could not kick this user due to role hierchy**");
 
     if (targetUser?.id === client.user?.id) return message.channel.send("**<:Bruh:862681013946810388> Seriously Dude....**")
     if (targetUser?.id === message.author?.id) return message.channel.send("**Haha Very Funny**")
-
-    // @ts-ignore
-    if (!message.guild?.member(targetUser)?.kickable) return message.channel.send("**Could not kick this user due to role hierchy**");
 
     const confirmEmbed = new MessageEmbed()
         .setAuthor(message.author.username, message.author.displayAvatarURL())
@@ -28,50 +33,55 @@ export const run: RunFunction = async (client, message, args) => {
         .setFooter(message.client.user?.username, message.client.user?.displayAvatarURL())
 
     const confirmButton = new MessageButton()
+        .setCustomId("kick-yes")
         .setLabel("Yes")
-        .setID("kick-yes")
-        .setStyle("green");
-
+        .setStyle("SUCCESS")
 
     const denyButton = new MessageButton()
+        .setCustomId("kick-no")
         .setLabel("No")
-        .setID("kick-no")
-        .setStyle("red");
+        .setStyle("DANGER")
 
     const row = new MessageActionRow()
         .addComponents(confirmButton, denyButton)
 
-    const kickMessage = message.channel.send(confirmEmbed, row)
+    const kickYesFilter = (i: MessageComponentInteraction) => i.customId === 'kick-yes'
+    const kickYesCollector = message.channel.createMessageComponentCollector({ filter: kickYesFilter, time: 30000 });
 
-    client.on('clickButton', async (button) => {
-        if (button.id === "kick-yes") {
-            if (button.clicker.user.id !== message.author.id) return;
+    const kickNoFilter = (i: MessageComponentInteraction) => i.customId === 'kick-no'
+    const kickNoCollector = message.channel.createMessageComponentCollector({ filter: kickNoFilter, time: 30000 });
 
-            kickMessage.then((msg: Message) => {
-                msg.delete()
-            })
+    message.reply({ embeds: [confirmEmbed], components: [row] })
 
-            message.channel.send(`**Successfully Kicked ${targetUser} from this server.**`)
+    kickYesCollector.on('collect', async (i: MessageComponentInteraction) => {
+        if (i.customId === 'kick-yes') {
+            if (i.user.id !== message.author.id) {
+                i.reply({ content: "**You did not send this command. So you cannot use it unless you send the command yourself**", ephemeral: true })
+            } else {
+                message.edit({ content: `**Successfully Kicked ${targetUser} for \`${kickReason}\`**`, embeds: [], components: [] })
 
-            const kickEmbed = new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .setTitle(`Kicked from ${message.guild?.name}`)
-                .setDescription(`**${message.author} Has Kicked you from ${message.guild?.name} for \`${kickReason}\`.**`)
-                .setColor("#ed3737")
-                .setFooter(client.user?.username, client.user?.displayAvatarURL())
+                const kickEmbed = new MessageEmbed()
+                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setTitle(`Kicked from ${message.guild?.name}`)
+                    .setDescription(`**${message.author} Has Kicked you from ${message.guild?.name} for \`${kickReason}\`.**`)
+                    .setColor("#ed3737")
+                    .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-            await targetUser?.send(kickEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
-            targetUser?.kick()
-        }
-
-        if (button.id === "kick-no") {
-            if (button.clicker.user.id !== message.author.id) return;
-
-            kickMessage.then((msg: Message) => {
-                msg.delete()
-            })
-
-            button.message.channel.send("**Canceled The Action.**")
+                await targetUser?.send({ embeds: [kickEmbed] }).catch((err) => { i.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+                // targetUser.kick()
+            }
         }
     });
+
+    kickNoCollector.on('collect', async (i: MessageComponentInteraction) => {
+        if (i.customId === 'kick-no') {
+            if (i.user.id !== message.author.id) {
+                i.reply({ content: "**You did not send this command. So you cannot use it unless you send the command yourself**", ephemeral: true })
+            } else {
+                message.reply({ content: "**Cancelled the action**", components: [] })
+            }
+        }
+    });
+
+    return;
 }
