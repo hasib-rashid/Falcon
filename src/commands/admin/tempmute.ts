@@ -1,10 +1,12 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import { MessageEmbed, PermissionResolvable } from 'discord.js';
 import ms from 'ms';
 import { RunFunction } from '../../interfaces/Command';
 import { Deta } from 'deta'
-import { env } from '../../client/env';
 
-const deta = Deta(env.db)
+const deta = Deta(process.env.DB)
 const db = deta.Base("muted")
 
 export const name = 'tempmute'
@@ -28,17 +30,11 @@ export const run: RunFunction = async (client, message, args) => {
     if (!role) {
         try {
             let muterole = await message.guild?.roles.create({
-                data: {
-                    name: 'muted',
-                    permissions: []
-                }
+                name: 'muted',
+                permissions: []
             });
-            message.guild?.channels.cache.filter(c => c.type === 'text').forEach(async (channel, id) => {
-                // @ts-ignore
-                await channel.createOverwrite(muterole, {
-                    SEND_MESSAGES: false,
-                    ADD_REACTIONS: false
-                })
+            message.guild?.channels.cache.filter(c => c.type === 'GUILD_TEXT').forEach(async (channel, id) => {
+                await console.log(channel)
             });
         } catch (error) {
             console.log(error)
@@ -58,7 +54,7 @@ export const run: RunFunction = async (client, message, args) => {
         .setColor("#ed3737")
         .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-    Member?.send(tempMuteEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+    Member?.send({ embeds: [tempMuteEmbed] }).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
 
     setTimeout(async () => {
         await Member.roles.remove(role2)
@@ -72,7 +68,7 @@ export const run: RunFunction = async (client, message, args) => {
 
         db.delete((muteTime.items[0].key as any))
 
-        Member?.send(unmuteEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+        Member?.send({ embeds: [unmuteEmbed] }).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
 
     }, ms(time))
 }
