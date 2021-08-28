@@ -19,8 +19,7 @@ export const run: RunFunction = async (client, message, args) => {
     const targetUser = message.mentions.
         members?.first() || message.guild?.members.cache.get(args[0])
 
-    // @ts-ignore
-    if (!message.guild?.member(targetUser)?.bannable) return message.channel.send("**Could not ban this user due to role hierchy**");
+    if (!message.guild.members.cache.get(targetUser.id)?.bannable) return message.channel.send("**Could not ban this user due to role hierchy**");
 
     if (targetUser?.id === client.user?.id) return message.channel.send("**<:Bruh:862681013946810388> Seriously Dude....**")
     if (targetUser?.id === message.author?.id) return message.channel.send("**Haha Very Funny**")
