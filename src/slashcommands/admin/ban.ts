@@ -79,7 +79,7 @@ export default class PingCommand extends BaseSlashCommand {
                             .setFooter(this.client.user?.username, this.client.user?.displayAvatarURL())
 
                         await targetUser?.send({ embeds: [banEmbed] }).catch((err) => { i.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
-                        targetUser.ban()
+                        targetUser.ban({ reason: `${banReason.value}` })
                     }
                 }
             });
