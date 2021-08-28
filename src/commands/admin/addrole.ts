@@ -10,7 +10,7 @@ export const run: RunFunction = async (client, message, args) => {
     const user = message.mentions.users.first() || message.guild?.members.cache.get(args[0])
     const nameofrole = message.mentions.roles.first()?.name || message.guild.roles.cache.get(args[1]).name
 
-    if (message.member.hasPermission("MANAGE_ROLES")) {
+    if (message.member.permissions.has("MANAGE_ROLES")) {
         const targetUser = user;
 
         if (!targetUser) {
@@ -45,7 +45,7 @@ export const run: RunFunction = async (client, message, args) => {
             )
             .setFooter("Copyright @2021 Falcon");
 
-        message.channel.send(addRoleEmbed);
+        message.channel.send({ embeds: [addRoleEmbed] });
     } else {
         message.channel.send("**Insufficient Permissions**");
     }
