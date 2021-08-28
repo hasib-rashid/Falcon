@@ -19,10 +19,10 @@ export const run: RunFunction = async (client, message, args) => {
     const targetUser = message.mentions.
         members?.first() || message.guild?.members.cache.get(args[0])
 
-    if (!message.guild.members.cache.get(targetUser.id)?.bannable) return message.channel.send("**Could not ban this user due to role hierchy**");
+    // if (!message.guild.members.cache.get(targetUser.id)?.bannable) return message.channel.send("**Could not ban this user due to role hierchy**");
 
     if (targetUser?.id === client.user?.id) return message.channel.send("**<:Bruh:862681013946810388> Seriously Dude....**")
-    if (targetUser?.id === message.author?.id) return message.channel.send("**Haha Very Funny**")
+    // if (targetUser?.id === message.author?.id) return message.channel.send("**Haha Very Funny**")
 
     const confirmEmbed = new MessageEmbed()
         .setAuthor(message.author.username, message.author.displayAvatarURL())
@@ -50,14 +50,14 @@ export const run: RunFunction = async (client, message, args) => {
     const banNoFilter = (i: MessageComponentInteraction) => i.customId === 'ban-no'
     const banNoCollector = message.channel.createMessageComponentCollector({ filter: banNoFilter, time: 30000 });
 
-    message.reply({ embeds: [confirmEmbed], components: [row] })
+    const banMessage = await message.reply({ embeds: [confirmEmbed], components: [row] })
 
     banYesCollector.on('collect', async (i: MessageComponentInteraction) => {
         if (i.customId === 'ban-yes') {
             if (i.user.id !== message.author.id) {
                 i.reply({ content: "**You did not send this command. So you cannot use it unless you send the command yourself**", ephemeral: true })
             } else {
-                message.edit({ content: `**Successfully Banned ${targetUser} for \`${banReason}\`**`, embeds: [], components: [] })
+                banMessage.edit({ content: `**Successfully Banned ${targetUser} for \`${banReason}\`**`, embeds: [], components: [] })
 
                 const banEmbed = new MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL())
