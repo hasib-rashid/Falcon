@@ -32,7 +32,7 @@ export const run: RunFunction = async (client, message, args) => {
             message.reply('**No answer after 30 seconds, operation canceled.**');
         })
 
-        message.guild?.roles.create({ color: color || "", name: name || "" })
+        message.guild?.roles.create({ color: color || "DEFAULT", name: name || "" })
         message.channel.send(`**Successfully Created the Role**`)
 
     } catch (err) {
