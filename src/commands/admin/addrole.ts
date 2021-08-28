@@ -20,19 +20,19 @@ export const run: RunFunction = async (client, message, args) => {
             return;
         }
 
+        if (!nameofrole) {
+            message.channel.send(
+                "**Please specify a role first!**"
+            );
+            return;
+        }
+
         const roleName = nameofrole;
         const { guild } = message;
 
         const role = guild?.roles.cache.find((role) => {
             return role.name === roleName;
         });
-
-        if (!role) {
-            message.channel.send(
-                `**There is no role named as "${roleName}"**`
-            );
-            return;
-        }
 
         const memberUser = guild?.members.cache.get(targetUser.id);
         memberUser?.roles.add(role);
