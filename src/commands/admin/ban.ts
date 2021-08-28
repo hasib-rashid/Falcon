@@ -1,5 +1,4 @@
-import { MessageActionRow, MessageButton, MessageComponent } from 'discord-buttons';
-import { Message, MessageEmbed, PermissionResolvable } from 'discord.js';
+import { Message, GuildMember, MessageActionRow, MessageButton, MessageComponentInteraction, MessageEmbed, PermissionResolvable } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'ban'
@@ -10,7 +9,7 @@ export const userPermissions: PermissionResolvable = "BAN_MEMBERS"
 export const run: RunFunction = async (client, message, args) => {
     if (!message.author) return;
 
-    if (!message.member?.hasPermission("BAN_MEMBERS"))
+    if (!message.member.permissions.has("BAN_MEMBERS"))
         return message.channel.send(
             "**You need `BAN_MEMBERS` permission to use this command**"
         );
@@ -34,20 +33,25 @@ export const run: RunFunction = async (client, message, args) => {
         .setFooter(message.client.user?.username, message.client.user?.displayAvatarURL())
 
     const confirmButton = new MessageButton()
+        .setCustomId("ban-yes")
         .setLabel("Yes")
-        .setID("ban-yes")
-        .setStyle("green");
-
+        .setStyle("SUCCESS")
 
     const denyButton = new MessageButton()
+        .setCustomId("ban-no")
         .setLabel("No")
-        .setID("ban-no")
-        .setStyle("red");
+        .setStyle("DANGER")
 
     const row = new MessageActionRow()
         .addComponents(confirmButton, denyButton)
 
-    const banMessage = message.channel.send(confirmEmbed, row)
+    const banYesFilter = (i: MessageComponentInteraction) => i.customId === 'ban-yes'
+    const banYesCollector = message.channel.createMessageComponentCollector({ filter: banYesFilter, time: 30000 });
+
+    const banNoFilter = (i: MessageComponentInteraction) => i.customId === 'ban-no'
+    const banNoCollector = message.channel.createMessageComponentCollector({ filter: banNoFilter, time: 30000 });
+
+    const banMessage = message.channel.send({ embeds: [confirmEmbed], components: [row] })
 
     client.on('clickButton', async (button) => {
         if (button.id === "ban-yes") {
@@ -67,8 +71,7 @@ export const run: RunFunction = async (client, message, args) => {
                 .setColor("#ed3737")
                 .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-            await targetUser?.send(banEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
-            targetUser?.ban({ reason: banReason })
+            await targetUser?.send({ embeds: [banEmbed] }).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
         }
 
         if (button.id === "ban-no") {
