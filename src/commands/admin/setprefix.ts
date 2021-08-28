@@ -1,9 +1,11 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import { PermissionResolvable } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 import { Deta } from 'deta'
-import { env } from '../../client/env';
 
-const deta = Deta(env.db)
+const deta = Deta(process.env.DB)
 const db = deta.Base("guild")
 
 export const name = 'setprefix'
