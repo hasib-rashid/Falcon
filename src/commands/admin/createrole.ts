@@ -13,8 +13,25 @@ export const run: RunFunction = async (client, message, args) => {
                 "**You need `MANAGE_ROLES` permission to use this command**"
             );
 
-        const color: any = args[0].toUpperCase() || "DEFAULT"
-        const name = args[1]
+        let color: any
+        let name: any
+
+        message.channel.send("**What should be the color of the role?**")
+        await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
+            if (collected.first().author.id !== message.author.id) return;
+            color = collected.first()?.content
+        }).catch(() => {
+            message.reply('**No answer after 30 seconds, operation canceled.**');
+        })
+
+        message.channel.send("**What should be the name of the role?**")
+        await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
+            if (collected.first().author.id !== message.author.id) return;
+            name = collected.first()?.content
+        }).catch(() => {
+            message.reply('**No answer after 30 seconds, operation canceled.**');
+        })
+
         message.guild?.roles.create({ color: color || "", name: name || "" })
         message.channel.send(`**Successfully Created the Role**`)
 
