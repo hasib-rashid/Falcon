@@ -19,5 +19,5 @@ export const run: RunFunction = async (client, message, args) => {
         ***Note: More are coming as the Bot Updates.***
     `)
 
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed] })
 }
