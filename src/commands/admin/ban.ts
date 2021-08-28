@@ -51,38 +51,37 @@ export const run: RunFunction = async (client, message, args) => {
     const banNoFilter = (i: MessageComponentInteraction) => i.customId === 'ban-no'
     const banNoCollector = message.channel.createMessageComponentCollector({ filter: banNoFilter, time: 30000 });
 
-    const banMessage = message.channel.send({ embeds: [confirmEmbed], components: [row] })
+    message.reply({ embeds: [confirmEmbed], components: [row] })
 
-    client.on('clickButton', async (button) => {
-        if (button.id === "ban-yes") {
-            if (button.clicker.user.id !== message.author.id) return;
+    banYesCollector.on('collect', async (i: MessageComponentInteraction) => {
+        if (i.customId === 'ban-yes') {
+            if (i.user.id !== message.author.id) {
+                i.reply({ content: "**You did not send this command. So you cannot use it unless you send the command yourself**", ephemeral: true })
+            } else {
+                message.edit({ content: `**Successfully Banned ${targetUser} for \`${banReason}\`**`, embeds: [], components: [] })
 
+                const banEmbed = new MessageEmbed()
+                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setTitle(`Banned from ${message.guild?.name}`)
+                    .setDescription(`**${message.author} Has Banned you from ${message.guild?.name} for \`${banReason}\`. Please contact him if you want to get unbanned.**`)
+                    .setColor("#ed3737")
+                    .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-            banMessage.then((msg: Message) => {
-                msg.delete()
-            })
-
-            message.channel.send(`**Successfully Banned ${targetUser} from this server.**`)
-
-            const banEmbed = new MessageEmbed()
-                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .setTitle(`Banned from ${message.guild?.name}`)
-                .setDescription(`**${message.author} Has Banned you from ${message.guild?.name} for \`${banReason}\`. Please contact him if you want to get unbanned.**`)
-                .setColor("#ed3737")
-                .setFooter(client.user?.username, client.user?.displayAvatarURL())
-
-            await targetUser?.send({ embeds: [banEmbed] }).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+                await targetUser?.send({ embeds: [banEmbed] }).catch((err) => { i.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+                // targetUser.ban({ reason: `${banReason}` })
+            }
         }
+    });
 
-        if (button.id === "ban-no") {
-            if (button.clicker.user.id !== message.author.id) return;
-
-            button.message.channel.send("**Canceled The Action.**")
-            banMessage.then((msg: Message) => {
-                msg.delete()
-            })
+    banNoCollector.on('collect', async (i: MessageComponentInteraction) => {
+        if (i.customId === 'ban-no') {
+            if (i.user.id !== message.author.id) {
+                i.reply({ content: "**You did not send this command. So you cannot use it unless you send the command yourself**", ephemeral: true })
+            } else {
+                message.reply({ content: "**Cancelled the action**", components: [] })
+            }
         }
-    })
+    });
 
     return;
 }
