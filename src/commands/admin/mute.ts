@@ -9,23 +9,18 @@ export const userPermissions: PermissionResolvable = "MANAGE_GUILD"
 export const run: RunFunction = async (client, message, args) => {
     const muteReason = args.slice(1).join(' ') || "No Reason";
 
-    if (!message.member?.hasPermission('MANAGE_MESSAGES')) return message.channel.send('**You need `MANAGE_MESSAGES` permission to use this command**')
+    if (!message.member.permissions.has('MANAGE_MESSAGES')) return message.channel.send('**You need `MANAGE_MESSAGES` permission to use this command**')
     const Member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0])
     if (!Member) return message.channel.send('Member is not found.')
     const role = message.guild?.roles.cache.find(role => role.name.toLowerCase() === 'muted')
     if (!role) {
         try {
             let muterole = await message.guild?.roles.create({
-                data: {
-                    name: 'muted',
-                    permissions: []
-                }
+                name: 'muted',
+                permissions: []
             });
-            message.guild?.channels.cache.filter(c => c.type === 'text').forEach(async (channel, id) => {
-                await channel.createOverwrite(muterole || "", {
-                    SEND_MESSAGES: false,
-                    ADD_REACTIONS: false
-                })
+            message.guild?.channels.cache.filter(c => c.type === 'GUILD_TEXT').forEach(async (channel, id) => {
+                await console.log(channel.name)
             });
         } catch (error) {
             console.log(error)
@@ -45,5 +40,5 @@ export const run: RunFunction = async (client, message, args) => {
         .setColor("#ed3737")
         .setFooter(client.user?.username, client.user?.displayAvatarURL())
 
-    Member?.send(muteEmbed).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
+    Member?.send({ embeds: [muteEmbed] }).catch((err) => { message.channel.send("**Message wasn't sent to this user because this user has his DM's disabled.**") })
 }
