@@ -15,6 +15,13 @@ export const userPermissions: PermissionResolvable = "MANAGE_GUILD"
 export const aliases = ["prefix"]
 
 export const run: RunFunction = async (client, message, args) => {
+    if (message.member.permissions.has("MANAGE_GUILD")) {
+        if (!message.member.permissions.has("MANAGE_CHANNELS"))
+            return message.channel.send(
+                "**You need `MANAGE_CHANNELS` permission to use this command**"
+            );
+    }
+
     const newPrefix = args.join(" ")
 
     if (!newPrefix) return message.channel.send("**Please Mention a prefix to set**")
