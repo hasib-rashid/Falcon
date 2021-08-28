@@ -7,7 +7,7 @@ export const description = 'Delete a channel'
 export const userPermissions: PermissionResolvable = "MANAGE_CHANNELS"
 
 export const run: RunFunction = async (client, message, args) => {
-    if (!message.member?.hasPermission("MANAGE_CHANNELS"))
+    if (!message.member.permissions.has("MANAGE_CHANNELS"))
         return message.channel.send(
             "**You need `MANAGE_CHANNELS` permission to use this command**"
         );
