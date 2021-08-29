@@ -21,7 +21,7 @@ export const run: RunFunction = async (client, message, args) => {
             .addField("Question", `\`\`\`css\n${args.join(" ")}\`\`\``)
             .addField("Answer", `\`\`\`css\n${result}\`\`\``);
 
-        message.channel.send(embed)
+        message.channel.send({ embeds: [embed] })
     } catch (err) {
         message.channel.send("**There has been a error. Please try again with a valid math logic**")
     }
