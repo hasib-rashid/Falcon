@@ -1,13 +1,15 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import { RunFunction } from '../../interfaces/Command';
-import { GeneralCommands, AdminCommands, EventsCommands, FunCommands, GamesCommands, MISCCommands, MusicCommands, NSFWCommnads, NotifyCommands, OwnerCommands, SearchCommands, numberOfCommands, totalCommands } from '../../client/Client'
+import { GeneralCommands, AdminCommands, EventsCommands, FunCommands, GamesCommands, MISCCommands, MusicCommands, NSFWCommnads, NotifyCommands, OwnerCommands, SearchCommands, numberOfCommands, totalCommands } from '../../base/Client'
 import { MessageEmbed } from 'discord.js';
-import { UtilsManager } from '../../utils/Utils'
+import { UtilsManager } from '../../util/Utils'
 import { helpAsserts } from '../../assets/help';
 const { getArraySum } = UtilsManager.prototype
 
 import { Deta } from 'deta'
-import { env } from '../../client/env';
-const deta = Deta(env.db)
+const deta = Deta(process.env.DB)
 const guildModel = deta.Base("guild")
 
 export const name = 'help'
@@ -37,7 +39,7 @@ export const run: RunFunction = async (client, message, args) => {
                 .setDescription(GeneralCommands)
                 .setColor("#0887ff");
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }
 
         if (args[0] === "fun") {
@@ -50,7 +52,7 @@ export const run: RunFunction = async (client, message, args) => {
                 .setDescription(FunCommands)
                 .setColor("#0887ff");
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }
 
         if (args[0] === "misc") {
@@ -63,7 +65,7 @@ export const run: RunFunction = async (client, message, args) => {
                 .setDescription(MISCCommands)
                 .setColor("#0887ff");
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }
 
         if (args[0] === "games") {
@@ -76,7 +78,7 @@ export const run: RunFunction = async (client, message, args) => {
                 .setDescription(GamesCommands)
                 .setColor("#0887ff");
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }
 
         if (args[0] === "search") {
@@ -89,7 +91,7 @@ export const run: RunFunction = async (client, message, args) => {
                 .setDescription(SearchCommands)
                 .setColor("#0887ff");
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }
 
         if (args[0] === "moderation") {
@@ -102,7 +104,7 @@ export const run: RunFunction = async (client, message, args) => {
                 .setDescription(AdminCommands)
                 .setColor("#0887ff");
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }
 
         if (args[0] === "music") {
@@ -115,7 +117,7 @@ export const run: RunFunction = async (client, message, args) => {
                 .setDescription(MusicCommands)
                 .setColor("#0887ff");
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }
 
         if (args[0] === "events") {
@@ -144,7 +146,7 @@ export const run: RunFunction = async (client, message, args) => {
                 .setDescription(NSFWCommnads)
                 .setColor("#0887ff");
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }
 
         if (!args[0]) {
@@ -171,7 +173,7 @@ export const run: RunFunction = async (client, message, args) => {
 
             embed.addField("Extra Links", "[Invite Me](https://google.com) • [Discord](https://google.com) • [Website](https://google.com) • [Donate](https://google.com)")
 
-            return message.channel.send(embed);
+            return message.channel.send({ embeds: [embed] });
         }
     } catch (err) {
         return message.channel.send("**There has been a error. Please try again.**");
