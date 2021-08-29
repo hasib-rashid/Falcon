@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { RunFunction } from '../../interfaces/Command'; 
+import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'avatar'
 export const category = 'general'
@@ -21,5 +21,5 @@ export const run: RunFunction = async (client, message, args) => {
         .setImage(image)
         .setColor("#347aeb")
 
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed] })
 }
