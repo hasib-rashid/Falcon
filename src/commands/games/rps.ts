@@ -1,6 +1,6 @@
 import { RunFunction } from '../../interfaces/Command';
 import { MessageEmbed } from 'discord.js';
-import { promptMessage } from "../../utils/functions"
+import { promptMessage } from "../../util/functions"
 
 const chooseArr = ["🗻", "📰", "✂"];
 
@@ -17,7 +17,7 @@ export const run: RunFunction = async (client, message, args) => {
             .setDescription("**Play A Game of RPS Against The Bot!\nSelect Reactions To Play!**")
             .setTimestamp();
 
-        const m = await message.channel.send(embed);
+        const m = await message.channel.send({ embeds: [embed] });
         const reacted = await promptMessage(m, message.author, 30, chooseArr);
 
         const botChoice = chooseArr[Math.floor(Math.random() * chooseArr.length)];
@@ -29,7 +29,7 @@ export const run: RunFunction = async (client, message, args) => {
             .setDescription("")
             .addField(`**${result}**`, `${reacted} vs ${botChoice}`);
 
-        m.edit(embed);
+        m.edit({ embeds: [embed] });
 
     } catch {
         return message.channel.send('**Missing Permissions - [MANAGE_MESSAGES]!**')

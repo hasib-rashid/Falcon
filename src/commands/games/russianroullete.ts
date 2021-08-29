@@ -1,5 +1,5 @@
 import { RunFunction } from '../../interfaces/Command';
-import { shuffle, verify } from "../../utils/functions"
+import { shuffle, verify } from "../../util/functions"
 import { stripIndents } from "common-tags"
 const games = new Map();
 
