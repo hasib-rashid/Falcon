@@ -10,7 +10,6 @@ import { Command } from "../interfaces/Command";
 import { Config } from "../interfaces/Config";
 import Nuggies from 'nuggies'
 import { UtilsManager } from "../util/Utils";
-import { ReactionRoleManager } from "discord-collector";
 
 const globPromise = promisify(glob)
 
