@@ -45,14 +45,6 @@ export default class Falcon extends Client {
 		await this.__loadCommands();
 		this.login(process.env.TOKEN);
 
-		const reactionRoleManager = new ReactionRoleManager(this, {
-			storage: true, // Enable reaction role store in a Json file
-			path: __dirname + '/roles.json', // Where will save the roles if store is enabled
-			mongoDbLink: process.env.MONGO_URL // See here to see how setup mongoose: https://github.com/IDjinn/Discord.js-Collector/blob/master/examples/reaction-role-manager/Note.md
-		});
-
-
-
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/**/*{.js,.ts}`
 		);
