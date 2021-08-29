@@ -11,5 +11,5 @@ export const run: RunFunction = async (client, message, args) => {
         .setTitle("Number of Users: " + message.guild?.memberCount)
         .setColor("BLUE");
 
-    message.channel.send(embed);
+    message.channel.send({ embeds: [embed] });
 }
