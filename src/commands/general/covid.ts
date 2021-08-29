@@ -1,8 +1,8 @@
 import { MessageAttachment, MessageEmbed } from 'discord.js';
-import { UtilsManager } from '../../utils/Utils'
+import { UtilsManager } from '../../util/Utils'
 const { formatNumber } = UtilsManager.prototype
 import { default as axios } from 'axios'
-import { RunFunction } from '../../interfaces/Command'; 
+import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'covid'
 export const category = 'general'
@@ -67,7 +67,7 @@ export const run: RunFunction = async (client, message, args) => {
                 )
                 .setColor("#e6295f");
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         })
     }
 
@@ -129,7 +129,7 @@ export const run: RunFunction = async (client, message, args) => {
                 )
                 .setColor("#e6295f");
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }).catch((err) => { message.channel.send("**Country not found or doesn't have any cases**") })
-    } 
+    }
 }
