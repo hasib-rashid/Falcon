@@ -8,7 +8,9 @@ import glob from 'glob'
 import { promisify } from 'util';
 import { Command } from "../interfaces/Command";
 import { Config } from "../interfaces/Config";
+import Nuggies from 'nuggies'
 import { UtilsManager } from "../util/Utils";
+import { ReactionRoleManager } from "discord-collector";
 
 const globPromise = promisify(glob)
 
@@ -20,6 +22,7 @@ export default class Falcon extends Client {
 	public cooldowns: Collection<string, number> = new Collection();
 	public owners: Array<string> | any;
 	public utils: UtilsManager | any;
+	public react;
 
 	constructor() {
 		super({
@@ -41,6 +44,14 @@ export default class Falcon extends Client {
 		await this.__loadSlashCommands();
 		await this.__loadCommands();
 		this.login(process.env.TOKEN);
+
+		const reactionRoleManager = new ReactionRoleManager(this, {
+			storage: true, // Enable reaction role store in a Json file
+			path: __dirname + '/roles.json', // Where will save the roles if store is enabled
+			mongoDbLink: process.env.MONGO_URL // See here to see how setup mongoose: https://github.com/IDjinn/Discord.js-Collector/blob/master/examples/reaction-role-manager/Note.md
+		});
+
+
 
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/**/*{.js,.ts}`
