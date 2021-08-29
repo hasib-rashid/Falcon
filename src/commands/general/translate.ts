@@ -28,7 +28,7 @@ export const run: RunFunction = async (client, message, args) => {
                         "Powered By Google Translate",
                         translate_image
                     )
-            message.channel.send(embed)
+            message.channel.send({ embeds: [embed] })
         }
         )
         .catch((err) => {
