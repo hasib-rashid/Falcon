@@ -42,6 +42,7 @@
     "nuggies": "^2.0.4",
     "os-utils": "^0.0.14",
     "simply-djs": "^1.1.22",
+    "snakecord": "^1.0.9",
     "tmath": "^2.2.0",
     "txtgen": "^2.2.8",
     "util": "^0.12.4",

@@ -1,6 +1,5 @@
 import { RunFunction } from '../../interfaces/Command';
-// @ts-ignore
-import SnakeGame from "snakecord"
+import { SnakeGame } from "snakecord"
 
 export const name = 'snakecord'
 export const category = 'games'
