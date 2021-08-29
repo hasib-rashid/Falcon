@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "ansi-colors": "^4.1.1",
+    "axios": "^0.21.1",
     "common-tags": "^1.8.0",
     "consola": "^2.15.3",
     "deta": "^1.0.0",
@@ -40,6 +41,7 @@
     "nuggies": "^2.0.4",
     "os-utils": "^0.0.14",
     "simply-djs": "^1.1.22",
+    "tmath": "^2.2.0",
     "util": "^0.12.4"
   }
 }

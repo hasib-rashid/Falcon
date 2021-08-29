@@ -8,9 +8,9 @@ export const description = 'Convert text to binary'
 
 export const run: RunFunction = async (client, message, args) => {
     if (!args.join(" "))
-    return message.channel.send(
-        "**Please send a Text Message to convert it to binary**"
-    );
+        return message.channel.send(
+            "**Please send a Text Message to convert it to binary**"
+        );
 
     try {
         axios.get(`http://some-random-api.ml/binary?text=${args.join(" ")}`).then(function (response) {
@@ -23,7 +23,7 @@ export const run: RunFunction = async (client, message, args) => {
                 .setColor("#118eed")
                 .setDescription(response.data.binary);
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         });
     } catch (err) {
         message.channel.send(
