@@ -1,7 +1,7 @@
 import { RunFunction } from '../../interfaces/Command';
 // @ts-ignore
 import weky from 'weky'
-import { verify, delay, randomRange } from "../../utils/functions"
+import { verify, delay, randomRange } from "../../util/functions"
 const words = ["fire", "draw", "shoot", "bang", "pull", "boom"];
 const games = new Map();
 
@@ -63,7 +63,8 @@ export const run: RunFunction = async (client, message, args) => {
         const filter = (res: any) =>
             [opponent?.user.id, message.author.id].includes(res.author.id) &&
             res.content.toLowerCase() === word.toLocaleLowerCase();
-        const winner = await message.channel.awaitMessages(filter, {
+        const winner = await message.channel.awaitMessages({
+            filter,
             max: 1,
             time: 30000,
         });
