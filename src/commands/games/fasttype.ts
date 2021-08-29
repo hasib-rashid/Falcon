@@ -1,4 +1,6 @@
 import { RunFunction } from '../../interfaces/Command';
+// @ts-ignore
+// @ts-ignore
 import weky from 'weky'
 import '@weky/inlinereply'
 import { sentence } from 'txtgen'

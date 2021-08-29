@@ -1,4 +1,5 @@
 import { RunFunction } from '../../interfaces/Command';
+// @ts-ignore
 import weky from 'weky'
 import { verify, delay, randomRange } from "../../utils/functions"
 const words = ["fire", "draw", "shoot", "bang", "pull", "boom"];

@@ -1,4 +1,5 @@
 import { RunFunction } from '../../interfaces/Command';
+// @ts-ignore
 import weky from 'weky'
 import '@weky/inlinereply'
 
