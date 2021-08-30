@@ -41,6 +41,7 @@
     "discordjs-reaction-role": "^2.0.0",
     "dotenv": "^10.0.0",
     "glob": "^7.1.7",
+    "moment": "^2.29.1",
     "nuggies": "^2.0.4",
     "os-utils": "^0.0.14",
     "reconlx": "^2.3.3",
@@ -49,6 +50,7 @@
     "tmath": "^2.2.0",
     "txtgen": "^2.2.8",
     "util": "^0.12.4",
+    "weather-js": "^2.0.0",
     "weky": "^3.1.5"
   }
 }

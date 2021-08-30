@@ -35,7 +35,7 @@ export const run: RunFunction = async (client, message, args) => {
                     { name: "Updated At", value: moment.utc(response.data.updated_at).format("MM/DD/YYYY h:mm A"), inline: false },
                     { name: "Pushed At", value: moment.utc(response.data.pushed_at).format("MM/DD/YYYY h:mm A"), inline: true },
                 )
-            message.channel.send(repoEmbed)
+            message.channel.send({ embeds: [repoEmbed] })
         })
     }
 
@@ -78,7 +78,7 @@ export const run: RunFunction = async (client, message, args) => {
                 userEmbed.setTitle(response.data.name)
             }
 
-            message.channel.send(userEmbed)
+            message.channel.send({ embeds: [userEmbed] })
         })
     }
 }
