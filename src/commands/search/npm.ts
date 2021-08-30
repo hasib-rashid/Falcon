@@ -2,7 +2,7 @@ import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
 import moment from 'moment';
 import { RunFunction } from '../../interfaces/Command';
-import { UtilsManager } from '../../utils/Utils'
+import { UtilsManager } from '../../util/Utils'
 const { trimArray } = UtilsManager.prototype
 
 export const name = 'npm'
@@ -58,7 +58,7 @@ export const run: RunFunction = async (client, message, args) => {
                         : "None"
                 )
                 .addField("❯ Maintainers", maintainers.join(", "));
-            return message.channel.send(embed);
+            return message.channel.send({ embeds: [embed] });
         })
     } catch (err) {
         if (err.status === 404)
