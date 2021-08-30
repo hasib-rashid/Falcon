@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
-import { formatNumber } from '../../utils/functions';
+import { formatNumber } from '../../util/functions';
 
 export const name = 'country'
 export const category = 'search'
@@ -24,6 +24,6 @@ export const run: RunFunction = async (client, message, args) => {
                 "❯ Languages",
                 data[0].languages.map((lang: any) => lang.name).join("/")
             );
-        return message.channel.send(embed);
+        return message.channel.send({ embeds: [embed] });
     })
 }
