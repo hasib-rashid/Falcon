@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
-import { formatNumber } from '../../utils/functions';
+import { formatNumber } from '../../util/functions';
 
 export const name = 'instagram'
 export const category = 'search'
@@ -23,6 +23,6 @@ export const run: RunFunction = async (client, message, args) => {
             .addField("Private", "**" + res.data.graphql.user.is_private + "**", true)
             .addField("Useranme", "**" + res.data.graphql.user.username + "**", true)
 
-        message.channel.send(embed)
+        message.channel.send({ embeds: [embed] })
     })
 }
