@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
-import { UtilsManager } from '../../utils/Utils'
+import { UtilsManager } from '../../util/Utils'
 const { googleShorten } = UtilsManager.prototype
 import googleIt from 'google-it'
 
@@ -27,7 +27,7 @@ export const run: RunFunction = async (client, message, args) => {
 
             }
 
-            msg.channel.send(embed)
+            msg.channel.send({ embeds: [embed] })
         }).catch((err: any) => {
             console.error(err)
         })
