@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 import { default as axios } from 'axios'
-import { formatNumber, shorten } from '../../utils/functions';
+import { formatNumber, shorten } from '../../util/functions';
 
 export const name = 'book'
 export const category = 'search'
@@ -51,6 +51,6 @@ export const run: RunFunction = async (client, message, args) => {
             );
         }
 
-        message.channel.send(embed)
+        message.channel.send({ embeds: [embed] })
     })
 }
