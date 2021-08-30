@@ -39,5 +39,5 @@ export const run: RunFunction = async (client, message, args) => {
         .addField(":8ball:", json[randomIndex])
         .setColor("BLUE");
 
-    message.channel.send(embed);
+    message.channel.send({ embeds: [embed] });
 }
