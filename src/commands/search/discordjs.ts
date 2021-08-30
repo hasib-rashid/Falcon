@@ -14,6 +14,6 @@ export const run: RunFunction = async (client, message, args) => {
     }
     axios.get(`https://djsdocs.sorta.moe/v2/embed?src=${encodeURIComponent(version)}&q=${encodeURIComponent(args[0])}`).then((res) => {
         const embed = new MessageEmbed(res.data)
-        message.channel.send(embed)
+        message.channel.send({ embeds: [embed] })
     })
 }
