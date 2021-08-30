@@ -1,3 +1,4 @@
+import { Message } from 'discord.js';
 import { MessageEmbed, TextChannel } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 
@@ -10,23 +11,20 @@ export const run: RunFunction = async (client, message, args) => {
     let bugMessage
 
     message.channel.send("**Explain briefly about the bug. If no bugs found then type `cancel`. You have 2 minutes to explain.**")
-    await message.channel.awaitMessages(m => m.author.id == message.author.id,
-        // 2 minutes
-        { max: 1, time: 2 * 60 * 10000 }).then(collected => {
-            if (collected.first()?.content === "cancel") return message.channel.send("**Canceled the operation**")
-            bug = collected.first()?.content
-        }).catch(() => {
-            message.reply('**No answer after 30 seconds, operation canceled.**');
-        })
+    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
+        if (collected.first().author.id !== message.author.id) return;
+        bug = collected.first()?.content
+    }).catch(() => {
+        message.reply('**No answer after 30 seconds, operation canceled.**');
+    })
 
     message.channel.send("**What is the Bug Message that it gave. If no bugs found then type `cancel`.**")
-    await message.channel.awaitMessages(m => m.author.id == message.author.id,
-        { max: 1, time: 30000 }).then(collected => {
-            if (collected.first()?.content === "cancel") return message.channel.send("**Canceled the operation**")
-            bugMessage = collected.first()?.content
-        }).catch(() => {
-            message.reply('**No answer after 30 seconds, operation canceled.**');
-        })
+    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
+        if (collected.first().author.id !== message.author.id) return;
+        bugMessage = collected.first()?.content
+    }).catch(() => {
+        message.reply('**No answer after 30 seconds, operation canceled.**');
+    })
 
     const embed = new MessageEmbed()
         .setAuthor(message.author.username, message.author.displayAvatarURL())
@@ -36,7 +34,7 @@ export const run: RunFunction = async (client, message, args) => {
         .addField("Bug", bug)
         .setDescription(`\`\`\`js${bugMessage}\`\`\``)
 
-    return (client.channels.cache.get("876620815653830676") as TextChannel).send(embed).catch((err) => {
+    return (client.channels.cache.get("876620815653830676") as TextChannel).send({ embeds: [embed] }).catch((err) => {
         message.channel.send("**Maybe the Bug Message or the Bug Is too Big. Try reducing the size of the message of the BugMessage component**")
     })
 }
