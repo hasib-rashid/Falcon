@@ -59,6 +59,14 @@ export default class Falcon extends Client {
 		await this.__loadCommands();
 		this.login(process.env.TOKEN);
 
+		this._loadAdminCommands()
+		this._loadGamesCommands()
+		this._loadGeneralCommands()
+		this._loadMISCCommands()
+		this._loadNSFWCommands()
+		this._loadOwnerCommands()
+		this._loadSearchCommands()
+
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/**/*{.js,.ts}`
 		);
@@ -110,7 +118,7 @@ export default class Falcon extends Client {
 		};
 	}
 
-	private async _loadAdminCommands(commandDir: string) {
+	private async _loadAdminCommands() {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/admin/*{.js,.ts}`
 		);
@@ -121,7 +129,7 @@ export default class Falcon extends Client {
 		});
 	}
 
-	private async _loadFunCommands(commandDir: string) {
+	private async _loadFunCommands() {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/fun/*{.js,.ts}`
 		);
@@ -132,7 +140,7 @@ export default class Falcon extends Client {
 		});
 	}
 
-	private async _loadGamesCommands(commandDir: string) {
+	private async _loadGamesCommands() {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/games/*{.js,.ts}`
 		);
@@ -143,7 +151,7 @@ export default class Falcon extends Client {
 		});
 	}
 
-	private async _loadGeneralCommands(commandDir: string) {
+	private async _loadGeneralCommands() {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/admin/*{.js,.ts}`
 		);
@@ -154,7 +162,7 @@ export default class Falcon extends Client {
 		});
 	}
 
-	private async _loadMISCCommands(commandDir: string) {
+	private async _loadMISCCommands() {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/misc/*{.js,.ts}`
 		);
@@ -165,7 +173,7 @@ export default class Falcon extends Client {
 		});
 	}
 
-	private async _loadMusicCommands(commandDir: string) {
+	private async _loadMusicCommands() {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/music/*{.js,.ts}`
 		);
@@ -176,7 +184,7 @@ export default class Falcon extends Client {
 		});
 	}
 
-	private async _loadNSFWCommands(commandDir: string) {
+	private async _loadNSFWCommands() {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/nsfw/*{.js,.ts}`
 		);
@@ -187,7 +195,7 @@ export default class Falcon extends Client {
 		});
 	}
 
-	private async _loadOwnerCommands(commandDir: string) {
+	private async _loadOwnerCommands() {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/owner/*{.js,.ts}`
 		);
@@ -198,7 +206,7 @@ export default class Falcon extends Client {
 		});
 	}
 
-	private async _loadSearchCommands(commandDir: string) {
+	private async _loadSearchCommands() {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/search/*{.js,.ts}`
 		);
