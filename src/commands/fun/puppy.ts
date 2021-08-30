@@ -15,7 +15,7 @@ export const run: RunFunction = async (client, message, args) => {
             .setColor("BLUE")
             .setImage(response.data.message);
 
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }).catch((err) => {
         client.logger.error(err)
     })

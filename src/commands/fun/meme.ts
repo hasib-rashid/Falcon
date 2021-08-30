@@ -18,6 +18,6 @@ export const run: RunFunction = async (client, message, args) => {
             .setColor("BLUE")
             .setImage(response.data.image);
 
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     })
 }
