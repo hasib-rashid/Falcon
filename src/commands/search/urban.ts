@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
-import { formatNumber, shorten } from '../../utils/functions';
+import { formatNumber, shorten } from '../../util/functions';
 
 export const name = 'urban'
 export const category = 'search'
@@ -37,7 +37,7 @@ export const run: RunFunction = async (client, message, args) => {
                         ? shorten(dataWord.example.replace(/\[|\]/g, ""), 1000)
                         : "None"
                 );
-            return message.channel.send(embed);
+            return message.channel.send({ embeds: [embed] });
         })
 
     } catch (err) {
