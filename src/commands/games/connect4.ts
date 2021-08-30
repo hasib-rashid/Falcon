@@ -6,6 +6,7 @@ export const category = 'games'
 export const description = 'Play a game of Conect4'
 
 export const run: RunFunction = async (client, message, args) => {
+    if (!message.mentions.users.first) return message.channel.send("**Please mention your opponent to play the game with**")
     new Connect4({
         message: message,
         opponent: message.mentions.users.first(),
