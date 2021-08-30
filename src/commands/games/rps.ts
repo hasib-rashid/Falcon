@@ -1,6 +1,7 @@
 import { RunFunction } from '../../interfaces/Command';
 import { MessageEmbed } from 'discord.js';
 import { promptMessage } from "../../util/functions"
+import { User } from 'discord.js';
 
 const chooseArr = ["🗻", "📰", "✂"];
 
@@ -10,26 +11,6 @@ export const description = 'Rock Papper Scissors'
 
 export const run: RunFunction = async (client, message, args) => {
     try {
-        const embed = new MessageEmbed()
-            .setColor("GREEN")
-            .setAuthor(message.member?.displayName, message.author.displayAvatarURL())
-            .setFooter(message.guild?.me?.displayName, client.user?.displayAvatarURL())
-            .setDescription("**Play A Game of RPS Against The Bot!\nSelect Reactions To Play!**")
-            .setTimestamp();
-
-        const m = await message.channel.send({ embeds: [embed] });
-        const reacted = await promptMessage(m, message.author, 30, chooseArr);
-
-        const botChoice = chooseArr[Math.floor(Math.random() * chooseArr.length)];
-
-        const result = await getResult(reacted, botChoice);
-        await m.reactions.removeAll();
-
-        embed
-            .setDescription("")
-            .addField(`**${result}**`, `${reacted} vs ${botChoice}`);
-
-        m.edit({ embeds: [embed] });
 
     } catch {
         return message.channel.send('**Missing Permissions - [MANAGE_MESSAGES]!**')
