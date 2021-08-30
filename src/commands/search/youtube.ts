@@ -1,6 +1,8 @@
+import { config } from 'dotenv';
+config()
+
 import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
-import { env } from '../../client/env';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'youtube'
@@ -18,7 +20,7 @@ export const run: RunFunction = async (client, message, args) => {
                 order: "date",
             },
             headers: {
-                "x-rapidapi-key": env.rapid_api,
+                "x-rapidapi-key": process.env.RAPID_API_KEY,
                 "x-rapidapi-host": "youtube-v31.p.rapidapi.com",
             },
         })
@@ -38,7 +40,7 @@ export const run: RunFunction = async (client, message, args) => {
                 );
             }
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         })
         .catch(function (error) {
             console.error(error);
