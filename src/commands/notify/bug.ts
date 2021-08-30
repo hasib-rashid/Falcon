@@ -11,15 +11,15 @@ export const run: RunFunction = async (client, message, args) => {
     let bugMessage
 
     message.channel.send("**Explain briefly about the bug. If no bugs found then type `cancel`. You have 2 minutes to explain.**")
-    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
+    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 2 * 60 * 1000 }).then(collected => {
         if (collected.first().author.id !== message.author.id) return;
         bug = collected.first()?.content
     }).catch(() => {
         message.reply('**No answer after 30 seconds, operation canceled.**');
     })
 
-    message.channel.send("**What is the Bug Message that it gave. If no bugs found then type `cancel`.**")
-    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
+    message.channel.send("**What is the Bug Message that it gave. You have 2 minutes to say.**")
+    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 2 * 60 * 1000 }).then(collected => {
         if (collected.first().author.id !== message.author.id) return;
         bugMessage = collected.first()?.content
     }).catch(() => {
