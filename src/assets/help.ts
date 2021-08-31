@@ -1,6 +1,3 @@
-import { AdminCommands, EventsCommands, FunCommands, GamesCommands, MusicCommands, OwnerCommands, NotifyCommands, SearchCommands, NSFWCommnads, MISCCommands } from '../base/Client'
-import { GeneralCommands } from '../base/Client'
-
 export const helpAsserts = [
     {
         "name": "General",
@@ -9,47 +6,47 @@ export const helpAsserts = [
     },
     {
         "name": "Games",
-        "number": GamesCommands.length,
+        "number": 7,
         "emoji": ":video_game:"
     },
     {
         "name": "Moderation",
-        "number": AdminCommands.length,
+        "number": 22,
         "emoji": "<:ban_hammer:831919397437702174>"
     },
     {
         "name": "Music",
-        "number": MusicCommands.length,
+        "number": 0,
         "emoji": ":musical_note:"
     },
     {
         "name": "Events",
-        "number": EventsCommands.length,
+        "number": 1,
         "emoji": ":checkered_flag:"
     },
     {
         "name": "Notify",
-        "number": "2",
+        "number": 2,
         "emoji": ":speech_left:"
     },
     {
         "name": "NSFW",
-        "number": NSFWCommnads.length,
+        "number": 20,
         "emoji": ":underage:"
     },
     {
         "name": "MISC",
-        "number": MISCCommands.length,
+        "number": 5,
         "emoji": ":wrench:"
     },
     {
         "name": "Fun",
-        "number": FunCommands.length,
+        "number": 22,
         "emoji": ":rofl:"
     },
     {
         "name": "Search",
-        "number": SearchCommands.length,
+        "number": 13,
         "emoji": ":mag:"
     },
 ]

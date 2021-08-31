@@ -59,14 +59,15 @@ export default class Falcon extends Client {
 		await this.__loadSlashCommands();
 		this.login(process.env.TOKEN);
 
-		this._loadAdminCommands()
-		this._loadGamesCommands()
-		this._loadGeneralCommands()
-		this._loadMISCCommands()
-		this._loadNSFWCommands()
-		this._loadOwnerCommands()
-		this._loadSearchCommands()
-		this._loadFunCommands()
+		await this._loadAdminCommands()
+		await this._loadGamesCommands()
+		await this._loadFunCommands()
+		await this._loadGeneralCommands()
+		await this._loadMISCCommands()
+		await this._loadNSFWCommands()
+		await this._loadOwnerCommands()
+		await this._loadSearchCommands()
+
 		await this.__loadCommands();
 
 		const commandFiles: string[] = await globPromise(
@@ -86,8 +87,6 @@ export default class Falcon extends Client {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/**/*{.js,.ts}`
 		);
-
-		console.log(GeneralCommands.length)
 
 		totalCommands = commandFiles.length + 2
 	}

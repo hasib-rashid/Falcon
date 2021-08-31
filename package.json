@@ -28,6 +28,7 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
+    "@discordjs/opus": "^0.6.0",
     "@vitalets/google-translate-api": "^7.0.0",
     "ansi-colors": "^4.1.1",
     "axios": "^0.21.1",
@@ -39,11 +40,14 @@
     "discord-tictactoe": "^2.1.1",
     "discord.js": "13.0.0",
     "discordjs-reaction-role": "^2.0.0",
+    "distube": "^3.0.0-beta.36",
     "dotenv": "^10.0.0",
+    "ffmpeg-static": "^4.4.0",
     "glob": "^7.1.7",
     "google-it": "^1.6.2",
     "moment": "^2.29.1",
     "nuggies": "^2.0.4",
+    "opusscript": "^0.0.8",
     "os-utils": "^0.0.14",
     "reconlx": "^2.3.3",
     "simply-djs": "^1.1.22",
