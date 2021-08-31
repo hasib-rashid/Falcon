@@ -804,7 +804,7 @@ cheerio-select@^1.5.0:
     domhandler "^4.2.0"
     domutils "^2.7.0"
 
-cheerio@^1.0.0-rc.10, cheerio@^1.0.0-rc.2:
+cheerio@^1.0.0-rc.10, cheerio@^1.0.0-rc.2, cheerio@^1.0.0-rc.3:
   version "1.0.0-rc.10"
   resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-1.0.0-rc.10.tgz#2ba3dcdfcc26e7956fc1f440e61d51c643379f3e"
   integrity sha512-g0J0q/O6mW8z5zxQ3A8E8J1hUgp4SMOvEoW/x84OwyHKe/Zccz83PVT4y5Crcr530FV6NgmKI1qvGTKVl9XXVw==
@@ -1665,6 +1665,14 @@ find-replace@^3.0.0:
   dependencies:
     array-back "^3.0.1"
 
+findthelyrics@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/findthelyrics/-/findthelyrics-1.1.0.tgz#ded0622afc78b026ae727367779b57bba80ea0ef"
+  integrity sha512-gvGgBlIv/L8U6Vq0ZhLP8E5k/cylNSSMN2dU3U9Fqwc5C+Ujoa4mP0lHMyoxCyGtlBxwMqEIerYiLZK66ZiAyw==
+  dependencies:
+    cheerio "^1.0.0-rc.3"
+    got "^11.7.0"
+
 flat-cache@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-3.0.4.tgz#61b0338302b2fe9f957dcc32fc2a87f1c3048b11"
@@ -1871,7 +1879,7 @@ google-it@^1.6.2:
     ora "^4.0.3"
     request "^2.88.0"
 
-got@^11.8.1, got@~11.8.2:
+got@^11.7.0, got@^11.8.1, got@~11.8.2:
   version "11.8.2"
   resolved "https://registry.yarnpkg.com/got/-/got-11.8.2.tgz#7abb3959ea28c31f3576f1576c1effce23f33599"
   integrity sha512-D0QywKgIe30ODs+fm8wMZiAcZjypcCodPNuMz5H9Mny7RJ+IjJ10BdmGW7OM7fHXP+O7r6ZwapQ/YQmMSvB0UQ==

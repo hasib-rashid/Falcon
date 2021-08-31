@@ -1,3 +1,4 @@
+import { Message } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
 
@@ -36,42 +37,38 @@ export const run: RunFunction = async (client, message, args) => {
         .setColor("BLUE")
         .setDescription(searchresult)
 
-    const searchEmbed = await message.channel.send(embed)
+    const searchEmbed = await message.channel.send({ embeds: [embed] })
 
     let userinput: any;
 
     await message.channel
-        .awaitMessages((m) => m.author.id == message.author.id, {
-            max: 1,
-            time: 60000,
-            errors: ["time"],
-        })
-        .then((collected) => {
-            userinput = collected.first()?.content;
-            if (isNaN(userinput)) {
-                const embed = new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
-                    .setColor("RED")
-                    .setDescription("**Not a right number. So I use number 1!")
+    await message.channel.awaitMessages({ filter: (m: Message) => m.author.id === message.author.id, max: 1, time: 30000 }).then(collected => {
+        if (collected.first().author.id !== message.author.id) return;
+        userinput = collected.first()?.content;
+        if (isNaN(userinput)) {
+            const embed = new MessageEmbed()
+                .setAuthor(message.author.username, message.author.displayAvatarURL())
+                .setColor("RED")
+                .setDescription("**Not a right number. So I use number 1!")
 
-                message.channel.send(embed)
+            message.channel.send({ embeds: [embed] })
 
-                userinput = 1;
-            }
-            if (Number(userinput) < 0 && Number(userinput) >= 15) {
-                const embed = new MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
-                    .setColor("RED")
-                    .setDescription("**Not a right number. So I use number 1!")
+            userinput = 1;
+        }
+        if (Number(userinput) < 0 && Number(userinput) >= 15) {
+            const embed = new MessageEmbed()
+                .setAuthor(message.author.username, message.author.displayAvatarURL())
+                .setColor("RED")
+                .setDescription("**Not a right number. So I use number 1!")
 
-                message.channel.send(embed)
+            message.channel.send({ embeds: [embed] })
 
-                userinput = 1;
-            }
-            searchEmbed.delete({
-                timeout: Number(client.ws.ping),
-            });
-        })
+            userinput = 1;
+        }
+        setTimeout(() => {
+            searchEmbed.delete();
+        }, (client.ws.ping))
+    })
         .catch(() => {
             userinput = 404;
         });
@@ -82,7 +79,7 @@ export const run: RunFunction = async (client, message, args) => {
             .setColor("RED")
             .setDescription("**Something Went Wrong**")
 
-        message.channel.send(embed)
+        message.channel.send({ embeds: [embed] })
     }
 
     return client.distube.play(message, result[userinput - 1].url);
