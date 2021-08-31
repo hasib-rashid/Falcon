@@ -134,12 +134,11 @@ export default class Falcon extends Client {
 					console.error(err);
 				}
 			})
+			.on("empty", () => {
+				return
+			})
 			.on("addSong", (queue: any, song: any) => {
 				const embed = new MessageEmbed()
-					.setAuthor(
-						queue.author.username,
-						queue.author.displayAvatarURL()
-					)
 					.setTitle("Added a Song!")
 					.setColor("GREEN")
 					.setDescription(
@@ -169,6 +168,9 @@ export default class Falcon extends Client {
 					"**Can't find related video to play. Stop playing music.**"
 				)
 			)
+			.on("error", (err) => {
+				console.error(err)
+			})
 			.on("finish", (queue) =>
 				queue.textChannel.send("**No more song in queue to play. Add More!**")
 			);
