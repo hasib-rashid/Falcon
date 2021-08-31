@@ -1,9 +1,10 @@
-import { AdminCommands, EventsCommands, FunCommands, GamesCommands, MusicCommands, OwnerCommands, NotifyCommands, SearchCommands, GeneralCommands, NSFWCommnads, MISCCommands } from '../base/Client'
+import { AdminCommands, EventsCommands, FunCommands, GamesCommands, MusicCommands, OwnerCommands, NotifyCommands, SearchCommands, NSFWCommnads, MISCCommands } from '../base/Client'
+import { GeneralCommands } from '../base/Client'
 
 export const helpAsserts = [
     {
         "name": "General",
-        "number": GeneralCommands.length,
+        "number": 11,
         "emoji": ":smiley:"
     },
     {
@@ -50,5 +51,5 @@ export const helpAsserts = [
         "name": "Search",
         "number": SearchCommands.length,
         "emoji": ":mag:"
-    }
+    },
 ]

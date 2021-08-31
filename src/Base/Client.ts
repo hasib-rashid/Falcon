@@ -14,7 +14,6 @@ import { UtilsManager } from "../util/Utils";
 const globPromise = promisify(glob)
 
 export const numberOfCommands: any = []
-export const totalCommands: any = numberOfCommands[0] + numberOfCommands[1] + numberOfCommands[2] + numberOfCommands[3] + numberOfCommands[4] + numberOfCommands[5] + numberOfCommands[6] + numberOfCommands[7] + numberOfCommands[8] + numberOfCommands[9] + numberOfCommands[10]
 
 export const AdminCommands: any = []
 export const EventsCommands: any = []
@@ -27,6 +26,8 @@ export const NotifyCommands: any = []
 export const NSFWCommnads: any = []
 export const OwnerCommands: any = []
 export const SearchCommands: any = []
+
+export let totalCommands: any
 
 export default class Falcon extends Client {
 	public slashcommands: Collection<string, BaseSlashCommand> = new Collection();
@@ -56,7 +57,6 @@ export default class Falcon extends Client {
 	public async start(): Promise<void> {
 		await this.__loadEvents();
 		await this.__loadSlashCommands();
-		await this.__loadCommands();
 		this.login(process.env.TOKEN);
 
 		this._loadAdminCommands()
@@ -66,6 +66,8 @@ export default class Falcon extends Client {
 		this._loadNSFWCommands()
 		this._loadOwnerCommands()
 		this._loadSearchCommands()
+		this._loadFunCommands()
+		await this.__loadCommands();
 
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/**/*{.js,.ts}`
@@ -84,6 +86,10 @@ export default class Falcon extends Client {
 		const commandFiles: string[] = await globPromise(
 			`${__dirname}/../commands/**/*{.js,.ts}`
 		);
+
+		console.log(GeneralCommands.length)
+
+		totalCommands = commandFiles.length + 2
 	}
 
 	private async __loadSlashCommands() {
@@ -116,6 +122,14 @@ export default class Falcon extends Client {
 
 			this.logger.success("client/events", `Listening for event ${pull.name}`);
 		};
+	}
+
+	private async _loadCommands() {
+		const commandFiles: string[] = await globPromise(
+			`${__dirname}/../commands/**/*{.js,.ts}`
+		);
+
+		numberOfCommands.push(commandFiles.length)
 	}
 
 	private async _loadAdminCommands() {
@@ -153,7 +167,7 @@ export default class Falcon extends Client {
 
 	private async _loadGeneralCommands() {
 		const commandFiles: string[] = await globPromise(
-			`${__dirname}/../commands/admin/*{.js,.ts}`
+			`${__dirname}/../commands/general/*{.js,.ts}`
 		);
 
 		commandFiles.map(async (cmdFile: string) => {

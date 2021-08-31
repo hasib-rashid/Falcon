@@ -17,6 +17,7 @@ export const category = 'general'
 export const description = 'Helping'
 
 export const run: RunFunction = async (client, message, args) => {
+    console.log(GeneralCommands.length)
 
     const guildCache = await guildModel.fetch({ guildID: message.guild.id })
 
@@ -163,8 +164,9 @@ export const run: RunFunction = async (client, message, args) => {
                 )
                 .setColor("#0887ff")
                 .setFooter(
-                    `Number of Commands: ${getArraySum(numberOfCommands)}`
+                    `Number of Commands: ${totalCommands}`
                 );
+
 
             for (var i = 0; i < 10; ++i) {
                 const result = helpAsserts[i];
@@ -176,6 +178,7 @@ export const run: RunFunction = async (client, message, args) => {
             return message.channel.send({ embeds: [embed] });
         }
     } catch (err) {
+        console.log(err)
         return message.channel.send("**There has been a error. Please try again.**");
     }
 }
