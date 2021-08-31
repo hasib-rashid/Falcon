@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import { RunFunction } from '../../interfaces/Command';
-import { delay } from '../../utils/functions';
+import { delay } from '../../util/functions';
 
 export const name = 'seek'
 export const category = 'music'
@@ -22,7 +22,7 @@ export const run: RunFunction = async (client, message, args) => {
             .setColor("BLUE")
             .setDescription(`Seeked the song to \`${args[0]} seconds\``)
 
-        message.channel.send(embed)
+        message.channel.send({ embeds: [embed] })
 
         await delay(5000);
         //@ts-ignore
