@@ -1,5 +1,4 @@
 import { MessageEmbed } from 'discord.js';
-import Song from 'distube/typings/Song';
 import { RunFunction } from '../../interfaces/Command';
 
 export const name = 'queue'
@@ -22,14 +21,14 @@ export const run: RunFunction = async (client, message, args) => {
         embed.setDescription(
             queue.songs
                 .map(
-                    (song: Song, id: any) =>
+                    (song, id) =>
                         `**${id + 1}**. [${song.name}](${song.url}) - \`${song.formattedDuration
                         }\``
                 )
                 .join("\n")
         );
 
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     } catch (err) {
         console.error(err);
         message.channel.send(
