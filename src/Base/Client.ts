@@ -169,8 +169,8 @@ export default class Falcon extends Client {
 				)
 			)
 			.on("error", (err) => {
-				console.error(err)
 			})
+			.on("searchNoResult", (message, query) => message.channel.send(`No result found for ${query}!`))
 			.on("finish", (queue) =>
 				queue.textChannel.send("**No more song in queue to play. Add More!**")
 			);
