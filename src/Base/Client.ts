@@ -9,7 +9,6 @@ import { promisify } from 'util';
 import { Command } from "../interfaces/Command";
 import Nuggies from 'nuggies'
 import { UtilsManager } from "../util/Utils";
-import DisTube from "distube";
 import { formatNumber } from "../util/functions";
 
 const globPromise = promisify(glob)
@@ -62,121 +61,7 @@ export default class Falcon extends Client {
 		await this.__loadSlashCommands();
 		this.login(process.env.TOKEN);
 
-		Nuggies.handleInteractions(this)
-
-		const distube = new DisTube(this, {
-			youtubeCookie: "",
-			searchSongs: 10,
-			emitNewSongOnly: false,
-			leaveOnEmpty: true,
-			leaveOnFinish: true,
-			leaveOnStop: true,
-			customFilters: {
-				clear: "dynaudnorm=f=200",
-				bassboost: "bass=g=20,dynaudnorm=f=200",
-				"8d": "apulsator=hz=0.08",
-				vaporwave: "aresample=48000,asetrate=48000*0.8",
-				nightcore: "aresample=48000,asetrate=48000*1.25",
-				phaser: "aphaser=in_gain=0.4",
-				purebass: "bass=g=20,dynaudnorm=f=200,asubboost",
-				tremolo: "tremolo",
-				vibrato: "vibrato=f=6.5",
-				reverse: "areverse",
-				treble: "treble=g=5",
-				surrounding: "surround",
-				pulsator: "apulsator=hz=1",
-				subboost: "asubboost",
-				karaoke: "stereotools=mlev=0.03",
-				flanger: "flanger",
-				gate: "agate",
-				haas: "haas",
-				mcompand: "mcompand",
-			},
-		});
-
-		this.distube = distube
-
-		distube
-			.on("playSong", async (queue, song) => {
-				const voiceChannelName = queue.voiceChannel.name;
-				try {
-					let embed1 = new MessageEmbed()
-
-						.setColor("GREEN")
-						.setAuthor(
-							song.user.username,
-							song.user.displayAvatarURL()
-						)
-						.setTitle(
-							`Playing in \`${voiceChannelName}\`! `
-						)
-						.setDescription(
-							`<:youtube:864559346137956402> **[${song.name}](${song.url})** \n\n **Requested By: <@${song.user.id}>**\n\n`
-						)
-						.addFields(
-							{ name: "Views", value: formatNumber(`${song.views}`) },
-							{
-								name: "Likes :thumbsup:",
-								value: formatNumber(`${song.likes}`),
-								inline: true,
-							},
-							{
-								name: "DisLikes :thumbsdown:",
-								value: formatNumber(`${song.dislikes}`),
-								inline: true,
-							}
-						)
-						.setFooter(`Duration [${song.formattedDuration}]`)
-						.setThumbnail(song.thumbnail);
-
-					queue.textChannel.send({ embeds: [embed1] });
-				} catch (err) {
-					console.error(err);
-				}
-			})
-			.on("empty", () => {
-				return
-			})
-			.on("addSong", (queue: any, song: any) => {
-				const embed = new MessageEmbed()
-					.setTitle("Added a Song!")
-					.setColor("GREEN")
-					.setDescription(
-						`Song: [\`${song.name}\`](${song.url})  -  \`${song.formattedDuration
-						}\` \n\nRequested by: ${song.user}\n\nEstimated Time: ${queue.songs.length - 1
-						} song(s) - \`${(
-							Math.floor(((queue.duration - song.duration) / 60) * 100) /
-							100
-						)
-							.toString()
-							.replace(".", ":")}\`\nQueue duration: \`${queue.formattedDuration
-						}\``
-					)
-					.setThumbnail(song.thumbnail);
-
-				queue.channel.send({ embeds: [embed] });
-			})
-			.on("searchCancel", (message: Message) =>
-				message.channel.send(`**Searching canceled**`)
-			)
-			.on("initQueue", (queue: any) => {
-				queue.autoplay = false;
-				queue.volume = 50;
-			})
-			.on("noRelated", (queue) =>
-				queue.textChannel.send(
-					"**Can't find related video to play. Stop playing music.**"
-				)
-			)
-			.on("error", (err) => {
-			})
-			.on("searchNoResult", (message, query) => message.channel.send(`No result found for ${query}!`))
-			.on("searchResult", (message, results) => {
-				message.channel.send(`**Choose an option from below**\n${results.map((song, i) => `**${i + 1}**. ${song.name} - \`${song.formattedDuration}\``).join("\n")}\n*Enter anything else or wait 60 seconds to cancel*`);
-			})
-			.on("finish", (queue) =>
-				queue.textChannel.send("**No more song in queue to play. Add More!**")
-			);
+		Nuggies.handleInteractions(this);
 
 		await this._loadAdminCommands()
 		await this._loadGamesCommands()

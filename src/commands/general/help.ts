@@ -17,8 +17,6 @@ export const category = 'general'
 export const description = 'Helping'
 
 export const run: RunFunction = async (client, message, args) => {
-    console.log(GeneralCommands.length)
-
     const guildCache = await guildModel.fetch({ guildID: message.guild.id })
 
     let PREFIX: any;

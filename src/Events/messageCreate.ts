@@ -15,7 +15,7 @@ export default class MessageCreateEvent extends BaseEvent {
             if (!message.guild) return;
             if (message.author.bot) return;
 
-            const Prefix = "."
+            const Prefix = "!"
 
             if (!message.content.toLowerCase().startsWith(Prefix)) return;
             const [cmd, ...args]: string[] = message.content
