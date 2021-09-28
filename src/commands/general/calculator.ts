@@ -11,14 +11,14 @@ export const run: RunFunction = async (client, message, args) => {
         await Calculator({
             message: message,
             embed: {
-                title: 'Calculator | Weky Development',
+                title: 'Calculator | Falcon',
                 color: '#5865F2',
-                footer: '©️ Weky Development',
+                footer: '©️ Falcon',
                 timestamp: true,
             },
-            disabledQuery: 'Calculator is disabled!',
-            invalidQuery: 'The provided equation is invalid!',
-            othersMessage: 'Only <@{{author}}> can use the buttons!',
+            disabledQuery: '**Calculator is disabled!**',
+            invalidQuery: '**The provided equation is invalid!**',
+            othersMessage: '**Only <@{{author}}> can use the buttons!**',
         });
     } catch (err) {
         console.error(err)
