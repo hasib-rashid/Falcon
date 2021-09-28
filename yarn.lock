@@ -350,13 +350,6 @@
     configstore "^5.0.1"
     got "^9.6.0"
 
-"@weky/inlinereply@^0.0.0":
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/@weky/inlinereply/-/inlinereply-0.0.0.tgz#aef11efc33d60585d2f20cc5bbbdb14cc59cf52d"
-  integrity sha512-wUecLX4CR87PiFbH9d264zcfnyXxZbhr30NIJBjJ96U5tHdQzyOpMPInQmU8mq2hOuC6keEM3pFiXa2B75tYDA==
-  dependencies:
-    discord.js "^12.5.3"
-
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.5.tgz#c0b678fb32d60fc1219c784d6a826fe385aeb79a"
@@ -752,7 +745,7 @@ cheerio-select@^1.5.0:
     domhandler "^4.2.0"
     domutils "^2.7.0"
 
-cheerio@^1.0.0-rc.10, cheerio@^1.0.0-rc.2, cheerio@^1.0.0-rc.3:
+cheerio@^1.0.0-rc.2, cheerio@^1.0.0-rc.3:
   version "1.0.0-rc.10"
   resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-1.0.0-rc.10.tgz#2ba3dcdfcc26e7956fc1f440e61d51c643379f3e"
   integrity sha512-g0J0q/O6mW8z5zxQ3A8E8J1hUgp4SMOvEoW/x84OwyHKe/Zccz83PVT4y5Crcr530FV6NgmKI1qvGTKVl9XXVw==
@@ -3822,17 +3815,12 @@ webidl-conversions@^6.1.0:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-6.1.0.tgz#9111b4d7ea80acd40f5270d666621afa78b69514"
   integrity sha512-qBIvFLGiBpLjfwmYAaHPXsn+ho5xZnGvyGvsarywGNc8VyQJUMHJ8OBKGGrPER0okBeMDaan4mNBlgBROxuI8w==
 
-weky@^3.1.5:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/weky/-/weky-3.1.5.tgz#db1198a5d2475b07cd00cf1b918f416717a915a3"
-  integrity sha512-BtgpAx8BF9UoUZpSd2RGUMCGgWa1Vj7A1bit0D/lI/FLBkMvviLClyOqr7bfC2m4gh1u2oB8MteIIdSNLxc8Dw==
+weky@^3.1.8:
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/weky/-/weky-3.1.8.tgz#45a82dd51f551f04370099a9af957c0472aa720d"
+  integrity sha512-iwkDeYvI1F/bj3S4Ipvvjso6Vcyc0Q6/M3knf2GrN//oYOuZOgBjQ5cAw/jhChhfguxl0v1RDmaniXf+9yxF+g==
   dependencies:
-    "@weky/inlinereply" "^0.0.0"
-    axios "^0.21.1"
     chalk "^4.1.1"
-    cheerio "^1.0.0-rc.10"
-    discord-buttons "^4.0.0"
-    discord.js "^12.5.3"
     html-entities "^2.3.2"
     mathjs "^9.4.3"
     node-fetch "^2.6.1"
