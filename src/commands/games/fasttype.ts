@@ -1,4 +1,4 @@
-import { sentence } from 'txtgen/types';
+import { sentence } from 'txtgen';
 import { FastType } from 'weky';
 import { RunFunction } from '../../interfaces/Command';
 
