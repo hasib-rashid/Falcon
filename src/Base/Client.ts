@@ -10,6 +10,7 @@ import { Command } from "../interfaces/Command";
 import Nuggies from 'nuggies'
 import { UtilsManager } from "../util/Utils";
 import { formatNumber } from "../util/functions";
+import { DiscordTogether } from 'discord-together'
 
 const globPromise = promisify(glob)
 
@@ -39,6 +40,7 @@ export default class Falcon extends Client {
 	public utils: UtilsManager | any;
 	public react;
 	public distube;
+	public discordTogether
 
 	constructor() {
 		super({
@@ -60,6 +62,9 @@ export default class Falcon extends Client {
 		await this.__loadEvents();
 		await this.__loadSlashCommands();
 		this.login(process.env.TOKEN);
+
+		// @ts-ignore
+		this.discordTogether = new DiscordTogether(this);
 
 		Nuggies.handleInteractions(this);
 
